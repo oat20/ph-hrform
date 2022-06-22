@@ -19,7 +19,7 @@
                     ?>
                     <a href="<?php echo $livesite;?>form/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> ขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
                     <a href="<?php echo $livesite;?>academicservice/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> ขออนุมัติปฏิบัติงานบริการวิชาการ</a>
-                    <a href="<?php print $livesite;?>leave/" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> ขออนุมัติลา (ต่างประเทศ)</a>
+                    <a href="<?php print $livesite;?>leave/" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> ขออนุมัติลาเดินทางต่างประเทศ</a>
                 	</div>
             	</div>
             </div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top navbar-lg navbar-embossed">
 	<div class="container-fluid">
     
     	<!-- Brand and toggle get grouped for better mobile display -->
@@ -24,7 +24,7 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="<?php echo $livesite;?>academicservice/form_1.php">ขออนุมัติปฏิบัติงานบริการวิชาการ</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="<?php echo $livesite;?>leave/">ขออนุมัติลาประชุม ดูงาน ฝึกอบรม (ต่างประเทศ)</a></li>
+                        <li><a href="<?php echo $livesite;?>leave/">ขออนุมัติเดินทางต่างประเทศ</a></li>
                       </ul>
                 </li>
                 <?php

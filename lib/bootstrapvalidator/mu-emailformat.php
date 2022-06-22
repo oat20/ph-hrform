@@ -8,7 +8,7 @@
 
 $valid = true;
 
-$email=split("@",$_POST["mumail"]);
+$email=explode("@",$_POST["mumail"]);
 
 //if($email["1"] == "mahidol.ac.th" or $email["1"] == "mahidol.edu"){
 	if($email["1"] == "mahidol.ac.th"){

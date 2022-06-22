@@ -3,16 +3,46 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<?php include('../lib/css-inc.php');?>
 <title><?php echo $titlebar['title'];?></title>
-<?php include('../lib/css-inc.php');?>
+</head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<?php include('../inc/navbar02-inc.php');?>
+<?php //include('../inc/navbar02-inc.php');?>
+<nav class="navbar navbar-inverse navbar-static-top navbar-lg navbar-embossed">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><?php echo $titlebar['shorttitle'];?></a>
+        </div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="./profile.php"><i class="fa fa-home fa-fw" aria-hidden="true"></i> หน้าหลัก</a></li>
+				<li><a href="../form/form_1.php">กรอกบันทึกขออนุมัติ</a></li>
+				<li><a href="#">ประวัติการขออนุมัติ</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
 
 <div class="container-fluid">
+
+<h3 style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h3>
 
 	<div class="row">
     	<!--<div class="col-sm-2">
@@ -22,39 +52,16 @@ include('../admin/compcode/include/function.php');
         <div class="col-sm-12">
 
 	<ol class="breadcrumb">
-      <li><a href="profile.php"><i class="fa fa-arrow-left"></i> ประวัติการขออนุมัติ</a></li>
+      <li><a href="profile.php"><i class="fa fa-arrow-left fa-fw"></i> ประวัติการขออนุมัติ</a></li>
     </ol>
-    
-    <div class="row">
-    	<!--<div class="col-sm-6">
-        	<div class="btn-group">
-            	<a href="<?php //echo $_SERVER['PHP_SELF'];?>" class="btn btn-default"><i class="fa fa-list fa-fw" aria-hidden="true"></i> แสดงทั้งหมด</a>
-                  <?php
-				 /*foreach($cf_approve as $k=>$v){
-					  echo '<a href="'.$_SERVER['PHP_SELF'].'?dev_approve='.$k.'" class="btn btn-primary">'.$v['icon'].' '.$v['name'].'</a>';
-				  }*/
-				  ?>
-            </div>
-        </div>--><!--col-->
-    	<div class="col-sm-12">
-            <form>
-                <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i> ค้นหาแบบฟอร์ม</span>
-                      <input type="search" class="form-control" aria-describedby="basic-addon1" id="jetsSearch">
-                    </div>
-                </div>
-            </form>
-    	</div><!--col-->
-    </div><!--row-->
-    
+        
     <div class="table-responesive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="tbData">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<!--<th>Status</th>-->
 	<th>#</th>
-    <th class="text">Form No.</th>
+    <th class="text">REF. ID</th>
     <th class="text">ลักษณะงาน</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">หลักสูตร/โครงการ</th>
@@ -69,7 +76,7 @@ include('../admin/compcode/include/function.php');
 <tr bgcolor="#E0E3CE" class="text">
 	<!--<th>Status</th>-->
 	<th>#</th>
-    <th class="text">Form No.</th>
+    <th class="text">REF. ID</th>
     <th class="text">ลักษณะงาน</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">หลักสูตร/โครงการ</th>
@@ -86,7 +93,9 @@ include('../admin/compcode/include/function.php');
 	$sql="select * from $db_eform.develop as t1
 	 	inner join $db_eform.develop_main_type as t2 on (t1.dev_maintype = t2.dm_id)
 		inner join $db_eform.develop_type as t4 on (t1.dev_type = t4.dvt_id)
-				where t1.dev_perid='$_SESSION[ses_per_id]'
+		inner join $db_eform.develop_course_personel as t5 on (t1.dev_id = t5.dev_id)
+				where (t1.dev_perid='$_SESSION[ses_per_id]'
+				or t5.per_id like '$_SESSION[ses_per_id]')
 				and t1.dev_remove='no'
 				and t1.dev_maintype='1'
 				order by t1.dev_create desc";
@@ -100,8 +109,8 @@ include('../admin/compcode/include/function.php');
 				and t1.dev_approve='$_GET[dev_approve]'
 				order by t1.dev_create desc";
  }
- $exec=mysql_query($sql);
-while($rs=mysql_fetch_array($exec)){
+ $exec=mysqli_query($condb, $sql);
+while($rs=mysqli_fetch_array($exec)){
 	++$num;
 //��˹������Ѻ�������
 			if ( $swap ==  "1" )
@@ -115,14 +124,14 @@ while($rs=mysql_fetch_array($exec)){
 					$swap = "1";
 			}
 			//��˹������Ѻ�������
-			$sql02=mysql_query("SELECT *
+			$sql02=mysqli_query($condb, "SELECT *
 			FROM  $db_eform.develop_course_personel 
 			WHERE dev_id =  '$rs[dev_id]'");
 			
-			$sql03=mysql_query("select * from $db_eform.develop as t1
+			$sql03=mysqli_query($condb, "select * from $db_eform.develop as t1
 				inner join $db_eform.personel_muerp as t2 on(t1.dev_perid=t2.per_id)
 				where t1.dev_id='$rs[dev_id]'");
-			$rs03=mysql_fetch_assoc($sql03);
+			$rs03=mysqli_fetch_assoc($sql03);
 ?>
   <tr   bgcolor="<?php echo "$color"; ?>" class="text">
   	<!--<td>
@@ -134,7 +143,7 @@ while($rs=mysql_fetch_array($exec)){
     <td align="center" class="text"><?php print $rs["dev_year"]; ?></td>
     <td class="text"><?php echo $rs['dev_onus'];?></td>
     <!--<td><?php //echo $rs['per_fnamet'].' '.$rs['per_lnamet'];?></td>-->
-    <td><?php echo number_format(mysql_num_rows($sql02));?></td>
+    <td><?php echo number_format(mysqli_num_rows($sql02));?></td>
 	<td class="text" align="center"><?php echo dateformat_03($rs['dev_stdate']);?></td>
     <td><?php echo dateformat_03($rs['dev_enddate']);?></td>
     <td><?php echo $cf_devnopay[$rs['dev_nopay']];?></td>
@@ -173,6 +182,12 @@ while($rs=mysql_fetch_array($exec)){
 <?php include('../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+
+	$('.navbar-nav li:last').addClass('active');
+
+	$('#tbData').DataTable({
+		responsive: true
+	});
 	
 	//datepicker
 	$('#keyDevstdate').datepicker({
@@ -235,12 +250,6 @@ $(document).ready(function(e) {
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
         });
 		
-});
-
-var jets = new Jets({
-  searchTag: '#jetsSearch',
-  contentTag: '#jetsContent',
-  columns: [0,1,2,3,4,5,6,7] // optional, search by first column only
 });
 </script>
 </body>

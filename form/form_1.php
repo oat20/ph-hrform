@@ -3,20 +3,53 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
-
-include('../lib/css-inc.php');
-
-include('../inc/navbar02-inc.php');
 ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php
+        include('../lib/css-inc.php');
+        ?>
+    </head>
+    <body>
+        <?php //include('../inc/navbar02-inc.php');?>
+        <nav class="navbar navbar-inverse navbar-static-top navbar-lg navbar-embossed">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><?php echo $titlebar['shorttitle'];?></a>
+        </div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="../profile/profile.php"><i class="fa fa-home fa-fw" aria-hidden="true"></i> หน้าหลัก</a></li>
+				<li><a href="#">กรอกบันทึกขออนุมัติ</a></li>
+				<li><a href="../profile/_showmyproject.php">ประวัติการขออนุมัติ</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
 <div class="container-fluid">
 
-    <div class="page-header-05">
+<h3 style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h3>
+
+    <!--<div class="page-header-05">
     	<div class="text-title">
-            <a href="<?php echo $livesite;?>profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> กรอกแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
+            <a href="<?php //echo $livesite;?>profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> กรอกแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
         </div>
-    </div>
+    </div>-->
     
     <form action="add_project.php" method="post" id="formDefault">
     	<div class="row">
@@ -26,13 +59,13 @@ include('../inc/navbar02-inc.php');
                     <label class="control-label">ส่วนงาน:</label>
                         <select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">
                             <?php
-                            $sql=mysql_query("select * from ph_hr_eform.department_type
+                            $sql=mysqli_query($condb, "select * from ph_hr_eform.department_type
                                     inner join ph_hr_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
                                     where department_type.typ_id='PH00001'
                                     or department_type.typ_id='PH00002'
                                     order by department_type.typ_id asc,
                                     tb_orgnew.dp_id asc");
-                            while($ob=mysql_fetch_assoc($sql)){
+                            while($ob=mysqli_fetch_assoc($sql)){
                                 if($_SESSION['ses_per_dept'] == $ob['dp_id']){
                                     print '<option value="'.$ob['dp_id'].'" selected>&raquo; '.$ob['dp_name'].'</option>';
                                 }else{
@@ -100,14 +133,14 @@ include('../inc/navbar02-inc.php');
                   <select name="typ_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
                             <?php
-                            $typ=mysql_query("select * from $db_eform.develop_main_type
+                            $typ=mysqli_query($condb, "select * from $db_eform.develop_main_type
                                         inner join $db_eform.develop_type on (develop_main_type.dm_id = develop_type.dm_id)
                                         where develop_type.dvt_status = '1'
                                         and develop_main_type.dm_id = '1'
                                         order by develop_main_type.dm_id asc,
                                         develop_type.dvt_id asc");
-                            while($ob=mysql_fetch_array($typ)){
-                                print "<option value=".$ob[dvt_id].">".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
+                            while($ob=mysqli_fetch_array($typ)){
+                                print "<option value=".$ob['dvt_id'].">".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
                             }
                             ?>                 
                         </select>
@@ -125,11 +158,11 @@ include('../inc/navbar02-inc.php');
                     <select name="sec_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
                             <?php
-                           $sec=mysql_query("select * from $db_eform.activity
+                           $sec=mysqli_query($condb, "select * from $db_eform.activity
                                         where act_use = 'yes'
                                         order by act_id asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[act_id].">- ".$ob[activity]." -</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['act_id'].">- ".$ob['activity']." -</option>";
                             }
                             ?>                 
                         </select>
@@ -143,11 +176,11 @@ include('../inc/navbar02-inc.php');
                     <label class="control-label">ประเภทสถานที่:</label>
                    <select name="lt_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                             <?php
-                            $sec=mysql_query("select * from $db_eform.develop_location_type
+                            $sec=mysqli_query($condb, "select * from $db_eform.develop_location_type
                                         where lt_use = 'yes'
                                         order by lt_order asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[lt_id].">- ".$ob['lt_title']." -</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['lt_id'].">- ".$ob['lt_title']." -</option>";
                             }
                             ?>                 
                         </select>
@@ -161,11 +194,11 @@ include('../inc/navbar02-inc.php');
                     <label class="control-label">ยุทธศาสตร์มหาวิทยาลัยฯ:</label>
                         <select name="ss_id" class="form-control select select-inverse select-sm" data-toggle="select">
                             <?php
-                            $sec=mysql_query("select * from $db_eform.sub_strategic
+                            $sec=mysqli_query($condb, "select * from $db_eform.sub_strategic
                                         where ss_use = 'yes'
                                         order by id asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[id].">".$ob['id']." - ".$ob['nameth']."</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['id'].">".$ob['id']." - ".$ob['nameth']."</option>";
                             }
                             ?>                 
                         </select>
@@ -175,11 +208,11 @@ include('../inc/navbar02-inc.php');
             	<label class="control-label">ยุทธศาสตร์คณะฯ:</label>
                     	<select name="sf_id" class="form-control select select-inverse select-sm" data-toggle="select">
                             <?php
-                            $sec=mysql_query("select * from $db_eform.strategic_faculty
+                            $sec=mysqli_query($condb, "select * from $db_eform.strategic_faculty
                                         where sf_use = 'yes'
                                         order by sf_id asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[sf_id].">".$ob['sf_id']." - ".$ob['sf_name']."</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['sf_id'].">".$ob['sf_id']." - ".$ob['sf_name']."</option>";
                             }
                             ?>                 
                     	</select>
@@ -213,12 +246,12 @@ include('../inc/navbar02-inc.php');
                                 <table class="table">
                                     <tbody>
                                         <?php
-                                        $sql=mysql_query("select * from $db_eform.develop_payfrom as t1 
+                                        $sql=mysqli_query($condb, "select * from $db_eform.develop_payfrom as t1 
 											inner join $db_eform.budtype as t2 on(t1.pf_id=t2.pf_id)
                                                 where t1.pf_use='yes'
                                                 order by t1.pf_id asc,
 												t2.bt_id asc");
-                                        while($ob=mysql_fetch_assoc($sql)){
+                                        while($ob=mysqli_fetch_assoc($sql)){
                                             print '<tr>
                                                         <td><label class="checkbox primary"><input name="bt_id[]" type="checkbox" value="'.$ob['bt_id'].'" data-toggle="checkbox" disabled> '.$ob['pf_title'].' &raquo; <strong>'.$ob['bt_name'].'</strong></label></td>
                                                         <td><input name="bt_dev_pay01'.$ob['bt_id'].'" type="number" class="form-control input-sm" placeholder="จำนวนเงิน" disabled></td>
@@ -233,11 +266,11 @@ include('../inc/navbar02-inc.php');
                                 <table class="table">
                                     <tbody>
                                 <?php
-                                $sql=mysql_query("select * from $db_eform.develop_cost_type
+                                $sql=mysqli_query($condb, "select * from $db_eform.develop_cost_type
                                         where ct_use='yes'
                                         and ct_id<>'0'
                                         order by ct_id asc");
-                                while($ob=mysql_fetch_assoc($sql)){
+                                while($ob=mysqli_fetch_assoc($sql)){
                                     //print '<label class="checkbox"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox"> '.$ob['ct_title'].'</label>';
                                     if($ob['ct_id'] != '5'){
                                         print '<tr>
@@ -267,23 +300,23 @@ include('../inc/navbar02-inc.php');
 							<?php
                                 echo '<ul>';
                                 
-                                $sql=mysql_query("select * from $db_eform.department_type as t1
+                                $sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
                                     inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
                                     order by convert(t1.typ_name using tis620) asc,
                                     convert(t2.dp_name using tis620) asc");
-                                while($ob=mysql_fetch_assoc($sql)){
+                                while($ob=mysqli_fetch_assoc($sql)){
 									
 									if($_SESSION['ses_per_dept']==$ob['dp_id']){ $collapsed='';}else{$collapsed='collapsed';}//open or close
                                         echo '<li class="'.$collapsed.'"><label class="checkbox"><input type="checkbox"> <strong>'.$ob['dp_name'].'</strong></label>
                                             <ul>';						
-                                            $sql02=mysql_query("SELECT * FROM $db_eform.personel_muerp as t1
+                                            $sql02=mysqli_query($condb, "SELECT * FROM $db_eform.personel_muerp as t1
                                                 inner join $db_eform.job as t2 on(t1.job_id=t2.job_id)
                                                 inner join $db_eform.personel_status as t3 on(t1.per_status=t3.ps_id)
                                                 where t3.ps_flag='1'
                                                 and t1.per_dept='$ob[dp_id]'
                                                 order by convert(t1.per_fnamet using tis620) asc,
                                                 convert(t1.per_lnamet using tis620) asc");
-                                            while($ob02=mysql_fetch_assoc($sql02)){
+                                            while($ob02=mysqli_fetch_assoc($sql02)){
 												if($ob02['per_id'] == $_SESSION['ses_per_id']){
 													echo '<li><label class="checkbox"><input type="checkbox" value="'.$ob02['per_id'].'" name="per_id[]" checked required> '.$ob02['per_pname'].$ob02['per_fnamet'].' '.$ob02['per_lnamet'].' ('.$ob02['job_name'].')</label></li>';
 												}else{
@@ -314,6 +347,8 @@ include('../inc/navbar02-inc.php');
 <?php include('../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+
+    $('.navbar-nav li:eq(1)').addClass('active');
 	
 	$('#personelJoin').tree({
             /* specify here your options */
@@ -505,3 +540,5 @@ $(document).ready(function(e) {
 				
 });
 </script>
+</body>
+</html>

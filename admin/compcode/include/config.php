@@ -114,7 +114,7 @@ $cf_contextual=array("default", "primary", "success", "info", "warning", "danger
 
 //ขออนุมัติค่าใช้จ่าย
 $cf_devnopay=array(
-	"1"=>"ไม่เบิกค่าใช้จ่ายใดๆ",
+	"1"=>"ไม่เบิกค่าใช้จ่าย",
 	"0"=>"ขออนุมัติค่าใช้จ่าย"
 );
 

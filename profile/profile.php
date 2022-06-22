@@ -2,6 +2,7 @@
 session_start();
 
 include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php';
 include("../admin/compcode/include/connect_db.php");
 include("../admin/compcode/check_login.php");
 include("../admin/compcode/include/function.php");
@@ -52,15 +53,15 @@ include("../admin/compcode/include/function.php");
                             	<div class="list-group regBlack_14">
                                   <a href="_showmyproject.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
                                   <a href="../academicservice/_showmyacademicservice.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติปฏิบัติงานบริการวิชาการ</a>
-                                  <a href="../leave/_showmyproject.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติลาไปเพิ่มพูนความรู้และประสบการณ์ (ต่างประเทศ)</a>
+                                  <a href="../leave/_showmyproject.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติเดินทางต่างประเทศ</a>
                                 </div>
                             </div><!--panel-->
                         </div><!--col-->
                         
                         <?php
 						//for boss
-						$sqlIsboss=mysql_query("select per_isboss from $db_eform.personel_muerp where per_id='$_SESSION[ses_per_id]'");
-						$obIsboss=mysql_fetch_assoc($sqlIsboss);
+						$sqlIsboss=mysqli_query($condb, "select per_isboss from $db_eform.personel_muerp where per_id='$_SESSION[ses_per_id]'");
+						$obIsboss=mysqli_fetch_assoc($sqlIsboss);
 						if($obIsboss['per_isboss']==1){
 						?>
                          <div class="col-sm-4">
@@ -76,7 +77,7 @@ include("../admin/compcode/include/function.php");
 								WHERE t1.dev_year='".budgetyear_02($date_create)."' 
 								and t1.dev_cancel='no' 
 								and t1.dp_id='$_SESSION[ses_per_dept]'");*/
-							$qBudgetUse=mysql_query("SELECT sum(t2.dev_pay01) as c1 
+							$qBudgetUse=mysqli_query($condb, "SELECT sum(t2.dev_pay01) as c1 
 								FROM $db_eform.develop as t1
 								inner join $db_eform.develop_form_budget as t2 on(t1.dev_id=t2.dev_id)
 								INNER join $db_eform.budtype as t3 on(t2.bt_id=t3.bt_id)
@@ -86,7 +87,7 @@ include("../admin/compcode/include/function.php");
 								and t3.bt_pay='1'
 								and t1.dev_remove='no'
 								and t1.dp_id='$_SESSION[ses_per_dept]'");
-								$rBudgetUse=mysql_fetch_assoc($qBudgetUse);
+								$rBudgetUse=mysqli_fetch_assoc($qBudgetUse);
 								//$db_budget2=$rBudgetUse['b3']+$rBudgetUse['c3'];
 							//งบที่ใช้ไป
 							

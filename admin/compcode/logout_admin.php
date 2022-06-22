@@ -3,9 +3,10 @@ ob_start();
 session_start();
 include"include/config.php";
 include("check_login.php");
+require_once '../../lib/mysqli.php';
 include("include/connect_db.php");
 
-mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_SESSION[ses_per_id]', 'signout', '$remoteip')");
+mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_SESSION[ses_per_id]', 'signout', '$remoteip')");
 
 if (!empty($per_id)) $old_admin = $per_id;
 //$result_unreg = session_unregister("per_id");
