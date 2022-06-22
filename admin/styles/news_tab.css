@@ -1,0 +1,58 @@
+<style type="text/css">
+<!--
+.tabs {position:relative; height: 27px; margin: 0; padding: 1; background:url("bar_off.gif") repeat-x; overflow:hidden}
+.tabs li {
+	display:inline;
+	color: #FFFFFF;
+}
+.tabs a:hover, .tabs a.tab-active {
+	background:#fff url("bar_on.gif") repeat-x;
+	color:#FF0000;
+	text-decoration:none;
+	border-right-width: 0px;
+	border-right-style: solid;
+	border-right-color: #fff;
+} 
+.tabs a  {
+	height: 27px;
+	font:12px verdana, helvetica, sans-serif;
+	font-weight:bold;
+	position:relative;
+	padding:6px 10px 10px 10px;
+	margin: 0px -4px 0px 0px;
+	color:#FFFFFF;
+	text-decoration:none;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #fff;
+	border-bottom-color: #fff;
+	border-left-color: #fff;
+}
+.tab-container {
+	background: #003366;
+	border:1px solid #6D99B6;
+	color: #FFFFFF;
+}
+.tab-panes {
+	margin: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #FFFFFF;
+	border-bottom-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	background-color: #FFFFFF;
+}
+// -->
+</style>
+

@@ -1,0 +1,49 @@
+<link rel="stylesheet" type="text/css" href="admin/themes/fancyblue.css" title="Calendar Theme - forest.css" >
+<!-- import the calendar script -->
+		<script type="text/javascript" src="admin/src/utils.js"></script>
+		<script type="text/javascript" src="admin/src/calendar1.js"></script>
+<!-- import the language module -->
+		<script type="text/javascript" src="admin/lang/calendar-en.js"></script>
+<!-- other languages might be available in the lang directory; please check
+		your distribution archive. -->
+<!-- import the calendar setup script -->
+		<script type="text/javascript" src="admin/src/calendar-setup.js"></script>
+        <!--calendar picker -->
+<fieldset>
+<legend>ระยะเวลาการดำเนินงาน</legend>
+<table>
+	<tr>
+             	<td class="formcoltitle">ระยะเวลาการดำเนินงาน</td>
+                <td class="formcol2"><input type="text" name="startdate" id="startdate" size="10" readonly="true"> 
+        <input type="reset" value="เลือกวัน" id='butstart' onclick="alert('click');" class="buttonn"> 
+        <script type="text/javascript">
+		var cal = new Zapatec.Calendar.setup({
+		
+		inputField     :    "startdate",     // id of the input field
+		ifFormat       :    "%Y-%m-%d",     // format of the input field
+		showsTime      :     false,
+		button         :    "butstart",  // trigger button (well, IMG in our case)
+		align          :    "Tl"           // alignment (defaults to "Bl")
+		
+		});
+		
+	</script></td>
+                <td class="formcol2">ถึง</td>
+                <td class="formcol2"><input type="text" name="enddate" id="enddate" size="10" readonly="true"> 
+        <input type="reset" value="เลือกวัน" id='butend' onclick="alert('click');" class="buttonn"> 
+        <script type="text/javascript">
+		var cal = new Zapatec.Calendar.setup({
+		
+		inputField     :    "enddate",     // id of the input field
+		ifFormat       :    "%Y-%m-%d",     // format of the input field
+		showsTime      :     false,
+		button         :    "butend",  // trigger button (well, IMG in our case)
+		align          :    "Tl"           // alignment (defaults to "Bl")
+		
+		});
+		
+	</script></td>
+	</tr>
+</table>
+<!--<p><input name="" type="submit" value="ถัดไป >" class="buttonn"></p> -->
+</fieldset>

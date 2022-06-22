@@ -1,0 +1,3 @@
+<? $barid="á¡éä¢ÃËÑÊ¼èÒ¹";
+$dataid="form,changepassword.php";
+require'block100.php'; ?>

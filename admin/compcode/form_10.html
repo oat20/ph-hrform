@@ -1,0 +1,36 @@
+<fieldset>
+<legend>10. กลุ่มเป้าหมายและขอบเขตการดำเนินงาน</legend>
+<table width="100%">
+	<tr>
+	  <td class="tdpadding">กลุ่มผู้รับบริการเป้าหมาย</td>
+	  <td class="tdpadding">จำนวน</td>
+	  <td class="tdpadding">หน่วยนับ</td>
+	  <td class="tdpadding">พื้นที่ / สถานที่เป้าหมาย</td>
+      <td class="tdpadding" colspan="2"></td>
+	  </tr>
+      <?php
+	  $target="select * from project_target
+      where pro_id='$_GET[pro_id]'
+      order by id asc";
+      $rs_target=mysql_query($target);
+      while($ob_target=mysql_fetch_array($rs_target)){
+	  ?>
+	<tr>
+    	<td class="tdpadding"><?=$ob_target["pro_target_group"];?></td>
+        <td class="tdpadding"><?=$ob_target["pro_target_group_number"];?></td>
+        <td class="tdpadding"><?=$ob_target["pro_target_group_unit"];?></td>
+        <td class="tdpadding"><?=$ob_target["pro_area"];?></td>
+        </td>
+  <td class="formcol2"><a href="javascript:NewWindow('<?=$livesite;?>admin/compcode/editTarget.php?id=<?php print $ob_target[id]; ?>','acepopup','700','300','fullscreen','front');" title="แก้ไข"><img src="<?=$livesite;?>admin/compcode/img/editpic.gif" border="0"/></a></td>
+            <td class="formcol2"><a href="<?=$livesite;?>admin/compcode/delTarget.php?id=<?=$ob_target[id];?>" title="ลบ" onClick="return confirm('! ยืนยันการลบข้อมูล');"><img src="<?=$livesite;?>admin/compcode/img/botton_delete.gif" border="0"/></a></td>
+    </tr>
+    <?php
+    }
+    ?>
+    <tr>
+    	<td colspan="6">
+        	<input name="" type="button" value="เพิ่มกลุ่มเป้าหมาย" class="buttonn" onClick="javascript:NewWindow('<?=$livesite;?>admin/compcode/addTarget.php?pro_id=<?=$ob[pro_id];?>','acepopup','700','300','fullscreen','front');">
+        </td>
+    </tr>
+</table>
+</fieldset>

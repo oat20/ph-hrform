@@ -1,0 +1,221 @@
+<?php 
+session_start();
+
+include("compcode/include/config.php"); 
+include('compcode/check_login.php');
+include "compcode/include/connect_db.php";
+require_once("compcode/include/function.php");
+	
+$dev_id=maxid($db_eform.'.develop', 'dev_id');
+//$dev_trackid=strtoupper(random_ID("6","0"));
+
+if(isset($_POST['action']) and $_POST["action"] == 'save')
+{
+		//insert table develop
+		$dev_bookfrom=$_POST['dev_bookfrom_01'].'+'.$_POST['dev_bookfrom_02'].'+'.$_POST['dev_bookfrom_03'].'+'.$_POST['dev_bookfrom_04'];
+		
+		$dev_trackid=substr(budgetyear_02($_POST['dev_stdate']),'2','2').$_POST['dp_id'].sprintf("%03d", $dev_id); //Ref No.
+		
+		if($_POST['dev_country'] == '223' or $_POST['dev_country']=='TH'){ $dev_local='1'; }else{ $dev_local='2'; }
+		
+		$sql1="insert into $db_eform.develop (dev_id, 
+					dp_id,
+					dev_orddate, 
+					dev_bookfrom, 
+					dev_onus, 
+					dev_stdate, 
+					dev_enddate,
+					dev_timebegin,
+					dev_timeend, 
+					act_id, 
+					dev_place, 
+					lt_id, 
+					dev_org,
+					dev_training_hour,
+					le_id,
+					dev_payfrom,
+					dev_fundname,
+					ss_id,
+					sf_id,
+					dev_remark,
+					dev_formstatus,
+					dev_formstatus_comment,
+					dev_perid,
+					dev_maintype,
+					dev_modify,
+					dev_trackid,
+					dev_year,
+					dev_country,
+					dev_local,
+					dev_type) 
+					values ('$dev_id',
+					'$_POST[dp_id]',
+					'".date('Y-m-d')."',
+					'$dev_bookfrom',
+					'$_POST[dev_onus]', 
+					'$_POST[dev_stdate]',
+					'$_POST[dev_enddate]',
+					'$_POST[dev_timebegin]',
+					'$_POST[dev_timeend]', 
+					'$_POST[act_id]', 
+					'$_POST[dev_place]', 
+					'$_POST[lt_id]', 
+					'$_POST[dev_org]',
+					'$_POST[dev_training_hour]',
+					'$_POST[le_id]',
+					'$_POST[dev_payfrom]',
+					'$_POST[dev_fundname]',
+					'$_POST[ss_id]',
+					'$_POST[sf_id]',
+					'$_POST[dev_remark]',
+					'$_POST[dev_formstatus]',
+					'$_POST[dev_formstatus_comment]',
+					'$_POST[dev_perid]',
+					'$_POST[dev_maintype]',
+					'$date_create',
+					'$dev_trackid',
+					'".budgetyear_02($_POST['dev_stdate'])."',
+					'$_POST[dev_country]',
+					'$dev_local',
+					'$_POST[dvt_id]')";
+		$exec1=mysql_query($sql1);
+		
+		//insert table develop_form_objective
+		if(isset($_POST['dvt_id'])){
+			foreach($_POST['dvt_id'] as $value){
+				$sql02=mysql_query("insert into $db_eform.develop_form_objective values ('$dev_id','$value')");
+			}
+		}
+		
+		//insert table develop_form_budget
+		if(isset($_POST['bt_id'])){
+			foreach($_POST['bt_id'] as $value){
+				$sql02=mysql_query("insert into $db_eform.develop_form_budget (dev_id, bt_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["bt_dev_pay01".$value]."')");
+				$budget_pay01+=$_POST['bt_dev_pay01'.$value];
+			}
+		}
+		
+		//insert table develop_form_cost
+		if(isset($_POST['ct_id'])){
+			foreach($_POST['ct_id'] as $value){
+				$sql03=mysql_query("insert into $db_eform.develop_form_cost (dev_id, ct_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["ct_dev_pay01".$value]."')");
+				$cost_pay01+=$_POST['ct_dev_pay01'.$value];
+			}
+		}
+		
+		//insert table develop_course_personel
+		/*if(isset($_POST['per_id'])){
+			foreach($_POST['per_id'] as $value){*/
+				$sql00=mysql_query("insert into $db_eform.develop_course_personel (cp_id,
+							dev_id,
+							per_id,
+							budget_pay01,
+							cost_pay01)
+							values ('A".random_password('3')."', 
+							'$dev_id', 
+							'$_POST[dev_perid]', 
+							'$budget_pay01', 
+							'$cost_pay01')");
+			/*}
+		}*/
+		if(isset($_FILES['personelExcel'])){
+			//rename & upload file
+			$uploadexcel=$_FILES['personelExcel'];
+			$renameFile=session_id().$uploadexcel["name"];
+			$pathFile="../form/upload/".$renameFile;
+			move_uploaded_file($uploadexcel["tmp_name"], $pathFile);		
+			//rename & upload file
+			
+			/** PHPExcel */
+			//read file
+			require_once '../lib/readexcel/Classes/PHPExcel.php';
+			
+			/** PHPExcel_IOFactory - Reader */
+			include '../lib/readexcel/Classes/PHPExcel/IOFactory.php';
+			
+			$inputFileName = $pathFile;  
+			$inputFileType = PHPExcel_IOFactory::identify($inputFileName);  
+			$objReader = PHPExcel_IOFactory::createReader($inputFileType);  
+			$objReader->setReadDataOnly(true);  
+			$objPHPExcel = $objReader->load($inputFileName);  
+			
+			$objWorksheet = $objPHPExcel->setActiveSheetIndex(0);
+			$highestRow = $objWorksheet->getHighestRow();
+			$highestColumn = $objWorksheet->getHighestColumn();
+			
+			$headingsArray = $objWorksheet->rangeToArray('A1:'.$highestColumn.'1',null, true, true, true);
+			$headingsArray = $headingsArray[1];
+			
+			$r = -1;
+			$namedDataArray = array();
+			for ($row = 2; $row <= $highestRow; ++$row) {
+				$dataRow = $objWorksheet->rangeToArray('A'.$row.':'.$highestColumn.$row,null, true, true, true);
+				if ((isset($dataRow[$row]['A'])) && ($dataRow[$row]['A'] > '')) {
+					++$r;
+					foreach($headingsArray as $columnKey => $columnHeading) {
+						$namedDataArray[$r][$columnHeading] = $dataRow[$row][$columnKey];
+					}
+				}
+			}
+			//readdata in excel
+			
+					//showdata in excel
+			foreach ($namedDataArray as $result) {
+				$cp_pertitle=trim($result['คำนำหน้าชื่อ']);
+				$cp_pername=trim($result['ชื่อ']);
+				$cp_persurname=trim($result['นามสกุล']);
+				$cp_mumail=trim($result['MUmail']);
+				$cp_dpname=trim($result['ส่วนงาน']);
+				
+				//get perid
+				$sqlPerid=mysql_query("select per_id from $db_eform.personel_muerp where (per_fnamet like '%$cp_pername%' and per_lnamet like '%$cp_persurname%') or per_email='$cp_mumail'");
+				$rsPerid=mysql_fetch_assoc($sqlPerid);
+				
+				//get dpid
+				$sqlDpid=mysql_query("select dp_id from $db_eform.tb_orgnew where dp_name like '%$cp_dpname%' or dp_code='%$cp_dpname%'");
+				$rsDpid=mysql_fetch_assoc($sqlDpid);
+								
+				$sql04=mysql_query("insert into $db_eform.develop_course_personel (cp_id,
+							dev_id,
+							per_id,
+							budget_pay01,
+							cost_pay01,
+							cp_pertitle,
+							cp_pername,
+							cp_persurname,
+							cp_mumail,
+							cp_dpid,
+							cp_dpname)
+							values ('".strtoupper(random_password('6'))."', 
+							'$dev_id', 
+							'$rsPerid[per_id]',
+							'$budget_pay01',
+							'$cost_pay01',
+							'$cp_pertitle',
+							'$cp_pername',
+							'$cp_persurname',
+							'$cp_mumail',
+							'$rsDpid[dp_id]',
+							'$cp_dpname')");
+			}
+			unlink($pathFile); //remove file
+			//showdata in excel
+		}
+		
+		//insert table develop_log
+		$sql2="insert into $db_eform.develop_log (dl_id, 
+					dev_id, 
+					per_id, 
+					dl_status, 
+					dl_ipstamp) 
+					values ('".strtoupper(random_password('6'))."', 
+					'$dev_id', 
+					'$_SESSION[ses_per_id]', 
+					'Create', 
+					'".$_SERVER['REMOTE_ADDR']."')";
+		mysql_query($sql2);
+		
+		header("location: 2_confirm_form2.php?getDevid=".$dev_id);
+}
+ ?>
+

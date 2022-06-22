@@ -1,0 +1,214 @@
+<table bgcolor="#FFFFFF">
+		<? 
+$column =2;
+$sql = "select DeID,Fname
+			from organization
+			order by DeID asc";
+			$result = mysql_query($sql);
+$ic=1;
+			while($result1 = mysql_fetch_array($result)){
+ 		
+					if ($ic  == 1){
+					?>
+						<tr>
+                      <?php  
+					}
+					?>
+	<td class="regBlack_10"><?php  
+	if($result1["DeID"]==25){
+		print "<input name=DeID[] type=checkbox value=".$result1["DeID"]." checked> ".$result1["Fname"];
+	}else{ 
+		print "<input name=DeID[] type=checkbox value=".$result1["DeID"]."> ".$result1["Fname"];
+	}
+	?></td>
+   <?php
+							$ic++; 
+							if ($ic  > $column)
+							 { 
+							 ?>
+								</tr>
+                                <?php								
+								$ic = 1;
+							}
+						}
+					?>
+    </table>
+
+#????????????????????	
+SELECT strategic.str_id, strategic.strategic_th, sub_strategic.id, sub_strategic.nameth, COUNT( project.pro_id ) AS a, SUM( project.budget ) AS b
+FROM strategic
+INNER JOIN sub_strategic ON ( strategic.str_id = sub_strategic.parent ) 
+LEFT JOIN project ON ( project.str_id = sub_strategic.id ) 
+GROUP BY strategic.str_id, strategic.strategic_th, sub_strategic.id, sub_strategic.nameth
+ORDER BY strategic.str_id ASC
+#????????????????????
+
+#?????????????????
+SELECT organization.DeID, organization.Fname, COUNT( project.pro_id ) AS a
+FROM organization
+LEFT JOIN project ON ( organization.DeID = project.DeID_main ) 
+GROUP BY organization.DeID, organization.Fname
+ORDER BY organization.DeID ASC
+#?????????????????
+
+#show budgetyear
+SELECT budget_year
+FROM project
+GROUP BY budget_year
+ORDER BY budget_year DESC
+#show budgetyear
+
+?????????????????????
+SELECT *
+FROM `strategic`
+LEFT JOIN sub_strategic ON ( strategic.str_id = sub_strategic.parent )
+LEFT JOIN str_goal ON ( sub_strategic.id = str_goal.sub_str_id )
+ORDER BY strategic.str_id, sub_strategic.id, str_goal.id ASC
+
+??????????????
+SELECT *
+FROM `strategic_faculty` , str_fac2, str_fac3
+WHERE strategic_faculty.sf_id = str_fac2.sf_id
+AND str_fac2.id = str_fac3.parent2
+ORDER BY strategic_faculty.sf_id, str_fac2.id, str_fac3.id ASC 
+
+//????????????????
+SELECT department_type.typ_name, tb_orgnew.dp_name, COUNT( personel.per_id ) AS countPerid, COUNT( personel.per_id ) *5000 AS totalBudget
+FROM phper2.department_type
+INNER JOIN phper2.tb_orgnew ON ( department_type.typ_id = tb_orgnew.typ_id ) 
+INNER JOIN phper2.personel ON ( tb_orgnew.dp_id = personel.per_dept ) 
+WHERE personel.per_status =  '0'
+OR personel.per_status =  '01'
+OR personel.per_status =  '12'
+OR personel.per_status =  '13'
+OR personel.per_status =  '14'
+OR personel.per_status =  '15'
+OR personel.per_status =  '16'
+OR personel.per_status =  '17'
+GROUP BY department_type.typ_name, tb_orgnew.dp_name
+ORDER BY department_type.typ_id ASC , tb_orgnew.dp_id ASC
+
+SELECT department_type.typ_name, tb_orgnew.dp_name, COUNT( personel.per_id ) AS countPerid, COUNT( personel.per_id ) *5000 AS totalBudget
+FROM phper2.department_type
+INNER JOIN phper2.tb_orgnew ON ( department_type.typ_id = tb_orgnew.typ_id ) 
+INNER JOIN phper2.personel ON ( tb_orgnew.dp_id = personel.per_dept ) 
+WHERE department_type.typ_id =  'PH00001'
+AND (
+personel.per_status =  '0'
+OR personel.per_status =  '01'
+OR personel.per_status =  '12'
+OR personel.per_status =  '13'
+OR personel.per_status =  '14'
+OR personel.per_status =  '15'
+OR personel.per_status =  '16'
+OR personel.per_status =  '17'
+)
+GROUP BY department_type.typ_name, tb_orgnew.dp_name
+ORDER BY department_type.typ_id ASC , tb_orgnew.dp_id ASC
+
+//????????????
+SELECT personel_group.gr_title, COUNT( personel.per_id ) AS countPerid
+FROM phper2.develop
+INNER JOIN phper2.develop_course_personel ON ( develop.dev_id = develop_course_personel.dev_id ) 
+INNER JOIN phper2.personel ON ( develop_course_personel.per_id = personel.per_id ) 
+INNER JOIN phper2.personel_group ON ( personel.per_group = personel_group.gr_id ) 
+GROUP BY personel_group.gr_title
+ORDER BY CONVERT( personel_group.gr_title
+USING tis620 ) ASC
+
+SELECT *
+FROM phper2.develop
+INNER JOIN phper2.develop_course_personel ON ( develop.dev_id = develop_course_personel.dev_id )
+INNER JOIN phper2.personel ON ( develop_course_personel.per_id = personel.per_id )
+INNER JOIN phper2.personel_group ON ( personel.per_group = personel_group.gr_id )
+//????????????
+
+//?????????????
+SELECT personel_type.pert_name, COUNT( personel.per_id ) AS countPerid
+FROM phper2.develop
+INNER JOIN phper2.develop_course_personel ON ( develop.dev_id = develop_course_personel.dev_id ) 
+INNER JOIN phper2.personel ON ( develop_course_personel.per_id = personel.per_id ) 
+INNER JOIN phper2.personel_type ON ( personel.per_type = personel_type.pert_id ) 
+GROUP BY personel_type.pert_name
+ORDER BY CONVERT( personel_type.pert_name
+USING tis620 ) ASC
+//?????????????
+
+//?????????
+SELECT tb_orgnew.dp_name, COUNT( personel.per_id ) AS countPerid
+FROM phper2.develop
+INNER JOIN phper2.develop_course_personel ON ( develop.dev_id = develop_course_personel.dev_id ) 
+INNER JOIN phper2.personel ON ( develop_course_personel.per_id = personel.per_id ) 
+INNER JOIN phper2.tb_orgnew ON ( personel.per_dept = tb_orgnew.dp_id ) 
+GROUP BY tb_orgnew.dp_name
+ORDER BY CONVERT( tb_orgnew.dp_name
+USING tis620 ) ASC ;
+
+SELECT * 
+FROM phper2.develop
+INNER JOIN phper2.develop_course_personel ON ( develop.dev_id = develop_course_personel.dev_id ) 
+INNER JOIN phper2.personel ON ( develop_course_personel.per_id = personel.per_id ) 
+INNER JOIN phper2.tb_orgnew ON ( personel.per_dept = tb_orgnew.dp_id )
+//?????????
+
+select * from phper2.develop
+											inner join phper2.develop_course_personel on (develop.dev_id = develop_course_personel.dev_id)
+											inner join phper2.personel on (develop_course_personel.per_id = personel.per_id)
+											inner join phper2.personel_group on (personel.per_group = personel_group.gr_id)
+											inner join phper2.personel_type on (personel.per_type = personel_type.pert_id)
+											inner join phper2.job_academic on (personel.ja_id = job_academic.ja_id)
+											inner join phper2.tb_orgnew on (personel.per_dept = tb_orgnew.dp_id)
+											inner join tmps.activity on (develop.act_id = activity.act_id)
+											inner join tmps.sub_strategic on (develop.ss_id = sub_strategic.id)
+											inner join tmps.strategic_faculty on (develop.sf_id = strategic_faculty.sf_id)
+											where develop.dev_year='".budgetyear_02(date('Y-m-d'))."'
+											order by develop.dev_stdate desc,
+											develop.dev_enddate desc
+                                            
+SELECT sum(budget_pay03) as b3, sum(cost_pay03) c3 
+FROM develop as t1 
+inner join develop_course_personel as t2 on(t1.dev_id=t2.dev_id)
+WHERE t1.dev_year='2560' and t1.dev_cancel='no' and t1.dp_id='23'
+
+????????
+select * from develop as t1
+inner join develop_course_personel as t2 on(t1.dev_id=t2.dev_id)
+where t2.per_id='10000'
+and t1.dev_cancel='no'
+order by t1.dev_stdate desc,
+t1.dev_enddate DESC
+LIMIT 1
+
+select t1.per_id, t1.per_fnamet, t1.per_lnamet from personel_muerp as t1 inner join develop_course_personel as t2 on(t1.per_id=t2.per_id) inner join develop as t3 on(t2.dev_id=t3.dev_id) where t3.dev_year='2560' group by t1.per_id, t1.per_fnamet, t1.per_lnamet
+
+??????????????????
+select t1.per_id, t1.per_fnamet, t1.per_lnamet, t4.job_name, t5.dp_name, count(t3.dev_id) as countDevid 
+from personel_muerp as t1
+inner join develop_course_personel as t2 on(t1.per_id=t2.per_id)
+inner join develop as t3 on(t2.dev_id=t3.dev_id)
+inner join job as t4 on(t1.job_id=t4.job_id)
+inner join tb_orgnew as t5 on(t1.per_dept=t5.dp_id)
+inner join develop_main_type as t6 on(t3.dev_maintype=t6.dm_id)
+where (t3.dev_stdate between '2017-01-01' and '2017-07-12'
+												or t3.dev_enddate between '2017-01-01' and '2017-07-12')
+and t3.dev_cancel='no'
+and t3.dev_maintype='1'
+GROUP by t1.per_id, t1.per_fnamet, t1.per_lnamet, t4.job_name, t5.dp_name
+order by convert(t5.dp_name using tis620) asc, convert(t1.per_fnamet using tis620) asc, convert(t1.per_lnamet using tis620) asc
+
+//ประวัติการปฏิบัติงาน
+SELECT t1.dev_onus, 
+t2.dvt_name, 
+t1.dev_stdate, 
+t1.dev_enddate 
+FROM develop as t1 
+inner join develop_type as t2 on(t1.dev_type=t2.dvt_id) 
+left join develop_course_personel as t3 on(t1.dev_id=t3.dev_id) 
+where (t1.dev_perid='10000' or t3.per_id='10000')
+and t1.dev_maintype='1'
+GROUP by t1.dev_onus, 
+t2.dvt_name, 
+t1.dev_stdate, 
+t1.dev_enddate 
+order by t1.dev_stdate desc, 
+t1.dev_enddate desc;    

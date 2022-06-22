@@ -1,0 +1,1239 @@
+@charset "utf-8";
+/* CSS Document */
+@import url('https://fonts.googleapis.com/css?family=Kanit:400,700&subset=thai');
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	font-size:15px; font-family:'Lato','Kanit',sans-serif;
+}
+a:link, a:visited {
+	COLOR: black;
+	text-decoration: none;
+}
+a:hover {
+	COLOR: black;
+	text-decoration: underline;
+}
+table{
+	border-collapse: collapse;
+	}
+th,td{
+	padding: 5px;
+}
+/*.breadcrumb{ font-family:mahidol-02, sans-serif; }*/
+.style1 {
+	font-size: 10pt;
+	color: #FFFFFF;
+}
+#warp{
+	width: 1000px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-left: auto;
+}
+#header{}
+
+.menu{
+	border:none;
+	border:0px;
+	/*margin:0px;*/
+	padding:0px;
+	font-size:12pt;
+	font-weight:bold;
+	font-family: "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif, tahoma;
+	}
+.menu ul{
+	height:35px;
+	list-style:none;
+	margin:0;
+	padding:0;
+	}
+	.menu li{
+		float:left;
+		padding:0px;
+		}
+	.menu li a{
+	color:#FF9900;
+	display:block;
+	font-weight:bold;
+	line-height:35px;
+	margin:0px;
+	text-align:center;
+	text-decoration:none;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+		}
+		.menu li a:hover, .menu ul li:hover a{
+	color:#FFFFFF;
+	text-decoration:none;
+	font-weight: bold;
+	background-color: #ff9900;
+	border: 1px solid #ff9900;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+			}
+	.menu li ul{
+	display:none;
+	height:auto;
+	padding:0px;
+	border:0px;
+	position:absolute;
+	width:225px;
+	z-index:200;
+	background-color: #e16629;
+	margin-top: 3px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	font-weight: normal;
+		}
+	.menu li:hover ul{
+		display:block;
+		
+		}
+	.menu li li {
+	background:url('images/sub_sep.gif') bottom left no-repeat;
+	display:block;
+	float:none;
+	margin:0px;
+	padding:0px;
+	width:225px;
+	font-weight: normal;
+		}
+	.menu li:hover li a{
+	background:none;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-bottom-width: 1px;
+	border-bottom-color: #FFF;
+	border-radius:0px;
+	font-weight: normal;
+		}
+	.menu li ul a{
+	display:block;
+	height:35px;
+	font-size:8pt;
+	font-style:normal;
+	margin:0px;
+	padding:0px 10px 0px 15px;
+	text-align:left;
+	font-weight: normal;
+		}
+		.menu li ul a:hover, .menu li ul li:hover a{
+	color:#ffffff;
+	text-decoration:none;
+	background-color: #333333;
+	background-image: url(images/hover_sub.gif);
+	background-repeat: no-repeat;
+	background-position: left center;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-radius:0px;
+	border-bottom-width: 1px;
+	border-bottom-color: #FFF;
+	font-weight: normal;
+			}
+	.menu p{
+		clear:left;
+		}
+			
+			.project_menu{
+	border:none;
+	border:0px;
+	padding:0px;
+	font-size:10pt;
+	font-family: "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif, tahoma;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 20px;
+	margin-left: 0px;
+	}
+	.project_menu .title{
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #ff9900;
+	font-size: 12pt;
+	/*color: #FFF;*/
+}
+.project_menu ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+	}
+	.project_menu li{
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+		}
+	.project_menu li a{
+	color:#FF9900;
+	display:block;
+	margin:0px;
+	text-decoration:none;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+		}
+		.project_menu li a:hover{
+	color:#FFFFFF;
+	text-decoration:none;
+	background-color: #ff9900;
+	border: 1px solid #ff9900;
+		}
+		
+#content{
+	background-color: #ffffff;
+	border: 1px solid #FFF;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	margin-top: 5px;
+	padding: 5px;
+	float: right;
+	width: 770px;
+}
+#content h1{
+	font-size: 14pt;
+	font-style: italic;
+	font-weight: bold;
+	padding-bottom: 5px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+}
+#content fieldset{
+	margin: 0px;
+	padding: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+#content legend{
+	font-family: THSarabunNew, sans-serif, arial, tahoma;
+	display: block;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #ff9900;
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+
+#sidebar{
+	float: left;
+	width: 200px;
+}
+
+#naiv{
+	font-size: 10pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding-bottom: 3px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #666666;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#naiv2{
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+#navi3{
+	margin-bottom: 10px;
+}
+#navi4{
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+}
+#login{
+	margin-right: auto;
+	margin-left: auto;
+	width: 260px;
+}
+#warning{
+	width: 765px;
+	margin-top: 50px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#warning .box_top{
+	background-image: url(../img/box_01.png);
+	background-repeat: no-repeat;
+	height: 8px;
+}
+#warning .box_mid{
+	background-color: #ffffff;
+	padding-right: 8px;
+	padding-left: 8px;
+}
+#warning .box_bottom{
+	background-image: url(../img/box_03.png);
+	background-repeat: no-repeat;
+	height: 8px;
+}
+.page-header-02{
+	font-style: italic;
+	font-weight: bold;
+	padding-bottom: 5px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	margin-bottom: 20px;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+.page-header-03{
+	font-style: normal;
+	font-weight: bold;
+	padding-bottom: 8px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	margin-bottom: 20px;
+}
+.blog-content{
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #7f8c8d;
+}
+.blog-gray{
+	margin-bottom: 20px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #7f8c8d;
+}
+.blog-gray .blog-body{
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-top-width: 5px;
+	border-top-style: solid;
+	border-top-color: #7f8c8d;
+}
+.blog-gray .blog-title{
+	font-weight: bold;
+	color: #FFFFFF;
+	font-size: 22px;
+	padding-top: 8px;
+	padding-right: 10px;
+	padding-bottom: 8px;
+	padding-left: 10px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-bottom: 0px;
+	background-color: #7f8c8d;
+	width: 50%;
+	text-align: center;
+}
+.blog-gray-02{
+	margin-bottom: 20px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #7f8c8d;
+}
+.blog-gray-02 .blog-body{
+	padding-bottom: 10px;
+}
+.blog-gray-02 .blog-title{
+	font-weight: bold;
+	color: #FFFFFF;
+	font-size: 22px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-bottom: 10px;
+	background-color: #7f8c8d;
+	text-align: center;
+	border: 1px solid #7f8c8d;
+	padding: 10px;
+}
+.page-header-04{
+	display: block;
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 30px;
+	line-height: inherit;
+	color: #333333;
+	padding-bottom: 8;
+	border-top-width: 0;
+	border-right-width: 0;
+	border-bottom-width: 2px;
+	border-left-width: 0;
+	border-bottom-style: solid;
+	border-bottom-color: #e5e5e5;
+}
+.page-header-05{
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	border-bottom-color: #818181;
+	margin-bottom: 20px;
+}
+.page-header-05 .text-title{
+	font-weight: bold;
+	color: #FFFFFF;
+	font-size: 20px;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-bottom: 0px;
+	background-color: #818181;
+	width: 60%;
+}
+.page-header-05 a:link,a:hover{
+	color: #FFF;
+	text-decoration: none;
+}
+.text{
+	FONT-SIZE: 10pt;
+	FONT-FAMILY: Arial, Helvetica, sans-serif, tahoma;
+	padding: 5px;
+}
+.textthai {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica;
+	padding: 5px;
+}
+input,textarea{
+	FONT-SIZE: 10pt;
+	FONT-FAMILY: Arial, Verdana, tahoma;
+	padding: 5px;
+	border: 1px solid #CCCCCC;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+select{
+	font-family: arial, tahoma;
+	font-size: 10pt;
+	padding: 5px;
+	border: 1px solid #CCCCCC;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: #000;
+}
+.forminput{
+	FONT-SIZE: 10pt;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica;
+	padding: 5px;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.forminput2{
+	FONT-SIZE: 12pt;
+	FONT-FAMILY: arial, tahoma;
+	padding: 5px;
+	font-weight: bold;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.regBlack_8 {
+	FONT-SIZE: 8pt;
+	COLOR: black;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica, tahoma
+}
+.regBlack_10 {
+	FONT-SIZE: 10pt;
+	COLOR: black;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica
+}
+.regBlack_11 {
+	FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlackEng_11 {
+	FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Arial, Verdana, Helvetica
+}
+.regBlack_12 {
+	FONT-SIZE: 12px;
+	COLOR: black;
+}
+.regBlack_13 {
+	FONT-SIZE: 13px;
+	COLOR: black;
+	border-bottom-color: #9999cc;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+.regBlack_14 {
+	FONT-SIZE: 14px;
+	COLOR: black;
+}
+.regBlack_15 {
+	FONT-SIZE: 15px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlack_16 {
+	FONT-SIZE: 16px;
+	COLOR: black
+}
+.boldBlack_10 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10pt;
+	COLOR: black;
+	FONT-FAMILY: Arial, Verdana, Helvetica, tahoma
+}
+.boldBlack_11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlack_12 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 12pt;
+	COLOR: black;
+	FONT-FAMILY: Arial, Verdana, Helvetica, tahoma;
+	padding: 5px;
+	border-bottom-color: #9999cc;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+.boldBlack_13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlack_14 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 14pt;
+	COLOR: black;
+	FONT-FAMILY: arial, tahoma
+}
+.boldBlack_15 {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlack_16 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.udlineBlack_10 {
+	FONT-SIZE: 10px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlack_11 {
+	FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlack_12 {
+	FONT-SIZE: 12px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlack_13 {
+	FONT-SIZE: 13px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlack_14 {
+	FONT-SIZE: 14px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlack_15 {
+	FONT-SIZE: 15px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlack_16 {
+	FONT-SIZE: 16px; COLOR: black; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.regWhite_10 {
+	FONT-SIZE: 10px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regWhite_11 {
+	FONT-SIZE: 11px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regWhite_12 {
+	FONT-SIZE: 12px; COLOR: white; /*FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica*/
+}
+.regWhite_13 {
+	FONT-SIZE: 13px; COLOR: white;
+}
+.regWhite_14 {
+	FONT-SIZE: 14px; COLOR: white;
+}
+.regWhite_15 {
+	FONT-SIZE: 15px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regWhite_16 {
+	FONT-SIZE: 16px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldWhite_10 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldWhite_11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldWhite_12 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldWhite_13 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 13px;
+	COLOR: white;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica, tahoma
+}
+.boldWhite_14 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 14px;
+	COLOR: white;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica
+}
+.boldWhite_15 {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldWhite_16 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.udlineWhite_10 {
+	FONT-SIZE: 10px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineWhite_11 {
+	FONT-SIZE: 11px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineWhite_12 {
+	FONT-SIZE: 12px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineWhite_13 {
+	FONT-SIZE: 13px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineWhite_14 {
+	FONT-SIZE: 14px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineWhite_15 {
+	FONT-SIZE: 15px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineWhite_16 {
+	FONT-SIZE: 16px; COLOR: white; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.regGray_8{
+	FONT-SIZE: 8pt; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_10 {
+	FONT-SIZE: 10px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_11 {
+	FONT-SIZE: 11px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_12 {
+	FONT-SIZE: 12px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_13 {
+	FONT-SIZE: 13px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_14 {
+	FONT-SIZE: 14px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_15 {
+	FONT-SIZE: 15px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regGray_16 {
+	FONT-SIZE: 16px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_8 {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_10 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_12 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 12px;
+	COLOR: gray;
+	FONT-FAMILY: arial, tahoma
+}
+.boldGray_13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_14 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 14pt;
+	COLOR: gray;
+	FONT-FAMILY: arial, tahoma
+}
+.boldGray_15 {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_16 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldGray_20 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 20px;
+	COLOR: gray;
+	FONT-FAMILY: Arial, tahoma
+}
+.udlineGray_10 {
+	FONT-SIZE: 10px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineGray_11 {
+	FONT-SIZE: 11px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineGray_12 {
+	FONT-SIZE: 12px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineGray_13 {
+	FONT-SIZE: 13px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineGray_14 {
+	FONT-SIZE: 14px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineGray_15 {
+	FONT-SIZE: 15px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineGray_16 {
+	FONT-SIZE: 16px; COLOR: gray; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.regRed_10 {
+	FONT-SIZE: 10px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regRed_11 {
+	FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regRed_12 {
+	FONT-SIZE: 12px;
+	COLOR: red;
+	FONT-FAMILY: "Microsoft Sans Serif", Arial, Verdana, Helvetica;
+	font-weight: normal;
+}
+.regRed_13 {
+	FONT-SIZE: 13px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regRed_14 {
+	FONT-SIZE: 14px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regRed_15 {
+	FONT-SIZE: 15px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regRed_16 {
+	FONT-SIZE: 16px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldRed_10 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10pt;
+	COLOR: red;
+	FONT-FAMILY: tahoma;
+	background-color: #CCCCCC;
+	text-align: right;
+	display: block;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #FF0000;
+	border-bottom-color: #FF0000;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+.boldRed_11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldRed_12 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldRed_13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldRed_14 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 14px;
+	COLOR: red;
+	FONT-FAMILY: Arial, Verdana, Helvetica, tahoma
+}
+.boldRed_15 {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldRed_16 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.udlineRed_10 {
+	FONT-SIZE: 10px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineRed_11 {
+	FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineRed_12 {
+	FONT-SIZE: 12px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineRed_13 {
+	FONT-SIZE: 13px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineRed_14 {
+	FONT-SIZE: 14px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineRed_15 {
+	FONT-SIZE: 15px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineRed_16 {
+	FONT-SIZE: 16px; COLOR: red; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.regBlue_10 {
+	FONT-SIZE: 10px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlue_11 {
+	FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlueEng_11 {
+	FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Arial, Verdana, Helvetica
+}
+.regBlue_12 {
+	FONT-SIZE: 12px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlue_13 {
+	FONT-SIZE: 13px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlue_14 {
+	FONT-SIZE: 14px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlue_15 {
+	FONT-SIZE: 15px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regBlue_16 {
+	FONT-SIZE: 16px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_10 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_12 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_14 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_15 {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldBlue_16 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.udlineBlue_10 {
+	FONT-SIZE: 10px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlue_11 {
+	FONT-SIZE: 11px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlue_12 {
+	FONT-SIZE: 12px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlue_13 {
+	FONT-SIZE: 13px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlue_14 {
+	FONT-SIZE: 14px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlue_15 {
+	FONT-SIZE: 15px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineBlue_16 {
+	FONT-SIZE: 16px; COLOR: blue; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.regDarkBlue_13 {
+	FONT-SIZE: 13px; COLOR: #000099; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600_10 {
+	FONT-SIZE: 10px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600_11 {
+	FONT-SIZE: 11px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600Eng_11 {
+	FONT-SIZE: 11px; COLOR: #ff6600; FONT-FAMILY: Arial, Verdana, Helvetica
+}
+.regFF6600_12 {
+	FONT-SIZE: 12px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600_13 {
+	FONT-SIZE: 13px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600_14 {
+	FONT-SIZE: 14px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600_15 {
+	FONT-SIZE: 15px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regFF6600_16 {
+	FONT-SIZE: 16px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_10 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_11 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_12 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_14 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_15 {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.boldFF6600_16 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.udlineFF6600_10 {
+	FONT-SIZE: 10px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineFF6600_11 {
+	FONT-SIZE: 11px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineFF6600_12 {
+	FONT-SIZE: 12px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineFF6600_13 {
+	FONT-SIZE: 13px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineFF6600_14 {
+	FONT-SIZE: 14px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineFF6600_15 {
+	FONT-SIZE: 15px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.udlineFF6600_16 {
+	FONT-SIZE: 16px; COLOR: #ff6600; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica; TEXT-DECORATION: underline
+}
+.reg3399CC_13 {
+	FONT-SIZE: 13px; COLOR: #3399cc; FONT-FAMILY: Microsoft Sans Serif, Arial, Verdana, Helvetica
+}
+.regff9900_10{
+	font-size: 10pt;
+	color: #ff9900;
+}
+#news_bar {
+	BACKGROUND:  url(url/bg_1.jpg);
+	HEIGHT: 15px;
+	width: 100%;
+}
+#news_bar1 {
+	FONT-SIZE: 10px;
+	MARGIN: 0px 1px 0px 0px;
+	border: 1px solid #000000;
+}
+
+#news1 {
+	FILTER: progid:DXImageTransform.Microsoft.Fade(duration=1); HEIGHT: 100px
+}
+#news2 {
+	FILTER: progid:DXImageTransform.Microsoft.Fade(duration=1); HEIGHT: 100px
+}
+#news3 {
+	FILTER: progid:DXImageTransform.Microsoft.Fade(duration=1); HEIGHT: 100px
+}
+#news4 {
+	FILTER: progid:DXImageTransform.Microsoft.Fade(duration=1); HEIGHT: 100px
+}
+.news_head { 
+}
+.news_detail {
+	BACKGROUND: #9A9A9A
+}
+.news_detail H3 {
+	FONT-SIZE: 16px;
+	BACKGROUND: #999999;
+	MARGIN: 0px;
+	COLOR: #ffffff;
+	font-family: "MS Sans Serif", Tahoma, sans-serif;
+	height: 10px;
+
+}
+.news_detail P {
+	MARGIN: 3px 0px 0px; COLOR: #eac48b; TEXT-INDENT: 30px; HEIGHT: 65px
+}
+.textcolor {
+	font-family: "Microsoft Sans Serif", "MS Sans Serif", sans-serif;
+	font-size: 13px;
+	color: #CC6600;
+}
+.reg3399CC_11 {
+	font-family: "Microsoft Sans Serif", "MS Sans Serif", sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #3399CC;
+}
+INPUT.button {
+	BACKGROUND: #778899;
+	CURSOR: pointer;
+	COLOR: white;
+	font-family: arial, tahoma;
+	font-size: 10pt;
+	font-weight: bold;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	border: 1px solid #ddeeff;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+INPUT.buttonn {
+	cursor: pointer;
+	font-family: verdana, tahoma;
+	font-size: 8pt;
+	border: 1px solid #ddeeff;
+	font-weight: bold;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+INPUT.button2{
+	BORDER-RIGHT: #001122 1px solid;
+	BORDER-TOP: #ddeeff 1px solid;
+	BACKGROUND: #778899;
+	BORDER-LEFT: #ddeeff 1px solid;
+	CURSOR: pointer;
+	COLOR: white;
+	BORDER-BOTTOM: #001122 1px solid;
+	font-family: arial, tahoma;
+	font-size: 12pt;
+	font-weight: bold;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.button3{
+	BACKGROUND: #778899;
+	CURSOR: pointer;
+	COLOR: white;
+	font-family: arial, tahoma;
+	font-size: 10pt;
+	padding-top: 5px;
+	padding-right: 20px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	border: 2px solid #ddeeff;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	font-weight: bold;
+}
+.button4{
+	BACKGROUND: #778899;
+	CURSOR: hand;
+	COLOR: white;
+	font-family: arial, tahoma;
+	font-size: 8pt;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	border: 1px solid #ddeeff;
+}
+.button5{
+	BACKGROUND: #778899;
+	CURSOR: hand;
+	COLOR: white;
+	font-family: arial, tahoma;
+	font-size: 8pt;
+	padding-top: 5px;
+	padding-right: 30px;
+	padding-bottom: 5px;
+	padding-left: 30px;
+	border: 1px solid #ddeeff;
+	font-weight: bold;
+}
+.inputBoxlift { font-family: "MS Sans Serif", "Microsoft Sans Serif", "MS Serif", CordiaUPC, EucrosiaUPC, AngsanaUPC; font-size: 12; border-style: none ;cursor:default;  valign:top; text-align: lift;}
+.dottline {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCCCCC;
+}
+
+.picnews {
+	margin-right: 5px;
+	float: left;
+}
+.table1{
+	border-collapse: collapse;
+	}
+	.table1 th,td{
+	text-align: left;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	font-size: 10pt;
+	padding: 8px;
+}
+
+.table2{
+	border-collapse: collapse;
+	}
+	.table2 th{
+	background-color: #818181;
+	color: #FFFFFF;
+	text-align: left;
+	padding: 5px;
+}
+	.table2 td{
+	text-align: left;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+	font-size: 10pt;
+	padding: 5px;
+}
+
+.formcoltitle{
+	font-weight: bold;
+	padding: 5px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #FFFFFF;
+	font-size: 10pt;
+}
+.formcolhd{
+	background-color: #818181;
+	font-weight: bold;
+	color: #FFFFFF;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #FFFFFF;
+	font-size: 10pt;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding-top: 5px;
+	padding-right: 8px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+}
+.formcol2{
+	padding: 5px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #e3e7ea;
+	font-size: 10pt;
+}
+.tdpadding{
+	padding: 5px;
+}
+.td1{
+	background-color: #818181;
+	font-weight: bold;
+	color: #FFFFFF;
+	padding: 5px;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	border-bottom-color: #fc6701;
+	font-size: 10pt;
+}
+.td2{
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCC;
+}
+.th1{
+	background-color: #818181;
+	color: #FFFFFF;
+	border: 1px solid #ff9900;
+	text-align: center;
+}
+.img100_150{
+	padding: 3px;
+	height: 150px;
+	width: 100px;
+	border: 1px solid #e3e3e3;
+}
+.img150_100{
+	padding: 3px;
+	height: 100px;
+	width: 150px;
+	border: 1px solid #e3e3e3;
+}
+.img200_150{
+	padding: 3px;
+	height: 150px;
+	width: 200px;
+	border: 1px solid #e3e3e3;
+}
+.imgview{
+	height: 2in;
+	width: 1.5in;
+	padding: 3px;
+	border: 1px solid #e3e3e3;
+}
+
+.space1{height: 1px;}
+.space5{height: 5px;}
+.space10{height: 10px;}
+.space20{height: 20px;}
+
+.msgalert{
+	font-weight: bold;
+	color: #FF0000;
+	background-color: #CCCCCC;
+	text-align: center;
+	display: block;
+	padding: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #FF0000;
+}
+.font-12{font-size:12px;}
+.font-14{font-size:14px;}
+.font-16{font-size:16px;}
+.font-18{font-size:18px;}
+.font-20{
+	font-size: 20px;
+} .font-22{
+	font-size: 22px;
+} .font-24{
+	font-size: 24px;
+} .font-26{
+	font-size: 26px;
+} .font-28{
+	font-size: 28px;
+} .font-30{
+	font-size: 30px;
+}
+.font-40{
+	font-size: 40px;
+}
+.font-50{
+	font-size: 50px;
+}

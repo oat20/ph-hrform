@@ -1,0 +1,196 @@
+<?php
+ob_start();
+session_start();
+
+include("../admin/compcode/include/config.php"); 
+include "../admin/compcode/include/connect_db.php";
+require_once("../admin/compcode/include/function.php");
+include("../admin/compcode/check_login.php");
+
+		if($_POST['action'] == "save")
+		{
+			$per_order = maxid($db_eform.'.personel_muerp', 'per_order');
+			//$gen_perid=date('Y').'-'.random_ID("4","0");
+			$gen_perid = date('Y').'-0'.$per_order;
+			$per_username=explode('@',$_POST['mumail']);
+			if($_POST['per_flag']==''){ $per_flag='1'; }else if($_POST['per_flag'] == '0'){ $per_flag=$_POST['per_flag']; }
+			
+			#insert data personel
+			$sql1= "INSERT INTO  $db_eform.personel_muerp (per_id,
+			per_pname,
+			per_fnamet, 
+			per_lnamet,
+			per_pname2,
+			per_fnamee, 
+			per_lnamee,
+			per_dept,
+			job_id,
+			jobs_id,
+			per_type,
+			per_group,    
+			per_sex,
+			per_bhd,
+			per_adddate,			
+			per_status,
+			created,
+			created_by, 
+			per_modify, 
+			modify_by,
+			per_yearin,
+			per_order,
+			per_createdfrom,
+			per_modifyfrom,
+			per_email,
+			per_username,
+			per_no) 
+			VALUES ('$gen_perid',
+			'$_POST[per_pname]',
+			'$_POST[per_fnamet]', 
+			'$_POST[per_lnamet]',
+			'$_POST[per_pname2]',
+			'$_POST[per_fnamee]', 
+			'$_POST[per_lnamee]', 
+			'$_POST[per_dept]', 
+			'$_POST[job_id]',
+			'$_POST[jobs_id]',
+			'$_POST[per_type]', 
+			'$_POST[per_group]', 
+			'$_POST[per_sex]',
+			'$_POST[per_bhd]',
+			'$_POST[per_adddate]', 
+			'$_POST[per_status]', 
+			'".date('Y-m-d H:i:s')."', 
+			'".$_SESSION['ses_per_id']."', 
+			'".date('Y-m-d H:i:s')."', 
+			'".$_SESSION['ses_per_id']."',
+			'".budgetyear_02($_POST['per_adddate'])."',
+			'$per_order',
+			'$_SERVER[REMOTE_ADDR]',
+			'$_SERVER[REMOTE_ADDR]',
+			'$_POST[mumail]',
+			'$per_username',
+			'".base64_encode($_POST['per_no'])."')";
+			$exec1=mysql_query($sql1);
+							#insert data personel
+							
+							#insert education
+			$sql2= "INSERT INTO  $db_eform.education (ed_id, 
+				ed_perid, 
+				ed_dgid, 
+				ed_edu, 
+				ed_institute, 
+				ed_modify, 
+				ses_id, 
+				ed_country, 
+				ed_ipstamp) 
+				VALUES ('".random_ID('4','2')."', 
+				'$gen_perid', 
+				'$_POST[dg_id]', 
+				'$_POST[ed_edu]', 
+				'$_POST[ed_institute]', 
+				'$date_create', 
+				'".session_id()."', 
+				'$_POST[ed_country]', 
+				'".$_SERVER['REMOTE_ADDR']."')";
+			$exec2=mysql_query($sql2);
+							#insert education
+							
+							mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$gen_perid', 'insert', '$remoteip')");
+																					
+			header('location: show_allpersonel.php');
+		}
+		else if($_POST['action'] == "edit")
+		{
+			$per_username=explode('@',$_POST['mumail']);
+			if($_POST['per_flag']==''){ $per_flag='1'; }else if($_POST['per_flag'] == '0'){ $per_flag=$_POST['per_flag']; }
+			
+			$sql1= "update $db_eform.personel_muerp set
+			per_pname='$_POST[per_pname]', 
+			per_fnamet='$_POST[per_fnamet]', 
+			per_lnamet='$_POST[per_lnamet]',
+			per_pname2='$_POST[per_pname2]', 
+			per_fnamee='$_POST[per_fnamee]', 
+			per_lnamee='$_POST[per_lnamee]', 
+			per_sex='$_POST[per_sex]', 
+			per_modify='".date('Y-m-d H:i:s')."', 
+			modify_by='$_SESSION[ses_per_id]', 
+			job_id='$_POST[job_id]', 
+			jobs_id='$_POST[jobs_id]', 
+			per_group='$_POST[per_group]', 
+			per_dept='$_POST[per_dept]',
+			per_sex='$_POST[per_sex]',
+			per_type='$_POST[per_type]',
+			per_status='$_POST[per_status]',
+			per_bhd = '$_POST[per_bhd]',
+			per_adddate='$_POST[per_adddate]',
+			per_yearin = '".budgetyear_02($_POST['per_adddate'])."',
+			per_modifyfrom = '$_SERVER[REMOTE_ADDR]',
+			per_email='$_POST[mumail]',
+			per_username='$per_username',
+			per_no='".base64_encode($_POST['per_no'])."'
+			where per_id='$_POST[per_id]'";
+			mysql_query($sql1);
+			
+			mysql_query("delete from $db_eform.education 
+				where ed_perid = '$_POST[per_id]'
+				and ed_id='$_POST[ed_id]'
+			");
+			$sql2= "INSERT INTO  $db_eform.education (ed_id, 
+				ed_perid, 
+				ed_dgid, 
+				ed_edu, 
+				ed_institute, 
+				ed_modify, 
+				ses_id, 
+				ed_country, 
+				ed_ipstamp) 
+				VALUES ('".random_ID('4','2')."', 
+				'$_POST[per_id]', 
+				'$_POST[dg_id]', 
+				'$_POST[ed_edu]', 
+				'$_POST[ed_institute]', 
+				'$date_create', 
+				'".session_id()."', 
+				'$_POST[ed_country]', 
+				'".$_SERVER['REMOTE_ADDR']."')";
+				$exec2=mysql_query($sql2);
+				
+				mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_POST[per_id]', 'update', '$_SERVER[REMOTE_ADDR]')");
+			
+			//update db phper2
+			/*$sql="update $db_phonebook.personel set per_pname = '$_POST[per_pname]',
+			per_fnamet='$_POST[per_fnamet]', 
+			per_lnamet='$_POST[per_lnamet]',
+			per_pname2='',
+			per_fnamee = '$_POST[per_fnamee]',
+			per_lnamee = '$_POST[per_lnamee]',
+			per_dept='$_POST[per_dept]',
+			job_id = '$_POST[job_id]',
+			per_email='$_POST[mumail]', 
+			per_username = '".$per_username['0']."',
+			per_modify = '".date('Y-m-d H:i:s')."',
+			modify_by = '".$_SESSION['ses_per_id']."',
+			per_modifyfrom = '$_SERVER[REMOTE_ADDR]',
+			per_telin='$_POST[per_telin]'
+			where (per_fnamet like '%$_POST[per_fnamet]%' and per_lnamet like '%$_POST[per_lnamet]%')
+			or per_email='$_POST[per_email]'";
+			$rs = mysql_query($sql);
+			
+			mysql_query("delete from $db_phonebook.education where ed_perid = '$_POST[per_id]'");
+			mysql_query("insert into $db_phonebook.education (ed_id, ed_perid, ed_dgid, ed_edu, ed_institute, ed_country, ed_modify, ed_ipstamp)
+				values ('".date('YmdHis').random_ID('5','2')."', '$_POST[per_id]', '$_POST[ed_dgid]', '$_POST[ed_edu]', '$_POST[ed_institute]', '$_POST[ed_country]', '$date_create', '$remoteip')");*/
+			//update db phper2 
+			
+			header('location: show_allpersonel.php');
+			
+		}else if($_GET['action'] == "remove"){
+			
+			//mysql_query("delete from $db_eform.personel_muerp where per_id='$_GET[per_id]'");
+			//mysql_query("delete from $db_eform.education where ed_id='$_GET[ed_id]'");
+			mysql_query("update $db_eform.personel_muerp set per_trash = '1' where per_id = '$_GET[per_id]'");
+			mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_GET[per_id]', 'delete', '$_SERVER[REMOTE_ADDR]')");
+			header('location: show_allpersonel.php');
+}
+ob_end_flush();
+ ?>
+

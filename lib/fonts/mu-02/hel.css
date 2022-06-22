@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'mahidol-02';
+    src: url('DB Helvethaica X v3.2.ttf') format('truetype');
+	font-weight:normal;
+	font-style:normal;
+}
+/*@font-face {
+    font-family: 'mahidol-02';
+    src: url('DB Helvethaica X Li v3.2.ttf') format('truetype');
+	font-style:normal; font-weight:lighter;
+}*/
+@font-face {
+    font-family: 'mahidol-02';
+    src: url('DB Helvethaica X Bd v3.2.ttf') format('truetype');
+	font-style:normal; font-weight:bold;
+}
+.mu-02{ font-family:'mahidol-02',sans-serif; }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.5/template-install.dtd">
+<install version="1.5" type="template">
+	<name>room_it</name>
+	<creationDate>11/20/06</creationDate>
+	<author>Chakkapan Charupoom</author>
+	<authorEmail>iceeagle99@gmail.com</authorEmail>
+	<authorUrl></authorUrl>
+	<copyright></copyright>
+	<license>GNU/GPL</license>
+	<version>1.0</version>
+	<description></description>
+	<files>
+		<filename>index.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>life.png</filename>
+		<filename>images/logo.png</filename>
+		<filename>images/life.png</filename>
+		<filename>images/bg.png</filename>
+		<filename>images/tb/images/1_01.png</filename>
+		<filename>images/tb/images/1_02.png</filename>
+		<filename>images/tb/images/1_03.png</filename>
+		<filename>images/tb/images/1_05.png</filename>
+		<filename>images/tb/images/1_07.png</filename>
+		<filename>images/tb/images/1_08.png</filename>
+		<filename>images/tb/images/1_09.png</filename>
+		<filename>images/tb/images/1_10.png</filename>
+		<filename>css/style.css</filename>
+	</files>
+	<positions>
+		<position>breadcrumb</position>
+		<position>left</position>
+		<position>right</position>
+		<position>top</position>
+		<position>user1</position>
+		<position>user2</position>
+		<position>user3</position>
+		<position>user4</position>
+		<position>footer</position>
+		<position>debug</position>
+		<position>syndicate</position>
+	</positions>
+</install>
