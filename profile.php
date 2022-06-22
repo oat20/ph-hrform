@@ -6,14 +6,12 @@ include("admin/compcode/include/connect_db.php");
 include("admin/compcode/include/function.php");
 include("admin/compcode/check_login.php");
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><?php print $titlebar; ?></title>
 <style type="text/css">
-<!--
 /*body {
 	background-color: #e3e7ea;
 	font-family: verdana, tahoma;
@@ -57,8 +55,6 @@ include("admin/compcode/check_login.php");
 	background-repeat: no-repeat;
 	height: 10px;
 }*/
-
--->
 </style>
 <link href="room_it/style2.css" rel="stylesheet" type="text/css">
 <link href="admin/compcode/tool/css_text.css" rel="stylesheet" type="text/css">

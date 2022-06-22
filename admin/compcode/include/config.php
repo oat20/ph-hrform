@@ -1,16 +1,21 @@
 <?php
 header ('Content-type: text/html; charset=utf-8');
-//header("Cache-Control: no-cache, must-revalidate");
-//header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+
+error_reporting(E_ALL & ~E_NOTICE);
 
 date_default_timezone_set('Asia/Bangkok'); //set datetime thailand
+ini_set('short_open_tag', 'on');
 $charset="utf-8";
+
+$cf_https = ($_SERVER['HTTPS'] == "on") ? "https://" : "http://";
 
 if($_SERVER['HTTP_HOST']=='localhost' or $_SERVER['HTTP_HOST']=='127.0.0.1'){
 	//$livesite="http://".$_SERVER['SERVER_NAME']."/www2/ph/hr/";
-	$livesite="http://".$_SERVER['HTTP_HOST']."/hr/"; //on localhost
+	$livesite= $cf_https.$_SERVER['HTTP_HOST']."/ph/ph-hrform/"; //on localhost
 }else{
-	$livesite="http://".$_SERVER['HTTP_HOST']."/hr/"; //on server
+	$livesite= $cf_https.$_SERVER['HTTP_HOST']."/hr/"; //on server
 }
 
 //define('att', dirname(__FILE__) . '\phpm\attachment');
@@ -112,4 +117,8 @@ $cf_devnopay=array(
 	"1"=>"ไม่เบิกค่าใช้จ่ายใดๆ",
 	"0"=>"ขออนุมัติค่าใช้จ่าย"
 );
+
+ini_set('SMTP', 'mumail.mahidol.ac.th');
+ini_set('smtp_port', '25');
+ini_set('sendmail_from', 'noreply@ph.mahidol.ac.th');
 ?>

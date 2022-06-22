@@ -27,5 +27,5 @@ return $result;
 }
 
 $db_phonebook = 'phper2'; $db_eform = 'ph_hr_eform';
-connect_db();
+//connect_db();
 ?>

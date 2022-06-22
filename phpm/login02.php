@@ -2,12 +2,13 @@
 session_start();
 
 include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 //include('../lib/mailer/mail.php');
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <title><?php print $titlebar['title'];?></title>
 <meta charset="utf-8">
@@ -17,15 +18,15 @@ include('../admin/compcode/include/function.php');
 <?php
 if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass'])){
 	
-	$sql_01 = mysql_query("select * from $db_eform.personel_muerp as t1
+	$sql_01 = mysqli_query($condb, "select * from $db_eform.personel_muerp as t1
 		inner join $db_eform.personel_status as t2 on (t1.per_status = t2.ps_id)
 		inner join $db_eform.develop_user as t3 on(t1.per_id=t3.per_id)  
 					where (t1.per_email = '$_POST[user]'
 					or t1.per_username = '$_POST[user]')
 					and t1.per_password='".base64_encode($_POST['pass'])."'
 					and t2.ps_flag = '1'");
-	$row_01 = mysql_num_rows($sql_01);
-	$ob_01 = mysql_fetch_assoc($sql_01);
+	$row_01 = mysqli_num_rows($sql_01);
+	$ob_01 = mysqli_fetch_assoc($sql_01);
 	if($row_01 > 0){
 		
 		$_SESSION['ses_du_status'] = $ob_01['du_status'];
@@ -34,7 +35,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$_SESSION['ses_peremail'] = $ob_01['per_email'];
 		$_SESSION['ses_createname']=$ob_01['per_pname'].$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'];
 		
-		mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) 
+		mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) 
 			values ('$ob_01[per_id]', 'signin', '$remoteip')"); //insert log
 		
 		//sendmail notify
@@ -70,8 +71,8 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
                     	<!--แบบฟอร์ม-->
                         <div class="row">
                         <?php
-                        $sql_01 = mysql_query("select * from $db_eform.develop_main_type where dm_use = 'yes' order by dm_id asc");
-                        while($ob_01 = mysql_fetch_assoc($sql_01)){
+                        $sql_01 = mysqli_query($condb, "select * from $db_eform.develop_main_type where dm_use = 'yes' order by dm_id asc");
+                        while($ob_01 = mysqli_fetch_assoc($sql_01)){
                             print '<div class="col-sm-12">
                                 <div class="well well-sm">
 									<div class="clearfix">
