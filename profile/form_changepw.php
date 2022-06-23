@@ -3,23 +3,22 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
-?>
-<!doctype html>
-<?php
-include('../lib/css-inc.php'); 
-//include"load_changepw.php";
 
-//================================================================
-/*$sql_b= "SELECT * FROM $db_eform.personel_muerp as t1 
-			inner join $db_eform.education as t2 on (t1.per_id = t2.ed_perid)
-			where t1.per_id='$_SESSION[ses_per_id]'";*/
 $sql_b= "SELECT * FROM $db_eform.personel_muerp
 			where per_id='$_SESSION[ses_per_id]'";
-$exec_b= mysql_query($sql_b);
-$rs_b=mysql_fetch_array($exec_b);
+$exec_b= mysqli_query($condb, $sql_b);
+$rs_b=mysqli_fetch_array($exec_b);
 ?>
+<!doctype html>
+<html lang="en">
+    <head>
+<?php
+include('../lib/css-inc.php'); 
+?>
+</head>
 <body bgcolor="#5c7094" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <?php include('../inc/navbar02-inc.php');?>
 
@@ -107,11 +106,11 @@ $rs_b=mysql_fetch_array($exec_b);
       	<div class="form-group">
       	<select name="per_dept" class="form-control select select-inverse" data-toggle="select" required>
       	<?php
-		$rs_org=mysql_query("select * from $db_eform.department_type as t1
+		$rs_org=mysqli_query($condb, "select * from $db_eform.department_type as t1
 						inner join $db_eform.tb_orgnew as t2 on (t1.typ_id = t2.typ_id)
 						order by convert (t1.typ_name using tis620) asc,
 						convert (t2.dp_name using tis620) asc");
-		while($ob_org=mysql_fetch_array($rs_org))
+		while($ob_org=mysqli_fetch_array($rs_org))
 		{
 			if($ob_org['dp_id']==$rs_b['per_dept'])
 			{
@@ -573,3 +572,5 @@ $(document).ready(function(e) {
 
 });
 </script>
+</body>
+</html>

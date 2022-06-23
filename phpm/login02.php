@@ -45,7 +45,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			<p>เมื่อเวลา '.dateFormat_02($date_create).'</p>';
 		@smtpmail( $ob_01['per_email'] , 'Notification: '.$titlebar['title'].' แจ้งเข้าระบบล่าสุด' , $body );*/
 		
-		echo '<meta http-equiv="refresh" content="0;URL=../profile/profile.php">';
+		echo '<meta http-equiv="refresh" content="0;URL=../profile/form_changepw.php">';
 		
 	}else{
 		$msg_alert = warning('danger','<i class="fa fa-exclamation"></i>','Username หรือ Password ไม่ถูกต้อง หรือท่านไม่ได้สิทธิ์เข้าใช้ส่วนนี้');

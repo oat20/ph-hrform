@@ -11,9 +11,8 @@ include('../admin/compcode/include/function.php');
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php
-        include('../lib/css-inc.php');
-        ?>
+        <?php include('../lib/css-inc.php');?>
+        <title>แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</title>
     </head>
     <body>
         <?php //include('../inc/navbar02-inc.php');?>
@@ -43,7 +42,7 @@ include('../admin/compcode/include/function.php');
 
 <div class="container-fluid">
 
-<h3 style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h3>
+<h3 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h3>
 
     <!--<div class="page-header-05">
     	<div class="text-title">
