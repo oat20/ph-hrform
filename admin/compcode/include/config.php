@@ -39,7 +39,7 @@ $titlebar=array(
 	"title"=>"PH-HR eForm",
 	"shorttitle"=>"PH-HR",
 	"label"=>"แบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลการ / บริการวิชาการ",
-	"icon"=>"<i class='fa fa-users'></i>",
+	"icon"=>"<i class='fa fa-users fa-fw'></i>",
 	"label_02"=>"แบบฟอร์มออนไลน์งานบริหารทรัพยากรบุคคล"
 );
 
@@ -118,6 +118,7 @@ $cf_devnopay=array(
 	"0"=>"ขออนุมัติค่าใช้จ่าย"
 );
 
+//smtp mu mailserver
 ini_set('SMTP', 'mumail.mahidol.ac.th');
 ini_set('smtp_port', '25');
 ini_set('sendmail_from', 'noreply@ph.mahidol.ac.th');

@@ -50,15 +50,76 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 	}else{
 		$msg_alert = warning('danger','<i class="fa fa-exclamation"></i>','Username หรือ Password ไม่ถูกต้อง หรือท่านไม่ได้สิทธิ์เข้าใช้ส่วนนี้');
 	}
+
+}else if($_POST['action'] == 'genOTP' and isset($_POST['mumail'])){
+
+	$sql_01 = mysqli_query($condb, "select * from $db_eform.personel_muerp as t1
+		inner join $db_eform.develop_user as t3 on(t1.per_id=t3.per_id)  
+					where (t1.per_email = '$_POST[mumail]'
+					or t1.per_username = '$_POST[mumail]')");
+	$row_01 = mysqli_num_rows($sql_01);
+	$ob_01 = mysqli_fetch_assoc($sql_01);
+	if($row_01 > 0){		
+		$otp = strtoupper(random_password(2));
+		$_SESSION['ses_peremail'] = $ob_01['per_email'];
+
+		mysqli_query($condb, "update $db_eform.develop_user set 
+			du_otp='$otp',
+			du_datestamp = CURRENT_TIMESTAMP()
+			where per_id='$ob_01[per_id]'
+		");
+		
+		$body='<p>สวัสดี คุณ '.$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'].'</p>';
+		$body.='<p>รหัส OTP ของท่านคือ</p>';
+		$body .= '<h1>'.$otp.'</h1>';
+		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
+
+		header("location: ../login.php");
+	}else{
+
+		$otp = strtoupper(random_password(2));
+		$_SESSION['ses_peremail'] = $_POST['mumail'];
+		$per_id = random_password(4);
+
+		mysqli_query($condb, "insert into $db_eform.personel_muerp (per_id, per_email, created, per_modify) 
+			values ('$per_id', '$_POST[mumail]', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())
+		"); //insert log
+
+		mysqli_query($condb, "insert into $db_eform.develop_user (per_id, du_status, du_otp, du_datestamp)
+			values ('$per_id', '3', '$otp', CURRENT_TIMESTAMP())
+		");
+
+		$body='<p>สวัสดี คุณ '.$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'].'</p>';
+		$body.='<p>รหัส OTP ของท่านคือ</p>';
+		$body .= '<h1>'.$otp.'</h1>';
+		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
+
+		header("location: ../login.php");
+		
+	}
+
 }
 ?>
+<nav class="navbar navbar-inverse navbar-static-top navbar-lg navbar-embossed">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> <?php echo $titlebar['shorttitle'];?></a>
+		</div>
+	</div>
+</nav>
 
-<div class="container">
-	<div class="space10"></div>
+<div class="container-fluid">
 
 	<div class="row">
     
-    	<div class="col-sm-6">
+    	<div class="col-xs-12 col-sm-12 col-md-6">
 			<?php //include('../header-inc.php');?>
             <div class="panel panel-primary">
             	<div class="panel-heading">
@@ -127,7 +188,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
             
         </div><!--col-->
         
-    	<div class="col-sm-6">
+    	<div class="col-xs-12 col-sm-12 col-md-6">
                         
             <div class="well">
             <form action="<?php print $_SERVER['PHP_SELF'];?>" method="post" id="formSignin">
@@ -147,7 +208,24 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
             </form>
             	<hr>
                 <a href="../admin/compcode/register.php" class="btn btn-warning btn-block"><i class="fa fa-location-arrow"></i> ยังไม่มีรหัสผ่านสำหรับใช้งานระบบคลิกที่นี่</a>
-            </div><!--well -->
+            </div>
+			<!--well -->
+
+			<div class="well">
+				<h6>Step 1. ตรวจสอบข้อมูลที่ลงทะเบียนไว้</h6>
+				<form id="formSignin2" method="POST">
+					<div class="form-group">
+						<label>MU Email</label>
+						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+							data-bv-notempty="true"
+							data-bv-emailaddress="true"
+							data-bv-remote="true"
+							data-bv-remote-url="../lib/bootstrapvalidator/mu-emailformat.php">
+					</div>
+					<input type="hidden" name="action" value="genOTP">
+					<button type="submit" class="btn btn-inverse btn-wide">ถัดไป <i class="fa fa-arrow-right fa-fw"></i></button>
+				</form>
+			</div>
             
         </div><!--col-->
         
@@ -178,6 +256,8 @@ $(document).ready(function(e) {
     
 	$('#formSignin').bootstrapValidator({
 	});
+
+	$('#formSignin2').bootstrapValidator();
 	
 	//$('#modalSurvey').modal('show');
 
