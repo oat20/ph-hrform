@@ -2,12 +2,12 @@
 session_start();
 
 include("../admin/compcode/include/config.php");
-include('../admin/compcode/include/connect_db.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/function.php');
 include('../lib/mailer/mail.php');
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <title><?php print $titlebar['title'];?></title>
 <meta charset="utf-8">
@@ -18,70 +18,56 @@ include('../lib/mailer/mail.php');
 <?php
 if($_POST['action'] == 'signin' and isset($_POST['user'])){
 	
-	$sql_01 = mysql_query("select * from 
+	$sql_01 = mysqli_query($condb, "select * from 
 		$db_eform.personel_muerp as t1
-		inner join $db_eform.personel_status as t2 on (t1.per_status = t2.ps_id)  
-					where (t1.per_email = '$_POST[user]'
-					or t1.per_username = '$_POST[user]')
-					and t2.ps_flag = '1'");
-	$row_01 = mysql_num_rows($sql_01);
-	$ob_01 = mysql_fetch_assoc($sql_01);
+		inner join $db_eform.develop_user as t2 on (t1.per_id = t2.per_id)  
+					where (t1.per_email = '$_SESSION[ses_peremail]'
+					or t1.per_username = '$_SESSION[ses_peremail]')
+					and t2.du_otp like '$_POST[captcha]'
+					and t2.du_otp != '0'
+					and t2.du_otp != ''
+				");
+	$row_01 = mysqli_num_rows($sql_01);
+	$ob_01 = mysqli_fetch_assoc($sql_01);
 	if($row_01 > 0){
-		//$per_password = session_id().random_password('4');
-		$per_password=base64_encode(random_ID('2','2'));
-		$sql_02 = mysql_query("update $db_eform.personel_muerp set per_password = '$per_password',
-						per_modify = '$date_create'
-						where per_id = '$ob_01[per_id]'"); //update token
-		//$msg_alert = warning('success','<i class="fa fa-check"></i>','Success');
+		$sql_02 = mysqli_query($condb, "update $db_eform.develop_user 
+			set du_otp = '0',
+						du_datestamp = CURRENT_TIMESTAMP()
+						where per_id = '$ob_01[per_id]'
+					"); //update token
 		
-		mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$ob_01[per_id]', 'getlink', '$remoteip')"); //insert log
-		
-		//senmail
-		/*$body = '<p><img src="'.$livesite.'img/PH_logo_web.png"></p>
-					<p>สวัสดี คุณ '.$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'].'</p>
-					<p><strong>เข้าระบบคลิกที่นี่</strong> <a href="'.$livesite.'admin/compcode/admin.php?muacc='.$ob_01['per_email'].'&token='.$per_password.'">'.$livesite.'admin/compcode/admin.php?muacc='.$ob_01['per_email'].'&token='.$per_password.'</a></p>';
-		smtpmail( $ob_01['per_email'] , 'Link เข้าระบบ'.$titlebar['label_02'] , $body );*/
-		$body='<p>สวัสดี คุณ '.$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'].'</p>
-			<p>มีการใช้อีเมล '.$ob_01['per_email'].' เข้าระบบ</p>
-			<p>จาก IP Address '.$remoteip.'</p>
-			<p>เมื่อเวลา '.dateFormat_02($date_create).'</p>';
-		@smtpmail( $ob_01['per_email'] , 'Notification: '.$titlebar['title'].' แจ้งเข้าระบบล่าสุด' , $body );
-		
-		//header('location: ../admin/compcode/admin.php?muacc='.$ob_01['per_email'].'&token='.$per_password);
-		echo '<meta http-equiv="refresh" content="0; URL=../admin/compcode/admin.php?muacc='.$ob_01['per_email'].'&token='.$per_password.'">';
-
-		/*$msg_alert = warning2_linkin('success', '<i class="fa fa-check"></i>', 'ระบบได้ส่ง Link เข้าระบบไปยังอีเมลของท่านแล้ว', 'http://webmail.mahidol.ac.th/', 'Mahidol Webmail <i class="fa fa-angle-double-right" aria-hidden="true"></i>');*/
+		mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$ob_01[per_id]', 'getlink', '$remoteip')"); //insert log
+				
+		echo '<meta http-equiv="refresh" content="0; URL=../profile/form_changepw.php">';
 		
 	}else{
-		$msg_alert = warning('danger','<i class="fa fa-exclamation"></i>','ไม่พบอีเมลนี้ในระบบ');
+		$msg_alert = warning('danger','<i class="fa fa-exclamation fa-fw"></i>','ไม่พบอีเมลนี้ในระบบ');
 	}
 }
 ?>
 
-<div class="container-fluid">
-	<div class="space10"></div>
+<div class="container">
 
-	<div class="row">
-    	<div class="col-lg-8 col-lg-offset-2">
-			<?php include('../header-inc.php');?>
+	<div class="row" style="margin-top: 10%;">
+    	<div class="col-lg-12">
                         
             <div class="well">
+				<h5>
+					<a href="./login02.php"><i class="fa fa-arrow-left fa-fw"></i> ตรวจสอบข้อมูลบุคลากร</a>
+				</h5>
+				<div class="alert alert-success">
+					<i class="fa fa-check fa-fw"></i> One Time Password (OTP) ได้ส่งไปยังอีเมล <strong><em><?php echo $_SESSION['ses_peremail'];?></em></strong> กรุณาตรวจสอบอีเมลของท่าน
+				</div>
+
             <form action="<?php print $_SERVER['PHP_SELF'];?>" method="post" id="formSignin">
-            	<legend>Step 1. ตรวจสอบข้อมูลบุคลากร</legend>
             	<?php print $msg_alert;?>
-            	<div class="form-group form-group-sm">
-                	<label class="control-label"><strong>MU Mail:</strong></label>
-                    <input name="user" type="text" size="30" class="form-control forminput2" value="<?php print $_POST['user'];?>" required>
-                    <span class="help-block">ใช้ข้อมูลจากระบบนามานุกรมออนไลน์ (PH-Directories)</span>
-                </div>
-                <div class="form-group form-group-sm">
-                	<?php $_SESSION['ses_captcha'] = random_ID('4','2');?>
-                	<label class="control-label font-20"><strong id="captchaOperation"><?php echo $_SESSION['ses_captcha'];?></strong></label>
-                    <input name="captcha" type="text" size="30" class="form-control forminput2" required>
-                    <span class="help-block">กรอกรหัส 6 หลักที่เห็นทางด้านบน</span>
+                <div class="form-group">
+                	<?php //$_SESSION['ses_captcha'] = random_ID('4','2');?>
+                	<label class="control-label font-20"><strong id="captchaOperation">Your OTP</strong></label>
+                    <input name="captcha" type="text" size="30" class="form-control" required>
                 </div>
                 <input type="hidden" name="action" value="signin">
-                <input type="submit" value="ถัดไป" class="btn btn-block hover-state button"> 
+                <button type="submit" class="btn btn-inverse btn-wide hover-state button">เข้าสู่ระบบ</button> 
             </form>
             </div><!--well -->
             

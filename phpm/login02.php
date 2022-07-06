@@ -69,12 +69,17 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			where per_id='$ob_01[per_id]'
 		");
 		
+		$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
+		$strHeader = "MIME-Version: 1.0' . \r\n";
+		$strHeader .= "Content-type: text/html; charset=utf-8\r\n"; 
+		$strHeader .= "From: ".strtoupper($_SERVER['HTTP_HOST'])."<noreply@".$_SERVER['HTTP_HOST'].">\r\n";
 		$body='<p>สวัสดี คุณ '.$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'].'</p>';
 		$body.='<p>รหัส OTP ของท่านคือ</p>';
 		$body .= '<h1>'.$otp.'</h1>';
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
+		@mail($ob_01['per_email'], $strSubject, $body, $strHeader);
 
-		header("location: ../login.php");
+		header("location: ./login.php");
 	}else{
 
 		$otp = strtoupper(random_password(2));
@@ -89,12 +94,17 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			values ('$per_id', '3', '$otp', CURRENT_TIMESTAMP())
 		");
 
+		$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
+		$strHeader = "MIME-Version: 1.0' . \r\n";
+		$strHeader .= "Content-type: text/html; charset=utf-8\r\n"; 
+		$strHeader .= "From: ".strtoupper($_SERVER['HTTP_HOST'])."<noreply@".$_SERVER['HTTP_HOST'].">\r\n";
 		$body='<p>สวัสดี คุณ '.$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'].'</p>';
 		$body.='<p>รหัส OTP ของท่านคือ</p>';
 		$body .= '<h1>'.$otp.'</h1>';
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
+		@mail($_POST['mumail'], $strSubject, $body, $strHeader);
 
-		header("location: ../login.php");
+		header("location: ./login.php");
 		
 	}
 
