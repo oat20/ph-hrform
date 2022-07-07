@@ -3,8 +3,11 @@ session_start();
 include "../admin/compcode/include/config.php"; 
 ?>
 <!doctype html>
+<html lang="en">
+	<head>
 <?php 
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -12,7 +15,10 @@ include('../admin/compcode/include/function.php');
 <meta charset="utf-8">
 <?php
 include('../lib/css-inc.php');
-
+?>
+</head>
+<body>
+<?php
 print '<div class="container-fluid">';
 	print '<div class="space1"></div>';
 //==========================================================
@@ -38,10 +44,10 @@ if($_POST['action'] == 'update'){
 		per_tel='$_POST[per_tel]',
 		per_no='".base64_encode($_POST['per_no'])."'
 		where per_id = '$_POST[per_id]'";
-	$rs = mysql_query($sql);
+	$rs = mysqli_query($condb, $sql);
 	
 	//update phper2.personel
-	$updatePhper2=mysql_query("update $db_phonebook.personel set
+	$updatePhper2=mysqli_query($condb, "update $db_phonebook.personel set
 		per_pname = '$_POST[per_pname]',
 		per_fnamet='$_POST[per_fnamet]', 
 		per_lnamet='$_POST[per_lnamet]',
@@ -57,7 +63,7 @@ if($_POST['action'] == 'update'){
 		where per_id = '$_POST[per_id]'");
 	//update phper2.personel
 				
-		mysql_query("insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp)
+		mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp)
 			values ('$_POST[per_id]', 'edit', '$remoteip')");
 		
 		if($rs){
@@ -80,11 +86,11 @@ if($_POST['action'] == 'update'){
 	}
 	
 }else if($_POST['action']=='changepass'){
-	$newpass=base64_encode($_POST[newPass]);
+	$newpass=base64_encode($_POST['newPass']);
 	$sql="update $db_eform.personel_muerp 
 		set per_password='$newpass' 
 		where per_id='$_SESSION[ses_per_id]'";
-	$result=mysql_query($sql);
+	$result=mysqli_query($condb, $sql);
 	if($result){		
 		print warning2_linkin('success', '<i class="fa fa-check"></i>', 'เปลี่ยนรหัสผ่านใหม่เรียบร้อย', $livesite.'profile/profile.php', '<i class="fa fa-angle-double-left"></i> Go Back', '');
 		print '<meta http-equiv="refresh" content="3; URL=profile.php">';  		
@@ -96,3 +102,5 @@ print '</div>';
 
 include('../lib/js-inc.php');
 ?>
+</body>
+</html>

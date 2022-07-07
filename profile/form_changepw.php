@@ -15,6 +15,7 @@ $rs_b=mysqli_fetch_array($exec_b);
 <!doctype html>
 <html lang="en">
     <head>
+        <meta charset="utf-8">
 <?php
 include('../lib/css-inc.php'); 
 ?>
@@ -24,18 +25,18 @@ include('../lib/css-inc.php');
 
 <div class="container-fluid">
 
-	<!--<div class="page-header-02 font-30 text-uppercase"><a href="profile.php"><i class="fa fa-arrow-left"></i> Profile</a></div>-->
+	<h3 style="margin-top: 0px;">
+        ข้อมูลส่วนบุคคล
+    </h3>
 
 	<div class="row">
-    
-    	<?php //include('../admin/menu_user.php');?>
-    
+        
     	<div class="col-lg-6">
         	
             <FORM method="post" action="load_changepw.php" id="formProfile">
 			<div class="panel panel-default">
             	<div class="panel-heading clearfix">
-                	<h3 class="panel-title pull-left"><a href="profile.php"><i class="fa fa-arrow-left"></i> ข้อมูลส่วนตัว</a></h3>
+                	<h3 class="panel-title pull-left"><a href="profile.php"><i class="fa fa-arrow-left fa-fw"></i> ข้อมูลส่วนตัว</a></h3>
                     <div class="pull-right"><button type="submit" class="btn btn-link btn-lg"><i class="fa fa-check"></i> Save</button></div>
                 </div>
             	<div class="table-responsive">
@@ -43,15 +44,6 @@ include('../lib/css-inc.php');
     	<legend>ข้อมูลส่วนตัว</legend> -->
   <TABLE class="table table-striped table-bordered">
   	<tbody>
-    	<tr>
-        	<td>เลขบัตรประชาชน หรือเลขหนังสือเดินทาง:</td>
-            <td>
-            	<div class="form-group">
-                	<input type="text" class="form-control" name="per_no" value="<?php echo base64_decode($rs_b['per_no']);?>" required>
-                    <span class="help-block">สำหรับยืนยันตัวตน</span>
-                </div>
-            </td>
-        </tr>
     <TR>
       <TD background="../admin/compcode/compcode/picture/bar07.jpg">คำนำหน้าชื่อ:</TD>
       <TD  background="../admin/compcode/compcode/picture/bar07.jpg">
@@ -101,7 +93,7 @@ include('../lib/css-inc.php');
       <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding"><div class="form-group"><input name="per_lnamee" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_lnamee"]; ?>" class="form-control" required></div></TD>
     </TR>
     <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">ส่วนงาน:</TD>
+      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">สังกัด</TD>
       <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">
       	<div class="form-group">
       	<select name="per_dept" class="form-control select select-inverse" data-toggle="select" required>
@@ -126,48 +118,36 @@ include('../lib/css-inc.php');
         </div>
       </TD>
     </TR>
-    <!--<tr>
+    <tr>
       <td>ตำแหน่งงาน:</td>
       <td>
       	<div class="form-group">
-            <select name="job_id" class="form-control select select-primary" data-toggle="select" required>
             	<?php
-				/*$sql_job = mysql_query("select * from $db_eform.job
+				$sql_job = mysqli_query($condb, "select * from $db_eform.job
 					where job_status = '1'
+                    and job_id = '$rs_b[job_id]'
 					order by convert (job_name using tis620) asc");
-				while($ob_job = mysql_fetch_assoc($sql_job)){
-					if($rs_b['job_id'] == $ob_job['job_id']){
-						echo '<option value="'.$ob_job['job_id'].'" selected>&raquo; '.$ob_job['job_name'].'</option>';
-					}else{
-						echo '<option value="'.$ob_job['job_id'].'">&raquo; '.$ob_job['job_name'].'</option>';
-					}
-				}*/
+				$ob_job = mysqli_fetch_assoc($sql_job);
 				?>
-            </select>
+            <input type="text" name="job_id" class="form-control" value="<?php echo $ob_job['job_name'];?>" required>
         </div>
       </td>
-    </tr>-->
-    <!--<tr>
+    </tr>
+    <tr>
       <td>ตำแหน่งวิชาการ:</td>
       <td>
       	<div class="form-group">
-        	<select name="ja_id" class="form-control select select-primary" data-toggle="select">
             	<?php
-				/*$sql_ja = mysql_query("SELECT * FROM $db_phonebook.job_academic
+				$sql_ja = mysqli_query($condb, "SELECT * FROM $db_eform.job_academic
 								where ja_use = 'yes'
+                                and ja_id = '$rs_b[ja_id]'
 								order by ja_id asc");
-				while($ob_ja = mysql_fetch_assoc($sql_ja)){
-					if($rs_b['ja_id'] == $ob_ja['ja_id']){
-						print '<option value="'.$ob_ja['ja_id'].'" selected>&raquo; '.$ob_ja['ja_name'].'</option>';
-					}else{
-						print '<option value="'.$ob_ja['ja_id'].'">&raquo; '.$ob_ja['ja_name'].'</option>';
-					}
-				}*/
+				$ob_ja = mysqli_fetch_assoc($sql_ja);
 				?>
-            </select>
+            <input type="text" name="ja_id" value="<?php echo $ob_ja['ja_name'];?>" class="form-control">
         </div>
       </td>
-    </tr>-->
+    </tr>
     <!--<tr>
       <td>ตำแหน่งด้านบริหารงาน:</td>
       <td>
@@ -206,7 +186,7 @@ include('../lib/css-inc.php');
         </td>
     </tr>
     <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding" valign="top">MU Mail:</TD>
+      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding" valign="top">MU Email:</TD>
       <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding"><div class="form-group"><input name="mumail" type="email" id="email" size="50" value="<?php echo $rs_b["per_email"]; ?>" class="form-control" required><span class="help-block regRed_12">กรุณาใช้ Email ของมหาวิทยาลัย</span></div>
       </TD>
     </TR>
@@ -339,7 +319,7 @@ include('../lib/css-inc.php');
     <tr>
             <td  background="compcode/picture/bar07.jpg" class="tdpadding">
             	
-                <!--<input class=button type="reset" name="submit2" value="������"> -->             <!--</td>
+                <input class=button type="reset" name="submit2" value="������"> -->             <!--</td>
             <td  background="compcode/picture/bar07.jpg" class="tdpadding">
             	<input type="hidden" name="username" value="<?php #echo $rs_b["username"]; ?>" />
                 <input class=button type="submit" name="changepw" value="เปลี่ยนรหัสผ่าน" id="changepw">
@@ -353,7 +333,7 @@ include('../lib/css-inc.php');
                 	<input type="hidden" name="per_id" value="<?php echo $rs_b["per_id"]; ?>">
                     <input type="hidden" name="ed_id" value="<?php echo $rs_b["ed_id"]; ?>">
                     <input type="hidden" name="action" value="update">
-                  <input class="btn btn-block button text-uppercase" type="submit" value="Update" id="editprofile">
+                  <button class="btn btn-primary btn-block button text-uppercase" type="submit" id="editprofile">Update</button>
                 </div><!--footer-->
 			</div><!--panel-->
             </FORM>

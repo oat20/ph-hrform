@@ -9,14 +9,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <!--<a class="navbar-brand" href="<?php //echo $livesite;?>profile/profile.php"><?php print $titlebar['icon'].' '.$titlebar['title'];?></a>-->
-          <a class="navbar-brand" href="<?php print $livesite;?>profile/profile.php"><i class="fa fa-arrow-left"></i></a>
+          <!--<a class="navbar-brand" href="<?php //echo $livesite;?>profile/profile.php"><?php //print $titlebar['icon'].' '.$titlebar['title'];?></a>-->
+          <a class="navbar-brand" href="<?php print $livesite;?>profile/profile.php"><?php echo $titlebar['shorttitle'];?></a>
           <!--<img src="<?php //echo $livesite;?>img/PH_logo_web.png" class="img-responsive">-->
         </div>
         
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         	<ul class="nav navbar-nav">
+				<li><a href="<?php echo $livesite;?>profile/profile.php"><i class="fa fa-home fa-fw"></i> หน้าหลัก</a></li>
             	<li class="dropdown">
                 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">กรอกแบบฟอร์ม <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -96,7 +97,7 @@
             
             <ul class="nav navbar-nav navbar-right">
             	<li class="dropdown">
-                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?php print $_SESSION['ses_createname'];?> <span class="caret"></span></a>
+                	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i> <?php print $_SESSION['ses_createname'];?> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                     	<li class="dropdown-header regWhite_12">ประวัติการขออนุมัติ</li>
                         <li><a href="<?php echo $livesite;?>profile/_showmyproject.php">ปฏิบัติงานพัฒนาบุคลากร</a></li>

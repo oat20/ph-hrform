@@ -5,7 +5,6 @@ include("../admin/compcode/include/config.php");
 require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
-//include('../lib/mailer/mail.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -200,13 +199,13 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
         
     	<div class="col-xs-12 col-sm-12 col-md-6">
                         
-            <div class="well">
-            <form action="<?php print $_SERVER['PHP_SELF'];?>" method="post" id="formSignin">
+            <!-- <div class="well">
+            <form action="<?php //print $_SERVER['PHP_SELF'];?>" method="post" id="formSignin">
             	<legend>Step 1. ตรวจสอบข้อมูลที่ลงทะเบียนไว้</legend>
-            	<?php print $msg_alert;?>
+            	<?php //print $msg_alert;?>
             	<div class="form-group">
                 	<label class="control-label">อีเมลที่ลงทะเบียนไว้:</label>
-                    <input name="user" type="text" size="30" class="form-control forminput2" value="<?php print $_POST['user'];?>" required>
+                    <input name="user" type="text" size="30" class="form-control forminput2" value="<?php //print $_POST['user'];?>" required>
                 </div>
                 <div class="form-group">
                 	<label class="control-label">รหัสผ่าน:</label>
@@ -218,7 +217,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
             </form>
             	<hr>
                 <a href="../admin/compcode/register.php" class="btn btn-warning btn-block"><i class="fa fa-location-arrow"></i> ยังไม่มีรหัสผ่านสำหรับใช้งานระบบคลิกที่นี่</a>
-            </div>
+            </div> -->
 			<!--well -->
 
 			<div class="well">
