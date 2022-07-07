@@ -25,7 +25,7 @@ include('../lib/css-inc.php');
 
 <div class="container-fluid">
 
-	<h3 style="margin-top: 0px;">
+	<h3 class="hidden-xs" style="margin-top: 0px;">
         ข้อมูลส่วนบุคคล
     </h3>
 

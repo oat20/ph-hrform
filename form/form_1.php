@@ -216,6 +216,11 @@ include('../admin/compcode/include/function.php');
                             ?>                 
                     	</select>
                 </div><!--form-group-->
+
+                <div class="form-group">
+                    <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสาร</label>
+                    <input type="file" name="file" accept="image/jpeg,image/png,application/pdf" required>
+                </div>
             
             </div><!--col-->
             

@@ -62,6 +62,7 @@ include('../admin/compcode/include/function.php');
 	<!--<th>Status</th>-->
 	<th>#</th>
     <th class="text">REF. ID</th>
+	<th>Datastamp</th>
     <th class="text">ลักษณะงาน</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">หลักสูตร/โครงการ</th>
@@ -77,6 +78,7 @@ include('../admin/compcode/include/function.php');
 	<!--<th>Status</th>-->
 	<th>#</th>
     <th class="text">REF. ID</th>
+	<th>Datastamp</th>
     <th class="text">ลักษณะงาน</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">หลักสูตร/โครงการ</th>
@@ -138,8 +140,11 @@ while($rs=mysqli_fetch_array($exec)){
 		<?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['icon'].'&nbsp;'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?>
     </td>-->
 	  <td>#<?php print ++$r;?></td>
-    <td class="text" align="center"><?php echo $rs['dev_id'].'<br><i class="glyphicon glyphicon-user"></i> '.$rs03['per_fnamet'].' '.$rs03['per_lnamet'].'<br><i class="fa fa-clock-o"></i> '.dateFormat_02($rs['dev_create']);?></td>
-    <td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'];?></td>
+    <td class="text" align="center"><?php echo $rs['dev_id'];?></td>
+    <td>
+		<i class="glyphicon glyphicon-user"></i><?php echo $rs03['per_fnamet'].' '.$rs03['per_lnamet'].'<br><i class="fa fa-clock-o fa-fw"></i> '.dateFormat_02($rs['dev_create']);?>
+	</td>
+	<td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'];?></td>
     <td align="center" class="text"><?php print $rs["dev_year"]; ?></td>
     <td class="text"><?php echo $rs['dev_onus'];?></td>
     <!--<td><?php //echo $rs['per_fnamet'].' '.$rs['per_lnamet'];?></td>-->
