@@ -5,18 +5,27 @@ include('admin/compcode/include/config.php');
 include('admin/compcode/include/connect_db.php');
 include("admin/compcode/include/function.php");
 ?>
+<!doctype html>
+<html lang="en">
+    <head>
 <title><?php print $titlebar['title'];?></title>
 <?php
 include('lib/css-inc.php');
 //print risk_score("16");
 //include('inc/navbar02-inc.php');
 	?>    
+    </head>
+    <body>
 <div class="container-fluid">
+    <?php
+    $random_number = rand(1,99);
+    echo date('j').$random_number;
+    ?>
 	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
     	<div class="form-group">
             <label class="control-label">Upload Excel Template:</label>
             <!--<input id="personel-excel" type="file" class="file" name="personelExcel" required data-show-upload="false" data-show-caption="true">-->
-            <input type="file" class="form-control" name="personelExcel">
+            <input type="file" name="personelExcel">
             <div id="help-block"></div>
         </div>
         <button type="submit" class="btn btn-default btn-wide">Upload</button>
@@ -329,3 +338,5 @@ $("#personel-excel").fileinput({
 		//elErrorContainer: "#help-block",
 	});
 </script>
+</body>
+</html>

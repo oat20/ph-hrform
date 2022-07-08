@@ -15,30 +15,7 @@ include('../admin/compcode/include/function.php');
         <title>แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</title>
     </head>
     <body>
-        <?php //include('../inc/navbar02-inc.php');?>
-        <nav class="navbar navbar-inverse navbar-static-top navbar-lg navbar-embossed">
-	<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"><?php echo $titlebar['shorttitle'];?></a>
-        </div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="../profile/profile.php"><i class="fa fa-home fa-fw" aria-hidden="true"></i> หน้าหลัก</a></li>
-				<li><a href="#">กรอกบันทึกขออนุมัติ</a></li>
-				<li><a href="../profile/_showmyproject.php">ประวัติการขออนุมัติ</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
+        <?php include('../profile/navbar-form01-inc.php');?>
 
 <div class="container-fluid">
 
@@ -55,31 +32,27 @@ include('../admin/compcode/include/function.php');
         	<div class="col-sm-6">
                 
                 <div class="form-group">
-                    <label class="control-label">ส่วนงาน:</label>
-                        <select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">
+                    <label class="control-label">สังกัด</label>
                             <?php
                             $sql=mysqli_query($condb, "select * from ph_hr_eform.department_type
                                     inner join ph_hr_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
-                                    where department_type.typ_id='PH00001'
-                                    or department_type.typ_id='PH00002'
+                                    where (department_type.typ_id='PH00001'
+                                    or department_type.typ_id='PH00002')
+                                    and tb_orgnew.dp_id='".$_SESSION['ses_per_dept']."'
                                     order by department_type.typ_id asc,
-                                    tb_orgnew.dp_id asc");
-                            while($ob=mysqli_fetch_assoc($sql)){
-                                if($_SESSION['ses_per_dept'] == $ob['dp_id']){
-                                    print '<option value="'.$ob['dp_id'].'" selected>&raquo; '.$ob['dp_name'].'</option>';
-                                }else{
-                                    print '<option value="'.$ob['dp_id'].'">&raquo; '.$ob['dp_name'].'</option>';
-                                }
-                            }
+                                    tb_orgnew.dp_id asc
+                                ");
+                            $ob=mysqli_fetch_assoc($sql);
                             ?>
-                        </select>
+                        <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
+                        <input type="hidden" name="dp_id" value="<?php echo $_SESSION['ses_per_dept'];?>">
                 </div><!--form-group-->
                 
-                <legend>หนังสือเชิญ / จดหมายเชิญ</legend>
+                <!--<legend>หนังสือเชิญ / จดหมายเชิญ</legend>
                 <div class="form-group">
                     <label class="control-label">ตามหนังสือ:</label>
                     <input type="text" class="form-control input-sm" name="dev_bookfrom_01" required>
-                </div><!--form-group-->
+                </div>
                 <div class="form-group">
                     <label class="control-label">ที่:</label>
                     <input type="text" class="form-control input-sm" name="dev_bookfrom_02" required>
@@ -92,14 +65,14 @@ include('../admin/compcode/include/function.php');
                     <label class="control-label">เรื่อง:</label>
                             <input type="text" class="form-control input-sm" name="dev_bookfrom_04" required>
                 </div>
-                <hr>
+                <hr>-->
                 
                 <div class="form-group">
-                      <label class=" control-label formcolhd">หลักสูตร/โครงการ:</label>
+                      <label class=" control-label">หลักสูตร/โครงการ:</label>
                       <input name="title_pic" type="text" class="form-control inputform input-sm" id="title_news" value="" size="60" required/>
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label class="control-label formcolhd">ระหว่างวันที่:</label>
+                    <label class="control-label">ระหว่างวันที่:</label>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <input type="text" name="dev_stdate" id="startdate" size="10" class="form-control input-sm" required placeholder="เริ่ม">
@@ -151,9 +124,14 @@ include('../admin/compcode/include/function.php');
                         </div><!--col-->
                       </div><!--row-->
                   </div><!--form-group-->
+
+                  <div class="form-group">
+                    <label>ลักษณะงาน</label>
+                    <input type="text" class="form-control" name="typ_id" required>
+                  </div>
                   
                   <div class="form-group">
-                  <label class="control-label formcolhd">เกี่ยวข้องกับกิจกรรม:</label>
+                  <label class="control-label">เกี่ยวข้องกับกิจกรรม:</label>
                     <select name="sec_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
                             <?php
@@ -185,7 +163,7 @@ include('../admin/compcode/include/function.php');
                         </select>
                   </div><!--form-group-->
                   <div class="form-group">
-                  <label class="control-label formcolhd">หน่วยงานผู้จัด:</label>
+                  <label class="control-label">หน่วยงานผู้จัด:</label>
                   <input type="text" class="form-control input-sm" name="dev_org" required id="dev_org">
                 </div><!--form-group-->
                                         

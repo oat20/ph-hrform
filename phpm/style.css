@@ -1,10 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
-/*@import url('https://fonts.googleapis.com/css?family=Kanit:400,700&subset=thai');*/
 body {
 	margin-left: 0px;
 	margin-top: 0px;
-	/*font-size:15px;*/ 
 	font-family:'Lato',sans-serif;
 }
 a:link, a:visited {

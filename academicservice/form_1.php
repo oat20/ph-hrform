@@ -3,14 +3,21 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
-
-include('../lib/css-inc.php');
-
-include('../inc/navbar02-inc.php');
 ?>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <?php include('../lib/css-inc.php');?>
+        <title>แบบขออนุมัติปฎิบัติงานบริการวิชาการ</title>
+    </head>
+    <body>
+        <?php include('../inc/navbar02-inc.php');?>
 <div class="container-fluid">
+    <h3 style="margin-top: 0px;">แบบขออนุมัติปฎิบัติงานบริการวิชาการ</h3>
 
     <div class="page-header-05">
     	<div class="text-title">
@@ -513,3 +520,5 @@ $(document).ready(function(e) {
 		
 });
 </script>
+</body>
+</html>

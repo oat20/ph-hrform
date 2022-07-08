@@ -34,7 +34,7 @@ require_once '../../admin/compcode/include/config.php';
 	 </tr>
 	</table>";
 
-	$flgSend = @mail($strTo,$strSubject,$strMessage,$strHeader);  // @ = No Show Error //
+	$flgSend = mail($strTo,$strSubject,$strMessage,$strHeader);  // @ = No Show Error //
 	if($flgSend)
 	{
 		echo "Email Sending.";
