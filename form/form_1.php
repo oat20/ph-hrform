@@ -276,12 +276,12 @@ include('../admin/compcode/include/function.php');
                 </div><!--panel-->
                 <!--ค่าใช้จ่าย-->
             
-            	<div class="panel panel-primary">
+            	<!--<div class="panel panel-primary">
             		<div class="panel-heading">บุคลากรผู้เข้าร่วม</div>
                 	<div class="panel-body">
                     	<div id="personelJoin" class="form-group">
 							<?php
-                                echo '<ul>';
+                                /*echo '<ul>';
                                 
                                 $sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
                                     inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
@@ -310,11 +310,13 @@ include('../admin/compcode/include/function.php');
                                             echo '</ul>
                                         </li>';
                                 }
-                                echo '</ul>';
+                                echo '</ul>';*/
                             ?>
                         </div>
-                	</div><!--body-->
-                </div><!--panel-->
+                	</div>-->
+                    <!--body-->
+                <!--</div>-->
+                <!--panel-->
             
             </div><!--col-->
         </div><!--row-->
