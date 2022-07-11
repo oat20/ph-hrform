@@ -1,13 +1,15 @@
 <?php 
 session_start();
 
-include("../admin/compcode/include/config.php"); 
+include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php'; 
 include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
 
-$dev_id=maxid($db_eform.'.develop','dev_id');
+$dev_id=maxid($condb, $db_eform.'.develop','dev_id');
 $dev_trackid=date('YmdHis').random_ID("6","0");
 $dev_setid = date('Y').'-'.random_ID("6","0");
+$dvt_name = mysqli_real_escape_string($condb, $_POST['typ_id']);
 
 if(isset($_POST['action']) and $_POST["action"] == 'save')
 {
@@ -16,6 +18,20 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		
 		if($_POST['dev_country'] == '223' or $_POST['dev_country']=='TH'){ $dev_local='1'; }else{ $dev_local='2'; }
 		$dev_training_hour=GettrainingHour($_POST['dev_stdate'], $_POST['dev_enddate'], $_POST['dev_timebegin'], $_POST['dev_timeend']);
+
+		//tb develop_type
+	$sql_devtype = mysqli_query($condb, "select dvt_id from $db_eform.develop_type 
+		where dvt_name like '%$dvt_name%'
+		order by rand()
+		limit 1
+	");
+	$rs_devtype = mysqli_fetch_array($sql_devtype);
+	if($rs_devtype['dvt_id'] == ''){
+		$_POST['typ_id'] = random_ID('2', '2');
+		mysqli_query($condb, "insert into $db_eform.develop_type (dvt_id, dvt_name) values ('$dvt_id', '$dvt_name')");
+	}else{
+		$_POST['typ_id'] = $rs_devtype['dvt_id'];
+	}
 		
 		//insert tb develop
 				$sql1="insert into $db_eform.develop (dev_id, 
@@ -88,12 +104,12 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 					'$_POST[dev_typeother]',
 					'$_SESSION[ses_per_id]',
 					'$_POST[dev_nopay]')";
-		$exec1=mysql_query($sql1);
+		$exec1=mysqli_query($condb, $sql1);
 				
 		//insert table develop_form_budget
 		if(isset($_POST['bt_id'])){
 			foreach($_POST['bt_id'] as $value){
-				$sql02=mysql_query("insert into $db_eform.develop_form_budget (dev_id, bt_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["bt_dev_pay01".$value]."')");
+				$sql02=mysqli_query($condb, "insert into $db_eform.develop_form_budget (dev_id, bt_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["bt_dev_pay01".$value]."')");
 				$budget_pay01+=$_POST['bt_dev_pay01'.$value];
 			}
 		}
@@ -101,7 +117,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		//insert table develop_form_cost
 		if(isset($_POST['ct_id'])){
 			foreach($_POST['ct_id'] as $value){
-				$sql03=mysql_query("insert into $db_eform.develop_form_cost (dev_id, ct_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["ct_dev_pay01".$value]."')");
+				$sql03=mysqli_query($condb, "insert into $db_eform.develop_form_cost (dev_id, ct_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["ct_dev_pay01".$value]."')");
 				$cost_pay01+=$_POST['ct_dev_pay01'.$value];
 			}
 		}
@@ -110,8 +126,8 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		if(isset($_POST['per_id'])){
 			
 			foreach($_POST['per_id'] as $value){
-				$cp_id=maxid($db_eform.'.develop_course_personel','cp_id');		
-				$sql04=mysql_query("insert into $db_eform.develop_course_personel (cp_id,
+				$cp_id=maxid($condb, $db_eform.'.develop_course_personel','cp_id');		
+				$sql04=mysqli_query($condb, "insert into $db_eform.develop_course_personel (cp_id,
 							dev_id,
 							per_id,
 							budget_pay01,
@@ -123,6 +139,18 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 							'$cost_pay01')");
 			}
 		
+		}else{
+			$sql04=mysqli_query($condb, "insert into $db_eform.develop_course_personel (
+							dev_id,
+							per_id,
+							budget_pay01,
+							cost_pay01)
+							values (
+							'$dev_id', 
+							'".$_SESSION['ses_per_id']."', 
+							'$budget_pay01', 
+							'$cost_pay01')
+						");
 		}
 		//insert table develop, develop_course_personel
 				

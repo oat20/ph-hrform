@@ -76,6 +76,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body.='<p>รหัส OTP ของท่านคือ</p>';
 		$body .= '<h1>'.$otp.'</h1>';
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
+		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
 		@mail($ob_01['per_email'], $strSubject, $body, $strHeader);
 
 		header("location: ./login.php");
@@ -101,6 +102,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body.='<p>รหัส OTP ของท่านคือ</p>';
 		$body .= '<h1>'.$otp.'</h1>';
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
+		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
 		@mail($_POST['mumail'], $strSubject, $body, $strHeader);
 
 		header("location: ./login.php");
@@ -128,7 +130,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 
 	<div class="row">
     
-    	<div class="col-xs-12 col-sm-12 col-md-6">
+    	<div class="col-xs-12 col-sm-12 col-md-6 visible-md visible-lg">
 			<?php //include('../header-inc.php');?>
             <div class="panel panel-primary">
             	<div class="panel-heading">

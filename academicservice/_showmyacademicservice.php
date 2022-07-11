@@ -15,11 +15,14 @@ include('../admin/compcode/include/function.php');
 <?php include('../lib/css-inc.php');?>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<?php include('../inc/navbar02-inc.php');?>
+
+<?php //include('../inc/navbar02-inc.php');
+require_once './navbar-academicservice-inc.php'
+?>
 
 <div class="container-fluid">
 
-<h3 style="margin-top: 0px;">แบบขออนุมัติปฎิบัติงานบริการวิชาการ</h3>
+<h4 lass="visible-md visible-lg" style="margin-top: 0px;">แบบขออนุมัติปฎิบัติงานบริการวิชาการ</h4>
 
 	<div class="row">
         
@@ -143,6 +146,8 @@ while($rs=mysqli_fetch_array($exec)){
 <?php include('../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+
+	$('.navbar-nav li:eq(2)').addClass('active');
 	
 	//datepicker
 	$('#keyDevstdate').datepicker({

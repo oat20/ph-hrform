@@ -19,7 +19,7 @@ include('../admin/compcode/include/function.php');
 
 <div class="container-fluid">
 
-<h3 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h3>
+<h4 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h4>
 
     <!--<div class="page-header-05">
     	<div class="text-title">
@@ -198,6 +198,7 @@ include('../admin/compcode/include/function.php');
                 <div class="form-group">
                     <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสาร</label>
                     <input type="file" name="file" accept="image/jpeg,image/png,application/pdf" required>
+                    <span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
                 </div>
             
             </div><!--col-->

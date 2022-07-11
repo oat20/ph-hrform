@@ -19,15 +19,16 @@ $rs_b=mysqli_fetch_array($exec_b);
 <?php
 include('../lib/css-inc.php'); 
 ?>
+<title>ข้อมูลส่วนบุคคล</title>
 </head>
 <body bgcolor="#5c7094" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <?php include('../inc/navbar02-inc.php');?>
 
 <div class="container-fluid">
 
-	<h3 class="hidden-xs" style="margin-top: 0px;">
+	<h4 class="hidden-xs hidden-sm" style="margin-top: 0px;">
         ข้อมูลส่วนบุคคล
-    </h3>
+    </h4>
 
 	<div class="row">
         
@@ -341,7 +342,18 @@ include('../lib/css-inc.php');
 		</div><!--col-->
         
         <div class="col-lg-6">
-        	<div class="panel panel-warning">
+            <div class="panel panel-primary">
+            	<div class="panel-heading">
+                    <h3 class="panel-title"><strong><i class="fa fa-plus fa-fw"></i> กรอกแบบฟอร์ม</strong></h3>
+            	</div>
+                <div class="list-group">
+                    <a href="<?php echo $livesite;?>form/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
+                    <a href="<?php echo $livesite;?>academicservice/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานบริการวิชาการ</a>
+                    <a href="<?php print $livesite;?>leave/" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติลาเดินทางต่างประเทศ</a>
+                	</div>
+            </div><!--panel-->
+
+        	<!--<div class="panel panel-warning">
             	<div class="panel-heading">
                 	<h3 class="panel-title">เปลี่ยนรหัสผ่าน</h3>
                 </div>
@@ -349,7 +361,7 @@ include('../lib/css-inc.php');
                 	<form method="post" action="load_changepw.php" id="formChangepass">
                     	<div class="form-group">
                         	<label class="control-label">Username:</label>
-                            <p class="form-control-static"><?php echo $rs_b['per_username'];?></p>
+                            <p class="form-control-static"><?php //echo $rs_b['per_username'];?></p>
                         </div>
                     	<div class="form-group">
                         	<label class="control-label">รหัสผ่านใหม่:</label>
@@ -359,8 +371,10 @@ include('../lib/css-inc.php');
                         <button type="submit" class="btn btn-warning btn-wide"><i class="fa fa-check"></i> Save</button>
                     </form>
                 </div>
-            </div>
-        </div><!--col-->
+            </div>-->
+            <!--panel-->
+        </div>
+        <!--col-->
         
 	</div><!--row-->
 

@@ -548,10 +548,10 @@ function warning4_linkin($color, $icon, $msg, $url='', $texturl='', $target='')
 }
 //show messagealert
 
-function maxid($table, $colume){
+function maxid($db, $table, $colume){
 	$sql="select max($colume) as a from $table";
-	$rs=mysql_query($sql);
-	$ob=mysql_fetch_assoc($rs);
+	$rs=mysqli_query($db, $sql);
+	$ob=mysqli_fetch_assoc($rs);
 	$a=$ob["a"];
 	if(!$a)
 		return 1;

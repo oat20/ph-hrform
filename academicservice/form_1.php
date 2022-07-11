@@ -15,9 +15,10 @@ include('../admin/compcode/include/function.php');
         <title>แบบขออนุมัติปฎิบัติงานบริการวิชาการ</title>
     </head>
     <body>
-        <?php include('../inc/navbar02-inc.php');?>
+        <?php require_once './navbar-academicservice-inc.php';?>
+
 <div class="container-fluid">
-    <h3 style="margin-top: 0px;">แบบขออนุมัติปฎิบัติงานบริการวิชาการ</h3>
+    <h4 class="visible-md visible-lg" style="margin-top: 0px;">แบบขออนุมัติปฎิบัติงานบริการวิชาการ</h4>
 
     <div class="page-header-05">
     	<div class="text-title">
@@ -31,30 +32,26 @@ include('../admin/compcode/include/function.php');
                 
                 <div class="form-group">
                     <label class="control-label">ส่วนงาน:</label>
-                        <select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">
                             <?php
-                            $sql=mysql_query("select * from ph_hr_eform.department_type
+                            $sql=mysqli_query($condb, "select * from ph_hr_eform.department_type
                                     inner join ph_hr_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
-                                    where department_type.typ_id='PH00001'
-                                    or department_type.typ_id='PH00002'
+                                    where (department_type.typ_id='PH00001'
+                                    or department_type.typ_id='PH00002')
+                                    and tb_orgnew.dp_id='".$_SESSION['ses_per_dept']."'
                                     order by department_type.typ_id asc,
-                                    tb_orgnew.dp_id asc");
-                            while($ob=mysql_fetch_assoc($sql)){
-                                if($_SESSION['ses_per_dept'] == $ob['dp_id']){
-                                    print '<option value="'.$ob['dp_id'].'" selected>&raquo; '.$ob['dp_name'].'</option>';
-                                }else{
-                                    print '<option value="'.$ob['dp_id'].'">&raquo; '.$ob['dp_name'].'</option>';
-                                }
-                            }
+                                    tb_orgnew.dp_id asc
+                                ");
+                            $ob=mysqli_fetch_assoc($sql);
                             ?>
-                        </select>
+                        <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
+                        <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
                 </div><!--form-group-->
                 
-                <legend>หนังสือเชิญ / จดหมายเชิญ</legend>
+                <!--<legend>หนังสือเชิญ / จดหมายเชิญ</legend>
                 <div class="form-group">
                     <label class="control-label">ตามหนังสือ:</label>
                     <input type="text" class="form-control input-sm" name="dev_bookfrom_01" required>
-                </div><!--form-group-->
+                </div>
                 <div class="form-group">
                     <label class="control-label">ที่:</label>
                     <input type="text" class="form-control input-sm" name="dev_bookfrom_02" required>
@@ -67,14 +64,14 @@ include('../admin/compcode/include/function.php');
                     <label class="control-label">เรื่อง:</label>
                             <input type="text" class="form-control input-sm" name="dev_bookfrom_04" required>
                 </div>
-                <hr>
+                <hr>-->
                 
                 <div class="form-group">
-                      <label class=" control-label formcolhd">หลักสูตร/โครงการ:</label>
+                      <label class=" control-label">หลักสูตร/โครงการ:</label>
                       <input name="title_pic" type="text" class="form-control inputform input-sm" id="title_news" value="" size="60" required/>
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label class="control-label formcolhd">ระหว่างวันที่:</label>
+                    <label class="control-label">ระหว่างวันที่:</label>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <input type="text" name="dev_stdate" id="startdate" size="10" class="form-control input-sm" required placeholder="เริ่ม">
@@ -100,49 +97,57 @@ include('../admin/compcode/include/function.php');
                     <p class="form-control-static bg-danger"><strong>&nbsp;อบรม 1 วัน เท่ากับ 6 ชั่วโมง</strong></p>
                 </div><!--form-group-->
                 
-                <div class="form-group">
+                <!--<div class="form-group">
                   <label class="control-label">ลักษณะงาน:</label>
                   <div class="row">
                   	<div class="col-sm-6">
                   <select name="typ_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
                             <?php
-                            $typ=mysql_query("select * from $db_eform.develop_main_type
+                            /*$typ=mysqli_query($condb, "select * from $db_eform.develop_main_type
                                         inner join $db_eform.develop_type on (develop_main_type.dm_id = develop_type.dm_id)
                                         where develop_type.dvt_status = '1'
                                         and develop_main_type.dm_id = '2'
                                         order by dvt_id asc");
-                            while($ob=mysql_fetch_array($typ)){
-                                print "<option value=".$ob[dvt_id].">".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
-                            }
+                            while($ob=mysqli_fetch_array($typ)){
+                                print "<option value=".$ob['dvt_id'].">".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
+                            }*/
                             ?>                 
                         </select>
-                        	</div><!--col-->
-                            <div class="col-sm-6">
+                        	</div>-->
+                            <!--col-->
+                            <!--<div class="col-sm-6">
                         	<div id="devTypeother">
                         		<input type="text" name="dev_typeother" class="form-control input-sm" disabled placeholder="อื่นๆ ระบุ">
                             </div>
-                        </div><!--col-->
-                        </div><!--row-->
-                  </div><!--form-group-->
+                        </div>-->
+                        <!--col-->
+                        <!--</div>-->
+                        <!--row-->
+                  <!--</div>-->
+                  <!--form-group-->
+                  <div class="form-group">
+                    <label>ลักษณะงาน</label>
+                    <input type="text" name="typ_id" class="form-control" required>
+                  </div>
                                     
                   <div class="form-group">
                     <label class="control-label">สถานที่จัด:</label>
                     <textarea class="form-control" rows="2" name="dev_place" required></textarea>
                 </div>               
                   <div class="form-group">
-                  <label class="control-label formcolhd">หน่วยงานผู้จัด:</label>
+                  <label class="control-label">หน่วยงานผู้จัด:</label>
                   <input type="text" class="form-control input-sm" name="dev_org" required id="dev_org">
                 </div><!--form-group-->
                 <div class="form-group">
                     <label class="control-label">ประเภทสถานที่:</label>
                    <select name="lt_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <?php
-                            $sec=mysql_query("select * from $db_eform.develop_location_type
+                            $sec=mysqli_query($condb, "select * from $db_eform.develop_location_type
                                         where lt_use = 'yes'
                                         order by lt_order asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[lt_id].">- ".$ob['lt_title']." -</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['lt_id'].">- ".$ob['lt_title']." -</option>";
                             }
                             ?>                 
                         </select>
@@ -152,11 +157,11 @@ include('../admin/compcode/include/function.php');
             	<label class="control-label">ระดับกิจกรรม:</label>
                 <select name="le_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                         <?php
-                        $sec=mysql_query("select * from $db_eform.develop_level
+                        $sec=mysqli_query($condb, "select * from $db_eform.develop_level
 									where le_use = 'yes'
 									order by le_id asc");
-                        while($ob=mysql_fetch_array($sec)){
-                            print "<option value=".$ob[le_id].">- ".$ob['le_title']." -</option>";
+                        while($ob=mysqli_fetch_array($sec)){
+                            print "<option value=".$ob['le_id'].">- ".$ob['le_title']." -</option>";
                         }
                         ?>                 
                     </select>
@@ -166,11 +171,11 @@ include('../admin/compcode/include/function.php');
                     <label class="control-label">ยุทธศาสตร์มหาวิทยาลัยฯ:</label>
                         <select name="ss_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                             <?php
-                            $sec=mysql_query("select * from $db_eform.sub_strategic
+                            $sec=mysqli_query($condb, "select * from $db_eform.sub_strategic
                                         where ss_use = 'yes'
                                         order by id asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[id].">- ".$ob['nameth']." -</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['id'].">- ".$ob['nameth']." -</option>";
                             }
                             ?>                 
                         </select>
@@ -180,15 +185,21 @@ include('../admin/compcode/include/function.php');
             	<label class="control-label">ยุทธศาสตร์คณะฯ:</label>
                     	<select name="sf_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                             <?php
-                            $sec=mysql_query("select * from $db_eform.strategic_faculty
+                            $sec=mysqli_query($condb, "select * from $db_eform.strategic_faculty
                                         where sf_use = 'yes'
                                         order by sf_id asc");
-                            while($ob=mysql_fetch_array($sec)){
-                                print "<option value=".$ob[sf_id].">- ".$ob['sf_name']." -</option>";
+                            while($ob=mysqli_fetch_array($sec)){
+                                print "<option value=".$ob['sf_id'].">- ".$ob['sf_name']." -</option>";
                             }
                             ?>                 
                     	</select>
-                </div><!--form-group-->         
+                </div><!--form-group-->
+                
+                <div class="form-group">
+                    <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสาร</label>
+                    <input type="file" name="file" accept="image/jpeg, image/png, application/pdf" required>
+                    <span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
+                </div>
             </div><!--col-->
             
             <div class="col-lg-6">
@@ -217,12 +228,12 @@ include('../admin/compcode/include/function.php');
                                 <table class="table">
                                     <tbody>
                                         <?php
-                                        $sql=mysql_query("select * from $db_eform.develop_payfrom as t1 
+                                        $sql=mysqli_query($condb, "select * from $db_eform.develop_payfrom as t1 
 											inner join $db_eform.budtype as t2 on(t1.pf_id=t2.pf_id)
                                                 where t1.pf_use='yes'
                                                 order by t1.pf_id asc,
 												t2.bt_id asc");
-                                        while($ob=mysql_fetch_assoc($sql)){
+                                        while($ob=mysqli_fetch_assoc($sql)){
                                             print '<tr>
                                                         <td><label class="checkbox primary"><input name="bt_id[]" type="checkbox" value="'.$ob['bt_id'].'" data-toggle="checkbox" disabled> '.$ob['pf_title'].' &raquo; <strong>'.$ob['bt_name'].'</strong></label></td>
                                                         <td><input name="bt_dev_pay01'.$ob['bt_id'].'" type="number" class="form-control input-sm" placeholder="จำนวนเงิน" disabled></td>
@@ -237,11 +248,11 @@ include('../admin/compcode/include/function.php');
                                 <table class="table">
                                     <tbody>
                                 <?php
-                                $sql=mysql_query("select * from $db_eform.develop_cost_type
+                                $sql=mysqli_query($condb, "select * from $db_eform.develop_cost_type
                                         where ct_use='yes'
                                         and ct_id<>'0'
                                         order by ct_id asc");
-                                while($ob=mysql_fetch_assoc($sql)){
+                                while($ob=mysqli_fetch_assoc($sql)){
                                     //print '<label class="checkbox"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox"> '.$ob['ct_title'].'</label>';
                                     if($ob['ct_id'] != '5'){
                                         print '<tr>
@@ -264,30 +275,30 @@ include('../admin/compcode/include/function.php');
                 </div><!--panel-->
                 <!--ค่าใช้จ่าย-->
             
-            	<div class="panel panel-primary">
+            	<!--<div class="panel panel-primary">
             		<div class="panel-heading">บุคลากรผู้เข้าร่วม</div>
                 	<div class="panel-body">
                     	<div id="personelJoin" class="form-group">
 							<?php
-                                echo '<ul>';
+                                /*echo '<ul>';
                                 
-                                $sql=mysql_query("select * from $db_eform.department_type as t1
+                                $sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
                                     inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
                                     order by convert(t1.typ_name using tis620) asc,
                                     convert(t2.dp_name using tis620) asc");
-                                while($ob=mysql_fetch_assoc($sql)){
+                                while($ob=mysqli_fetch_assoc($sql)){
 									
 									if($_SESSION['ses_per_dept']==$ob['dp_id']){ $collapsed='';}else{$collapsed='collapsed';}//open or close
                                         echo '<li class="'.$collapsed.'"><label class="checkbox"><input type="checkbox"> <strong>'.$ob['dp_name'].'</strong></label>
                                             <ul>';						
-                                            $sql02=mysql_query("SELECT * FROM $db_eform.personel_muerp as t1
+                                            $sql02=mysqli_query($condb, "SELECT * FROM $db_eform.personel_muerp as t1
                                                 inner join $db_eform.job as t2 on(t1.job_id=t2.job_id)
                                                 inner join $db_eform.personel_status as t3 on(t1.per_status=t3.ps_id)
                                                 where t3.ps_flag='1'
                                                 and t1.per_dept='$ob[dp_id]'
                                                 order by convert(t1.per_fnamet using tis620) asc,
                                                 convert(t1.per_lnamet using tis620) asc");
-                                            while($ob02=mysql_fetch_assoc($sql02)){
+                                            while($ob02=mysqli_fetch_assoc($sql02)){
 												if($ob02['per_id'] == $_SESSION['ses_per_id']){
 													echo '<li><label class="checkbox"><input type="checkbox" value="'.$ob02['per_id'].'" name="per_id[]" checked required> '.$ob02['per_pname'].$ob02['per_fnamet'].' '.$ob02['per_lnamet'].' ('.$ob02['job_name'].')</label></li>';
 												}else{
@@ -298,11 +309,13 @@ include('../admin/compcode/include/function.php');
                                             echo '</ul>
                                         </li>';
                                 }
-                                echo '</ul>';
+                                echo '</ul>';*/
                             ?>
                         </div>
-                	</div><!--body-->
-                </div><!--panel-->
+                	</div>-->
+                    <!--body-->
+                <!--</div>-->
+                <!--panel-->
                 
             </div><!--col-->
         </div><!--row-->
@@ -318,6 +331,8 @@ include('../admin/compcode/include/function.php');
 <?php include('../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+
+    $('.navbar-nav li:eq(1)').addClass('active');
 	
 	$('#personelJoin').tree({
             /* specify here your options */
