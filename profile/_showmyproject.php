@@ -47,25 +47,9 @@ include('../admin/compcode/include/function.php');
 	<th class="text">วันที่เริ่ม</th>
     <th class="text">วันที่สิ้นสุด</th>
     <th></th>
-	<th class="text">Tools</th>
+	<th class="text"></th>
     </tr>
   </thead>
-  <tfoot>
-<tr bgcolor="#E0E3CE" class="text">
-	<!--<th>Status</th>-->
-	<th>#</th>
-    <th class="text">REF. ID</th>
-	<th>Datastamp</th>
-    <th class="text">ลักษณะงาน</th>
-    <th class="text">ปีงบประมาณ</th>
-    <th class="text">หลักสูตร/โครงการ</th>
-    <th>จำนวนผู้เข้าร่วม</th>
-	<th class="text">วันที่เริ่ม</th>
-    <th class="text">วันที่สิ้นสุด</th>
-    <th></th>
-	<th class="text">Tools</th>
-    </tr>
-  </tfoot>
   <tbody id="jetsContent">
  <?php
  if(empty($_GET['dev_approve'])){
@@ -131,8 +115,8 @@ while($rs=mysqli_fetch_array($exec)){
     <td><?php echo $cf_devnopay[$rs['dev_nopay']];?></td>
     <td class="text">
     	<div class="btn-group">
-          <button type="button" class="btn btn-danger btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-cog"></i> <span class="caret"></span>
+          <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-ellipsis-v"></i></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right">
             <!--<li><a href="../form/print-form01-pdf.php?getTrackid=<?php //echo $rs['dev_trackid'];?>" title="แสดงรายละเอียด" data-toggle="tooltip" data-placement="bottom" target="_blank"><i class="fa fa-print"></i> พิมพ์แบบฟอร์ม</a></li>-->
@@ -168,7 +152,13 @@ $(document).ready(function(e) {
 	$('.navbar-nav li:eq(2)').addClass('active');
 
 	$('#tbData').DataTable({
-		responsive: true
+		responsive: true,
+		columnDefs: [
+			{ 
+				orderable: false, 
+				targets: 10 
+			}
+		],
 	});
 	
 	//datepicker

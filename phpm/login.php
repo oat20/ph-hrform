@@ -69,7 +69,8 @@ if($_POST['action'] == 'signin' and $du_otp != '0' and $du_otp != ''){
                 <div class="form-group">
                 	<?php //$_SESSION['ses_captcha'] = random_ID('4','2');?>
                 	<label class="control-label font-20"><strong id="captchaOperation">Your OTP</strong></label>
-                    <input name="captcha" type="text" size="30" class="form-control text-uppercase" required>
+                    <input name="captcha" type="text" size="30" class="form-control text-uppercase" required
+						data-bv-notempty="true">
                 </div>
                 <input type="hidden" name="action" value="signin">
                 <button type="submit" class="btn btn-inverse btn-wide hover-state button">เข้าสู่ระบบ</button> 
@@ -99,6 +100,10 @@ function checkval(form)
           		return false;
         }
 }
+
+$(function() {
+	$('#formSignin').bootstrapValidator();
+});
 </script>
 </body>
 </html>

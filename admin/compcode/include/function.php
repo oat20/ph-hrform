@@ -912,6 +912,25 @@ function Showtraininghour($traininghour){
 		return $th['0'].' ชม.';
 	}
 }
+
+function attachDocType($doctype){
+	switch($doctype){
+		case "image/jpeg":
+			$filetype = ".jpg";
+			break;
+		case "image/png":
+			$filetype = ".png";
+			break;
+		case "application/pdf":
+			$filetype = ".pdf";
+			break;
+		case "image/gif":
+			$filetype = ".gif";
+			break;
+
+			return $filetype;
+	}
+}
 //หาจำนวนชั่วโมงอบรม
 //echo budgetyear_03(date('Y-m-d'));
 ?>

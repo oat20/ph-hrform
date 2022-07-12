@@ -116,7 +116,7 @@ while($rs=mysqli_fetch_array($exec)){
     <td class="text">
     	<div class="btn-group">
           <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-bars"></i>
+            <i class="fa fa-ellipsis-v"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-right">
             <li><a href="formdetail.php?getDevid=<?php echo $rs['dev_id'];?>"><i class="glyphicon glyphicon-list"></i> รายละเอียดแบบฟอร์ม</a></li> 

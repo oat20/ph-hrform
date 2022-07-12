@@ -72,24 +72,35 @@ include('../admin/compcode/include/function.php');
             </form>
             <?php
 			if(isset($_POST['action']) and $_POST['action']=='save'){
-				
-				mysqli_query($condb, "update $db_eform.develop set
-					dev_approve='cancel',
-					dev_cancel='$_POST[dev_cancel]',
-					dev_modify='$date_create',
-					dev_createby='$_SESSION[ses_per_id]'
-					where dev_id='$_POST[dev_id]'");
-				//insert tb develop_cancel
-				mysqli_query($condb, "delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
-				$cc_id=random_ID('4', '0');
-				mysqli_query("insert into $db_eform.develop_cancel (cc_id,
-					dev_id,
-					cc_comment,
-					cc_ipstamp) 
-					values ('$cc_id',
-					'$_POST[dev_id]',
-					'$_POST[cc_comment]',
-					'$remoteip')");
+
+				$sql = mysqli_query($condb, "select cp_id from $db_eform.develop_course_personel 
+					where dev_id='$_POST[dev_id]'
+				");
+				if(mysqli_num_rows($sql) > 1){
+					mysqli_query($condb, "delete from $db_eform.develop_course_personel 
+						where dev_id='$_POST[dev_id]'
+						and per_id = '$_SESSION[ses_per_id]'
+					");
+				}else{
+					mysqli_query($condb, "update $db_eform.develop set
+						dev_approve='cancel',
+						dev_cancel='$_POST[dev_cancel]',
+						dev_modify='$date_create',
+						dev_createby='$_SESSION[ses_per_id]'
+						where dev_id='$_POST[dev_id]'");
+
+					//insert tb develop_cancel
+					mysqli_query($condb, "delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
+					$cc_id=random_ID('4', '0');
+					mysqli_query($condb, "insert into $db_eform.develop_cancel (cc_id,
+						dev_id,
+						cc_comment,
+						cc_ipstamp) 
+						values ('$cc_id',
+						'$_POST[dev_id]',
+						'$_POST[cc_comment]',
+						'$remoteip')");
+				}
 					
 				header('location: formdetail.php?getDevid='.$rs1['dev_id']);
 			

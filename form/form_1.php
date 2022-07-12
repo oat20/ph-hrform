@@ -45,7 +45,7 @@ include('../admin/compcode/include/function.php');
                             $ob=mysqli_fetch_assoc($sql);
                             ?>
                         <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
-                        <input type="hidden" name="dp_id" value="<?php echo $_SESSION['ses_per_dept'];?>">
+                        <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
                 
                 <!--<legend>หนังสือเชิญ / จดหมายเชิญ</legend>
@@ -98,14 +98,14 @@ include('../admin/compcode/include/function.php');
                     <p class="form-control-static bg-danger"><strong>&nbsp;อบรม 1 วัน เท่ากับ 6 ชั่วโมง</strong></p>
                 </div><!--form-group-->
                 
-                <div class="form-group">
+                <!--<div class="form-group">
                   <label class="control-label">ลักษณะงาน:</label>
                   <div class="row">
                   	<div class="col-sm-6">
                   <select name="typ_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
                             <?php
-                            $typ=mysqli_query($condb, "select * from $db_eform.develop_main_type
+                            /*$typ=mysqli_query($condb, "select * from $db_eform.develop_main_type
                                         inner join $db_eform.develop_type on (develop_main_type.dm_id = develop_type.dm_id)
                                         where develop_type.dvt_status = '1'
                                         and develop_main_type.dm_id = '1'
@@ -113,17 +113,21 @@ include('../admin/compcode/include/function.php');
                                         develop_type.dvt_id asc");
                             while($ob=mysqli_fetch_array($typ)){
                                 print "<option value=".$ob['dvt_id'].">".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
-                            }
+                            }*/
                             ?>                 
                         </select>
-                        </div><!--col-->
-                        <div class="col-sm-6">
+                        </div>-->
+                        <!--col-->
+                        <!--<div class="col-sm-6">
                         	<div id="devTypeother">
                         		<input type="text" name="dev_typeother" class="form-control input-sm" disabled placeholder="อื่นๆ ระบุ">
                             </div>
-                        </div><!--col-->
-                      </div><!--row-->
-                  </div><!--form-group-->
+                        </div>-->
+                        <!--col-->
+                      <!--</div>-->
+                      <!--row-->
+                  <!--</div>-->
+                  <!--form-group-->
 
                   <div class="form-group">
                     <label>ลักษณะงาน</label>

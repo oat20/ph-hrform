@@ -13,6 +13,8 @@ $dvt_name = mysqli_real_escape_string($condb, $_POST['typ_id']);
 
 if(isset($_POST['action']) and $_POST["action"] == 'save')
 {
+	mysqli_autocommit($condb, false);
+
 		//insert table develop
 		$dev_bookfrom=$_POST['dev_bookfrom_01'].'+'.$_POST['dev_bookfrom_02'].'+'.$_POST['dev_bookfrom_03'].'+'.$_POST['dev_bookfrom_04'];
 		
@@ -32,6 +34,8 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 	}else{
 		$_POST['typ_id'] = $rs_devtype['dvt_id'];
 	}
+
+	mysqli_commit($condb);
 		
 		//insert tb develop
 				$sql1="insert into $db_eform.develop (dev_id, 
@@ -153,6 +157,17 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 						");
 		}
 		//insert table develop, develop_course_personel
+
+		if(!empty($_FILES['file']['name'])){
+			$dev_filename = $dev_id.'-'.date('YmdHis').random_password(2).attachDocType($_FILES['file']['type']);
+			mysqli_query($condb, "insert into $db_eform.develop_attachment 
+				values ('$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]')
+			");
+			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
+		}
+
+		mysqli_rollback($condb);
+		mysqli_close($condb);
 				
 		header("location: confirm-form-1.php?getDevid=".$dev_id);
 }

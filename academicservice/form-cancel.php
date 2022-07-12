@@ -2,11 +2,12 @@
 session_start();
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><?php echo $titlebar['title'];?></title>
@@ -26,9 +27,10 @@ include('../admin/compcode/include/function.php');
         </div>
         <div class="panel-body">
         	<?php
-			$sql1=mysql_query("select * from $db_eform.develop
-				where dev_id='$_GET[dev_id]'");
-			$rs1=mysql_fetch_assoc($sql1);
+			$sql1=mysqli_query($condb, "select * from $db_eform.develop
+				where dev_id='$_GET[dev_id]'
+			");
+			$rs1=mysqli_fetch_assoc($sql1);
         	echo '<blockquote>
               <p>Form No. '.$rs1['dev_id'].'<br><strong>เรื่อง/โครงการ</strong> '.$rs1['dev_onus'].' ระหว่างวันที่ '.dateformat_03($rs1['dev_stdate']).' ถึง '.dateformat_03($rs1['dev_enddate']).'</p>
             </blockquote>';
@@ -53,8 +55,8 @@ include('../admin/compcode/include/function.php');
                 
                 <div class="form-group">
                                         	<?php
-							$qCancel=mysql_query("select * from $db_eform.develop_cancel where dev_id='$rs1[dev_id]'");
-							$rCancel=mysql_fetch_assoc($qCancel);
+							$qCancel=mysqli_query($condb, "select * from $db_eform.develop_cancel where dev_id='$rs1[dev_id]'");
+							$rCancel=mysqli_fetch_assoc($qCancel);
 							?>
                         	<label class="control-label col-sm-2">เหตุผลยกเลิก:</label>
                             <div class="col-sm-10">
@@ -71,17 +73,27 @@ include('../admin/compcode/include/function.php');
             </form>
             <?php
 			if(isset($_POST['action']) and $_POST['action']=='save'){
+
+				$sql = mysqli_query($condb, "select cp_id from $db_eform.develop_course_personel 
+					where dev_id='$_POST[dev_id]'
+				");
+				if(mysqli_num_rows($sql) > 1){
+					mysqli_query($condb, "delete from $db_eform.develop_course_personel 
+						where dev_id='$_POST[dev_id]' 
+						and per_id = '$_SESSION[ses_per_id]'
+					");
+				}else{
 				
-				mysql_query("update $db_eform.develop set
+				mysqli_query($condb, "update $db_eform.develop set
 					dev_approve='cancel',
 					dev_cancel='$_POST[dev_cancel]',
 					dev_modify='$date_create',
 					dev_createby='$_SESSION[ses_per_id]'
 					where dev_id='$_POST[dev_id]'");
 				//insert tb develop_cancel
-				mysql_query("delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
+				mysqli_query($condb, "delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
 				$cc_id=random_ID('4', '0');
-				mysql_query("insert into $db_eform.develop_cancel (cc_id,
+				mysqli_query($condb, "insert into $db_eform.develop_cancel (cc_id,
 					dev_id,
 					cc_comment,
 					cc_ipstamp) 
@@ -89,6 +101,7 @@ include('../admin/compcode/include/function.php');
 					'$_POST[dev_id]',
 					'$_POST[cc_comment]',
 					'$remoteip')");
+				}
 					
 				header('location: formdetail.php?getDevid='.$_POST['dev_id']);
 			
@@ -104,8 +117,9 @@ include('../admin/compcode/include/function.php');
 
 <?php include('../lib/js-inc.php');?>
 <script>
-$('#formDefault').bootstrapValidator({
-});
+$(document).ready(function() {
+	$('#formDefault').bootstrapValidator();
+} );
 </script>
 </body>
 </html>
