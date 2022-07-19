@@ -22,11 +22,12 @@ include('../lib/css-inc.php');
 print '<div class="container-fluid">';
 	print '<div class="space1"></div>';
 //==========================================================
+mysqli_autocommit($condb, false);
+
 if($_POST['action'] == 'update'){
 	
 	if(isset($_POST['per_pname']) and isset($_POST['per_fnamet']) and isset($_POST['per_lnamet']) and isset($_POST['per_dept']) and isset($_POST['mumail'])){
 	
-		mysqli_autocommit($condb, false);
 	//$per_username = explode('@',$_POST["mumail"]);
 	
 	$sql="update $db_eform.personel_muerp set 
@@ -67,7 +68,7 @@ if($_POST['action'] == 'update'){
 		mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp)
 			values ('$_POST[per_id]', 'edit', '$remoteip')");
 		
-		if($rs){
+		if($rs and mysqli_commit($condb)){
 		#$msg=$msg."แก้ไขข้อมูลเรียบร้อย";
 			echo"<script language='JavaScript'>";
 									echo"alert('แก้ไขข้อมูลเรียบร้อย');";
@@ -77,9 +78,6 @@ if($_POST['action'] == 'update'){
 			print warning3_linkin('danger', '<i class="fa fa-exclamation"></i> Warning', 'ไม่สามารถบันทึกข้อมูลได้', $livesite.'profile/form_changepw.php', '<i class="fa fa-angle-double-left"></i> Go Back', 'text-left');
 			print '<meta http-equiv="refresh" content="3; URL=form_changepw.php">';
 		}
-
-		mysqli_commit($condb);
-		mysqli_rollback($condb);
 	
 	}else{
 		//print warning('danger','<i class="fa fa-exclamation"></i> Warning','ไม่สามารถบันทึกข้อมูลได้');
@@ -91,22 +89,19 @@ if($_POST['action'] == 'update'){
 	
 }else if($_POST['action']=='changepass'){
 
-	mysqli_autocommit($condb, false);
-
 	$newpass=base64_encode($_POST['newPass']);
 	$sql="update $db_eform.personel_muerp 
 		set per_password='$newpass' 
 		where per_id='$_SESSION[ses_per_id]'";
 	$result=mysqli_query($condb, $sql);
-	if($result){		
+	if($result and mysqli_connect($condb)){		
 		print warning2_linkin('success', '<i class="fa fa-check"></i>', 'เปลี่ยนรหัสผ่านใหม่เรียบร้อย', $livesite.'profile/profile.php', '<i class="fa fa-angle-double-left"></i> Go Back', '');
 		print '<meta http-equiv="refresh" content="3; URL=profile.php">';  		
 	}
-	
-	mysqli_commit($condb);
-	mysqli_rollback($condb);
+		
 }
 
+mysqli_rollback($condb);
 mysqli_close($condb);
 
 print '</div>';
