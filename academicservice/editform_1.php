@@ -3,18 +3,24 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
-
-include('../lib/css-inc.php');
-
-include('../inc/navbar02-inc.php');
 ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>แบบขออนุมัติปฎิบัติงานบริการวิชาการ</title>
+        <?php include('../lib/css-inc.php');?>
+    </head>
+    <body>
+        <?php include('../inc/navbar02-inc.php');?>
 <div class="container-fluid">
 
 	<?php
-	$qDevelop=mysql_query("select * from $db_eform.develop where dev_trackid='$_GET[getTrackid]'");
-	$rDevelop=mysql_fetch_assoc($qDevelop);
+	$qDevelop=mysqli_query($condb, "select * from $db_eform.develop where dev_trackid='$_GET[getTrackid]'");
+	$rDevelop=mysqli_fetch_assoc($qDevelop);
 	$dev_bookfrom=explode('+',$rDevelop['dev_bookfrom']);
 	?>
     <form action="editform1-action.php" method="post" id="formDefault">
@@ -36,13 +42,13 @@ include('../inc/navbar02-inc.php');
                     <div class="form-group">
                         <select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">
                             <?php
-                            $sql=mysql_query("select * from $db_eform.department_type
+                            $sql=mysqli_query($condb, "select * from $db_eform.department_type
                                     inner join $db_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
                                     where department_type.typ_id='PH00001'
                                     or department_type.typ_id='PH00002'
                                     order by department_type.typ_id asc,
                                     tb_orgnew.dp_id asc");
-                            while($ob=mysql_fetch_assoc($sql)){
+                            while($ob=mysqli_fetch_assoc($sql)){
 								if($rDevelop['dp_id'] == $ob['dp_id']){
                                 	print '<option value="'.$ob['dp_id'].'" selected>'.$ob['typ_name'].' &raquo; '.$ob['dp_name'].'</option>';
 								}else{
@@ -127,15 +133,15 @@ include('../inc/navbar02-inc.php');
                 <div class="form-group">
                 	<select name="dvt_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                     <?php
-					$typ=mysql_query("select * from $db_eform.develop_type
+					$typ=mysqli_query($condb, "select * from $db_eform.develop_type
 						where dvt_status='1'
 						and dm_id='2'
 						order by dvt_id asc");
-                        while($ob=mysql_fetch_array($typ)){
+                        while($ob=mysqli_fetch_array($typ)){
 							if($rDevelop['dev_type']==$ob['dvt_id']){
-                            	print '<option value="'.$ob[dvt_id].'" selected>&raquo; '.$ob['dvt_name'].'</option>';
+                            	print '<option value="'.$ob['dvt_id'].'" selected>&raquo; '.$ob['dvt_name'].'</option>';
 							}else{
-								print '<option value="'.$ob[dvt_id].'">&raquo; '.$ob['dvt_name'].'</option>';
+								print '<option value="'.$ob['dvt_id'].'">&raquo; '.$ob['dvt_name'].'</option>';
 							}
                         }
 					?>
@@ -169,14 +175,14 @@ include('../inc/navbar02-inc.php');
                         <label class="control-label">ประเภทสถานที่:</label>
                        <select name="lt_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                                 <?php
-                                $sec=mysql_query("select * from $db_eform.develop_location_type
+                                $sec=mysqli_query($condb, "select * from $db_eform.develop_location_type
                                             where lt_use = 'yes'
                                             order by lt_order asc");
-                                while($ob=mysql_fetch_array($sec)){
+                                while($ob=mysqli_fetch_array($sec)){
 									if($rDevelop['lt_id']==$ob['lt_id']){
-                                    	print "<option value=".$ob[lt_id]." selected>- ".$ob['lt_title']." -</option>";
+                                    	print "<option value=".$ob['lt_id']." selected>- ".$ob['lt_title']." -</option>";
 									}else{
-										print "<option value=".$ob[lt_id].">- ".$ob['lt_title']." -</option>";
+										print "<option value=".$ob['lt_id'].">- ".$ob['lt_title']." -</option>";
 									}
                                 }
                                 ?>                 
@@ -188,14 +194,14 @@ include('../inc/navbar02-inc.php');
                 <td>
                     <div class="form-group"><select name="le_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                         <?php
-                        $sec=mysql_query("select * from $db_eform.develop_level
+                        $sec=mysqli_query($condb, "select * from $db_eform.develop_level
 									where le_use = 'yes'
 									order by le_id asc");
-                        while($ob=mysql_fetch_array($sec)){
+                        while($ob=mysqli_fetch_array($sec)){
 							if($rDevelop['le_id'] == $ob['le_id']){
-                            	print "<option value=".$ob[le_id]." selected>- ".$ob['le_title']." -</option>";
+                            	print "<option value=".$ob['le_id']." selected>- ".$ob['le_title']." -</option>";
 							}else{
-								print "<option value=".$ob[le_id].">- ".$ob['le_title']." -</option>";
+								print "<option value=".$ob['le_id'].">- ".$ob['le_title']." -</option>";
 							}
                         }
                         ?>                 
@@ -211,14 +217,14 @@ include('../inc/navbar02-inc.php');
                     <div class="form-group"><select name="ss_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                     	<option value="">&raquo; เลือกรายการ</option>
                         <?php
-                        $sec=mysql_query("select * from $db_eform.sub_strategic
+                        $sec=mysqli_query($condb, "select * from $db_eform.sub_strategic
 									where ss_use = 'yes'
 									order by id asc");
-                        while($ob=mysql_fetch_array($sec)){
+                        while($ob=mysqli_fetch_array($sec)){
 							if($rDevelop['ss_id'] == $ob['id']){
-                            	print "<option value=".$ob[id]." selected>- ".$ob['nameth']." -</option>";
+                            	print "<option value=".$ob['id']." selected>- ".$ob['nameth']." -</option>";
 							}else{
-								print "<option value=".$ob[id].">- ".$ob['nameth']." -</option>";
+								print "<option value=".$ob['id'].">- ".$ob['nameth']." -</option>";
 							}
                         }
                         ?>                 
@@ -231,14 +237,14 @@ include('../inc/navbar02-inc.php');
                     <div class="form-group"><select name="sf_id" class="form-control select select-primary select-sm" data-toggle="select" required>
                     	<option value="">&raquo; เลือกรายการ</option>
                         <?php
-                        $sec=mysql_query("select * from $db_eform.strategic_faculty
+                        $sec=mysqli_query($condb, "select * from $db_eform.strategic_faculty
 									where sf_use = 'yes'
 									order by sf_id asc");
-                        while($ob=mysql_fetch_array($sec)){
+                        while($ob=mysqli_fetch_array($sec)){
 							if($rDevelop['sf_id'] == $ob['sf_id']){
-                            	print "<option value=".$ob[sf_id]." selected>- ".$ob['sf_name']." -</option>";
+                            	print "<option value=".$ob['sf_id']." selected>- ".$ob['sf_name']." -</option>";
 							}else{
-								print "<option value=".$ob[sf_id].">- ".$ob['sf_name']." -</option>";
+								print "<option value=".$ob['sf_id'].">- ".$ob['sf_name']." -</option>";
 							}
                         }
                         ?>                 
@@ -275,8 +281,8 @@ include('../inc/navbar02-inc.php');
                         	<div class="form-group">
                                 <label class="control-label"><strong>จากแหล่งเงิน:</strong></label>
                                 <?php
-                                $qBudget=mysql_query("select * from $db_eform.develop_form_budget where dev_id='$rDevelop[dev_id]'");
-								while($rBudget=mysql_fetch_assoc($qBudget)){
+                                $qBudget=mysqli_query($condb, "select * from $db_eform.develop_form_budget where dev_id='$rDevelop[dev_id]'");
+								while($rBudget=mysqli_fetch_assoc($qBudget)){
 									$bt_id[]=$rBudget['bt_id'];
 									$bt_dev_pay01[$rBudget['bt_id']]=$rBudget['dev_pay01'];
 									$bt_dev_pay02[$rBudget['bt_id']]=$rBudget['dev_pay02'];
@@ -286,12 +292,12 @@ include('../inc/navbar02-inc.php');
                                 <table class="table">
                                     <tbody>
                                         <?php
-                                        $sql=mysql_query("select * from $db_eform.develop_payfrom as t1 
+                                        $sql=mysqli_query($condb, "select * from $db_eform.develop_payfrom as t1 
 											inner join $db_eform.budtype as t2 on(t1.pf_id=t2.pf_id)
                                                 where t1.pf_use='yes'
                                                 order by t1.pf_id asc,
 												t2.bt_id asc");
-                                        while($ob=mysql_fetch_assoc($sql)){
+                                        while($ob=mysqli_fetch_assoc($sql)){
                                             if(@in_array($ob['bt_id'], $bt_id)){
 												print '<tr>
 															<td><label class="checkbox primary"><input name="bt_id[]" type="checkbox" value="'.$ob['bt_id'].'" data-toggle="checkbox" checked '.$disbled.'> '.$ob['bt_name'].'</label></td>
@@ -315,8 +321,8 @@ include('../inc/navbar02-inc.php');
                             <div class="form-group">
                                 <label class="control-label"><strong>โดยแบ่งเป็นค่าใช้จ่าย:</strong></label>
                                 <?php
-									$qCost=mysql_query("select * from $db_eform.develop_form_cost where dev_id='$rDevelop[dev_id]'");
-									while($rCost=mysql_fetch_assoc($qCost)){
+									$qCost=mysqli_query($condb, "select * from $db_eform.develop_form_cost where dev_id='$rDevelop[dev_id]'");
+									while($rCost=mysqli_fetch_assoc($qCost)){
 										$ct_id[]=$rCost['ct_id'];
 										$ct_dev_pay01[$rCost['ct_id']]=$rCost['dev_pay01'];
 										$ct_dev_pay02[$rCost['ct_id']]=$rCost['dev_pay02'];
@@ -326,11 +332,11 @@ include('../inc/navbar02-inc.php');
                                 <table class="table">
                                     <tbody>
                                 <?php
-                                $sql=mysql_query("select * from $db_eform.develop_cost_type
+                                $sql=mysqli_query($condb, "select * from $db_eform.develop_cost_type
                                         where ct_use='yes'
                                         and ct_id<>'0'
                                         order by ct_id asc");
-                                while($ob=mysql_fetch_assoc($sql)){
+                                while($ob=mysqli_fetch_assoc($sql)){
                                     if(@in_array($ob['ct_id'],$ct_id)){
 										print '<tr>
 													<td><label class="checkbox primary"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox" checked '.$disbled.'> '.$ob['ct_title'].'</label></td>
@@ -362,30 +368,30 @@ include('../inc/navbar02-inc.php');
                     	<div id="personelJoin" class="form-group">
 							<?php
 							$peridJoin=array();
-							$qPerjoin=mysql_query("select * from $db_eform.develop_course_personel where dev_id='$rDevelop[dev_id]'");
-							while($rPerjoin=mysql_fetch_assoc($qPerjoin)){
+							$qPerjoin=mysqli_query($condb, "select * from $db_eform.develop_course_personel where dev_id='$rDevelop[dev_id]'");
+							while($rPerjoin=mysqli_fetch_assoc($qPerjoin)){
 								$peridJoin[]=$rPerjoin['per_id'];
 							}
 							
                                 echo '<ul>';
                                 
-                                $sql=mysql_query("select * from $db_eform.department_type as t1
+                                $sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
                                     inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
                                     order by convert(t1.typ_name using tis620) asc,
                                     convert(t2.dp_name using tis620) asc");
-                                while($ob=mysql_fetch_assoc($sql)){
+                                while($ob=mysqli_fetch_assoc($sql)){
 									
 									if($_SESSION['ses_per_dept']==$ob['dp_id']){ $collapsed='';}else{$collapsed='collapsed';}//open or close
                                         echo '<li class="'.$collapsed.'"><label class="checkbox"><input type="checkbox"> <strong>'.$ob['dp_name'].'</strong></label>
                                             <ul>';						
-                                            $sql02=mysql_query("SELECT * FROM $db_eform.personel_muerp as t1
+                                            $sql02=mysqli_query($condb, "SELECT * FROM $db_eform.personel_muerp as t1
                                                 inner join $db_eform.job as t2 on(t1.job_id=t2.job_id)
                                                 inner join $db_eform.personel_status as t3 on(t1.per_status=t3.ps_id)
                                                 where t3.ps_flag='1'
                                                 and t1.per_dept='$ob[dp_id]'
                                                 order by convert(t1.per_fnamet using tis620) asc,
                                                 convert(t1.per_lnamet using tis620) asc");
-                                            while($ob02=mysql_fetch_assoc($sql02)){
+                                            while($ob02=mysqli_fetch_assoc($sql02)){
 												//if($ob02['per_id'] == $_SESSION['ses_per_id']){
 												if(@in_array($ob02['per_id'],$peridJoin)){
 													echo '<li><label class="checkbox"><input type="checkbox" value="'.$ob02['per_id'].'" name="per_id[]" checked required> '.$ob02['per_pname'].$ob02['per_fnamet'].' '.$ob02['per_lnamet'].' ('.$ob02['job_name'].')</label></li>';
@@ -562,3 +568,5 @@ $(document).ready(function(e) {
 		
 });
 </script>
+</body>
+</html>

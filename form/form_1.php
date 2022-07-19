@@ -325,11 +325,11 @@ include('../admin/compcode/include/function.php');
             </div><!--col-->
         </div><!--row-->
                                     
-        <hr>         
         <input name="dev_maintype" type="hidden" value="<?php print $_GET['dm_id'];?>" />
         <input name="action" type="hidden" value="save" />
-        <input class="btn btn-primary btn-block" type="submit" value="บันทึกแบบฟอร์ม">
+        <button class="btn btn-primary btn-block" type="submit">บันทึกแบบฟอร์ม</button>
     </form>
+    <hr>
 
 </div><!--container-->
 

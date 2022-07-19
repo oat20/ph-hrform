@@ -587,7 +587,7 @@ function blockcontent($color,$title,$inc){
 }
 function blockcontent_withfooter($color,$title,$inc,$footer){
 	print '<div class="panel panel-'.$color.'">';
-		print '<div class="panel-heading"><h3 class="panel-title font-20">'.$title.'</h3></div>';
+		print '<div class="panel-heading"><h3 class="panel-title">'.$title.'</h3></div>';
 		print "<div class='panel-body'>";
 			print $inc;
 		print "</div>";

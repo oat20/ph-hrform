@@ -1,9 +1,10 @@
 <?php
 include('../admin/compcode/include/config.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 
-$sql=mysql_query("select * from $db_eform.develop
+$sql=mysqli_query($condb, "select * from $db_eform.develop
 			inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
 			inner join $db_eform.sub_strategic on (develop.ss_id = sub_strategic.id)
 			inner join $db_eform.strategic_faculty on (develop.sf_id = strategic_faculty.sf_id)
@@ -11,7 +12,7 @@ $sql=mysql_query("select * from $db_eform.develop
 			inner join $db_eform.develop_level as t7 on(develop.le_id=t7.le_id)
 			inner join $db_eform.develop_type as t8 on(develop.dev_type=t8.dvt_id)
 			where develop.dev_trackid='$_GET[getTrackid]'");
-$ob=mysql_fetch_assoc($sql);
+$ob=mysqli_fetch_assoc($sql);
 $dev_bookfrom=explode('+',$ob['dev_bookfrom']);
 
 $content='<table>
@@ -49,24 +50,24 @@ $content.='<table border="1">
 						<tr>
 							<td width="50%">
 								<ol>';
-									$sql03=mysql_query("select * from $db_eform.develop_form_budget
+									$sql03=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 									inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 									inner join $db_eform.develop_payfrom as t3 on(budtype.pf_id=t3.pf_id)
 									where develop_form_budget.dev_id='$ob[dev_id]'
 									order by t3.pf_id asc, 
 									budtype.bt_id asc");
-									while($ob03=mysql_fetch_assoc($sql03)){
+									while($ob03=mysqli_fetch_assoc($sql03)){
 										$content.='<li>'.$ob03['pf_title'].' &raquo; '.$ob03['bt_name'].' '.number_format($ob03['dev_pay01']).' บาท</li>';
 									}
 								$content.='</ol>
 							</td>
 							<td width="50%">
 								<ol>';
-									$sql04=mysql_query("select * from $db_eform.develop_form_cost
+									$sql04=mysqli_query($condb, "select * from $db_eform.develop_form_cost
 									inner join $db_eform.develop_cost_type on (develop_form_cost.ct_id=develop_cost_type.ct_id)
 									where develop_form_cost.dev_id='$ob[dev_id]'
 									order by develop_cost_type.ct_id asc");
-									while($ob04=mysql_fetch_assoc($sql04)){
+									while($ob04=mysqli_fetch_assoc($sql04)){
 										$content.='<li>'.$ob04['ct_title'].' '.number_format($ob04['dev_pay01']).' บาท</li>';
 									}
 								$content.='</ol>
@@ -93,8 +94,8 @@ $content.='<table>
 						<td width="60%">';
 							
 							if($ob['dev_cancel']=='yes'){
-								$qCancel=mysql_query("select * from $db_eform.develop_cancel where dev_id='$ob[dev_id]'");
-								$rCancel=mysql_fetch_assoc($qCancel);
+								$qCancel=mysqli_query($condb, "select * from $db_eform.develop_cancel where dev_id='$ob[dev_id]'");
+								$rCancel=mysqli_fetch_assoc($qCancel);
 								$content.='<strong>เหตุผลยกเลิก</strong><br>'.$rCancel['cc_comment'];
 							}
 						
@@ -148,12 +149,12 @@ $content.='<table border="1" class="font-12">
 
 //บุคลากรผู้เข้าร่วม
 $personelJoin='';
-$sqlPersonel=mysql_query("select * from $db_eform.personel_muerp
+$sqlPersonel=mysqli_query($condb, "select * from $db_eform.personel_muerp
 							inner join $db_eform.develop_course_personel on (personel_muerp.per_id=develop_course_personel.per_id)
 							where develop_course_personel.dev_id='$ob[dev_id]'
 							order by convert(personel_muerp.per_fnamet using tis620) asc,
 							convert(personel_muerp.per_lnamet using tis620) asc");
-					while($obPersonel=mysql_fetch_assoc($sqlPersonel)){
+					while($obPersonel=mysqli_fetch_assoc($sqlPersonel)){
 						$personelJoin.=$obPersonel['per_pname'].$obPersonel['per_fnamet'].' '.$obPersonel['per_lnamet'].', ';
 					}
 $content.='<p class="font-12"><strong>บุคลากรผู้เข้าร่วม</strong> '.substr($personelJoin,'0','-2').'<p>';

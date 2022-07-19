@@ -3,6 +3,7 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -10,17 +11,18 @@ include('../admin/compcode/include/function.php');
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title><?php echo $titlebar['title'];?></title>
+<title>แบบขออนุมัติปฎิบัติงานบริการวิชาการ</title>
 <?php include('../lib/css-inc.php');?>
 </head>
 
 <body>
+	<?php require_once './navbar-academicservice-inc.php';?>
 <div class="container-fluid">
 	<div class="space1"></div>
 	<div class="row">
     	<div class="col-sm-12">
         	<?php
-			$sql=mysql_query("select *, develop.dev_id as dev_id
+			$sql=mysqli_query($condb, "select *, develop.dev_id as dev_id
 			 from $db_eform.develop
 			inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
 			inner join $db_eform.develop_level on (develop.le_id = develop_level.le_id)
@@ -30,7 +32,7 @@ include('../admin/compcode/include/function.php');
 			left join $db_eform.develop_cancel as t11 on(develop.dev_id=t11.dev_id)
 			left join $db_eform.develop_type as t13 on(develop.dev_type=t13.dvt_id)
 			where develop.dev_id='$_GET[getDevid]'");
-			$ob=mysql_fetch_assoc($sql);
+			$ob=mysqli_fetch_assoc($sql);
 			$dev_bookfrom=explode('+',$ob['dev_bookfrom']);
 
 			$inc='<div class="btn-group" role="group" id="navi4">
@@ -80,11 +82,11 @@ include('../admin/compcode/include/function.php');
 											</tr>
 										</thead>
 										<tbody>';
-										$sql03=mysql_query("select * from $db_eform.develop_form_budget
+										$sql03=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 											inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 											where develop_form_budget.dev_id='$ob[dev_id]'
 											order by budtype.bt_id asc");
-										while($rs03=mysql_fetch_assoc($sql03)){
+										while($rs03=mysqli_fetch_assoc($sql03)){
 											$inc.='<tr>
 														<td>'.$rs03['bt_name'].'</td>
 														<td>'.$rs03['dev_pay01'].'</td>
@@ -115,11 +117,11 @@ include('../admin/compcode/include/function.php');
 											</tr>
 										</thead>
 										<tbody>';
-										$sql04=mysql_query("select * from $db_eform.develop_form_cost
+										$sql04=mysqli_query($condb, "select * from $db_eform.develop_form_cost
 									inner join $db_eform.develop_cost_type on (develop_form_cost.ct_id=develop_cost_type.ct_id)
 									where develop_form_cost.dev_id='$ob[dev_id]'
 									order by develop_cost_type.ct_id asc");
-									while($ob04=mysql_fetch_assoc($sql04)){
+									while($ob04=mysqli_fetch_assoc($sql04)){
 											$inc.='<tr>
 														<td>'.$ob04['ct_title'].'</td>
 														<td>'.$ob04['dev_pay01'].'</td>
@@ -145,12 +147,12 @@ include('../admin/compcode/include/function.php');
 								<strong>รายชื่อผู้เข้าร่วม</strong>
 								<ol>';
 								
-								$sql03=mysql_query("select * from $db_eform.develop_course_personel as t1
+								$sql03=mysqli_query($condb, "select * from $db_eform.develop_course_personel as t1
 									inner join $db_eform.personel_muerp as t2 on(t1.per_id=t2.per_id)
 									where t1.dev_id='$ob[dev_id]'
 									order by convert(t2.per_fnamet using tis620) asc,
 									convert(t2.per_lnamet using tis620) asc");
-								while($ob03=mysql_fetch_assoc($sql03)){
+								while($ob03=mysqli_fetch_assoc($sql03)){
 								  $inc.='<li>'.$ob03['per_fnamet'].'&nbsp;&nbsp;'.$ob03['per_lnamet'].'</li>';
 								}
 								
@@ -159,18 +161,23 @@ include('../admin/compcode/include/function.php');
 						</div>
 					</div>';
 			
-			$sql02=mysql_query("select * from $db_eform.develop as t1
+			$sql02=mysqli_query($condb, "select * from $db_eform.develop as t1
 				inner join $db_eform.personel_muerp as t2 on(t1.dev_createby=t2.per_id)
 				where t1.dev_id='$ob[dev_id]'");
-			$ob02=mysql_fetch_assoc($sql02);
-			$footer='<div class="clearfix"><div class="pull-left">Form No. '.$ob['dev_id'].'</div><div class="pull-right">แก้ไขล่าสุดเมื่อ '.dateFormat_02($ob02['dev_modify']).' โดย '.$ob02['per_fnamet'].' '.$ob02['per_lnamet'].'</div></div>';
+			$ob02=mysqli_fetch_assoc($sql02);
+			$footer='<div class="clearfix"><div class="pull-left text-uppercase">Ref. ID '.$ob['dev_id'].'</div><div class="pull-right">แก้ไขล่าสุดเมื่อ '.dateFormat_02($ob02['dev_modify']).' โดย '.$ob02['per_fnamet'].' '.$ob02['per_lnamet'].'</div></div>';
 			
-			echo blockcontent_withfooter($color,'รายละเอียดแบบฟอร์ม',$inc,$footer);
+			echo blockcontent_withfooter($color,'แบบขออนุมัติปฎิบัติงานบริการวิชาการ',$inc,$footer);
 			?>
         </div><!--col-->
     </div><!--row-->
 </div><!--container-->
 
 <?php include('../lib/js-inc.php');?>
+<script>
+$(document).ready(function() {
+	$('.navbar-nav li:eq(2)').addClass('active');
+} );
+</script>
 </body>
 </html>

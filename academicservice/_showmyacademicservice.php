@@ -119,12 +119,12 @@ while($rs=mysqli_fetch_array($exec)){
             <i class="fa fa-ellipsis-v"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li><a href="formdetail.php?getDevid=<?php echo $rs['dev_id'];?>"><i class="glyphicon glyphicon-list"></i> รายละเอียดแบบฟอร์ม</a></li> 
+            <li><a href="formdetail.php?getDevid=<?php echo $rs['dev_id'];?>"><i class="glyphicon glyphicon-list"></i> รายละเอียดแบบฟอร์ม</a></li>
             <?php
-			if($rs['dev_approve']=='wait'){
-				print '<li><a href="editform_1.php?getTrackid='.$rs['dev_trackid'].'" title="แก้ไข" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-pencil fa-fw"></i> แก้ไขแบบฟอร์ม</a></li>
-				<li><a href="form-cancel.php?dev_id='.$rs['dev_id'].'"><i class="fa fa-close fa-fw"></i> ยกเลิกแบบฟอร์ม</a></li>';
-			}
+			//if($rs['dev_approve']=='wait'){
+				print '<li><a href="editform_1.php?getTrackid='.$rs['dev_trackid'].'"><i class="fa fa-pencil fa-fw"></i> แก้ไขแบบฟอร์ม</a></li>';
+				echo '<li><a href="form-cancel.php?dev_id='.$rs['dev_id'].'"><i class="fa fa-ban fa-fw"></i> ยกเลิกแบบฟอร์ม</a></li>';
+			//}
 			?>
         	</ul>
         </div>

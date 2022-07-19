@@ -26,6 +26,7 @@ if($_POST['action'] == 'update'){
 	
 	if(isset($_POST['per_pname']) and isset($_POST['per_fnamet']) and isset($_POST['per_lnamet']) and isset($_POST['per_dept']) and isset($_POST['mumail'])){
 	
+		mysqli_autocommit($condb, false);
 	//$per_username = explode('@',$_POST["mumail"]);
 	
 	$sql="update $db_eform.personel_muerp set 
@@ -76,6 +77,9 @@ if($_POST['action'] == 'update'){
 			print warning3_linkin('danger', '<i class="fa fa-exclamation"></i> Warning', 'ไม่สามารถบันทึกข้อมูลได้', $livesite.'profile/form_changepw.php', '<i class="fa fa-angle-double-left"></i> Go Back', 'text-left');
 			print '<meta http-equiv="refresh" content="3; URL=form_changepw.php">';
 		}
+
+		mysqli_commit($condb);
+		mysqli_rollback($condb);
 	
 	}else{
 		//print warning('danger','<i class="fa fa-exclamation"></i> Warning','ไม่สามารถบันทึกข้อมูลได้');
@@ -86,6 +90,9 @@ if($_POST['action'] == 'update'){
 	}
 	
 }else if($_POST['action']=='changepass'){
+
+	mysqli_autocommit($condb, false);
+
 	$newpass=base64_encode($_POST['newPass']);
 	$sql="update $db_eform.personel_muerp 
 		set per_password='$newpass' 
@@ -95,8 +102,12 @@ if($_POST['action'] == 'update'){
 		print warning2_linkin('success', '<i class="fa fa-check"></i>', 'เปลี่ยนรหัสผ่านใหม่เรียบร้อย', $livesite.'profile/profile.php', '<i class="fa fa-angle-double-left"></i> Go Back', '');
 		print '<meta http-equiv="refresh" content="3; URL=profile.php">';  		
 	}
+	
+	mysqli_commit($condb);
+	mysqli_rollback($condb);
 }
 
+mysqli_close($condb);
 
 print '</div>';
 
