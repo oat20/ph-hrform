@@ -38,8 +38,6 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 	}else{
 		$_POST['typ_id'] = $rs_devtype['dvt_id'];
 	}
-
-	mysqli_commit($condb);
 		
 		//insert tb develop
 				$sql1="insert into $db_eform.develop (dev_id, 
@@ -169,7 +167,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		if(!empty($_FILES['file']['name'])){
 			$dev_filename = $dev_id.'-'.date('YmdHis').random_password(2).attachDocType($_FILES['file']['type']);
 			mysqli_query($condb, "insert into $db_eform.develop_attachment 
-				values ('$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]')
+				values ('$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]', 'ATTACHMENT')
 			");
 			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
 		}
@@ -186,6 +184,8 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 					'Create', 
 					'".$_SERVER['REMOTE_ADDR']."')";
 		mysqli_query($condb, $sql2);
+
+		mysqli_commit($condb);
 		
 		mysqli_rollback($condb);
 		mysqli_close($condb);

@@ -1,21 +1,16 @@
 <?php
 session_start();
 include "../admin/compcode/include/config.php"; 
-?>
-<!doctype html>
-<html lang="en">
-	<head>
-<?php 
 include('../admin/compcode/check_login.php');
 require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
-<body bgcolor="#5c7094" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!doctype html>
+<html lang="en">
+	<head>
 <meta charset="utf-8">
-<?php
-include('../lib/css-inc.php');
-?>
+<?php include('../lib/css-inc.php');?>
 </head>
 <body>
 <?php
@@ -27,8 +22,29 @@ mysqli_autocommit($condb, false);
 if($_POST['action'] == 'update'){
 	
 	if(isset($_POST['per_pname']) and isset($_POST['per_fnamet']) and isset($_POST['per_lnamet']) and isset($_POST['per_dept']) and isset($_POST['mumail'])){
+
+		$job_name = mysqli_real_escape_string($condb, $_POST['job_id']);
+		$ja_name = mysqli_real_escape_string($condb, $_POST['ja_id']);
 	
-	//$per_username = explode('@',$_POST["mumail"]);
+	$sql_job = mysqli_query($condb, "select job_id from $db_eform.job where job_name like '$job_name' order by rand() limit 1");
+	$row_job = mysqli_fetch_array($sql_job);
+	if($row_job['job_id'] != ''){
+		$job_id2 = $row_job['job_id'];
+	}else{
+		$job_id = date('YmdHis').random_password(2);
+		mysqli_query($condb, "insert into $db_eform.job (job_id, job_name) values ('$job_id', '$job_name')");
+		$job_id2 = $job_id;
+	}
+
+	$sql_ja = mysqli_query($condb, "select ja_id from $db_eform.job_academic where ja_name like '$ja_name' order by rand() limit 1");
+	$row_ja = mysqli_fetch_array($sql_ja);
+	if($row_ja['ja_id'] != ''){
+		$ja_id2 = $row_ja['ja_id'];
+	}else{
+		$ja_id = date('YmdHis').random_password(2);
+		mysqli_query($condb, "insert into $db_eform.job_academic (ja_id, ja_name) values ('$ja_id', '$ja_name')");
+		$ja_id2 = $ja_id;
+	}
 	
 	$sql="update $db_eform.personel_muerp set 
 		per_pname = '$_POST[per_pname]',
@@ -44,7 +60,9 @@ if($_POST['action'] == 'update'){
 		per_modifyfrom = '$_SERVER[REMOTE_ADDR]',
 		per_telin='$_POST[per_telin]',
 		per_tel='$_POST[per_tel]',
-		per_no='".base64_encode($_POST['per_no'])."'
+		per_no='".base64_encode($_POST['per_no'])."',
+		job_id = '$job_id2',
+		ja_id = '$ja_id2'
 		where per_id = '$_POST[per_id]'";
 	$rs = mysqli_query($condb, $sql);
 	
@@ -94,7 +112,7 @@ if($_POST['action'] == 'update'){
 		set per_password='$newpass' 
 		where per_id='$_SESSION[ses_per_id]'";
 	$result=mysqli_query($condb, $sql);
-	if($result and mysqli_connect($condb)){		
+	if($result and mysqli_commit($condb)){		
 		print warning2_linkin('success', '<i class="fa fa-check"></i>', 'เปลี่ยนรหัสผ่านใหม่เรียบร้อย', $livesite.'profile/profile.php', '<i class="fa fa-angle-double-left"></i> Go Back', '');
 		print '<meta http-equiv="refresh" content="3; URL=profile.php">';  		
 	}
