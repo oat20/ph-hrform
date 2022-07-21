@@ -118,6 +118,13 @@ $cf_devnopay=array(
 	"0"=>"ขออนุมัติค่าใช้จ่าย"
 );
 
+//เส้นทางไหลของเอกสาร
+$cf_member_docroute = array(
+	"A" => "ระดับปฏิบัติการ",
+	"B" => "หัวหน้าภาควิชา / หัวหน้างาน",
+	"C" => "ระดับบริหารงาน"
+);
+
 //smtp mu mailserver
 ini_set('SMTP', 'mumail.mahidol.ac.th');
 ini_set('smtp_port', '25');

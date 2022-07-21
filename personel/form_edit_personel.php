@@ -3,43 +3,39 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!doctype html>
+<html lang="en">
+	<head>
 <meta charset="utf-8">
 <?php include('../lib/css-inc.php');?>
-<body>
+	</head>
+	<body>
  <?php include('../inc/navbar02-inc.php');?>
  
-<div class="container-fluid">
+<div class="container">
 
 	<div class="row">
-    	<div class="col-sm-8">
+    	<div class="col-sm-12">
 
 	<FORM name="form" action="load_insertpersonel.php" enctype="multipart/form-data"  method="post"  id="defaultForm">
 	<div class="panel panel-default">
-    	<div class="panel-heading clearfix">
-        	<h3 class="panel-title pull-left"><a href="show_allpersonel.php"><i class="fa fa-arrow-left"></i> แก้ไขข้อมูลบุคลากร</a></h3>
-            <div class="pull-right"><button type="submit" class="btn btn-link btn-lg"><i class="fa fa-check"></i> Save</button></div>
+    	<div class="panel-heading">
+        	<h3 class="panel-title"><a href="show_allpersonel.php"><i class="fa fa-arrow-left fa-fw"></i> แก้ไขข้อมูลบุคลากร</a></h3>
         </div>
     	<!--<div class="panel-body">-->
         	<?php
-			$sql01=mysql_query("select * from $db_eform.personel_muerp
+			$sql01=mysqli_query($condb, "select * from $db_eform.personel_muerp
+		  		left join $db_eform.job_academic on (personel_muerp.ja_id = job_academic.ja_id)
 				where per_id='$_GET[per_id]'");
-			$ob01=mysql_fetch_assoc($sql01);
+			$ob01=mysqli_fetch_assoc($sql01);
 			?> 
 	<div class="table-responesive"> 
-<table class="table table-striped table1" width="100%">
+<table class="table table-striped" width="100%">
 	<tbody>
-    	<tr>
-        	<td>เลขบัตรประชน หรือเลขหนังสือเดินทาง:</td>
-            <td>
-            	<div class="form-group">
-                	<input type="text" name="per_no" class="form-control" value="<?php echo base64_decode($ob01['per_no']);?>" required />
-                </div>
-            </td>
-        </tr>
         <tr>
           <th class="td1" background="../admin/compcode/picture/bar07.jpg">คำนำหน้าชื่อภาษาไทย</th>
           <td class="td2"><div class="form-group"><input name="per_pname" type="text" id="per_pname" value="<?php echo $ob01['per_pname']; ?>" size="10" class="form-control" required></div>
@@ -90,8 +86,8 @@ include('../admin/compcode/include/function.php');
 				inner join $db_eform.department_type on (tb_orgnew.typ_id = department_type.typ_id)
 				where tb_orgnew.dp_id = '$_SESSION[ses_per_dept]'";
 			}
-			$rs=mysql_query($sql);
-			while($ob=mysql_fetch_assoc($rs)){
+			$rs=mysqli_query($condb, $sql);
+			while($ob=mysqli_fetch_assoc($rs)){
 				if($ob01['per_dept'] == $ob['dp_id']){
 					print "<option value='".$ob["dp_id"]."' selected>- ".$ob['typ_name'].' &raquo; '.$ob["dp_name"]." -</option>";
 				}else{
@@ -108,8 +104,8 @@ include('../admin/compcode/include/function.php');
                           <div class="form-group">
                             <select data-toggle="select" class="form-control select select-primary mrs" name="job_id" required>
                                 <?php
-                                $sql=mysql_query("select * from $db_eform.job where job_status=1 order by convert(job_id using tis620) asc");
-                                while($rs=mysql_fetch_assoc($sql)){
+                                $sql=mysqli_query($condb, "select * from $db_eform.job where job_status=1 order by convert(job_id using tis620) asc");
+                                while($rs=mysqli_fetch_assoc($sql)){
 									if($ob01['job_id'] == $rs['job_id']){
                                     	echo '<option value="'.$rs['job_id'].'" selected>'.$rs['job_id'].' - '.$rs['job_name'].'</option>';
 									}else{
@@ -121,18 +117,26 @@ include('../admin/compcode/include/function.php');
                           </div>
                           </td>
                           </tr>
+						  <tr>
+							<th>ตำแหน่งวิชาการ</th>
+							<td>
+								<div class="form-group">
+									<input type="text" name="ja_name" class="form-control" value="<?php echo $ob01['ja_name'];?>">
+								</div>
+							</td>
+						  </tr>
     <tr>
     	<td><strong>ตำแหน่งด้านบริหารงาน (ถ้ามี):</strong></td>
         <td>
         	<div class="form-group">
                 <select data-toggle="select" class="form-control select select-primary" name="jobs_id" required>
                 	<?php
-					$sql=mysql_query("SELECT * 
+					$sql=mysqli_query($condb, "SELECT * 
 						FROM  $db_eform.job_special
 						where jobs_status = '1'
 						ORDER BY CONVERT( jobs_id
 						USING tis620 ) ASC");
-					while($rs=mysql_fetch_assoc($sql)){
+					while($rs=mysqli_fetch_assoc($sql)){
 						if($ob01['jobs_id'] == $rs['jobs_id']){
 							echo '<option value="'.$rs['jobs_id'].'" selected>'.$rs['jobs_id'].' - '.$rs['jobs_name'].'</option>';
 						}else{
@@ -150,8 +154,8 @@ include('../admin/compcode/include/function.php');
               	<select name="per_type" class="form-control select select-inverse select-sm" data-toggle="select" required>
                 	<!--<option value="">&raquo;</option>-->
                 	<?php
-					$sql = mysql_query("select * from $db_eform.personel_type where pert_status = '1' order by convert (pert_id using tis620) asc");
-					while($rs = mysql_fetch_assoc($sql))
+					$sql = mysqli_query($condb, "select * from $db_eform.personel_type where pert_status = '1' order by convert (pert_id using tis620) asc");
+					while($rs = mysqli_fetch_assoc($sql))
 					{
 						if($ob01['per_type'] == $rs['pert_id']){
 							print "<option value='".$rs['pert_id']."' selected>".$rs['pert_id']." - ".$rs['pert_name']."</option>";
@@ -169,8 +173,8 @@ include('../admin/compcode/include/function.php');
               	<div class="form-group">
               	<select name="per_group" class="form-control select select-inverse select-sm" data-toggle="select" required>
                 	<?php
-					$sql = mysql_query("select * from $db_eform.personel_group where gr_use = 'yes' order by convert (gr_id using tis620) asc");
-					while($rs = mysql_fetch_assoc($sql))
+					$sql = mysqli_query($condb, "select * from $db_eform.personel_group where gr_use = 'yes' order by convert (gr_id using tis620) asc");
+					while($rs = mysqli_fetch_assoc($sql))
 					{
 						if($ob01['per_group'] == $rs['gr_id']){
 							print "<option value='".$rs['gr_id']."' selected>".$rs['gr_id']." - ".$rs['gr_title']."</option>";
@@ -189,8 +193,8 @@ include('../admin/compcode/include/function.php');
           	<div class="form-group">
                 	<div class="row">
                     	<?php
-						$sql = mysql_query("select * from $db_eform.personel_sex where sex_use = 'yes' order by sex_id asc");
-						while($rs = mysql_fetch_assoc($sql)){
+						$sql = mysqli_query($condb, "select * from $db_eform.personel_sex where sex_use = 'yes' order by sex_id asc");
+						while($rs = mysqli_fetch_assoc($sql)){
 							if($ob01['per_sex'] == $rs['sex_id']){
 								echo '<div class="col-sm-3">
 											<label class="radio">
@@ -238,8 +242,8 @@ include('../admin/compcode/include/function.php');
           <td><div class="form-group">
               	<select name="per_status" class="form-control select select-inverse" data-toggle="select" required>
                 	<?php
-					$sql = mysql_query("select * from $db_eform.personel_status where ps_use = 'yes' order by ps_id asc");
-					while($rs = mysql_fetch_assoc($sql))
+					$sql = mysqli_query($condb, "select * from $db_eform.personel_status where ps_use = 'yes' order by ps_id asc");
+					while($rs = mysqli_fetch_assoc($sql))
 					{
 						if($ob01['per_status'] == $rs['ps_id']){
 							print "<option value='".$rs['ps_id']."' selected>- ".$rs['ps_title']." -</option>";
@@ -259,10 +263,10 @@ include('../admin/compcode/include/function.php');
                <th colspan="2" class="th1"><span class="boldwhite_14">ข้อมูลการศึกษาสูงสุด</span></th>
              </tr>
              <?php
-			 $sql02=mysql_query("select * from $db_eform.education
+			 $sql02=mysqli_query($condb, "select * from $db_eform.education
 			 	where ed_perid='$ob01[per_id]'
 				and ed_id='$_GET[ed_id]'");
-			$ob02=mysql_fetch_assoc($sql02);
+			$ob02=mysqli_fetch_assoc($sql02);
 			 ?>
              <tr>
                <th class="td1">ระดับการศึกษา</th>
@@ -270,10 +274,10 @@ include('../admin/compcode/include/function.php');
                    <div class="form-group">
                    		<select name="dg_id" class="form-control select select-primary" data-toggle="select">
                         	<?php
-							$sql=mysql_query("select * from $db_eform.degree
+							$sql=mysqli_query($condb, "select * from $db_eform.degree
 								where dg_status='1'
 								order by convert(dg_id using tis620) asc");
-							while($ob=mysql_fetch_assoc($sql)){
+							while($ob=mysqli_fetch_assoc($sql)){
 								if($ob02['ed_dgid']==$ob['dg_id']){
 									echo '<option value="'.$ob['dg_id'].'" selected>'.$ob['dg_id'].' - '.$ob['dg_name'].'</option>';
 								}else{
@@ -299,9 +303,9 @@ include('../admin/compcode/include/function.php');
                 	<div class="form-group">
                     	<select name="ed_country" class="form-control select select-primary" data-toggle="select">
                         	<?php
-							$sql=mysql_query("select * from $db_eform.country
+							$sql=mysqli_query($condb, "select * from $db_eform.country
 								order by convert(ct_id using tis620) asc");
-							while($ob=mysql_fetch_assoc($sql)){
+							while($ob=mysqli_fetch_assoc($sql)){
 								if($ob02['ed_country']==$ob['ct_id']){
 									echo '<option value="'.$ob['ct_id'].'" selected>'.$ob['ct_id'].' - '.$ob['ct_name'].'</option>';
 								}else{
@@ -313,6 +317,42 @@ include('../admin/compcode/include/function.php');
                     </div>
                 </td>
              </tr>
+			 <tr>
+                <th>Member Route</th>
+                <td>
+                    <div class="form-group">
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                </td>
+             </tr>
+             <tr>
+                <th>Member Status</th>
+                <td>
+                    <div class="form-group">
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
+                            Option one is this and that&mdash;be sure to include why it's great
+                        </label>
+                </td>
+             </tr>
           </tbody>
   </table>
     </div><!--table-->
@@ -321,7 +361,7 @@ include('../admin/compcode/include/function.php');
         	<input type="hidden" name="action" value="edit">
             <input type="hidden" name="per_id" value="<?php echo $ob01['per_id'];?>">
 			<input type="hidden" name="ed_id" value="<?php print $_GET['ed_id'];?>">
-        	<input type="submit" value="บันทึก" class="btn btn-inverse btn-block">
+        	<button type="submit" class="btn btn-inverse btn-block">บันทึก</button>
         </div>
 	</div><!--panel-->
     </form>

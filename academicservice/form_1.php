@@ -196,7 +196,7 @@ include('../admin/compcode/include/function.php');
                 </div><!--form-group-->
                 
                 <div class="form-group">
-                    <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสาร</label>
+                    <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสารเกี่ยวกับโครงการ</label>
                     <input type="file" name="file" accept="image/jpeg, image/png, application/pdf" required>
                     <span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
                 </div>
@@ -214,9 +214,9 @@ include('../admin/compcode/include/function.php');
 							<?php
                             foreach($cf_devnopay as $k=>$v){
                                 if($k=='1'){
-                                    echo '<label class="radio-inline"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio" checked> '.$v.'</label>';
+                                    echo '<label class="radio"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio" checked> '.$v.'</label>';
                                 }else{
-                                    echo '<label class="radio-inline"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio"> '.$v.'</label>';
+                                    echo '<label class="radio"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio"> '.$v.'</label>';
                                 }
                             }
                             ?>
