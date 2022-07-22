@@ -65,8 +65,8 @@ $cf_yn_msg=array(
 );
 
 $cf_yn_msg02=array(
-	"1"=>array("icon"=>"<i class='fa fa-check'></i>","label"=>"Yes","color"=>"success"),
-	"0"=>array("icon"=>"<i class='fa fa-times'></i>","label"=>"No","color"=>"danger")
+	"1"=>array("icon"=>"<i class='fa fa-check fa-fw'></i>","label"=>"Yes","color"=>"success"),
+	"0"=>array("icon"=>"<i class='fa fa-times fa-fw'></i>","label"=>"No","color"=>"danger")
 );
 
 //เพศ

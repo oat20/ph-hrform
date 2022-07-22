@@ -140,7 +140,8 @@ if($row_ja['ja_id'] != ''){
 			per_email='$_POST[mumail]',
 			per_username='$per_username',
 			per_no='".base64_encode($_POST['per_no'])."',
-			ja_id = '$ja_id2'
+			ja_id = '$ja_id2',
+			per_flag = '$per_flag'
 			where per_id='$_POST[per_id]'";
 			mysqli_query($condb, $sql1);
 			
@@ -174,10 +175,10 @@ if($row_ja['ja_id'] != ''){
 			
 		}else if($_GET['action'] == "remove"){
 			
-			//mysql_query("delete from $db_eform.personel_muerp where per_id='$_GET[per_id]'");
-			//mysql_query("delete from $db_eform.education where ed_id='$_GET[ed_id]'");
-			mysqli_query($condb, "update $db_eform.personel_muerp set per_trash = '1' where per_id = '$_GET[per_id]'");
-			mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_GET[per_id]', 'delete', '$_SERVER[REMOTE_ADDR]')");
+			mysql_query("delete from $db_eform.personel_muerp where per_id='$_GET[per_id]'");
+			mysql_query("delete from $db_eform.education where ed_id='$_GET[ed_id]'");
+			//mysqli_query($condb, "update $db_eform.personel_muerp set per_trash = '1' where per_id = '$_GET[per_id]'");
+			//mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_GET[per_id]', 'delete', '$_SERVER[REMOTE_ADDR]')");
 			header('location: show_allpersonel.php');
 }
  ?>

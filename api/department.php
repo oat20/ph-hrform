@@ -11,8 +11,8 @@ $xml[]="<deps>";
 	$result = mysql_query($sql);
 	while($setinfo = mysql_fetch_array($result)){
 		$xml[]="<dep>";
-			$xml[]="<code>".$setinfo[DeID]."</code>";
-			$xml[]="<name>".$setinfo[Fname]."</name>";
+			$xml[]="<code>".$setinfo['DeID']."</code>";
+			$xml[]="<name>".$setinfo['Fname']."</name>";
 		$xml[]="</dep>";
 	}
 

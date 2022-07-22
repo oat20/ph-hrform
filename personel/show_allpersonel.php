@@ -34,20 +34,7 @@ include('../admin/compcode/include/function.php');
            </div><!--row-->
 		   <hr>
         
-           <!--<div class="panel-group" id="accordionDivision">-->
            		<?php
-				/*$sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
-					inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
-					order by convert(t1.typ_name using tis620) asc,
-					convert(t2.dp_name using tis620) asc");
-				while($ob=mysqli_fetch_assoc($sql)){
-           		echo '<div class="panel panel-info">
-                	<div class="panel-heading">
-                    	<h4 class="panel-title">
-                        	<a role="button" data-toggle="collapse" data-parent="#accordionDivision" href="#'.$ob['dp_id'].'" aria-expanded="true" aria-controls="collapseOne"><i class="fa fa-plus fa-fw"></i> '.$ob['dp_name'].'</a>
-        				</h4>
-                    </div>';
-                    echo '<div id="'.$ob['dp_id'].'" class="panel-collapse collapse">';*/
 						echo '<table class="table table-striped table-bordered" id="tbPersonels">
 							<thead>
 								<tr>
@@ -57,7 +44,7 @@ include('../admin/compcode/include/function.php');
 									<th>ตำแหน่งงาน</th>
 									<th>ตำแหน่งวิชาการ</th>
 									 <th>ตำแหน่งด้านบริหารงาน</th>
-									 <th>สังกัด</th>
+									 <th>ส่วนงาน</th>
 									<th>ประเภท</th>
 									<th>กลุ่ม</th>
 									<th>วันที่บรรจุ</th>
@@ -86,7 +73,10 @@ include('../admin/compcode/include/function.php');
 							</tr>
 						  </tfoot>
 						  <tbody>';
-						  		$sql_1= "SELECT *, a1.per_id, a1.per_img, a1.per_pname, a1.per_fnamet, a1.per_lnamet, a1.per_pname2, a1.per_fnamee, a1.per_lnamee, a2.dp_name, a1.job_id 
+						  		$sql_1= "SELECT *, a1.per_id, a1.per_img, a1.per_pname, a1.per_fnamet, a1.per_lnamet, a1.per_pname2, a1.per_fnamee, a1.per_lnamee, a2.dp_name, a1.job_id,
+									ifnull(t9.count_devid, 0) as count_devid,
+									ifnull(t10.count_cpid, 0) as count_cpid,
+									ifnull(t11.count_devid2, 0) as count_devid2  
 									from $db_eform.personel_muerp as a1
 									inner join $db_eform.tb_orgnew as a2 on (a1.per_dept=a2.dp_id)
 									inner join $db_eform.personel_status on (a1.per_status = personel_status.ps_id)
@@ -98,6 +88,9 @@ include('../admin/compcode/include/function.php');
 									left join $db_eform.education on (a1.per_id = education.ed_perid)
 									left join $db_eform.degree on (education.ed_dgid = degree.dg_id)
 									left join $db_eform.country as t8 on (education.ed_country = t8.ct_id)
+									left join (SELECT dev_perid, COUNT(dev_id) as count_devid from $db_eform.develop group by dev_perid) as t9 on (a1.per_id = t9.dev_perid)
+									left join (SELECT per_id, count(cp_id) as count_cpid from $db_eform.develop_course_personel group by per_id) as t10 on (a1.per_id = t10.per_id)
+									left join (SELECT dev_perid, count(dev_id) as count_devid2 from $db_eform.develop_leave GROUP by dev_perid) as t11 on (a1.per_id = t11.dev_perid)
 									where a1.per_trash = '0'
 									order by a1.per_modify desc";
 								$result_1=mysqli_query($condb, $sql_1);
@@ -105,17 +98,7 @@ include('../admin/compcode/include/function.php');
 									if($rs['per_adddate'] == ''){ $per_adddate = ''; }else{$per_adddate = dateFormat($rs['per_adddate']); }
 									if($rs['ps_flag']=='0'){$tr_class='danger';}else{$tr_class='';}
 
-									$sql_2 = mysqli_query($condb, "SELECT t1.dev_id FROM $db_eform.develop as t1
-										inner join $db_eform.develop_course_personel as t2 on (t1.dev_id = t2.dev_id) 
-										WHERE t1.dev_perid = '".$rs['per_id']."'
-										or t2.per_id = '$rs[per_id]'
-									");
-
-									$sql_count_leave = mysqli_query($condb, "SELECT dev_id FROM $db_eform.develop_leave 
-										WHERE dev_perid = '$rs[per_id]'
-									");
-
-									$link_delete_disable = (mysqli_num_rows($sql_2) or mysqli_num_rows($sql_count_leave) > 0) ? "disabled" : "";
+									$link_delete_disable = ($rs['count_devid'] > 0 or $rs['count_cpid'] > 0 or $rs['count_devid2'] > 0) ? "disabled" : "";
 
 									echo '<tr class="'.$tr_class.'">
 										<td>
@@ -145,13 +128,7 @@ include('../admin/compcode/include/function.php');
 								}
 						  echo '</tbody>';
 						echo '</table>';
-                   /* echo '</div>
-                </div>
-				<!--panel-->';*/
-				//}
 				?>
-           <!--</div>-->
-		   <!--panel-group-->
            
 		</div><!--body-->
 	</div><!--panel-->

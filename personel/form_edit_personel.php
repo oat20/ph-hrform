@@ -36,6 +36,27 @@ include('../admin/compcode/include/function.php');
 	<div class="table-responesive"> 
 <table class="table table-striped" width="100%">
 	<tbody>
+		<tr>
+			<th>PUBLISH</th>
+			<td>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="radio">
+								<input type="radio" data-toggle="radio" name="per_flag" value="1" <?php if($ob01['per_flag']=='1'){ echo "checked"; } ?> required>
+								YES
+							</label>
+						</div>
+						<div class="col-xs-6">
+							<label class="radio">
+								<input type="radio" name="per_flag" value="0" data-toggle="radio" <?php if($ob01['per_flag']=='0'){ echo "checked"; } ?> required>
+								NO
+							</label>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
         <tr>
           <th class="td1" background="../admin/compcode/picture/bar07.jpg">คำนำหน้าชื่อภาษาไทย</th>
           <td class="td2"><div class="form-group"><input name="per_pname" type="text" id="per_pname" value="<?php echo $ob01['per_pname']; ?>" size="10" class="form-control" required></div>
