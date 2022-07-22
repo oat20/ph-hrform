@@ -224,7 +224,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 
 			<div class="well">
 				<h6>Step 1. ตรวจสอบข้อมูลที่ลงทะเบียนไว้</h6>
-				<form id="formSignin2" method="POST">
+				<form id="formSignin2" method="POST" action="<?php print $_SERVER['PHP_SELF'];?>" >
 					<div class="form-group">
 						<label>MU Email</label>
 						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
