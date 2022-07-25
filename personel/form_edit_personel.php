@@ -37,7 +37,7 @@ include('../admin/compcode/include/function.php');
 <table class="table table-striped" width="100%">
 	<tbody>
 		<tr>
-			<th>PUBLISH</th>
+			<th>ENABLE</th>
 			<td>
 				<div class="form-group">
 					<div class="row">

@@ -21,10 +21,7 @@ $queryId = ($id == "") ? "" : " and t1.per_id='$id'";
 		WHERE t1.per_trash = '0'
 		and t3.ps_flag = '1'
 		".$queryId."
-		ORDER BY convert(t1.per_fnamet using tis620),
-		convert(t1.per_lnamet using tis620),
-		t1.per_fnamee,
-		t1.per_lnamee
+		ORDER BY t1.per_modify desc
 	";
 	$query = mysqli_query($condb, $sql);
 	if (!$query) {
