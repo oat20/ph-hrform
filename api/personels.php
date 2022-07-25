@@ -19,7 +19,7 @@ $queryId = ($id == "") ? "" : " and t1.per_id='$id'";
 		left join $db_eform.job_academic as joba on (t1.ja_id = joba.ja_id)
 		left join $db_eform.job_special as jobs on (t1.jobs_id = jobs.jobs_id) 
 		WHERE t1.per_trash = '0'
-		and t3.ps_flag = '1'
+		and t1.per_flag = '1'
 		".$queryId."
 		ORDER BY t1.per_modify desc
 	";
