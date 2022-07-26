@@ -99,19 +99,20 @@ include('../lib/css-inc.php');
       	<div class="form-group">
       	<select name="per_dept" class="form-control select select-inverse" data-toggle="select" required>
       	<?php
-		$rs_org=mysqli_query($condb, "select * from $db_eform.department_type as t1
-						inner join $db_eform.tb_orgnew as t2 on (t1.typ_id = t2.typ_id)
+		$rs_org=mysqli_query($condb, "select * from 
+						$db_eform.tb_orgnew as t2 
+                        left join $db_eform.department_type as t1 on (t1.typ_id = t2.typ_id)
 						order by convert (t1.typ_name using tis620) asc,
 						convert (t2.dp_name using tis620) asc");
 		while($ob_org=mysqli_fetch_array($rs_org))
 		{
 			if($ob_org['dp_id']==$rs_b['per_dept'])
 			{
-				print "<option value=".$ob_org['dp_id']." selected>- ".$ob_org['typ_name'].' &raquo; '.$ob_org['dp_name']." -</option>";
+				print "<option value=".$ob_org['dp_id']." selected>&raquo; ".$ob_org['dp_name']." -</option>";
 			}
 			else
 			{
-				print "<option value=".$ob_org['dp_id'].">- ".$ob_org['typ_name'].' &raquo; '.$ob_org['dp_name']." -</option>";
+				print "<option value=".$ob_org['dp_id'].">&raquo; ".$ob_org['dp_name']." -</option>";
 			}
 		}
 		?>

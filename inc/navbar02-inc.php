@@ -46,7 +46,7 @@
 									
 									<li class="dropdown-header regWhite_12">ข้อมูลบุคลากร</li>
 									<li><a href="'.$livesite.'personel/show_allpersonel.php">ข้อมูลบุคลากร</a></li>
-									<li><a href="'.$livesite.'admin/administrative.php">ผู้บริหาร</a></li>
+									<li><a href="'.$livesite.'admin/administrative.php">ทีมบริหาร</a></li>
 									<li><a href="'.$livesite.'admin/compcode/_show_dep.php">ส่วนงาน</a></li>
                 					<li><a href="'.$livesite.'admin/compcode/_show_type.php">ประเภทบุคลากร</a></li>
             						<li><a href="'.$livesite.'admin/compcode/_show_group.php">กลุ่มบุคลากร</a></li>            
