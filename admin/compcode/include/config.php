@@ -106,8 +106,8 @@ $cf_approve=array(
 );
 
 $cf_cancel_msg=array(
-	"yes"=>array("icon"=>"<i class='fa fa-check'></i>","name"=>"Yes","color"=>"danger"),
-	"no"=>array("icon"=>"<i class='fa fa-minus'></i>","name"=>"No","color"=>"success")
+	"yes"=>array("icon"=>"<i class='fa fa-check fa-fw'></i>","name"=>"Yes","color"=>"danger"),
+	"no"=>array("icon"=>"<i class='fa fa-minus' fa-fw'></i>","name"=>"No","color"=>"success")
 );
 
 $cf_contextual=array("default", "primary", "success", "info", "warning", "danger");

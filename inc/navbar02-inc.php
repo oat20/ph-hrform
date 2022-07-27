@@ -103,7 +103,7 @@
                     	<li class="dropdown-header regWhite_12">ประวัติการขออนุมัติ</li>
                         <li><a href="<?php echo $livesite;?>profile/_showmyproject.php">ปฏิบัติงานพัฒนาบุคลากร</a></li>
                         <li><a href="<?php echo $livesite;?>academicservice/_showmyacademicservice.php">ปฏิบัติงานบริการวิชาการ</a></li>
-                        <li><a href="<?php echo $livesite;?>leave/_showmyproject.php">ใบลาเดินทางต่างประเทศ</a></li>
+                        <li><a href="<?php echo $livesite;?>leave/_showmyproject.php">อนุมัติเดินทางต่างประเทศ</a></li>
                         <li role="separator" class="divider"></li>
                         
                         <li class="dropdown-header regWhite_12">ประวัติการเข้าร่วม</li>

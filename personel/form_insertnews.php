@@ -273,17 +273,18 @@ include('../admin/compcode/include/function.php');
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="per_docroute" id="optionsRadios1" value="A" data-toggle="radio">
+                            ผู้เสนอ
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="per_docroute" id="optionsRadios1" value="B" data-toggle="radio">
+                            หัวหน้าภาควิชา / หัวหน้างาน
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="per_docroute" id="optionsRadios1" value="C" data-toggle="radio">
+                            ระดับบริหารงาน
                         </label>
+                    </div>
                 </td>
              </tr>
              <tr>
@@ -291,17 +292,18 @@ include('../admin/compcode/include/function.php');
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="du_status" id="optionsRadios1" value="3" data-toggle="radio">
+                            บุคลากรคณะฯ (ผู้ขออนุมัติ)
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="du_status" id="optionsRadios1" value="2" data-toggle="radio">
+                            จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="du_status" id="optionsRadios1" value="1" data-toggle="radio">
+                            Super Administrator
                         </label>
+                    </div>
                 </td>
              </tr>
           </tbody>

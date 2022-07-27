@@ -30,7 +30,8 @@ include('../admin/compcode/include/function.php');
         	<?php
 			$sql01=mysqli_query($condb, "select * from $db_eform.personel_muerp
 		  		left join $db_eform.job_academic on (personel_muerp.ja_id = job_academic.ja_id)
-				where per_id='$_GET[per_id]'");
+				left join $db_eform.develop_user on (personel_muerp.per_id = develop_user.per_id)
+				where personel_muerp.per_id='$_GET[per_id]'");
 			$ob01=mysqli_fetch_assoc($sql01);
 			?> 
 	<div class="table-responesive"> 
@@ -343,17 +344,18 @@ include('../admin/compcode/include/function.php');
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="per_docroute" id="optionsRadios1" value="A" data-toggle="radio">
+                            ผู้เสนอ
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="per_docroute" id="optionsRadios1" value="B" data-toggle="radio">
+                            หัวหน้าภาควิชา / หัวหน้างาน
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="per_docroute" id="optionsRadios1" value="C" data-toggle="radio">
+                            ระดับบริหารงาน
                         </label>
+                    </div>
                 </td>
              </tr>
              <tr>
@@ -361,17 +363,18 @@ include('../admin/compcode/include/function.php');
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="du_status" id="optionsRadios1" value="3" data-toggle="radio">
+                            บุคลากรคณะฯ (ผู้ขออนุมัติ)
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="du_status" id="optionsRadios1" value="2" data-toggle="radio">
+                            จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
                         </label>
                         <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" data-toggle="radio">
-                            Option one is this and that&mdash;be sure to include why it's great
+                            <input type="radio" name="du_status" id="optionsRadios1" value="1" data-toggle="radio">
+                            Super Administrator
                         </label>
+                    </div>
                 </td>
              </tr>
           </tbody>

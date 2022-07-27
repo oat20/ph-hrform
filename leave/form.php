@@ -4,11 +4,12 @@ session_start();
 include('../admin/compcode/include/config.php');
 include('config-inc.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><?php echo $titlebar['title'];?></title>
@@ -18,18 +19,18 @@ include('../admin/compcode/include/function.php');
 <body>
 <?php include('../inc/navbar02-inc.php');?>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
     	<div class="col-sm-12">
         
         	<div class="page-header-05">
-                <div class="text-title"><a href="<?php echo $livesite;?>profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> แบบฟอร์มใบลาไปเพิ่มพูนความรู้และประสบการณ์</a></div>
+                <div class="text-title"><a href="<?php echo $livesite;?>leave/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกขออนุมัติเดินทางต่างประเทศ</a></div>
             </div>
             <form method="post" id="formDefault" action="form-action.php">
             	<!--ข้อมูลผู้ขออนุมัติ-->
                 <?php
-				$qPersonel=mysql_query("select * from $db_eform.personel_muerp where per_id='$_SESSION[ses_per_id]'");
-				$rPersonel=mysql_fetch_assoc($qPersonel);
+				$qPersonel=mysqli_query($condb, "select * from $db_eform.personel_muerp where per_id='$_SESSION[ses_per_id]'");
+				$rPersonel=mysqli_fetch_assoc($qPersonel);
 				/*if($rPersonel['per_pname3']==''){ $per_name=$rPersonel['per_pname'].$rPersonel['per_fnamet'].'&nbsp;'.$rPersonel['per_lnamet']; }else{ $per_name=$rPersonel['per_pname3'].$rPersonel['per_fnamet'].'&nbsp;'.$rPersonel['per_lnamet']; }*/
 				?>
             	<div class="row">
@@ -40,14 +41,14 @@ include('../admin/compcode/include/function.php');
                             <select name="per_name" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             	<option value="">&nbsp;</option>
                                 <?php
-								$qPersonel02=mysql_query("select * from $db_eform.personel_muerp as t1
+								$qPersonel02=mysqli_query($condb, "select * from $db_eform.personel_muerp as t1
 									inner join $db_eform.personel_status as t2 on (t1.per_status=t2.ps_id)
 									where t1.per_trash='0'
 									and t2.ps_use='yes'
 									and t1.per_dept='$rPersonel[per_dept]'
 									order by convert(t1.per_fnamet using tis620) asc,
 									convert(t1.per_lnamet using tis620) asc");
-								while($rPersonel02=mysql_fetch_assoc($qPersonel02)){
+								while($rPersonel02=mysqli_fetch_assoc($qPersonel02)){
 									if($rPersonel02['per_pname3']==''){ $per_name=$rPersonel02['per_pname'].$rPersonel02['per_fnamet'].'&nbsp;'.$rPersonel02['per_lnamet']; }else{ $per_name=$rPersonel02['per_pname3'].$rPersonel02['per_fnamet'].'&nbsp;'.$rPersonel02['per_lnamet']; }
 									
 									if($_SESSION['ses_per_id']==$rPersonel02['per_id']){
@@ -65,10 +66,10 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label">&nbsp;</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_type" required>
                             	<?php
-								$sql=mysql_query("select * from $db_eform.personel_type 
+								$sql=mysqli_query($condb, "select * from $db_eform.personel_type 
 									where pert_status='1' 
 									order by convert(pert_name using tis620) asc");
-								while($ob=mysql_fetch_assoc($sql)){
+								while($ob=mysqli_fetch_assoc($sql)){
 									if($rPersonel['per_type']==$ob['pert_id']){
 										echo '<option value="'.$ob['pert_id'].'" selected>'.$ob['pert_name'].'</option>';
 									}else{
@@ -87,8 +88,8 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label">ตำแหน่ง:</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_job" required>
                             	<?php
-								$sql=mysql_query("select * from $db_eform.job where job_status='1' order by convert(job_name using tis620) asc");
-								while($ob=mysql_fetch_assoc($sql)){
+								$sql=mysqli_query($condb, "select * from $db_eform.job where job_status='1' order by convert(job_name using tis620) asc");
+								while($ob=mysqli_fetch_assoc($sql)){
 									if($rPersonel['job_id']==$ob['job_id']){
 										echo '<option value="'.$ob['job_id'].'" selected>'.$ob['job_name'].'</option>';
 									}else{
@@ -113,12 +114,12 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label">สังกัด:</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_dept" required>
                             	<?php
-								$sql=mysql_query("select * from $db_eform.department_type as t1
+								$sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
 									inner join $db_eform.tb_orgnew as t2 on (t1.typ_id=t2.typ_id)
 									where t2.dp_id='$rPersonel[per_dept]' 
 									order by convert(t1.typ_name using tis620) asc,
 									convert(t2.dp_name using tis620) asc");
-								while($ob=mysql_fetch_assoc($sql)){
+								while($ob=mysqli_fetch_assoc($sql)){
 									if($rPersonel['per_dept']==$ob['dp_id']){
 										echo '<option value="'.$ob['dp_id'].'" selected>'.$ob['dp_name'].'</option>';
 									}else{
@@ -172,8 +173,8 @@ include('../admin/compcode/include/function.php');
                 <div class="form-group">
                 	<div class="row">
                 	<?php
-					$sql=mysql_query("select * from $db_eform.develop_leave_type order by convert(la_name using tis620) asc");
-					while($ob=mysql_fetch_assoc($sql)){
+					$sql=mysqli_query($condb, "select * from $db_eform.develop_leave_type order by convert(la_name using tis620) asc");
+					while($ob=mysqli_fetch_assoc($sql)){
 						echo '<div class="col-sm-2"><label class="radio"><input type="radio" name="dev_type" value="'.$ob['la_id'].'" required data-toggle="radio"> '.$ob['la_name'].'</label></div>';
 					}
 					?>
@@ -190,13 +191,13 @@ include('../admin/compcode/include/function.php');
                 	<div class="col-sm-6">
                     	<div class="form-group form-group-sm">
                         	<label class="control-label">สถานที่/องค์กร:</label>
-                            <input name="dev_place" type="text" class="form-control" required>
+                            <input name="dev_place" type="text" class="form-control">
                         </div>
                     </div><!--col-->
                     <div class="col-sm-6">
                     	<div class="form-group form-group-sm">
                         	<label class="control-label">ประเทศ:</label>
-                            <input type="text" name="dev_country" class="form-control" id="dev_country">
+                            <input type="text" name="dev_country" class="form-control" id="dev_country" required>
                             <!--<select name="dev_country" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             	<?php
 								/*$sql=mysql_query("select * from $db_eform.country order by convert(ct_name using tis620) asc");
@@ -238,7 +239,7 @@ include('../admin/compcode/include/function.php');
                 	<div class="col-sm-6">
                     	<div class="form-group form-group-sm">
                         	<label class="control-label">ชื่อทุน:</label>
-                            <input name="dev_fundname" type="text" class="form-control" required>
+                            <input name="dev_fundname" type="text" class="form-control">
                         </div>
                     </div><!--col-->
                     <div class="col-sm-6">
@@ -248,8 +249,8 @@ include('../admin/compcode/include/function.php');
                                 <select class="form-control select select-inverse select-sm" data-toggle="select" name="dev_edu" disabled>
                                 	<option value="">&nbsp;</option>
                                     <?php
-                                    $sql=mysql_query("select * from $db_eform.degree where dg_status='1' order by convert(dg_name using tis620) asc");
-                                    while($ob=mysql_fetch_assoc($sql)){
+                                    $sql=mysqli_query($condb, "select * from $db_eform.degree where dg_status='1' order by convert(dg_name using tis620) asc");
+                                    while($ob=mysqli_fetch_assoc($sql)){
                                         echo '<option value="'.$ob['dg_id'].'">'.$ob['dg_name'].'</option>';
                                     }
                                     ?>
@@ -263,8 +264,8 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label"><strong>ได้แนบเอกสารประกอบการพิจารณา ดังนี้:</strong></label>
                             <div class="row">
                             <?php
-                            $sql=mysql_query("select * from $db_eform.develop_leave_doc order by ld_id asc");
-                            while($ob=mysql_fetch_assoc($sql)){
+                            $sql=mysqli_query($condb, "select * from $db_eform.develop_leave_doc order by ld_id asc");
+                            while($ob=mysqli_fetch_assoc($sql)){
                                 echo '<div class="col-sm-3"><label class="checkbox">
                                             <input name="ld_id[]" type="checkbox" value="'.$ob['ld_id'].'" data-toggle="checkbox"> '.$ob['ld_name'].'
                                         </label></div>';
@@ -275,6 +276,10 @@ include('../admin/compcode/include/function.php');
                             </div><!--row-->
                             <input name="dev_docother" type="text" class="form-control input-sm" placeholder="อื่นๆ ระบุ">
                         </div><!--form-group-->
+                        <div class="form-group">
+                            <input type="file" accept="image/jpeg, image/png, application/pdf">
+                            <span class="help-block">อนุญาติเฉพาะไฟล์ jpg, png, pdf</span>
+                        </div>
                         
                         <hr>
                         <div class="form-group form-group-sm">
