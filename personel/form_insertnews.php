@@ -78,9 +78,7 @@ include('../admin/compcode/include/function.php');
           	<?php
 			if($_SESSION['ses_du_status'] == '1' or $_SESSION['ses_du_status'] == '2'){
 				$sql="select * from $db_eform.tb_orgnew
-				inner join $db_eform.department_type on (tb_orgnew.typ_id = department_type.typ_id)
-				where department_type.typ_id = 'PH00001'
-				or department_type.typ_id = 'PH00002'
+				left join $db_eform.department_type on (tb_orgnew.typ_id = department_type.typ_id)
 				order by convert (department_type.typ_name using tis620) asc,
 				convert (tb_orgnew.dp_name using tis620) asc";
 			}else if($_SESSION['ses_du_status'] == '3'){

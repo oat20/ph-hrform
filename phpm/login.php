@@ -73,6 +73,7 @@ if($_POST['action'] == 'signin' and $du_otp != '0' and $du_otp != ''){
 						data-bv-notempty="true">
                 </div>
                 <input type="hidden" name="action" value="signin">
+				<a href="./login02.php" class="btn btn-link">ขอรหัสอีกครั้ง</a>
                 <button type="submit" class="btn btn-inverse btn-wide hover-state button">เข้าสู่ระบบ</button> 
             </form>
             </div><!--well -->

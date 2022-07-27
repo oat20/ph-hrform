@@ -40,6 +40,7 @@ include('../admin/compcode/include/function.php');
 								<tr>
 									<th></th>
 									<th>REF. ID</th>
+									<th>MU-Email</th>
 									<th >ชื่อ - นามสกุล</th>
 									<th>ตำแหน่งงาน</th>
 									<th>ตำแหน่งวิชาการ</th>
@@ -58,6 +59,7 @@ include('../admin/compcode/include/function.php');
 							<tr>
 								<th></th>
 								<th>REF. ID</th>
+								<th>MU-Email</th>
 								<th >ชื่อ - นามสกุล</th>
 								<th>ตำแหน่งงาน</th>
 								<th>ตำแหน่งวิชาการ</th>
@@ -111,6 +113,7 @@ include('../admin/compcode/include/function.php');
 										   </div>
 									   </td>
 									   <td data-order="'.$rs['per_modify'].'">'.$rs['per_id'].'</td>
+									   <td>'.$rs['per_email'].'</td>
 										<td class="regBlack_13"><span class="boldBlack_10">'.$rs["per_pname"]." ".$rs["per_fnamet"]." ".$rs["per_lnamet"].'</span>
 										<br/>'.$rs["per_pname2"]." ".$rs["per_fnamee"]." ".$rs["per_lnamee"].'</td>
 										<td>'.$rs['job_name'].'</td>

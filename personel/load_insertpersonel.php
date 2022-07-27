@@ -106,7 +106,10 @@ if($row_ja['ja_id'] != ''){
 				'".$_SERVER['REMOTE_ADDR']."')";
 			$exec2=mysqli_query($condb, $sql2);
 							#insert education
-							
+
+							mysqli_query($condb, "insert into $db_eform.develop_user (per_id, du_status) 
+							values ('$gen_perid', '3')");
+
 							mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$gen_perid', 'insert', '$remoteip')");
 																					
 			header('location: show_allpersonel.php');
@@ -175,11 +178,11 @@ if($row_ja['ja_id'] != ''){
 			
 		}else if($_GET['action'] == "remove"){
 			
-			mysql_query("delete from $db_eform.personel_muerp where per_id='$_GET[per_id]'");
-			mysql_query("delete from $db_eform.education where ed_id='$_GET[ed_id]'");
-			//mysqli_query($condb, "update $db_eform.personel_muerp set per_trash = '1' where per_id = '$_GET[per_id]'");
-			//mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_GET[per_id]', 'delete', '$_SERVER[REMOTE_ADDR]')");
+			mysqli_query($condb, "delete from $db_eform.personel_muerp where per_id='$_GET[per_id]'");
+			mysqli_query($condb, "delete from $db_eform.education where ed_id='$_GET[ed_id]'");
 			header('location: show_allpersonel.php');
+}else{
+	exit();
 }
  ?>
 
