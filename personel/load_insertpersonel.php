@@ -18,6 +18,8 @@ if($row_ja['ja_id'] != ''){
 	$ja_id2 = $ja_id;
 }
 
+$du_status = mysqli_real_escape_string($condb, $_POST['du_status']);
+
 		if($_POST['action'] == "save")
 		{
 			$per_order = maxid($con, $db_eform.'.personel_muerp', 'per_order');
@@ -108,7 +110,7 @@ if($row_ja['ja_id'] != ''){
 							#insert education
 
 							mysqli_query($condb, "insert into $db_eform.develop_user (per_id, du_status) 
-							values ('$gen_perid', '3')");
+							values ('$gen_perid', $du_status')");
 
 							mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$gen_perid', 'insert', '$remoteip')");
 																					
@@ -172,7 +174,11 @@ if($row_ja['ja_id'] != ''){
 				'".$_SERVER['REMOTE_ADDR']."')";
 				$exec2=mysqli_query($condb, $sql2);
 
-				mysqli_query($condb, "update $db_eform.develop_user set du_status = '' where per_id = '$_POST[per_id]'");
+				//tb develop_user
+				mysqli_query($condb, "delete from $db_eform.develop_user where per_id = '$_POST[per_id]'");
+				mysqli_query($condb, "insert into $db_eform.develop_user (per_id, du_status)
+				values ('$_POST[per_id]', '$du_status')");
+				//tb develop_user
 				
 				mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_POST[per_id]', 'update', '$_SERVER[REMOTE_ADDR]')");
 			
@@ -183,8 +189,8 @@ if($row_ja['ja_id'] != ''){
 			mysqli_query($condb, "delete from $db_eform.personel_muerp where per_id='$_GET[per_id]'");
 			mysqli_query($condb, "delete from $db_eform.education where ed_id='$_GET[ed_id]'");
 			header('location: show_allpersonel.php');
+
 }else{
 	exit();
 }
  ?>
-

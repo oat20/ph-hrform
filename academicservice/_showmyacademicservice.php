@@ -92,13 +92,15 @@ while($rs=mysqli_fetch_array($exec)){
 					$swap = "1";
 			}
 			//��˹������Ѻ�������
+
+			$tr_cancel = ($rs['dev_cancel'] == "yes") ? "danger" : "";
 			
 			$sql03=mysqli_query($condb, "select * from $db_eform.develop_course_personel as t1
 				inner join $db_eform.personel_muerp as t2 on(t1.per_id=t2.per_id)
 				where t1.dev_id='$rs[dev_id]'");
 			$rs03=mysqli_fetch_assoc($sql03);
 ?>
-  <tr   bgcolor="<?php echo "$color"; ?>" class="text">
+  <tr   bgcolor="<?php echo "$color"; ?>" class="text <?php echo $tr_cancel;?>">
   	<!--<td>
 		<?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['icon'].'&nbsp;'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?>
     </td>-->

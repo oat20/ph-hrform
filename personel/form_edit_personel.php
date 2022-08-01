@@ -344,15 +344,15 @@ include('../admin/compcode/include/function.php');
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="3" data-toggle="radio">
+                            <input type="radio" name="du_status" id="du-status" value="3" data-toggle="radio" <?php if($ob01['du_status'] == '3'){echo "checked"; }?>>
                             บุคลากรคณะฯ (ผู้ขออนุมัติ)
                         </label>
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="2" data-toggle="radio">
+                            <input type="radio" name="du_status" id="du-status" value="2" data-toggle="radio" <?php if($ob01['du_status'] == '2'){echo "checked"; }?>>
                             จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
                         </label>
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="1" data-toggle="radio">
+                            <input type="radio" name="du_status" id="du-status" value="1" data-toggle="radio" <?php if($ob01['du_status'] == '1'){echo "checked"; }?>>
                             Super Administrator
                         </label>
                     </div>

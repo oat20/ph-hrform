@@ -27,8 +27,8 @@ include("../admin/compcode/include/function.php");
         <div class="col-sm-10">
         
         	<div class="panel panel-default">
-            	<div class="panel-heading clearfix">
-                	<h3 class="panel-title font-20 pull-left"><i class="fa fa-bars"></i> สำหรับบุคลากรคณะฯ</h3>
+            	<div class="panel-heading">
+                	<h3 class="panel-title"><i class="fa fa-bars fa-fw"></i> สำหรับบุคลากรคณะฯ</h3>
                     <!--<div class="pull-right"><a href="" class="close"><span aria-hidden="true">&times;</span> ปิด</a></div>-->
                 </div>
                 <div class="panel-body">
@@ -36,11 +36,11 @@ include("../admin/compcode/include/function.php");
                     
                     	<div class="col-lg-4">
                         	<div class="well">
-                            	<?php print '<span class="font-20"><i class="fa fa-user"></i>&nbsp;'.$_SESSION['ses_createname'].'</span>';?>
+                            	<?php print '<strong><i class="fa fa-user fa-fw"></i>&nbsp;'.$_SESSION['ses_createname'].'</strong>';?>
                                 <hr>
-                                <div class="btn-group" role="group">
-                                    <a href="<?php print $livesite;?>profile/form_changepw.php" class="btn btn-link"><i class="fa fa-pencil"></i> เปลี่ยนรหัสผ่าน</a>
-                                    <a href="<?php print $livesite;?>admin/compcode/logout_admin.php" class="btn btn-link"><i class="fa fa-power-off"></i>  ออกจากระบบ</a>
+                                <div class="btn-group btn-group-justified" role="group">
+                                    <a href="<?php print $livesite;?>profile/form_changepw.php" class="btn btn-default"><i class="fa fa-info fa-fw"></i> ข้อมูลส่วนบุคคล</a>
+                                    <a href="<?php print $livesite;?>admin/compcode/logout_admin.php" class="btn btn-default"><i class="fa fa-power-off"></i>  ออกจากระบบ</a>
                                 </div>
                             </div><!--well-->
                         </div><!--col-->
@@ -66,8 +66,8 @@ include("../admin/compcode/include/function.php");
 						?>
                          <div class="col-sm-4">
                         	<?php
-							$qBudgetdep=mysql_query("select * from $db_eform.department_budget where dp_id='$_SESSION[ses_per_dept]' and db_year='".budgetyear_02($date_create)."'"); 
-							$rBudgetdep=mysql_fetch_assoc($qBudgetdep);//งบที่ได่รับ
+							$qBudgetdep=mysqli_query($condb, "select * from $db_eform.department_budget where dp_id='$_SESSION[ses_per_dept]' and db_year='".budgetyear_02($date_create)."'"); 
+							$rBudgetdep=mysqli_fetch_assoc($qBudgetdep);//งบที่ได่รับ
 							//$db_budget3=$rBudgetdep['db_budget']-$rBudgetdep['db_budget2'];
 							
 							//งบที่ใช้ไป

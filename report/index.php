@@ -6,7 +6,7 @@ include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title><?php echo $titlebar['title'];?></title>
@@ -17,10 +17,7 @@ include('../admin/compcode/include/function.php');
 <?php include('../inc/navbar02-inc.php');?>
 <div class="container-fluid">
 
-	<ol class="breadcrumb">
-      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i></a></li>
-      <li class="active">รายงาน</li>
-    </ol>
+	<h4 style="margin-top: 0px;" class="page-header">รายงาน</h4>
     
     <div class="row">
         

@@ -272,15 +272,15 @@ include('../admin/compcode/include/function.php');
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="3" data-toggle="radio" required>
+                            <input type="radio" name="du_status" id="du-status" value="3" data-toggle="radio" required>
                             บุคลากรคณะฯ (ผู้ขออนุมัติ)
                         </label>
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="2" data-toggle="radio" required>
+                            <input type="radio" name="du_status" id="du-status" value="2" data-toggle="radio" required>
                             จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
                         </label>
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="1" data-toggle="radio" required>
+                            <input type="radio" name="du_status" id="du-status" value="1" data-toggle="radio" required>
                             Super Administrator
                         </label>
                     </div>

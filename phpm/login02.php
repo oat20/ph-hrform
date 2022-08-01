@@ -73,8 +73,6 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			values ('$ob_01[per_id]', '$otp', CURRENT_TIMESTAMP(), '3')");
 		}
 
-		
-		
 		$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
 		$strHeader = "MIME-Version: 1.0' . \r\n";
 		$strHeader .= "Content-type: text/html; charset=utf-8\r\n"; 
