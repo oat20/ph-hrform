@@ -53,20 +53,27 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 }else if($_POST['action'] == 'genOTP' and isset($_POST['mumail'])){
 
 	$sql_01 = mysqli_query($condb, "select * from $db_eform.personel_muerp as t1
-		inner join $db_eform.develop_user as t3 on(t1.per_id=t3.per_id)  
-					where (t1.per_email = '$_POST[mumail]'
-					or t1.per_username = '$_POST[mumail]')");
+					where t1.per_email = '$_POST[mumail]'
+					or t1.per_username = '$_POST[mumail]'");
 	$row_01 = mysqli_num_rows($sql_01);
 	$ob_01 = mysqli_fetch_assoc($sql_01);
 	if($row_01 > 0){		
 		$otp = strtoupper(random_password(2));
 		$_SESSION['ses_peremail'] = $ob_01['per_email'];
 
-		mysqli_query($condb, "update $db_eform.develop_user set 
+		$sql_02 = mysqli_query($condb, "select du_id from $db_eform.develop_user where per_id = '$ob_01[per_id]'");
+		if(mysqli_num_rows($sql_02) > 0){
+			mysqli_query($condb, "update $db_eform.develop_user set 
 			du_otp='$otp',
 			du_datestamp = CURRENT_TIMESTAMP()
 			where per_id='$ob_01[per_id]'
 		");
+		}else{
+			mysqli_query($condb, "insert into $db_eform.develop_user (per_id, du_otp, du_datestamp, du_status)
+			values ('$ob_01[per_id]', '$otp', CURRENT_TIMESTAMP(), '3')");
+		}
+
+		
 		
 		$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
 		$strHeader = "MIME-Version: 1.0' . \r\n";

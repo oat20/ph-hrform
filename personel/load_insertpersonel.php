@@ -171,6 +171,8 @@ if($row_ja['ja_id'] != ''){
 				'$_POST[ed_country]', 
 				'".$_SERVER['REMOTE_ADDR']."')";
 				$exec2=mysqli_query($condb, $sql2);
+
+				mysqli_query($condb, "update $db_eform.develop_user set du_status = '' where per_id = '$_POST[per_id]'");
 				
 				mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$_POST[per_id]', 'update', '$_SERVER[REMOTE_ADDR]')");
 			

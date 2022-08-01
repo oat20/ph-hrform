@@ -111,7 +111,7 @@
                         <li><a href="<?php echo $livesite;?>3_historyjoin2.php">ปฏิบัติงานบริการวิชาการ</a></li>
                         <li role="separator" class="divider"></li>
                         
-                    	<li><a href="<?php print $livesite;?>profile/form_changepw.php"><i class="fa fa-pencil"></i> เปลี่ยนรหัสผ่าน</a></li>
+                    	<li><a href="<?php print $livesite;?>profile/form_changepw.php"><i class="fa fa-info fa-fw"></i> ข้อมูลส่วนบุคคล</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="<?php print $livesite;?>admin/compcode/logout_admin.php"><i class="fa fa-power-off"></i>  ออกจากระบบ</a></li>
                     </ul>

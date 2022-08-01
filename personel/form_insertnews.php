@@ -26,9 +26,8 @@ include('../admin/compcode/include/function.php');
     	<div class="panel-heading">
         	<h3 class="panel-title"><a href="show_allpersonel.php"><i class="fa fa-arrow-left fa-fw"></i> เพิ่มรายชื่อบุคลากร</a></h3>
         </div>
-    	<!--<div class="panel-body">--> 
 	<div class="table-responesive"> 
-<table class="table table-striped table-bordered" width="100%">
+<table class="table table-striped" width="100%">
 	<tbody>
     	<?php
 		/*if($_SESSION['ses_du_status'] == '1' or $_SESSION['ses_du_status'] == '2'){
@@ -269,38 +268,19 @@ include('../admin/compcode/include/function.php');
                 </td>
              </tr>
              <tr>
-                <th>Member Route</th>
-                <td>
-                    <div class="form-group">
-                        <label class="radio">
-                            <input type="radio" name="per_docroute" id="optionsRadios1" value="A" data-toggle="radio">
-                            ผู้เสนอ
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="per_docroute" id="optionsRadios1" value="B" data-toggle="radio">
-                            หัวหน้าภาควิชา / หัวหน้างาน
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="per_docroute" id="optionsRadios1" value="C" data-toggle="radio">
-                            ระดับบริหารงาน
-                        </label>
-                    </div>
-                </td>
-             </tr>
-             <tr>
                 <th>Member Status</th>
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="3" data-toggle="radio">
+                            <input type="radio" name="du_status" id="optionsRadios1" value="3" data-toggle="radio" required>
                             บุคลากรคณะฯ (ผู้ขออนุมัติ)
                         </label>
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="2" data-toggle="radio">
+                            <input type="radio" name="du_status" id="optionsRadios1" value="2" data-toggle="radio" required>
                             จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
                         </label>
                         <label class="radio">
-                            <input type="radio" name="du_status" id="optionsRadios1" value="1" data-toggle="radio">
+                            <input type="radio" name="du_status" id="optionsRadios1" value="1" data-toggle="radio" required>
                             Super Administrator
                         </label>
                     </div>
@@ -309,7 +289,6 @@ include('../admin/compcode/include/function.php');
           </tbody>
   </table>
     </div><!--table-->
-		<!--</div>--><!--body-->
         <div class="panel-footer">
         	<input type="hidden" name="action" value="save">
         	<button type="submit" class="btn btn-inverse btn-block">บันทึก</button>

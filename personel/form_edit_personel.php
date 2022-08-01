@@ -339,25 +339,6 @@ include('../admin/compcode/include/function.php');
                     </div>
                 </td>
              </tr>
-			 <tr>
-                <th>Member Route</th>
-                <td>
-                    <div class="form-group">
-                        <label class="radio">
-                            <input type="radio" name="per_docroute" id="optionsRadios1" value="A" data-toggle="radio">
-                            ผู้เสนอ
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="per_docroute" id="optionsRadios1" value="B" data-toggle="radio">
-                            หัวหน้าภาควิชา / หัวหน้างาน
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="per_docroute" id="optionsRadios1" value="C" data-toggle="radio">
-                            ระดับบริหารงาน
-                        </label>
-                    </div>
-                </td>
-             </tr>
              <tr>
                 <th>Member Status</th>
                 <td>
