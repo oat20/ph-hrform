@@ -43,6 +43,29 @@ include('../admin/compcode/include/function.php');
 					
 			if($ob['dev_cancel']=='yes'){$inc.=warning('danger','<i class="glyphicon glyphicon-alert"></i> ยกเลิก','<hr><span class="font-14">'.$ob['cc_comment'].'</span>'); $color='danger';}else{$color='default';}
 			
+$inc .= '<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6">
+					<div class="panel panel-warning">
+						<div class="panel-heading">อนุมัติจากหัวหน้าส่วนงาน</div>
+						<div class="panel-body text-center">
+							'.$cf_approve[$ob['dev_approvebyboss']]['name'].'<br>
+							<span class="text-muted">00/00/0000</span><br>
+							<span class="text-muted">xxx.xxx</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6">
+					<div class="panel panel-warning">
+						<div class="panel-heading">อนุมัติจากคณบดี / รองคณบดี</div>
+						<div class="panel-body text-center">
+							'.$cf_approve[$ob['dev_approve']]['name'].'<br>
+							<span class="text-muted">00/00/0000</span><br>
+							<span class="text-muted">xxx.xxx</span>
+						</div>
+					</div>
+				</div>
+	</div>';
+
 			$inc.='<div class="row">
 						<div class="col-sm-6">
 							<dl class="font-14 dl-horizontal">
