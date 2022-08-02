@@ -19,7 +19,7 @@ $content='<table>
 				<tbody>
 					<tr>
 						<td width="45%"><br>ที่ อว 78.14/....................../......................................<br>วันที่ .....................................</td>
-						<td class="pmhTopRight"><img src="../img/mulogo_80.png"></td>
+						<td class="pmhTopRight"><img src="../img/logo-MU.png" width="80"></td>
 						<td width="45%"><br>'.$ob['dp_name'].'</td>
 				</tbody>
 				</table>';
@@ -224,15 +224,34 @@ $page2.='<table border="1">
 $footer='<table class="font-10"><tbody><tr><td>หน้า {PAGENO}/{nb}</td><td class="pmhBottomRight">Form No. <strong>'.$ob['dev_id'].'</strong></td></tr></tbody></table>';
 //$footerE = '<div class="content-footer">Tracking ID <strong>PH002</strong></div>';
 
-require("../lib/mpdf/mpdf.php");
-$mpdf=new mPDF('th','A4','','thsarabun',10,10,5,10,0,1); //A4 แนวตั้ง, A4-L แนวนอน
+require_once '../lib/mpdf/vendor/autoload.php';
+//custom font
+$defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
+$fontDirs = $defaultConfig['fontDir'];
+
+$defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+$fontData = $defaultFontConfig['fontdata'];
+
+$mpdf = new \Mpdf\Mpdf([
+    'fontDir' => array_merge($fontDirs, [
+        '../lib/mpdf/thsarabun',
+    ]),
+    'fontdata' => $fontData + [
+            'sarabun' => [
+                'R' => 'THSarabunNew.ttf',
+                'I' => 'THSarabunNew Italic.ttf',
+                'B' =>  'THSarabunNew Bold.ttf',
+            ]
+        ],
+		'default_font' => 'sarabun',
+        'margin_header' => 0,
+        'margin_footer' => 0,
+]);
 $mpdf->SetDisplayMode('fullpage','two');
 $stylesheet = file_get_contents('../lib/mpdf/mpdfstyletables-2.css');
 $mpdf->WriteHTML($stylesheet,1);
 
-//$mpdf->debug = true;
 $mpdf->allow_output_buffering = true;
-$mpdf->SetAutoFont(AUTOFONT_ALL);
 
 if($ob['dev_cancel']=='yes'){
 	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'thsarabun'; $mpdf->showWatermarkText = true;

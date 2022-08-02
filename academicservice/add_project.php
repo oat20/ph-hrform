@@ -160,7 +160,6 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 			$dev_filename = $dev_id.'-'.date('YmdHis').random_password(2).attachDocType($_FILES['file']['type']);
 			mysqli_query($condb, "insert into $db_eform.develop_attachment 
 				values ('$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]', 'ATTACHMENT')");
-			");
 			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
 		}
 
@@ -172,4 +171,3 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		header("location: confirm-form-1.php?getDevid=".$dev_id);
 }
  ?>
-

@@ -34,13 +34,9 @@ include('../admin/compcode/include/function.php');
                 <div class="form-group">
                     <label class="control-label">สังกัด</label>
                             <?php
-                            $sql=mysqli_query($condb, "select * from ph_hr_eform.department_type
-                                    inner join ph_hr_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
-                                    where (department_type.typ_id='PH00001'
-                                    or department_type.typ_id='PH00002')
-                                    and tb_orgnew.dp_id='".$_SESSION['ses_per_dept']."'
-                                    order by department_type.typ_id asc,
-                                    tb_orgnew.dp_id asc
+                            $sql=mysqli_query($condb, "select * from department_type
+                                    right join tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
+                                    where tb_orgnew.dp_id='".$_SESSION['ses_per_dept']."'
                                 ");
                             $ob=mysqli_fetch_assoc($sql);
                             ?>

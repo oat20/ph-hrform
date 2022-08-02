@@ -19,15 +19,7 @@ include('lib/css-inc.php');
     <body>
 <div class="container-fluid">
     <?php
-    mysqli_autocommit($condb, false);
-
-    mysqli_query($condb, "delete from $db_eform.tb_orgnew where dp_id = '47'");
-    if(mysqli_commit($condb)){
-        echo 'Commit Transaction Complete';
-    }else{
-        echo 'Commit Transaction Failed';
-    }
-    mysqli_rollback($condb);
+    echo random_ID2(6, 1).random_ID(2, 2);
     ?>
 	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
     	<div class="form-group">

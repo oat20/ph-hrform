@@ -3,6 +3,7 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -15,12 +16,13 @@ include('../admin/compcode/include/function.php');
 </head>
 
 <body>
+	<?php include('../profile/navbar-form01-inc.php');?>
 <div class="container-fluid">
 	<div class="space1"></div>
 	<div class="row">
     	<div class="col-sm-12">
         	<?php
-			$sql=mysql_query("select *,develop.dev_id as dev_id from $db_eform.develop
+			$sql=mysqli_query($condb, "select *,develop.dev_id as dev_id from $db_eform.develop
 			inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
 			inner join $db_eform.activity on (develop.act_id = activity.act_id)
 			inner join $db_eform.develop_location_type on (develop.lt_id = develop_location_type.lt_id)
@@ -31,7 +33,7 @@ include('../admin/compcode/include/function.php');
 			left join $db_eform.develop_form_objective as t12 on(develop.dev_id=t12.dev_id)
 			left join $db_eform.develop_type as t13 on(develop.dev_type=t13.dvt_id)
 			where develop.dev_id='$_GET[getDevid]'");
-			$ob=mysql_fetch_assoc($sql);
+			$ob=mysqli_fetch_assoc($sql);
 			$dev_bookfrom=explode('+',$ob['dev_bookfrom']);
 
 			$inc='<div class="btn-group" role="group" id="navi4">
@@ -42,6 +44,29 @@ include('../admin/compcode/include/function.php');
 					
 			if($ob['dev_cancel']=='yes'){$inc.=warning('danger','<i class="glyphicon glyphicon-alert"></i> ยกเลิก','<hr><span class="font-14">'.$ob['cc_comment'].'</span>'); $color='danger';}else{$color='default';}
 			
+$inc .= '<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6">
+					<div class="panel panel-warning">
+						<div class="panel-heading">อนุมัติจากหัวหน้าส่วนงาน</div>
+						<div class="panel-body text-center">
+							'.$cf_approve[$ob['dev_approvebyboss']]['name'].'<br>
+							<span class="text-muted">00/00/0000</span><br>
+							<span class="text-muted">xxx.xxx</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6">
+					<div class="panel panel-warning">
+						<div class="panel-heading">อนุมัติจากคณบดี / รองคณบดี</div>
+						<div class="panel-body text-center">
+							'.$cf_approve[$ob['dev_approve']]['name'].'<br>
+							<span class="text-muted">00/00/0000</span><br>
+							<span class="text-muted">xxx.xxx</span>
+						</div>
+					</div>
+				</div>
+	</div>';
+
 			$inc.='<div class="row">
 						<div class="col-sm-6">
 							<dl class="font-14 dl-horizontal">
@@ -85,11 +110,11 @@ include('../admin/compcode/include/function.php');
 											</tr>
 										</thead>
 										<tbody>';
-										$sql03=mysql_query("select * from $db_eform.develop_form_budget
+										$sql03=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 											inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 											where develop_form_budget.dev_id='$ob[dev_id]'
 											order by budtype.bt_id asc");
-										while($rs03=mysql_fetch_assoc($sql03)){
+										while($rs03=mysqli_fetch_assoc($sql03)){
 											$inc.='<tr>
 														<td>'.$rs03['bt_name'].'</td>
 														<td>'.$rs03['dev_pay01'].'</td>
@@ -120,11 +145,11 @@ include('../admin/compcode/include/function.php');
 											</tr>
 										</thead>
 										<tbody>';
-										$sql04=mysql_query("select * from $db_eform.develop_form_cost
+										$sql04=mysqli_query($condb, "select * from $db_eform.develop_form_cost
 									inner join $db_eform.develop_cost_type on (develop_form_cost.ct_id=develop_cost_type.ct_id)
 									where develop_form_cost.dev_id='$ob[dev_id]'
 									order by develop_cost_type.ct_id asc");
-									while($ob04=mysql_fetch_assoc($sql04)){
+									while($ob04=mysqli_fetch_assoc($sql04)){
 											$inc.='<tr>
 														<td>'.$ob04['ct_title'].'</td>
 														<td>'.$ob04['dev_pay01'].'</td>
@@ -150,12 +175,12 @@ include('../admin/compcode/include/function.php');
 								<strong>รายชื่อผู้เข้าร่วม</strong>
 								<ol>';
 								
-								$sql03=mysql_query("select * from $db_eform.develop_course_personel as t1
+								$sql03=mysqli_query($condb, "select * from $db_eform.develop_course_personel as t1
 									inner join $db_eform.personel_muerp as t2 on(t1.per_id=t2.per_id)
 									where t1.dev_id='$ob[dev_id]'
 									order by convert(t2.per_fnamet using tis620) asc,
 									convert(t2.per_lnamet using tis620) asc");
-								while($ob03=mysql_fetch_assoc($sql03)){
+								while($ob03=mysqli_fetch_assoc($sql03)){
 								  $inc.='<li>'.$ob03['per_fnamet'].'&nbsp;&nbsp;'.$ob03['per_lnamet'].'</li>';
 								}
 								
@@ -164,13 +189,13 @@ include('../admin/compcode/include/function.php');
 						</div>
 					</div>';
 			
-			$sql02=mysql_query("select * from $db_eform.develop_log as t1
+			$sql02=mysqli_query($condb, "select * from $db_eform.develop_log as t1
 						inner join $db_eform.personel_muerp as t2 on(t1.per_id=t2.per_id)
 						where t1.dev_id='$ob[dev_id]'
 						order by t1.dl_datestamp desc
 						limit 1");
-			$ob02=mysql_fetch_assoc($sql02);
-			$footer='<div class="clearfix"><div class="pull-left">Form No. '.$ob['dev_id'].'</div><div class="pull-right">แก้ไขล่าสุดเมื่อ '.dateFormat_02($ob02['dl_datestamp']).' โดย '.$ob02['per_fnamet'].' '.$ob02['per_lnamet'].'</div></div>';
+			$ob02=mysqli_fetch_assoc($sql02);
+			$footer='<div class="clearfix"><div class="pull-left">REF. ID '.$ob['dev_id'].'</div><div class="pull-right">แก้ไขล่าสุดเมื่อ '.dateFormat_02($ob02['dl_datestamp']).' โดย '.$ob02['per_fnamet'].' '.$ob02['per_lnamet'].'</div></div>';
 			
 			echo blockcontent_withfooter($color,'รายละเอียดแบบฟอร์ม',$inc,$footer);
 			?>
@@ -179,5 +204,10 @@ include('../admin/compcode/include/function.php');
 </div><!--container-->
 
 <?php include('../lib/js-inc.php');?>
+<script>
+	$(function(){
+		$('.navbar-nav li:eq(2)').addClass('active');
+	});
+</script>
 </body>
 </html>

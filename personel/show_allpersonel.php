@@ -80,13 +80,13 @@ include('../admin/compcode/include/function.php');
 									ifnull(t10.count_cpid, 0) as count_cpid,
 									ifnull(t11.count_devid2, 0) as count_devid2  
 									from $db_eform.personel_muerp as a1
-									inner join $db_eform.tb_orgnew as a2 on (a1.per_dept=a2.dp_id)
-									inner join $db_eform.personel_status on (a1.per_status = personel_status.ps_id)
-									inner join $db_eform.personel_type on (a1.per_type=personel_type.pert_id)
-									inner join $db_eform.personel_group as t5 on (a1.per_group = t5.gr_id)
-									inner join $db_eform.job_special as t6 on (a1.jobs_id = t6.jobs_id)
-									inner join $db_eform.job as t7 on (a1.job_id = t7.job_id)
-									inner join $db_eform.job_academic on (a1.ja_id = job_academic.ja_id)
+									left join $db_eform.tb_orgnew as a2 on (a1.per_dept=a2.dp_id)
+									left join $db_eform.personel_status on (a1.per_status = personel_status.ps_id)
+									left join $db_eform.personel_type on (a1.per_type=personel_type.pert_id)
+									left join $db_eform.personel_group as t5 on (a1.per_group = t5.gr_id)
+									left join $db_eform.job_special as t6 on (a1.jobs_id = t6.jobs_id)
+									left join $db_eform.job as t7 on (a1.job_id = t7.job_id)
+									left join $db_eform.job_academic on (a1.ja_id = job_academic.ja_id)
 									left join $db_eform.education on (a1.per_id = education.ed_perid)
 									left join $db_eform.degree on (education.ed_dgid = degree.dg_id)
 									left join $db_eform.country as t8 on (education.ed_country = t8.ct_id)

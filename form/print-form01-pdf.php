@@ -1,9 +1,10 @@
 <?php
 include('../admin/compcode/include/config.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 
-$sql=mysql_query("select * from $db_eform.develop
+$sql=mysqli_query($condb, "select * from $db_eform.develop
 			inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
 			inner join $db_eform.activity on (develop.act_id = activity.act_id)
 			inner join $db_eform.develop_location_type on (develop.lt_id = develop_location_type.lt_id)
@@ -24,14 +25,14 @@ $sql=mysql_query("select * from $db_eform.develop
 			inner join $db_eform.country on (develop.dev_country = country.ct_id)
 			where develop.dev_trackid='$_GET[getTrackid]'
 			order by convert(personel_muerp.per_fnamet using tis620) asc, convert(personel_muerp.per_lnamet using tis620) asc limit 1");*/
-$ob=mysql_fetch_assoc($sql);
+$ob=mysqli_fetch_assoc($sql);
 $dev_bookfrom=explode('+',$ob['dev_bookfrom']);
 
 $content='<table>
 				<tbody>
 					<tr>
 						<td width="45%"><br>ที่ อว 78.14/....................../......................................<br>วันที่ .....................................</td>
-						<td class="pmhTopRight"><img src="../img/mulogo_80.png"></td>
+						<td class="pmhTopRight"><img src="../img/logo-MU.png" width="80"></td>
 						<td width="45%"><br>'.$ob['dp_name'].'</td>
 				</tbody>
 				</table>';
@@ -41,11 +42,11 @@ $content.='<p></p><p>เรียน คณบดี</p>';
 $content.='<p><strong>ตามหนังสือ</strong> '.$dev_bookfrom['0'].' <strong>ที่</strong> '.$dev_bookfrom['1'].' <strong>ลงวันที่</strong> '.dateThai($dev_bookfrom['2']).' <strong>เรื่อง</strong> '.$dev_bookfrom['3'].'</p>';
 
 $content.='<p><strong>ได้เชิญข้าพเจ้าไปปฏิบัติงานเพื่อ</strong> ';
-$sql02=mysql_query("select * from $db_eform.develop_form_objective
+$sql02=mysqli_query($condb, "select * from $db_eform.develop_form_objective
 									inner join $db_eform.develop_type on (develop_form_objective.dvt_id=develop_type.dvt_id)
 									where develop_form_objective.dev_id='$ob[dev_id]'
 									order by develop_type.dvt_id asc");
-while($ob02=mysql_fetch_assoc($sql02)){
+while($ob02=mysqli_fetch_assoc($sql02)){
 	$content.='<img src="../img/check.svg" width="16"> '.$ob02['dvt_name'].'&nbsp;&nbsp;'.$ob['dev_typeother'];
 }
 $content.='</p>';
@@ -68,24 +69,24 @@ $content.='<table border="1">
 						<tr>
 							<td width="50%">
 								<ol>';
-									$sql03=mysql_query("select * from $db_eform.develop_form_budget
+									$sql03=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 									inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 									inner join $db_eform.develop_payfrom as t3 on(budtype.pf_id=t3.pf_id)
 									where develop_form_budget.dev_id='$ob[dev_id]'
 									order by t3.pf_id asc, 
 									budtype.bt_id asc");
-									while($ob03=mysql_fetch_assoc($sql03)){
+									while($ob03=mysqli_fetch_assoc($sql03)){
 										$content.='<li>'.$ob03['pf_title'].' &raquo; '.$ob03['bt_name'].' '.number_format($ob03['dev_pay01']).' บาท</li>';
 									}
 								$content.='</ol>
 							</td>
 							<td width="50%">
 								<ol>';
-									$sql04=mysql_query("select * from $db_eform.develop_form_cost
+									$sql04=mysqli_query($condb,"select * from $db_eform.develop_form_cost
 									inner join $db_eform.develop_cost_type on (develop_form_cost.ct_id=develop_cost_type.ct_id)
 									where develop_form_cost.dev_id='$ob[dev_id]'
 									order by develop_cost_type.ct_id asc");
-									while($ob04=mysql_fetch_assoc($sql04)){
+									while($ob04=mysqli_fetch_assoc($sql04)){
 										$content.='<li>'.$ob04['ct_title'].' '.number_format($ob04['dev_pay01']).' บาท</li>';
 									}
 								$content.='</ol>
@@ -112,8 +113,8 @@ $content.='<table>
 						<td width="60%">';
 							
 							if($ob['dev_cancel']=='yes'){
-								$qCancel=mysql_query("select * from $db_eform.develop_cancel where dev_id='$ob[dev_id]'");
-								$rCancel=mysql_fetch_assoc($qCancel);
+								$qCancel=mysqli_query($condb, "select * from $db_eform.develop_cancel where dev_id='$ob[dev_id]'");
+								$rCancel=mysqli_fetch_assoc($qCancel);
 								$content.='<strong>เหตุผลยกเลิก</strong><br>'.$rCancel['cc_comment'];
 							}
 						
@@ -167,12 +168,12 @@ $content.='<table border="1" class="font-12">
 
 //บุคลากรผู้เข้าร่วม
 $personelJoin='';
-$sqlPersonel=mysql_query("select * from $db_eform.personel_muerp
+$sqlPersonel=mysqli_query($condb, "select * from $db_eform.personel_muerp
 							inner join $db_eform.develop_course_personel on (personel_muerp.per_id=develop_course_personel.per_id)
 							where develop_course_personel.dev_id='$ob[dev_id]'
 							order by convert(personel_muerp.per_fnamet using tis620) asc,
 							convert(personel_muerp.per_lnamet using tis620) asc");
-					while($obPersonel=mysql_fetch_assoc($sqlPersonel)){
+					while($obPersonel=mysqli_fetch_assoc($sqlPersonel)){
 						$personelJoin.=$obPersonel['per_pname'].$obPersonel['per_fnamet'].' '.$obPersonel['per_lnamet'].', ';
 					}
 $content.='<p class="font-12"><strong>บุคลากรผู้เข้าร่วม</strong> '.substr($personelJoin,'0','-2').'<p>';
@@ -239,18 +240,37 @@ $page2.='<table border="1">
 				</table>';*/
 
 //$footer = '<div class="content-footer">Tracking ID <strong>PH001</strong></div>';
-$footer='<table class="font-10"><tbody><tr><td>หน้า {PAGENO}/{nb}</td><td class="pmhBottomRight">Form No. <strong>'.$ob['dev_id'].'</strong></td></tr></tbody></table>';
+$footer='<table><tbody><tr><td>หน้า {PAGENO}/{nb}</td><td class="pmhBottomRight">REF. ID <strong>'.$ob['dev_id'].'</strong></td></tr></tbody></table>';
 //$footerE = '<div class="content-footer">Tracking ID <strong>PH002</strong></div>';
 
-require("../lib/mpdf/mpdf.php");
-$mpdf=new mPDF('th','A4','','thsarabun',10,10,5,10,0,1); //A4 แนวตั้ง, A4-L แนวนอน
+require_once '../lib/mpdf/vendor/autoload.php';
+//custom font
+$defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
+$fontDirs = $defaultConfig['fontDir'];
+
+$defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+$fontData = $defaultFontConfig['fontdata'];
+
+$mpdf = new \Mpdf\Mpdf([
+    'fontDir' => array_merge($fontDirs, [
+        '../lib/mpdf/thsarabun',
+    ]),
+    'fontdata' => $fontData + [
+            'sarabun' => [
+                'R' => 'THSarabunNew.ttf',
+                'I' => 'THSarabunNew Italic.ttf',
+                'B' =>  'THSarabunNew Bold.ttf',
+            ]
+        ],
+		'default_font' => 'sarabun',
+        'margin_header' => 0,
+        'margin_footer' => 0,
+]);
 $mpdf->SetDisplayMode('fullpage','two');
 $stylesheet = file_get_contents('../lib/mpdf/mpdfstyletables-2.css');
 $mpdf->WriteHTML($stylesheet,1);
 
-//$mpdf->debug = true;
 $mpdf->allow_output_buffering = true;
-$mpdf->SetAutoFont(AUTOFONT_ALL);
 
 if($ob['dev_cancel']=='yes'){
 	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'thsarabun'; $mpdf->showWatermarkText = true;
