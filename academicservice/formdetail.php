@@ -18,7 +18,6 @@ include('../admin/compcode/include/function.php');
 <body>
 	<?php require_once './navbar-academicservice-inc.php';?>
 <div class="container-fluid">
-	<div class="space1"></div>
 	<div class="row">
     	<div class="col-sm-12">
         	<?php

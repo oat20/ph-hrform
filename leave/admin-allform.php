@@ -4,52 +4,35 @@ session_start();
 include('../admin/compcode/include/config.php');
 include('config-inc.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
 <title><?php echo $titlebar['title'];?></title>
 <?php include('../lib/css-inc.php');?>
+</head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <?php include('../inc/navbar02-inc.php');?>
 
 <div class="container-fluid">
 
 	<ol class="breadcrumb font-18">
-      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left"></i> จัดการข้อมูลแบบฟอร์มใบลาไปเพิ่มพูนความรู้และประสบการณ์ทั้งหมด</a></li>
+      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> จัดการข้อมูลแบบบันทึกเดินทางต่างประเทศ</a></li>
     </ol>
     
     <div class="row">
-    	<div class="col-sm-8">
-        	 <form>
-                <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon" id="basic-addon3"><i class="fa fa-search"></i> ค้นหาแบบฟอร์ม</span>
-                        <input type="search" id="jetsSearchform01" class="form-control">
-                    </div>
-                </div>
-            </form>
-        </div><!--col-->
-        <div class="col-sm-4 text-right">
-        	<div class="btn-group" role="group">
-        		<a href="admin-form.php" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มรายการ</a>
-                <!--<a href="" class="btn btn-default"><i class="fui-list-columned"></i> รายงาน</a>-->
-                <!--<div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      รายงาน
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Dropdown link</a></li>
-                      <li><a href="#">Dropdown link</a></li>
-                    </ul>
-              </div>-->
-            </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-10">
+        		<a href="admin-form.php" class="btn btn-default btn-block"><i class="fa fa-plus fa-fw"></i> เพิ่มรายการ</a>
         </div><!--col-->
     </div><!--row-->
+    <hr>
     
     <div class="table-responsive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="tbFrmLeave">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
@@ -101,7 +84,7 @@ include('../admin/compcode/include/function.php');
 		left join $db_eform.develop_leave_personel as t3 on (t1.dev_id=t3.dev_id)
 		left join $db_eform.tb_orgnew as t4 on (t3.per_dept=t4.dp_id)
 		left join $db_eform.personel_muerp as t5 on (t3.per_id=t5.per_id)
-		order by t1.dev_id desc";
+		order by t1.dev_orddate desc";
  /*}else{
 	 $sql="select * from phper2.develop
 				inner join phper2.personel on (develop.dev_perid = personel.per_id)
@@ -114,11 +97,12 @@ include('../admin/compcode/include/function.php');
 				develop.dev_stdate desc,
 				develop.dev_enddate desc";
  }*/
- $exec=mysql_query($sql);
-while($rs=mysql_fetch_array($exec)){
+ $exec=mysqli_query($condb, $sql);
+while($rs=mysqli_fetch_array($exec)){
 	++$num;
+  $tr_class_cancel = ($rs['dev_cancel'] == '0') ? "" : "danger";
 	?>
-  <tr class="text">
+  <tr class="text <?php echo $tr_class_cancel;?>">
   	<td><?php echo $num;?></td>
     <td class="text"><?php echo $rs['dev_id'].'<br><i class="fui-calendar"></i> '.dateFormat($rs['dev_orddate']);?></td>
     <td class="text"><?php print $rs["dev_year"]; ?></td>
@@ -129,7 +113,7 @@ while($rs=mysql_fetch_array($exec)){
     <td class="text"><?php echo dateformat_03($rs["dev_enddate"]);  ?></td>
     <td><?php echo $rs['per_fnamet'].' '.$rs['per_lnamet'];?></td>
     <td><?php echo $cf_devleave_status[$rs['dev_formstatus']]['name'].'<br><em>'.$rs['dev_formstatus_comment'].'</em>';?></td>
-    <td class="<?php echo $cf_yn_msg02[$rs['dev_cancel']]['color'];?>"><?php echo $cf_yn_msg02[$rs['dev_cancel']]['icon'].' '.$cf_yn_msg02[$rs['dev_cancel']]['label'];?></td>   
+    <td class="text-uppercase"><?php echo $cf_yn_msg02[$rs['dev_cancel']]['icon'].' '.$cf_yn_msg02[$rs['dev_cancel']]['label'];?></td>   
     <td align="center" class="text">
         <a href="print-adminform-pdf.php?dev_id=<?php echo $rs['dev_id'];?>" title="แสดงรายละเอียด" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-print"></i> พิมพ์แบบฟอร์มอนุมัติ</a>
         <a href="admin-formedit.php?dev_id=<?php echo $rs['dev_id'];?>" title="แก้ไขโครงการ" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> แก้ไข</a>
@@ -149,6 +133,13 @@ while($rs=mysql_fetch_array($exec)){
 <?php include('../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+
+  $('#tbFrmLeave').DataTable({
+    responsive: true,
+    columnDefs: [
+      { orderable: false, targets: 11 }
+    ]
+  });
 	
 	//datepicker
 	$('#keyDevstdate').datepicker({

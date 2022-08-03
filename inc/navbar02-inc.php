@@ -35,7 +35,7 @@
 								<ul class="dropdown-menu">
 									<li><a href="'.$livesite.'admin/2_allform.php">แบบฟอร์มพัฒนาบุคลากร</a></li>
                         			<li><a href="'.$livesite.'academicservice/admin/2_allform.php">แบบฟอร์มบริการวิชาการ</a></li>
-                        			<li><a href="'.$livesite.'leave/admin-allform.php">แบบฟอร์มใบลาไปเพิ่มพูนความรู้และประสบการณ์ (ต่างประเทศ)</a></li>
+                        			<li><a href="'.$livesite.'leave/admin-allform.php">แบบบันทึกเดินทางต่างประเทศ</a></li>
 								</ul>
 							</li>';
 					print '<li class="dropdown">

@@ -3,12 +3,17 @@ session_start();
 
 include('../../admin/compcode/include/config.php');
 include('../../admin/compcode/check_login.php');
+require_once '../../lib/mysqli.php';
 include('../../admin/compcode/include/connect_db.php');
 include('../../admin/compcode/include/function.php');
 ?>
 <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
 <title><?php echo $titlebar['title'];?></title>
 <?php include('../../lib/css-inc.php');?>
+</head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <?php include('../../inc/navbar02-inc.php');?>
 
@@ -20,7 +25,7 @@ include('../../admin/compcode/include/function.php');
     
     <div class="clearfix">
     	<div class="pull-left">
-        	<a href="<?php echo $livesite;?>academicservice/admin/form_2.php?dm_id=1&dm_title=พัฒนาบุคลากร" class="btn btn-link btn-lg"><i class="fa fa-plus"></i> เพิ่มแบบฟอร์ม</a>
+        	<a href="<?php echo $livesite;?>academicservice/admin/form_2.php?dm_id=1&dm_title=พัฒนาบุคลากร" class="btn btn-default"><i class="fa fa-plus fa-fw"></i> เพิ่มแบบฟอร์ม</a>
         </div>
     	<!--<div class="pull-right">
         	<div class="btn-group">
@@ -45,7 +50,7 @@ include('../../admin/compcode/include/function.php');
     </form>
     
     <div class="table-responsive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="tbFrm02">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
@@ -89,7 +94,8 @@ include('../../admin/compcode/include/function.php');
 				inner join $db_eform.tb_orgnew on (develop.dp_id=tb_orgnew.dp_id)
 				inner join $db_eform.develop_main_type as t4 on (develop.dev_maintype = t4.dm_id)
 				inner join $db_eform.develop_type as t5 on (develop.dev_type = t5.dvt_id)
-				inner join $db_eform.personel_muerp as t6 on(develop.dev_perid=t6.per_id)
+        inner join $db_eform.develop_course_personel as dcp on (develop.dev_id = dcp.dev_id)
+				inner join $db_eform.personel_muerp as t6 on(dcp.per_id = t6.per_id)
 				where develop.dev_remove='no'
 				and develop.dev_maintype='2'
 				order by develop.dev_create desc";
@@ -98,20 +104,21 @@ include('../../admin/compcode/include/function.php');
 				inner join $db_eform.tb_orgnew on (develop.dp_id=tb_orgnew.dp_id)
 				inner join $db_eform.develop_main_type as t4 on (develop.dev_maintype = t4.dm_id)
 				inner join $db_eform.develop_type as t5 on (develop.dev_type = t5.dvt_id)
-				inner join $db_eform.personel_muerp as t6 on(develop.dev_perid=t6.per_id)
+				inner join $db_eform.develop_course_personel as dcp on (develop.dev_id = dcp.dev_id)
+				inner join $db_eform.personel_muerp as t6 on(dcp.per_id = t6.per_id)
 				where develop.dev_remove='no'
 				and develop.dev_maintype='2'
 				and develop.dev_approve='$_GET[dev_approve]'
 				order by develop.dev_create desc";
  }
- $exec=mysql_query($sql);
-while($rs=mysql_fetch_array($exec)){
+ $exec=mysqli_query($condb, $sql);
+while($rs=mysqli_fetch_array($exec)){
 	++$num;
 	
-	$sql02=mysql_query("SELECT COUNT( per_id ) as c1
+	$sql02=mysqli_query($condb, "SELECT COUNT( per_id ) as c1
 		FROM  $db_eform.develop_course_personel 
 		WHERE dev_id =  '$rs[dev_id]'");
-	$rs02=mysql_fetch_assoc($sql02);
+	$rs02=mysqli_fetch_assoc($sql02);
 ?>
   <tr class="text">
   	<td>#<?php echo $num;?></td>
@@ -163,6 +170,13 @@ while($rs=mysql_fetch_array($exec)){
 <?php include('../../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+
+  $('#tbFrm02').DataTable({
+    responsive: true,
+    columnDefs: [
+      { orderable: false, targets: 11 }
+    ]
+  });
 	
 	//datepicker
 	$('#keyDevstdate').datepicker({

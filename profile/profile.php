@@ -37,10 +37,10 @@ include("../admin/compcode/include/function.php");
                     	<div class="col-lg-4">
                         	<div class="well">
                             	<?php print '<strong><i class="fa fa-user fa-fw"></i>&nbsp;'.$_SESSION['ses_createname'].'</strong>';?>
-                                <hr>
+								<hr>
                                 <div class="btn-group btn-group-justified" role="group">
                                     <a href="<?php print $livesite;?>profile/form_changepw.php" class="btn btn-default"><i class="fa fa-info fa-fw"></i> ข้อมูลส่วนบุคคล</a>
-                                    <a href="<?php print $livesite;?>admin/compcode/logout_admin.php" class="btn btn-default"><i class="fa fa-power-off"></i>  ออกจากระบบ</a>
+                                    <a href="<?php print $livesite;?>admin/compcode/logout_admin.php" class="btn btn-default"><i class="fa fa-power-off fa-fw"></i>  ออกจากระบบ</a>
                                 </div>
                             </div><!--well-->
                         </div><!--col-->

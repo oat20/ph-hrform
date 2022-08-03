@@ -495,16 +495,16 @@ $(document).ready(function(e) {
             },
 			per_bhd:{
 				validators: {
-                    notEmpty: {
-                        //message: 'The first name is required and cannot be empty'
-                    }
+                    /*notEmpty: {
+                        message: 'The first name is required and cannot be empty'
+                    }*/
                 }
 			},
 			per_adddate:{
 				validators: {
-                    notEmpty: {
+                    /*notEmpty: {
                         //message: 'The first name is required and cannot be empty'
-                    }
+                    }*/
                 }
 			},
 			per_hiredate1:{
@@ -530,9 +530,9 @@ $(document).ready(function(e) {
 			},
 			ed_edu:{
 				validators: {
-                    notEmpty: {
+                    /*notEmpty: {
                         //message: 'The first name is required and cannot be empty'
-                    }
+                    }*/
                 }
 			},
 			ed_major:{
@@ -544,9 +544,9 @@ $(document).ready(function(e) {
 			},
 			ed_institute:{
 				validators: {
-                    notEmpty: {
+                    /*notEmpty: {
                         //message: 'The first name is required and cannot be empty'
-                    }
+                    }*/
                 }
 			},
 			ed_country:{

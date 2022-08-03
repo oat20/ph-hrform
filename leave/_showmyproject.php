@@ -30,7 +30,7 @@ win.focus();}
 <div class="container-fluid">
 
 	<ol class="breadcrumb">
-      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> ประวัติการขออนุมัติแบบฟอร์มใบลาไปเพิ่มพูนความรู้และประสบการณ์</a></li>
+      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> แบบบันทึกเดินทางต่างประเทศ</a></li>
     </ol>
     
     <div class="row">
@@ -73,8 +73,10 @@ win.focus();}
  //if(empty($_POST['action'])){
 	 $sql="select * from $db_eform.develop_leave as t1
 	 	left join $db_eform.develop_leave_type as t2 on (t1.dev_type=t2.la_id)
+		left join develop_leave_personel as dlp on (t1.dev_id = dlp.dev_id)
 		where t1.dev_perid='$_SESSION[ses_per_id]'
-		order by t1.dev_id desc";
+		or dlp.per_id = '$_SESSION[ses_per_id]'
+		order by t1.dev_orddate desc";
  /*}else if(isset($_POST['action']) and $_POST['action']=='filter'){
 	 $sql="select * from $db_eform.develop
 				where dev_perid='$_SESSION[ses_per_id]'

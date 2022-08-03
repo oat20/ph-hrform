@@ -1,10 +1,11 @@
 <?php
 include('../admin/compcode/include/config.php');
 include('config-inc.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 
-$sql=mysql_query("select *, 
+$sql=mysqli_query($condb, "select *, 
 	t3.per_tel as t3_tel,
 	t3.per_adddate as adddate
 	from $db_eform.develop_leave as t1
@@ -16,12 +17,12 @@ $sql=mysql_query("select *,
 	left join $db_eform.tb_orgnew as t8 on (t3.per_dept=t8.dp_id)
 	left join $db_eform.personel_muerp as t9 on (t3.per_id=t9.per_id)
 	where t1.dev_id='$_GET[dev_id]'");
-$ob=mysql_fetch_assoc($sql);
+$ob=mysqli_fetch_assoc($sql);
 
 $content='<table>
 				<tbody>
 					<tr>
-						<td class="pmhTopRight"><img src="../img/mulogo_80.png"></td>
+						<td class="pmhTopRight"><img src="../img/logo-MU.png" width="80"></td>
 						<td width="45%" class="pmhBottomRight font-16">
 							<br><br>'.$ob['dp_name'].'
 							<br>โทร. '.$ob['t3_tel'].'
@@ -57,11 +58,11 @@ $content.='<p class="font-16">ชื่อทุน '.$ob['dev_fundname'].'
 </p>';
 
 $content.='<p class="font-16">ได้แนบเอกสารประกอบการพิจารณา ดังนี้&nbsp;&nbsp;';
-	$sqlDoc=mysql_query("select * from $db_eform.develop_leave_doc as t1
+	$sqlDoc=mysqli_query($condb, "select * from $db_eform.develop_leave_doc as t1
 		inner join $db_eform.develop_leave_doc2 as t2 on (t1.ld_id=t2.ld_id)
 		where t2.dev_id='$ob[dev_id]'
 		order by t1.ld_id asc");
-		while($rDoc=mysql_fetch_assoc($sqlDoc)){
+		while($rDoc=mysqli_fetch_assoc($sqlDoc)){
 			$content.='<img src="../img/check.svg" width="16"> '.$rDoc['ld_name'].'&nbsp;&nbsp;';
 		}
 				$content.=$ob['dev_docother'].'</p>';
@@ -138,15 +139,35 @@ $content.='<br><table class="font-16">
 $footer='<table><tbody><tr class="font-16"><td class="pmhBottomRight">Form No. <strong>'.$ob['dev_id'].'</strong></td></tr></tbody></table>';
 //$footerE = '<div class="content-footer">Tracking ID <strong>PH002</strong></div>';
 
-require("../lib/mpdf/mpdf.php");
-$mpdf=new mPDF('th','A4','','thsarabun',20,20,20,10,0,0); //A4 แนวตั้ง, A4-L แนวนอน
+require_once '../lib/mpdf/vendor/autoload.php';
+// Create an instance of the class:
+//custom font
+$defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
+$fontDirs = $defaultConfig['fontDir'];
+
+$defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+$fontData = $defaultFontConfig['fontdata'];
+
+$mpdf = new \Mpdf\Mpdf([
+    'fontDir' => array_merge($fontDirs, [
+        '../lib/mpdf//thsarabun',
+    ]),
+    'fontdata' => $fontData + [
+            'sarabun' => [
+                'R' => 'THSarabunNew.ttf',
+                'I' => 'THSarabunNew Italic.ttf',
+                'B' =>  'THSarabunNew Bold.ttf',
+            ]
+        ],
+		'default_font' => 'sarabun',
+        'margin_header' => 0,
+        'margin_footer' => 0,
+]);
 $mpdf->SetDisplayMode('fullpage','two');
 $stylesheet = file_get_contents('../lib/mpdf/mpdfstyletables-3.css');
 $mpdf->WriteHTML($stylesheet,1);
 
-//$mpdf->debug = true;
 $mpdf->allow_output_buffering = true;
-$mpdf->SetAutoFont(AUTOFONT_ALL);
 
 if($ob['dev_cancel']=='1'){
 	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'thsarabun'; $mpdf->showWatermarkText = true;
