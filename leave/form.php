@@ -63,7 +63,7 @@ include('../admin/compcode/include/function.php');
                     </div><!--col-->
                     <div class="col-sm-6">
                     	<div class="form-group form-group-sm">
-                            <label class="control-label">&nbsp;</label>
+                            <label class="control-label">กลุ่ม</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_type" required>
                             	<?php
 								$sql=mysqli_query($condb, "select * from $db_eform.personel_type 
@@ -115,7 +115,7 @@ include('../admin/compcode/include/function.php');
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_dept" required>
                             	<?php
 								$sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
-									inner join $db_eform.tb_orgnew as t2 on (t1.typ_id=t2.typ_id)
+									right join $db_eform.tb_orgnew as t2 on (t1.typ_id=t2.typ_id)
 									where t2.dp_id='$rPersonel[per_dept]' 
 									order by convert(t1.typ_name using tis620) asc,
 									convert(t2.dp_name using tis620) asc");
