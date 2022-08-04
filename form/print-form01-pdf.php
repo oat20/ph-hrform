@@ -265,24 +265,20 @@ $mpdf = new \Mpdf\Mpdf([
 		'default_font' => 'sarabun',
         'margin_header' => 0,
         'margin_footer' => 0,
+		'autoLangToFont' => true,
+		'allow_output_buffering' => true
 ]);
 $mpdf->SetDisplayMode('fullpage','two');
 $stylesheet = file_get_contents('../lib/mpdf/mpdfstyletables-2.css');
 $mpdf->WriteHTML($stylesheet,1);
 
-$mpdf->allow_output_buffering = true;
-
 if($ob['dev_cancel']=='yes'){
-	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'thsarabun'; $mpdf->showWatermarkText = true;
+	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'sarabun'; $mpdf->showWatermarkText = true;
 }
-
 $mpdf->WriteHTML($content);
 
 $mpdf->SetHTMLFooter($footer);
 
-//$mpdf->AddPage('','','','','','10','10','10','10',0,1);
-//$mpdf->WriteHTML($page2);
-//$mpdf->SetHTMLFooter($footerE,'E');
 $mpdf->Output($ob['dev_id'].'.pdf','I');
 exit;
 ?>

@@ -39,16 +39,7 @@ include('../../admin/compcode/include/function.php');
         </div>--><!--col-->
     </div><!--row-->
     <p></p>
-    
-    <form>
-        <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon3"><i class="fa fa-search"></i> ค้นหา</span>
-                <input type="search" id="jetsSearchform01" class="form-control">
-            </div>
-        </div>
-    </form>
-    
+        
     <div class="table-responsive">
 <table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="tbFrm02">
 	<thead>

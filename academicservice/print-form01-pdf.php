@@ -254,7 +254,7 @@ $mpdf->WriteHTML($stylesheet,1);
 $mpdf->allow_output_buffering = true;
 
 if($ob['dev_cancel']=='yes'){
-	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'thsarabun'; $mpdf->showWatermarkText = true;
+	$mpdf->SetWatermarkText('ยกเลิก'); $mpdf->watermark_font = 'sarabun'; $mpdf->showWatermarkText = true;
 }
 
 $mpdf->WriteHTML($content);
