@@ -321,7 +321,8 @@ include('../admin/compcode/include/function.php');
             </div><!--col-->
         </div><!--row-->
                                     
-        <input name="dev_maintype" type="hidden" value="<?php print $_GET['dm_id'];?>" />
+        <input name="dev_maintype" type="hidden" value="1" />
+        <input type="hidden" name="per_id[]" value="<?php echo $_SESSION['ses_per_id']; ?>" />
         <input name="action" type="hidden" value="save" />
         <button class="btn btn-primary btn-block" type="submit">บันทึกแบบฟอร์ม</button>
     </form>
@@ -335,8 +336,8 @@ $(document).ready(function(e) {
 
     $('.navbar-nav li:eq(1)').addClass('active');
 	
-	$('#personelJoin').tree({
-            /* specify here your options */
+	/*$('#personelJoin').tree({
+            //specify here your options
 			 onCheck: {
 					node: 'expand',
 					//children: {node:'expand'},
@@ -344,7 +345,7 @@ $(document).ready(function(e) {
 				onUncheck: {
 					node: 'collapse'
 				}
-        });
+        });*/
 	
 	$('#dev_bookfrom_03').datepicker({
 		format: 'yyyy-mm-dd', 
@@ -365,7 +366,7 @@ $(document).ready(function(e) {
 	//$('#reg_appoint_time').timepicker({'scrollDefault': 'now', 'step':'30', 'maxTime': '23:59', 'timeFormat': 'H:i'});
 	
 	//autocomplete
-	var devorg = new Bloodhound({
+	/*var devorg = new Bloodhound({
 	  datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.label); },
 	  queryTokenizer: Bloodhound.tokenizers.whitespace,
 	  limit: 20,
@@ -376,7 +377,7 @@ $(document).ready(function(e) {
 		 name: 'devorg',
 		  displayKey: 'label',
 		  source: devorg.ttAdapter()
-      });
+      });*/
 		//autocomplete
 	
      $('#formDefault')
@@ -385,17 +386,6 @@ $(document).ready(function(e) {
 			  	dev_country:{
 				  validators: {
                     notEmpty: {
-                    }
-                }
-			  },
-			  'per_id[]':{
-				  validators: {
-                    notEmpty: {
-                       //message: 'โปรดระบุผู้เข้าร่วม'
-                    },
-					choice: {
-                        min: 1,
-						//message: 'โปรดเลือกอย่างน้อย 1 รายการ'
                     }
                 }
 			  },
@@ -489,12 +479,8 @@ $(document).ready(function(e) {
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
         });
 		
-		//search select
-		$('select').select2({dropdownCssClass: 'show-select-search'});
-		//search select
-		
 		// Enable street/city/country validators if user want to degree
-    $('select[name="typ_id"]').on('change', function() {
+    /*$('select[name="typ_id"]').on('change', function() {
         var bootstrapValidator = $('#formDefault').data('bootstrapValidator'),
             shipDegree     = ($(this).val() == '22');
 
@@ -502,12 +488,12 @@ $(document).ready(function(e) {
                        : $('#devTypeother').find('.form-control').attr('disabled', 'disabled');
 
         bootstrapValidator.enableFieldValidators('dev_typeother', shipDegree);
-    });
+    });*/
 	
 	//enable / disable อนุมัติค่าใช้จ่าย
 	$('input[name="dev_nopay"]').on('change', function() {
-        var bootstrapValidator = $('#formDefault').data('bootstrapValidator'),
-            shipDevnopay     = ($(this).val() == '0');
+        var bootstrapValidator = $('#formDefault').data('bootstrapValidator');
+        var shipDevnopay     = ($(this).val() == '0');
 
         shipDevnopay ? $('#newDevnopay').find('.form-control').removeAttr('disabled')
                        : $('#newDevnopay').find('.form-control').attr('disabled', 'disabled');
@@ -522,6 +508,10 @@ $(document).ready(function(e) {
 			.enableFieldValidators('ct_id[]', shipDevnopay);
     });
 	//enable / disable อนุมัติค่าใช้จ่าย
+
+    //search select
+		$('select').select2({dropdownCssClass: 'show-select-search'});
+		//search select
 				
 });
 </script>

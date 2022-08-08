@@ -19,7 +19,10 @@ include('lib/css-inc.php');
     <body>
 <div class="container-fluid">
     <?php
-    echo random_ID2(6, 1).random_ID(2, 2);
+    $per_id[] = $_SESSION['ses_per_id'];
+    foreach($per_id as $v){
+        echo $v.'<br>';
+    }
     ?>
 	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
     	<div class="form-group">

@@ -318,7 +318,8 @@ include('../admin/compcode/include/function.php');
             </div><!--col-->
         </div><!--row-->
                                     
-        <input name="dev_maintype" type="hidden" value="<?php print $_GET['dm_id'];?>" />
+        <input name="dev_maintype" type="hidden" value="2" />
+        <input type="hidden" name="per_id[]" value="<?php echo $_SESSION['ses_per_id']; ?>" />
         <input name="action" type="hidden" value="save" />
         <button class="btn btn-primary btn-block" type="submit">บันทึกแบบฟอร์ม</button>
     </form>
@@ -381,17 +382,6 @@ $(document).ready(function(e) {
 			  	dev_country:{
 				  validators: {
                     notEmpty: {
-                    }
-                }
-			  },
-			  'per_id[]':{
-				  validators: {
-                    notEmpty: {
-                       //message: 'โปรดระบุผู้เข้าร่วม'
-                    },
-					choice: {
-                        min: 1,
-						//message: 'โปรดเลือกอย่างน้อย 1 รายการ'
                     }
                 }
 			  },
