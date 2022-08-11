@@ -24,7 +24,7 @@ include('../admin/compcode/include/function.php');
         <div class="col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">รายงานปฏิบัติงานพัฒนาบุคลากร</h3>
+								<h3 class="panel-title">รายงานแบบบันทึกปฏิบัติงานพัฒนาบุคลากร</h3>
 							</div>
 							<div class="list-group">
                             	<!--<a href="" class="list-group-item"><i class="fa fa-download fa-fw"></i> Export ข้อมูลดิบ</a>-->
@@ -50,7 +50,7 @@ include('../admin/compcode/include/function.php');
                     <div class="col-sm-4">
                     	<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3 class="panel-title">รายงานปฏิบัติงานบริการวิชาการ</h3>
+								<h3 class="panel-title">รายงานแบบบันทึกปฏิบัติงานบริการวิชาการ</h3>
 							</div>
 							<div class="list-group">
                             	<!--<a href="" class="list-group-item active"><i class="fa fa-tags fa-fw"></i> <strong>รายงานภาพรวม</strong></a>-->

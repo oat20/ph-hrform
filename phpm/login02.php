@@ -239,7 +239,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 							data-bv-remote-url="../lib/bootstrapvalidator/mu-emailformat.php">
 					</div>
 					<input type="hidden" name="action" value="genOTP">
-					<button type="submit" class="btn btn-inverse btn-wide">ถัดไป <i class="fa fa-arrow-right fa-fw"></i></button>
+					<button type="submit" class="btn btn-inverse btn-block">ถัดไป <i class="fa fa-arrow-right fa-fw"></i></button>
 				</form>
 			</div>
             
