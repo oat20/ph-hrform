@@ -268,16 +268,24 @@ include('../admin/compcode/include/function.php');
                 </td>
              </tr>
              <tr>
-                <th>Member Status</th>
+                <th>Member Level</th>
                 <td>
                     <div class="form-group">
                         <label class="radio">
-                            <input type="radio" name="du_status" id="du-status" value="3" data-toggle="radio" required>
+                            <input type="radio" name="du_status" id="du-status" value="3" data-toggle="radio" checked required>
                             บุคลากรคณะฯ (ผู้ขออนุมัติ)
                         </label>
                         <label class="radio">
                             <input type="radio" name="du_status" id="du-status" value="2" data-toggle="radio" required>
                             จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="du_status" id="du-status" value="5" data-toggle="radio" required>
+                            บันทึกงบประมาณ: งานการเงินฯ
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="du_status" id="du-status" value="6" data-toggle="radio" required>
+                            View Report
                         </label>
                         <label class="radio">
                             <input type="radio" name="du_status" id="du-status" value="1" data-toggle="radio" required>

@@ -112,7 +112,7 @@ while($rs=mysqli_fetch_array($exec)){
 	$rs02=mysqli_fetch_assoc($sql02);
 ?>
   <tr class="text">
-  	<td>#<?php echo $num;?></td>
+  	<td><?php echo $num;?></td>
     <!--<td><?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?></td>-->
     <td class="text"><?php echo '<strong>'.$rs['dev_id'].'</strong><br><i class="fa fa-user"></i> '.$rs['per_fnamet'].' '.$rs['per_lnamet'].'<br><i class="fa fa-calendar"></i> '.dateFormat_02($rs['dev_create']);?></td>
     <td class="text"><?php print $rs["dev_year"]; ?></td>

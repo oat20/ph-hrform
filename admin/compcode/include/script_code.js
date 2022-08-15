@@ -1,4 +1,3 @@
-<script language="JavaScript" type="text/javascript">
 function checkval(form) 
 {
   		if (form.title_pic.value == "") 
@@ -25,7 +24,3 @@ function checkval(form)
 		//form.month.disabled = false;
 		//form.year.disabled = false;
 }
-
-
-
-</script> 

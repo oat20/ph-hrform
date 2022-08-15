@@ -340,7 +340,7 @@ include('../admin/compcode/include/function.php');
                 </td>
              </tr>
              <tr>
-                <th>Member Status</th>
+                <th>Member Level</th>
                 <td>
                     <div class="form-group">
                         <label class="radio">
@@ -350,6 +350,14 @@ include('../admin/compcode/include/function.php');
                         <label class="radio">
                             <input type="radio" name="du_status" id="du-status" value="2" data-toggle="radio" <?php if($ob01['du_status'] == '2'){echo "checked"; }?>>
                             จัดการข้อมูลระดับคณะฯ: งานบริหารทรัพยากรบุคคล
+                        </label>
+						<label class="radio">
+                            <input type="radio" name="du_status" id="du-status" value="5" data-toggle="radio" <?php if($ob01['du_status'] == '5'){echo "checked"; }?>>
+                            บันทึกงบประมาณ: งานการเงินฯ
+                        </label>
+						<label class="radio">
+                            <input type="radio" name="du_status" id="du-status" value="6" data-toggle="radio" <?php if($ob01['du_status'] == '6'){echo "checked"; }?>>
+                            View Report
                         </label>
                         <label class="radio">
                             <input type="radio" name="du_status" id="du-status" value="1" data-toggle="radio" <?php if($ob01['du_status'] == '1'){echo "checked"; }?>>

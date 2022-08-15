@@ -19,13 +19,12 @@ include('../admin/compcode/include/function.php');
 <body>
 <?php include('../inc/navbar02-inc.php');?>
 
-<div class="container-fluid">
-	<div class="row">
-    	<div class="col-sm-12">
-        
-        	<div class="page-header-05">
+<div class="container">
+    <div class="page-header-05">
                 <div class="text-title"><a href="<?php echo $livesite;?>leave/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกขออนุมัติเดินทางต่างประเทศ</a></div>
             </div>
+	<div class="row">
+    	<div class="col-xs-12">
             <form method="post" id="formDefault" action="form-action.php">
             	<!--ข้อมูลผู้ขออนุมัติ-->
                 <?php
