@@ -104,7 +104,7 @@ while($rs=mysqli_fetch_array($exec)){
   	<!--<td>
 		<?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['icon'].'&nbsp;'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?>
     </td>-->
-	  <td>#<?php print ++$r;?></td>
+	  <td><?php print ++$r;?></td>
     <td class="text" align="center"><?php echo $rs['dev_id'];?></td>
     <td><i class="glyphicon glyphicon-user"></i> <?php echo $rs['per_fnamet'].' '.$rs['per_lnamet'].'<br><i class="fa fa-clock-o"></i> '.dateFormat_02($rs['dev_create']);?></td>
 	<td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'];?></td>

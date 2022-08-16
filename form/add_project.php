@@ -121,6 +121,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		
 		//insert table develop_form_budget
 		if(isset($_POST['bt_id'])){
+			$budget_pay01=0;
 			foreach($_POST['bt_id'] as $value){
 				$sql02=mysqli_query($condb, "insert into $db_eform.develop_form_budget (dev_id, bt_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["bt_dev_pay01".$value]."')");
 				$budget_pay01+=$_POST['bt_dev_pay01'.$value];
@@ -129,6 +130,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		
 		//insert table develop_form_cost
 		if(isset($_POST['ct_id'])){
+			$cost_pay01=0;
 			foreach($_POST['ct_id'] as $value){
 				$sql03=mysqli_query($condb, "insert into $db_eform.develop_form_cost (dev_id, ct_id, dev_pay01) values ('$dev_id', '$value', '".$_POST["ct_dev_pay01".$value]."')");
 				$cost_pay01+=$_POST['ct_dev_pay01'.$value];
