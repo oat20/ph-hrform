@@ -333,8 +333,8 @@ $(document).ready(function(e) {
 
     $('.navbar-nav li:eq(1)').addClass('active');
 	
-	$('#personelJoin').tree({
-            /* specify here your options */
+	/*$('#personelJoin').tree({
+            //specify here your options
 			 onCheck: {
 					node: 'expand',
 					//children: {node:'expand'},
@@ -342,7 +342,7 @@ $(document).ready(function(e) {
 				onUncheck: {
 					node: 'collapse'
 				}
-        });
+        });*/
 	
 	$('#dev_bookfrom_03').datepicker({
 		format: 'yyyy-mm-dd', 
@@ -363,7 +363,7 @@ $(document).ready(function(e) {
 	//$('#reg_appoint_time').timepicker({'scrollDefault': 'now', 'step':'30', 'maxTime': '23:59', 'timeFormat': 'H:i'});
 	
 	//autocomplete
-	var devOrg = new Bloodhound({
+	/*var devOrg = new Bloodhound({
 	  datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.label); },
 	  queryTokenizer: Bloodhound.tokenizers.whitespace,
 	  limit: 20,
@@ -374,7 +374,7 @@ $(document).ready(function(e) {
 		 name: 'devOrg',
 		  displayKey: 'label',
 		  source: devOrg.ttAdapter()
-      });
+      });*/
 		//autocomplete
 	
      $('#formDefault').bootstrapValidator({
@@ -510,10 +510,10 @@ $(document).ready(function(e) {
         shipDevnopay ? $('#newDevnopay').find('.form-control').removeAttr('disabled')
                        : $('#newDevnopay').find('.form-control').attr('disabled', 'disabled');
 					   
-		shipDevnopay ? $('#newDevnopay').find('input[name="bt_id[]"]').removeAttr('disabled')
+		shipDevnopay ? $('#newDevnopay').find('input[name="bt_id[]"]').removeAttr('disabled').attr('required', 'required')
                        : $('#newDevnopay').find('input[name="bt_id[]"]').attr('disabled', 'disabled');
 					   
-		shipDevnopay ? $('#newDevnopay').find('input[name="ct_id[]"]').removeAttr('disabled')
+		shipDevnopay ? $('#newDevnopay').find('input[name="ct_id[]"]').removeAttr('disabled').attr('required', 'required')
                        : $('#newDevnopay').find('input[name="ct_id[]"]').attr('disabled', 'disabled');
 
         bootstrapValidator.enableFieldValidators('bt_id[]', shipDevnopay)
