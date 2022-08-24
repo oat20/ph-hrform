@@ -1,12 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>APPROVE TRANSACTION</title>
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../lib/flatui/css/flat-ui.min.css" rel="stylesheet">
+    <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
+
 <body>
-    
+    <nav class="navbar navbar-inverse navbar-static-top navbar-embossed navbar-lg">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    APPROVE TRANSACTION
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form style="margin-bottom: 10px;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <label>NAME</label>
+                    <p class="form-control-static">AAA</p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <label>POSITION</label>
+                    <p class="form-control-static">AAA</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <label>PROJECT NAME</label>
+                    <p class="form-control-static">AAA</p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <label>LOCATION</label>
+                    <p class="form-control-static">AAA</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <label>BEGIN</label>
+                    <p class="form-control-static">xx/xx/xxxx xx:xx</p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <label>FINISH</label>
+                    <p class="form-control-static">xx/xx/xxxx xx:xx</p>
+                </div>
+            </div>
+            <label><i class="fa fa-paperclip fa-fw"></i> ATTACTMENT</label>
+            <p class="form-control-static">https://xxx.xxx.xxx/document.pdf</p>
+            <div class="form-group">
+                <label>NOTE</label>
+                <textarea name="" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label><strong>YOUR OTP</strong></label>
+                <input type="text" class="form-control input-lg text-uppercase" required>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-check fa-fw"></i>
+                        APPROVE</button>
+                    <hr class="visible-xs visible-sm">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <button type="button" class="btn btn-danger btn-block"><i class="fa fa-exclamation fa-fw"></i> NOT
+                        APPROVE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="../lib/flatui/js/vendor/jquery.min.js"></script>
+    <script src="../lib/flatui/js/flat-ui.min.js"></script>
+    <script src="../lib/flatui/js/application.js"></script>
+
 </body>
+
 </html>
