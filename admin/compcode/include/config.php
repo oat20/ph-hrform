@@ -97,7 +97,7 @@ $cf_devleave_status=array(
 	"1"=>array("name"=>"อื่นๆ","color"=>"default")
 );
 
-//อนุมัติ
+//*อนุมัติ
 $cf_approve=array(
 	"wait"=>array("name"=>"รออนุมัติ","color"=>"warning", "icon"=>"<i class='fa fa-hourglass fa-fw'></i>"),
 	"approve"=>array("name"=>"อนุมัติ","color"=>"success", "icon"=>"<i class='fa fa-check fa-fw'></i>"),
