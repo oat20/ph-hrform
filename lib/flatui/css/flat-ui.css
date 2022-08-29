@@ -1047,6 +1047,53 @@ fieldset[disabled] .btn-inverse.active {
   color: #34495e;
   background-color: #fff;
   }
+  /*btn-ph-salmonpink*/
+  .btn-phsalmonpink {
+  color: #fff;
+  background-color: #f39566;
+  }
+.btn-phsalmonpink:hover,
+.btn-phsalmonpink.hover,
+.btn-phsalmonpink:focus,
+.btn-phsalmonpink:active,
+.btn-phsalmonpink.active,
+.open > .dropdown-toggle.btn-phsalmonpink {
+  color: #fff;
+  background-color: #f39566;
+  border-color: #f39566;
+  }
+.btn-phsalmonpink:active,
+.btn-phsalmonpink.active,
+.open > .dropdown-toggle.btn-phsalmonpink {
+  background: #f39566;
+  border-color: #f39566;
+  }
+.btn-phsalmonpink.disabled,
+.btn-phsalmonpink[disabled],
+fieldset[disabled] .btn-phsalmonpink,
+.btn-phsalmonpink.disabled:hover,
+.btn-phsalmonpink[disabled]:hover,
+fieldset[disabled] .btn-phsalmonpink:hover,
+.btn-phsalmonpink.disabled.hover,
+.btn-phsalmonpink[disabled].hover,
+fieldset[disabled] .btn-phsalmonpink.hover,
+.btn-phsalmonpink.disabled:focus,
+.btn-phsalmonpink[disabled]:focus,
+fieldset[disabled] .btn-phsalmonpink:focus,
+.btn-phsalmonpink.disabled:active,
+.btn-phsalmonpink[disabled]:active,
+fieldset[disabled] .btn-phsalmonpink:active,
+.btn-phsalmonpink.disabled.active,
+.btn-phsalmonpink[disabled].active,
+fieldset[disabled] .btn-phsalmonpink.active {
+  background-color: #bdc3c7;
+  border-color: #f39566;
+  }
+.btn-phsalmonpink .badge {
+  color: #f39566;
+  background-color: #fff;
+  }
+  /*end btn-ph-salmonpink*/
 .btn-embossed {
   box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .15);
   }
