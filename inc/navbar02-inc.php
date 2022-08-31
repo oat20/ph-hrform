@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
           </button>
           <!--<a class="navbar-brand" href="<?php //echo $livesite;?>profile/profile.php"><?php //print $titlebar['icon'].' '.$titlebar['title'];?></a>-->
-          <a class="navbar-brand" href="<?php print $livesite;?>profile/profile.php"><?php echo $titlebar['shorttitle'];?></a>
+          <a class="navbar-brand" href="<?php print $livesite;?>profile/profile.php"><?php echo $titlebar['icon'].' '.$titlebar['shorttitle'];?></a>
           <!--<img src="<?php //echo $livesite;?>img/PH_logo_web.png" class="img-responsive">-->
         </div>
         

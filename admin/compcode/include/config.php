@@ -36,10 +36,10 @@ $img_path3="room_it/images/"; #path รูป
 	"icon"=>"<i class='fa fa-line-chart'></i>"
 );*/
 $titlebar=array(
-	"title"=>"PH-HR eForm",
-	"shorttitle"=>"PH-HR",
+	"title"=>"PH-HRD E-Document",
+	"shorttitle"=>"HRD",
 	"label"=>"แบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลการ / บริการวิชาการ",
-	"icon"=>"<i class='fa fa-users fa-fw'></i>",
+	"icon"=>"<i class='fa fa-connectdevelop fa-fw'></i>",
 	"label_02"=>"แบบฟอร์มออนไลน์งานบริหารทรัพยากรบุคคล"
 );
 
