@@ -36,7 +36,7 @@ $img_path3="room_it/images/"; #path รูป
 	"icon"=>"<i class='fa fa-line-chart'></i>"
 );*/
 $titlebar=array(
-	"title"=>"PH-HRD E-Document",
+	"title"=>"PH-HRD E-Forms",
 	"shorttitle"=>"HRD",
 	"label"=>"แบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลการ / บริการวิชาการ",
 	"icon"=>"<i class='fa fa-connectdevelop fa-fw'></i>",
