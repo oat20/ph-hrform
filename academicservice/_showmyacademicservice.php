@@ -38,11 +38,11 @@ require_once './navbar-academicservice-inc.php'
 <tr bgcolor="#E0E3CE" class="text">
 	<!--<th>Status</th>-->
 	<th>#</th>
-    <th class="text">REF. ID</th>
-	<th class="text-uppercase">Datestamp</th>
+    <th class="text">Ref. ID</th>
+	<th>Datestamp</th>
     <th class="text">ลักษณะงาน</th>
     <th class="text">ปีงบประมาณ</th>
-    <th class="text">หลักสูตร/โครงการ</th>
+    <th class="text">เรื่อง</th>
     <th>จำนวนผู้เข้าร่วม</th>
 	<th class="text">วันที่เริ่ม</th>
     <th class="text">วันที่สิ้นสุด</th>

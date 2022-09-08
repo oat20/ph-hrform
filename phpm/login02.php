@@ -232,7 +232,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 				<form id="formSignin2" method="POST" action="<?php print $_SERVER['PHP_SELF'];?>" >
 					<div class="form-group">
 						<label>MU Email</label>
-						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="Enter email"
+						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="name.sur@mahidol.ac.th"
 							data-bv-notempty="true"
 							data-bv-emailaddress="true"
 							data-bv-remote="true"

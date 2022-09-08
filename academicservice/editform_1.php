@@ -15,7 +15,7 @@ include('../admin/compcode/include/function.php');
         <?php include('../lib/css-inc.php');?>
     </head>
     <body>
-        <?php include('../inc/navbar02-inc.php');?>
+        <?php include('./navbar-academicservice-inc.php');?>
 <div class="container-fluid">
 
 	<?php
@@ -40,61 +40,63 @@ include('../admin/compcode/include/function.php');
             	<td>ส่วนงาน:</td>
                 <td>
                     <div class="form-group">
-                        <select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">
+                        <!--<select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">-->
                             <?php
                             $sql=mysqli_query($condb, "select * from $db_eform.department_type
-                                    inner join $db_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
-                                    where department_type.typ_id='PH00001'
-                                    or department_type.typ_id='PH00002'
+                                    right join $db_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
+                                    where tb_orgnew.dp_id = '$rDevelop[dp_id]'
                                     order by department_type.typ_id asc,
                                     tb_orgnew.dp_id asc");
-                            while($ob=mysqli_fetch_assoc($sql)){
+                                    $ob=mysqli_fetch_assoc($sql);
+                            /*while($ob=mysqli_fetch_assoc($sql)){
 								if($rDevelop['dp_id'] == $ob['dp_id']){
                                 	print '<option value="'.$ob['dp_id'].'" selected>'.$ob['typ_name'].' &raquo; '.$ob['dp_name'].'</option>';
 								}else{
 									print '<option value="'.$ob['dp_id'].'">'.$ob['typ_name'].' &raquo; '.$ob['dp_name'].'</option>';
 								}
-                            }
+                            }*/
                             ?>
-                        </select>
+                        <!--</select>-->
+                        <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
+                        <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                     </div>
                 </td>
             </tr>
-        	<tr>
+        	<!--<tr>
             	<th colspan="2">หนังสือเชิญ / จดหมายเชิญ</th>
-            </tr>
-        	<tr>
+            </tr>-->
+        	<!--<tr>
             	<td>ตามหนังสือ:</td>
                 <td>
                 	<div class="form-group">
-                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_01" required value="<?php echo $dev_bookfrom['0'];?>">
+                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_01" required value="<?php //echo $dev_bookfrom['0'];?>">
                     </div>
                 </td>
-            </tr>
-            <tr>
+            </tr>-->
+            <!--<tr>
             	<td>ที่:</td>
                 <td>
                 	<div class="form-group">
-                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_02" required value="<?php echo $dev_bookfrom['1'];?>">
+                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_02" required value="<?php //echo $dev_bookfrom['1'];?>">
                     </div>
                 </td>
-            </tr>
-            <tr>
+            </tr>-->
+            <!--<tr>
             	<td>ลงวันที่:</td>
                 <td>
                 	<div class="form-group">
-                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_03" id="dev_bookfrom_03" required value="<?php echo $dev_bookfrom['2'];?>">
+                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_03" id="dev_bookfrom_03" required value="<?php //echo $dev_bookfrom['2'];?>">
                     </div>
                 </td>
-            </tr>
-            <tr>
+            </tr>-->
+            <!--<tr>
             	<td>เรื่อง:</td>
                 <td>
                 	<div class="form-group">
-                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_04" required value="<?php echo $dev_bookfrom['3'];?>">
+                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_04" required value="<?php //echo $dev_bookfrom['3'];?>">
                     </div>
                 </td>
-            </tr>
+            </tr>-->
             <tr>
               <td class="formcolhd">หลักสูตร/โครงการ:</td>
               <td class="tdpadding"><div class="form-group"><input name="dev_onus" type="text" class="form-control inputform input-sm" id="title_news" value="<?php echo $rDevelop['dev_onus'];?>" size="60" required/></div></td>
@@ -131,28 +133,29 @@ include('../admin/compcode/include/function.php');
               <td class="formcolhd">ลักษณะงาน:</td>
               <td background="../admin/compcode/compcode/picture/back_1.jpg" class="tdpadding">
                 <div class="form-group">
-                	<select name="dvt_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
+                	<!--<select name="dvt_id" class="form-control select select-inverse select-sm" data-toggle="select" required>-->
                     <?php
 					$typ=mysqli_query($condb, "select * from $db_eform.develop_type
-						where dvt_status='1'
-						and dm_id='2'
+						where dvt_id = '$rDevelop[dev_type]'
 						order by dvt_id asc");
-                        while($ob=mysqli_fetch_array($typ)){
+                        $ob = mysqli_fetch_assoc($typ);
+                        /*while($ob=mysqli_fetch_array($typ)){
 							if($rDevelop['dev_type']==$ob['dvt_id']){
                             	print '<option value="'.$ob['dvt_id'].'" selected>&raquo; '.$ob['dvt_name'].'</option>';
 							}else{
 								print '<option value="'.$ob['dvt_id'].'">&raquo; '.$ob['dvt_name'].'</option>';
 							}
-                        }
+                        }*/
 					?>
-                    	</select>
+                    	<!--</select>-->
+                        <input type="text" name="dvt_id" class="form-control" value="<?php echo $ob['dvt_name'];?>" required>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                     	<div id="devTypeother">
-                        	<?php if($rDevelop['dev_type']==23){$disabled='';}else{$disabled='disabled';}?>
-                    		<input type="text" class="form-control input-sm" value="<?php echo $rDevelop['dev_typeother'];?>" <?php echo $disabled;?> name="dev_typeother"/>
+                        	<?php //if($rDevelop['dev_type']==23){$disabled='';}else{$disabled='disabled';}?>
+                    		<input type="text" class="form-control input-sm" value="<?php //echo $rDevelop['dev_typeother'];?>" <?php //echo $disabled;?> name="dev_typeother"/>
                         </div>
-                    </div>         
+                    </div>-->         
                     </td>
             </tr>
             <tr>
@@ -251,6 +254,15 @@ include('../admin/compcode/include/function.php');
                     </select></div>
                 </td>
             </tr>
+            <tr>
+                <td><i class="fa fa-paperclip fa-fw"></i> แนบเอกสารเกี่ยวกับโครงการ</td>
+                <td>
+                    <div class="form-group">
+                        <input type="file" name="" accept="image/jpeg, application/pdf, image/png">
+                        <span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
+                    </div>
+                </td>
+            </tr>
       	</tbody>
       </table>
       			</div><!--table-responsive-->
@@ -268,9 +280,9 @@ include('../admin/compcode/include/function.php');
 							<?php
                             foreach($cf_devnopay as $k=>$v){
                                 if($k==$rDevelop['dev_nopay']){
-                                    echo '<label class="radio-inline"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio" checked> '.$v.'</label>';
+                                    echo '<label class="radio"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio" checked> '.$v.'</label>';
                                 }else{
-                                    echo '<label class="radio-inline"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio"> '.$v.'</label>';
+                                    echo '<label class="radio"><input type="radio" name="dev_nopay" value="'.$k.'" data-toggle="radio"> '.$v.'</label>';
                                 }
                             }
                             ?>
@@ -362,12 +374,12 @@ include('../admin/compcode/include/function.php');
                 </div><!--panel-->
                 <!--ค่าใช้จ่าย-->          	
             
-            	<div class="panel panel-primary">
+            	<!--<div class="panel panel-primary">
             		<div class="panel-heading">บุคลากรผู้เข้าร่วม</div>
                 	<div class="panel-body">
                     	<div id="personelJoin" class="form-group">
 							<?php
-							$peridJoin=array();
+							/*$peridJoin=array();
 							$qPerjoin=mysqli_query($condb, "select * from $db_eform.develop_course_personel where dev_id='$rDevelop[dev_id]'");
 							while($rPerjoin=mysqli_fetch_assoc($qPerjoin)){
 								$peridJoin[]=$rPerjoin['per_id'];
@@ -403,11 +415,13 @@ include('../admin/compcode/include/function.php');
                                             echo '</ul>
                                         </li>';
                                 }
-                                echo '</ul>';
+                                echo '</ul>';*/
                             ?>
                         </div>
-                	</div><!--body-->
-                </div><!--panel-->
+                	</div>-->
+                    <!--body-->
+                <!--</div>-->
+                <!--panel-->
                 
             </div><!--col-->
     	</div><!--row-->
@@ -416,7 +430,7 @@ include('../admin/compcode/include/function.php');
             <div class="panel-footer">
             	<input name="dev_id" type="hidden" value="<?php print $rDevelop['dev_id'];?>" />
                 <input type="hidden" name="action" value="save">
-            	<input class="btn button btn-block" type="submit" value="บันทึกแบบฟอร์ม">
+            	<button class="btn btn-primary btn-block" type="submit" value="บันทึกแบบฟอร์ม">บันทึกแบบฟอร์ม</button>
             </div><!--footer-->
         </div><!--panel-->
     </form>
@@ -426,6 +440,7 @@ include('../admin/compcode/include/function.php');
 <?php include('../lib/js-inc.php');?>
 <script>
 $(document).ready(function(e) {
+    $('.navbar-nav li:eq(1)').addClass('active');
 	
 	$('#personelJoin').tree({
             /* specify here your options */
