@@ -99,7 +99,7 @@ include('../admin/compcode/include/function.php');
             </tr>-->
             <tr>
               <td class="formcolhd">หลักสูตร/โครงการ:</td>
-              <td class="tdpadding"><div class="form-group"><input name="dev_onus" type="text" class="form-control inputform input-sm" id="title_news" value="<?php echo $rDevelop['dev_onus'];?>" size="60" required/></div></td>
+              <td class="tdpadding"><div class="form-group"><input name="dev_onus" type="text" class="form-control inputform input-sm" id="title_news" value="<?php echo htmlspecialchars($rDevelop['dev_onus']);?>" size="60" required/></div></td>
         </tr>
     	<tr>
                     <td class="formcolhd">ระหว่างวันที่:</td>

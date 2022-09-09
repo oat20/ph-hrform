@@ -3,7 +3,8 @@ session_start();
 
 set_time_limit(0);
 
-include("../admin/compcode/include/config.php"); 
+include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php'; 
 include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
 
@@ -14,8 +15,19 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 	
 	if($_POST['dev_country'] == '223'){ $dev_local='1'; }else{ $dev_local='2'; }
 	$dev_training_hour=GettrainingHour($_POST['dev_stdate'], $_POST['dev_enddate'], $_POST['dev_timebegin'], $_POST['dev_timeend']);//จำนวนชั่วโมง
+
+	//tb_develop_type
+	$sql=mysqli_query($condb, "select dvt_id from develop_type where dvt_name like '%$_POST[typ_id]%' order by rand() limit 1");
+	$rs=mysqli_fetch_assoc($sql);
+	if($rs['dvt_id'] != ''){
+		$dev_type=$rs['dvt_id'];
+	}else{
+		$dvt_id=random_ID(2, 2);
+		mysqli_query($condb, "insert into develop_type (dvt_id, dvt_name) values ('$dvt_id', '$_POST[typ_id]')");
+		$dev_type=$dvt_id;
+	}
 	
-	$qDevelop=mysql_query("update $db_eform.develop set
+	$qDevelop=mysqli_query($condb, "update $db_eform.develop set
 					dp_id='$_POST[dp_id]',
 					dev_orddate='$date_create',
 					dev_bookfrom='$dev_bookfrom',
@@ -45,18 +57,18 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 					where dev_id='$_POST[dev_id]'");
 	
 	//insert table develop_form_objective
-	mysql_query("delete from $db_eform.develop_form_objective where dev_id='$_POST[dev_id]'");
+	mysqli_query($condb, "delete from $db_eform.develop_form_objective where dev_id='$_POST[dev_id]'");
 		if(isset($_POST['typ_id'])){			
 			//foreach($_POST['dvt_id'] as $value){
-				$sql02=mysql_query("insert into $db_eform.develop_form_objective values ('$_POST[dev_id]','$_POST[typ_id]')");
+				$sql02=mysqli_query($condb, "insert into $db_eform.develop_form_objective values ('$_POST[dev_id]','$_POST[typ_id]')");
 			//}
 		}
 		
 		//insert table develop_form_budget
-		mysql_query("delete from $db_eform.develop_form_budget where dev_id='$_POST[dev_id]'");
+		mysqli_query($condb, "delete from $db_eform.develop_form_budget where dev_id='$_POST[dev_id]'");
 		if(isset($_POST['bt_id'])){
 			foreach($_POST['bt_id'] as $value){
-				$sql02=mysql_query("insert into $db_eform.develop_form_budget (dev_id, 
+				$sql02=mysqli_query($condb, "insert into $db_eform.develop_form_budget (dev_id, 
 					bt_id, 
 					dev_pay01,
 					dev_pay02,
@@ -73,10 +85,10 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 		}
 		
 		//insert table develop_form_cost
-		mysql_query("delete from $db_eform.develop_form_cost where dev_id='$_POST[dev_id]'");
+		mysqli_query($condb, "delete from $db_eform.develop_form_cost where dev_id='$_POST[dev_id]'");
 		if(isset($_POST['ct_id'])){
 			foreach($_POST['ct_id'] as $value){
-				$sql03=mysql_query("insert into $db_eform.develop_form_cost (dev_id, 
+				$sql03=mysqli_query($condb, "insert into $db_eform.develop_form_cost (dev_id, 
 				ct_id, 
 				dev_pay01,
 				dev_pay02,
@@ -93,12 +105,12 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 		}
 		
 		//insert table develop_course_personel
-		mysql_query("delete from $db_eform.develop_course_personel 
+		mysqli_query($condb, "delete from $db_eform.develop_course_personel 
 			where dev_id='$_POST[dev_id]'");
 		if(isset($_POST['per_id'])){
 			foreach($_POST['per_id'] as $v_perid){
-				$cp_id=maxid($db_eform.'.develop_course_personel', 'cp_id');
-				$sql04=mysql_query("insert into $db_eform.develop_course_personel (cp_id,
+				$cp_id=maxid($condb, $db_eform.'.develop_course_personel', 'cp_id');
+				$sql04=mysqli_query($condb, "insert into $db_eform.develop_course_personel (cp_id,
 							dev_id,
 							per_id,
 							budget_pay01,
@@ -121,9 +133,9 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 		//insert table develop, develop_course_personel
 		
 		//insert tb develop_cancel
-		mysql_query("delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
+		mysqli_query($condb, "delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
 		$cc_id=random_ID('4', '0');
-		mysql_query("insert into $db_eform.develop_cancel (cc_id,
+		mysqli_query($condb, "insert into $db_eform.develop_cancel (cc_id,
 			dev_id,
 			cc_comment,
 			cc_ipstamp) 
@@ -143,7 +155,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 					'$_SESSION[ses_per_id]', 
 					'Edit', 
 					'".$_SERVER['REMOTE_ADDR']."')";
-		mysql_query($sql2);
+		mysqli_query($condb, $sql2);
 	
 	header("location: confirm-form-1.php?getDevid=".$_POST['dev_id']);
 }

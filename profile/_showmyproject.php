@@ -161,7 +161,7 @@ $(document).ready(function(e) {
 				orderable: false, 
 				targets: 10 
 			}
-		],
+		]
 	});
 	
 	//datepicker

@@ -19,7 +19,7 @@ include('../admin/compcode/include/function.php');
 
     <div class="page-header-05">
     	<div class="text-title">
-            <a href="<?php echo $livesite;?>profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> แก้ไขแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
+            <a href="<?php echo $livesite;?>profile/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> แก้ไขแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
         </div>
     </div>
     
@@ -35,14 +35,15 @@ include('../admin/compcode/include/function.php');
                 
                 <div class="form-group">
                     <label class="control-label">ส่วนงาน:</label>
-                        <select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">
+                        <!--<select data-toggle="select" name="dp_id" class="form-control select select-inverse select-sm">-->
                             <?php
                             $sql=mysqli_query($condb, "select * from ph_hr_eform.department_type
-                                    inner join ph_hr_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
-                                    where department_type.typ_id='PH00001'
-                                    or department_type.typ_id='PH00002'
+                                    right join ph_hr_eform.tb_orgnew on (department_type.typ_id=tb_orgnew.typ_id)
+                                    where tb_orgnew.dp_id='$rDevelop[dp_id]'
                                     order by department_type.typ_id asc,
                                     tb_orgnew.dp_id asc");
+                                    $ob=mysqli_fetch_assoc($sql);
+                                    /*
                             while($ob=mysqli_fetch_assoc($sql)){
                                 if($rDevelop['dp_id'] == $ob['dp_id']){
                                     print '<option value="'.$ob['dp_id'].'" selected>&raquo; '.$ob['dp_name'].'</option>';
@@ -50,32 +51,36 @@ include('../admin/compcode/include/function.php');
                                     print '<option value="'.$ob['dp_id'].'">&raquo; '.$ob['dp_name'].'</option>';
                                 }
                             }
+                            */
                             ?>
-                        </select>
+                        <!--</select>-->
+                        <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
+                        <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
                 
-                <legend>หนังสือเชิญ / จดหมายเชิญ</legend>
+                <!--<legend>หนังสือเชิญ / จดหมายเชิญ</legend>
                 <div class="form-group">
                     <label class="control-label">ตามหนังสือ:</label>
-                    <input type="text" class="form-control input-sm" name="dev_bookfrom_01" required value="<?php echo $dev_bookfrom['0'];?>">
-                </div><!--form-group-->
-                <div class="form-group">
+                    <input type="text" class="form-control input-sm" name="dev_bookfrom_01" required value="<?php //echo $dev_bookfrom['0'];?>">
+                </div>-->
+                <!--form-group-->
+                <!--<div class="form-group">
                     <label class="control-label">ที่:</label>
-                    <input type="text" class="form-control input-sm" name="dev_bookfrom_02" required value="<?php echo $dev_bookfrom['1'];?>">
+                    <input type="text" class="form-control input-sm" name="dev_bookfrom_02" required value="<?php //echo $dev_bookfrom['1'];?>">
                 </div>
                 <div class="form-group">
                     <label class="control-label">ลงวันที่:</label>
-                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_03" id="dev_bookfrom_03" required value="<?php echo $dev_bookfrom['2'];?>">
+                    	<input type="text" class="form-control input-sm" name="dev_bookfrom_03" id="dev_bookfrom_03" required value="<?php //echo $dev_bookfrom['2'];?>">
                 </div>
                 <div class="form-group">
                     <label class="control-label">เรื่อง:</label>
-                            <input type="text" class="form-control input-sm" name="dev_bookfrom_04" required value="<?php echo $dev_bookfrom['3'];?>">
+                            <input type="text" class="form-control input-sm" name="dev_bookfrom_04" required value="<?php //echo $dev_bookfrom['3'];?>">
                 </div>
-                <hr>
+                <hr>-->
                 
                 <div class="form-group">
                       <label class=" control-label formcolhd">หลักสูตร/โครงการ:</label>
-                      <input name="dev_onus" type="text" class="form-control inputform input-sm" id="title_news" value="<?php echo $rDevelop['dev_onus'];?>" size="60" required/>
+                      <input name="dev_onus" type="text" class="form-control inputform input-sm" id="title_news" value="<?php echo htmlspecialchars($rDevelop['dev_onus']);?>" required/>
                 </div><!--form-group-->
                 <div class="form-group">
                     <label class="control-label formcolhd">ระหว่างวันที่:</label>
@@ -106,17 +111,20 @@ include('../admin/compcode/include/function.php');
                 
                 <div class="form-group">
                   <label class="control-label">ลักษณะงาน:</label>
+                  <!--
                   <div class="row">
                   	<div class="col-sm-6">
                   <select name="typ_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
+                        -->
                             <?php
                             $typ=mysqli_query($condb, "select * from $db_eform.develop_main_type
                                         inner join $db_eform.develop_type on (develop_main_type.dm_id = develop_type.dm_id)
-                                        where develop_type.dvt_status = '1'
-                                        and develop_main_type.dm_id = '1'
+                                        where develop_type.dvt_id='$rDevelop[dev_type]'
                                         order by develop_main_type.dm_id asc,
                                         develop_type.dvt_id asc");
+                                        $ob=mysqli_fetch_array($typ);
+                                        /*
                             while($ob=mysqli_fetch_array($typ)){
 								if($rDevelop['dev_type'] == $ob['dvt_id']){
                                 	print "<option value=".$ob['dvt_id']." selected>".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
@@ -124,16 +132,27 @@ include('../admin/compcode/include/function.php');
 									print "<option value=".$ob['dvt_id'].">".$ob['dvt_id'].' - '.$ob['dvt_name']."</option>";
 								}
                             }
-                            ?>                 
+                            */
+                            ?>
+                            <!--                 
                         </select>
-                        </div><!--col-->
+                        </div>
+                        -->
+                        <!--col-->
+                        <!--
                         <div class="col-sm-6">
                         	<div id="devTypeother">
-                            	<?php if($rDevelop['dev_type']=='22'){$disbled='';}else{$disbled='disabled';} ?>
-                        		<input type="text" name="dev_typeother" class="form-control input-sm" <?php echo $disbled;?> placeholder="อื่นๆ ระบุ" value="<?php echo $rDevelop['dev_typeother'];?>">
+                            	<?php //if($rDevelop['dev_type']=='22'){$disbled='';}else{$disbled='disabled';} ?>
+                        		<input type="text" name="dev_typeother" class="form-control input-sm" <?php //echo $disbled;?> placeholder="อื่นๆ ระบุ" value="<?php echo $rDevelop['dev_typeother'];?>">
                             </div>
-                        </div><!--col-->
-                      </div><!--row-->
+                        </div>
+                        -->
+                        <!--col-->
+                        <!--
+                      </div>
+                        -->
+                      <!--row-->
+                      <input type="text" name="typ_id" value="<?php echo $ob['dvt_name'];?>" class="form-control" required>
                   </div><!--form-group-->
                   
                   <div class="form-group">
@@ -216,6 +235,10 @@ include('../admin/compcode/include/function.php');
                             ?>                 
                     	</select>
                 </div><!--form-group-->
+                <div class="form-group">
+                    <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสารที่เกี่ยวข้องกับโครงการ</label>
+                    <input type="file" name="" accept="image/jpeg,image/png,application/pdf" required>
+                </div>
                           
             </div><!--col-->
             
@@ -325,11 +348,13 @@ include('../admin/compcode/include/function.php');
                 </div><!--panel-->
                 <!--ค่าใช้จ่าย-->          	
             
+                <!--
             	<div class="panel panel-primary">
             		<div class="panel-heading">บุคลากรผู้เข้าร่วม</div>
                 	<div class="panel-body">
                     	<div id="personelJoin" class="form-group">
 							<?php
+                            /*
 							$peridJoin=array();
 							$qPerjoin=mysqli_query($condb, "select * from $db_eform.develop_course_personel where dev_id='$rDevelop[dev_id]'");
 							while($rPerjoin=mysqli_fetch_assoc($qPerjoin)){
@@ -367,10 +392,16 @@ include('../admin/compcode/include/function.php');
                                         </li>';
                                 }
                                 echo '</ul>';
+                                */
                             ?>
                         </div>
-                	</div><!--body-->
-                </div><!--panel-->
+                	</div>
+                            -->
+                    <!--body-->
+                <!--
+                    </div>
+                            -->
+                <!--panel-->
             
             </div><!--col-->
         </div><!--row-->
