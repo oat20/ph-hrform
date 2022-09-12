@@ -1,5 +1,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F39566">
 <link href="<?php print $livesite;?>lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="<?php echo $livesite;?>lib/jquery-ui/jquery-ui.min.css" rel="stylehseet">
 <link href="<?php print $livesite;?>lib/flatui/css/flat-ui.css" rel="stylesheet" type="text/css">

@@ -65,17 +65,17 @@
                 <textarea name="" class="form-control" rows="4"></textarea>
             </div>
             <div class="form-group">
-                <label><strong>YOUR OTP</strong></label>
+                <label><strong>Your OTP</strong></label>
                 <input type="text" class="form-control input-lg text-uppercase" required>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-check fa-fw"></i>
+                    <button type="button" class="btn btn-primary btn-block" id="btn-approved"><i class="fa fa-check fa-fw"></i>
                         อนุมัติ</button>
                     <hr class="visible-xs visible-sm">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <button type="button" class="btn btn-danger btn-block"><i class="fa fa-exclamation fa-fw"></i>
+                    <button type="button" class="btn btn-danger btn-block" id="btn-disapproved"><i class="fa fa-exclamation fa-fw"></i>
                         ไม่อนุมัติ</button>
                 </div>
             </div>
@@ -85,5 +85,25 @@
     <script src="../lib/flatui/js/vendor/jquery.min.js"></script>
     <script src="../lib/flatui/js/flat-ui.min.js"></script>
     <script src="../lib/flatui/js/application.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js"></script>
+    <script>
+        $(function () {
+            $('#btn-approved').click(function () {
+                Swal.fire(
+                    'The Internet?',
+                    'That thing is still around?',
+                    'success'
+                )
+            });
+
+            $('#btn-disapproved').click(function () {
+                Swal.fire(
+                    'The Internet?',
+                    'That thing is still around?',
+                    'warning'
+                )
+            });
+        });
+    </script>
 </body>
 </html>

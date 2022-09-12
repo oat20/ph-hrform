@@ -80,7 +80,7 @@
 				
 				if($_SESSION['ses_du_status']=='6' or $_SESSION['ses_du_status']=='1' or $_SESSION['ses_du_status']=='2'){				
 					echo '<li>
-								<a href="'.$livesite.'report/"><i class="fa fa-flag fa-fw"></i> รายงาน</a></li>';
+								<a href="'.$livesite.'report/"><i class="fa fa-table fa-fw"></i> รายงาน</a></li>';
 					/*print '<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">รายงาน <span class="caret"></span></a>
 						<ul class="dropdown-menu">
