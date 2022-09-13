@@ -158,5 +158,10 @@ include("../admin/compcode/include/function.php");
 </div><!--container-->
 
 <?php include('../lib/js-inc.php');?>
+<script>
+	$(function(){
+		$('.navbar-nav li:eq(0)').addClass('active');
+	});
+</script>
 </body>
 </html>

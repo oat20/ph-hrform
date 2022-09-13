@@ -21,7 +21,7 @@ include('../admin/compcode/include/function.php');
     
     <div class="row">
         
-        <div class="col-sm-4">
+        <div class="col-xs-12 col-sm-12 col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h3 class="panel-title">รายงานแบบบันทึกปฏิบัติงานพัฒนาบุคลากร</h3>
@@ -47,8 +47,8 @@ include('../admin/compcode/include/function.php');
 					</div><!--col-->
                     
                     <!--บริการวิชาการ-->
-                    <div class="col-sm-4">
-                    	<div class="panel panel-info">
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                    	<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">รายงานแบบบันทึกปฏิบัติงานบริการวิชาการ</h3>
 							</div>
@@ -73,8 +73,8 @@ include('../admin/compcode/include/function.php');
                     </div><!--col-->
                     
                     <!--การเงิน-->
-                    <div class="col-sm-4">
-                    	<div class="panel panel-success">
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                    	<div class="panel panel-info">
                         	<div class="panel-heading">
                             	<h3 class="panel-title">รายงานด้านการเงิน</h3>
                             </div>
