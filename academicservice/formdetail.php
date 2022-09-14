@@ -44,7 +44,7 @@ include('../admin/compcode/include/function.php');
 			
 $inc .= '<div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-6">
-					<div class="panel panel-warning">
+					<div class="panel panel-info">
 						<div class="panel-heading">อนุมัติจากหัวหน้าส่วนงาน</div>
 						<div class="panel-body text-center">
 							'.$cf_approve[$ob['dev_approvebyboss']]['name'].'<br>
@@ -54,7 +54,7 @@ $inc .= '<div class="row">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6">
-					<div class="panel panel-warning">
+					<div class="panel panel-info">
 						<div class="panel-heading">อนุมัติจากคณบดี / รองคณบดี</div>
 						<div class="panel-body text-center">
 							'.$cf_approve[$ob['dev_approve']]['name'].'<br>
@@ -179,6 +179,16 @@ $inc .= '<div class="row">
 								}
 								
 								$inc.='</ol>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading"><i class="fa fa-paperclip fa-fw"></i> แนบรายงานการปฏิบัติงาน</div>
+								<div class="panel-body">
+									<div class="form-group">
+										<input type="file" accept="image/jpeg,image/png,application/pdf">
+										<span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
+									</div>
+									<button type="button" class="btn btn-primary btn-block">Upload</button>
+								</div>
 							</div>
 						</div>
 					</div>';
