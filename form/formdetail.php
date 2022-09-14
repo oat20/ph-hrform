@@ -22,12 +22,13 @@ include('../admin/compcode/include/function.php');
     	<div class="col-sm-12">
         	<?php
 			$sql=mysqli_query($condb, "select *,develop.dev_id as dev_id from $db_eform.develop
-			inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
-			inner join $db_eform.activity on (develop.act_id = activity.act_id)
-			inner join $db_eform.develop_location_type on (develop.lt_id = develop_location_type.lt_id)
-			inner join $db_eform.sub_strategic on (develop.ss_id = sub_strategic.id)
-			inner join $db_eform.strategic_faculty on (develop.sf_id = strategic_faculty.sf_id)
-			inner join $db_eform.personel_muerp on (develop.dev_perid = personel_muerp.per_id)
+			left join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
+			left join develop_main_type on (develop.dev_maintype = develop_main_type.dm_id)
+			left join $db_eform.activity on (develop.act_id = activity.act_id)
+			left join $db_eform.develop_location_type on (develop.lt_id = develop_location_type.lt_id)
+			left join $db_eform.sub_strategic on (develop.ss_id = sub_strategic.id)
+			left join $db_eform.strategic_faculty on (develop.sf_id = strategic_faculty.sf_id)
+			left join $db_eform.personel_muerp on (develop.dev_perid = personel_muerp.per_id)
 			left join $db_eform.develop_cancel as t11 on(develop.dev_id=t11.dev_id)
 			left join $db_eform.develop_form_objective as t12 on(develop.dev_id=t12.dev_id)
 			left join $db_eform.develop_type as t13 on(develop.dev_type=t13.dvt_id)
@@ -35,10 +36,22 @@ include('../admin/compcode/include/function.php');
 			$ob=mysqli_fetch_assoc($sql);
 			$dev_bookfrom=explode('+',$ob['dev_bookfrom']);
 
+			if($ob['dev_maintype'] == 1){
+				$href_print = './print-form01-pdf.php?getTrackid='.$ob['dev_trackid'];
+			}else if($ob['dev_maintype'] == 2){
+				$href_print = '../academicservice/print-form01-pdf.php?getTrackid='.$ob['dev_trackid'];
+			}
+
+			if($ob['dev_nopay'] == 1){
+				$print_disable = 'disabled';
+			}else if($ob['dev_nopay'] != 1){
+				$print_disable = '';
+			}
+
 			$inc='<div class="btn-group" role="group" id="navi4">
 					  <a href="'.$livesite.'profile/_showmyproject.php" class="btn btn-link"><i class="glyphicon glyphicon-arrow-left"></i> ย้อนกลับ</a>
 					  <a href="'.$livesite.'form/editform_1.php?getTrackid='.$ob['dev_trackid'].'" class="btn btn-link"><i class="fui-new"></i> แก้ไขแบบฟอร์ม</a>
-					  <a href="'.$livesite.'form/print-form01-pdf.php?getTrackid='.$ob['dev_trackid'].'" class="btn btn-link" target="_blank"><i class="glyphicon glyphicon-print"></i> พิมพ์แบบฟอร์มอนุมัติ</a>
+					  <a href="'.$href_print.'" class="btn btn-link '.$print_disable.'" target="_blank"><i class="glyphicon glyphicon-print"></i> พิมพ์แบบฟอร์มอนุมัติ</a>
 					</div>';
 					
 			if($ob['dev_cancel']=='yes'){$inc.=warning('danger','<i class="glyphicon glyphicon-alert"></i> ยกเลิก','<hr><span class="font-14">'.$ob['cc_comment'].'</span>'); $color='danger';}else{$color='default';}
@@ -73,6 +86,8 @@ $inc .= '<div class="row">
 							  <dd>'.dateThai($ob['dev_orddate']).'</dd>
 							  <dt>ส่วนงาน</dt>
 							  <dd>'.$ob['dp_name'].'</dd>
+							  <dt>หมวดหมู่</dt>
+							  <dd>'.$ob['dm_title'].'</dd>
 							  <dt>ตามหนังสือ</dt>
 							  <dd>'.$dev_bookfrom['0'].' <strong>ที่</strong> '.$dev_bookfrom['1'].' <strong>ลงวันที่</strong> '.dateThai($dev_bookfrom['2']).' <strong>เรื่อง</strong> '.$dev_bookfrom['3'].'</dd>
 							  <dt>ได้เชิญข้าพเจ้าไปปฏิบัติงานเพื่อ</dt>
@@ -193,7 +208,8 @@ $inc .= '<div class="row">
 										<input type="file" accept="image/jpeg,image/png,application/pdf">
 										<span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
 									</div>
-									<button type="button" class="btn btn-primary btn-block">Upload</button>
+									<input type="hidden" name="dev_filecategory" value="Report">
+									<button type="button" class="btn btn-primary btn-block" id="btn-upload">Upload</button>
 								</div>
 							</div>
 						</div>
@@ -217,6 +233,14 @@ $inc .= '<div class="row">
 <script>
 	$(function(){
 		$('.navbar-nav li:eq(2)').addClass('active');
+
+		$('#btn-upload').click(function(){
+			Swal.fire({
+				icon: 'info',
+				title: 'Oops...',
+				text: 'Something went wrong!'
+			});
+		});
 	});
 </script>
 </body>

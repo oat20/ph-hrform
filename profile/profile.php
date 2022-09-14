@@ -51,7 +51,7 @@ include("../admin/compcode/include/function.php");
                                 	<h3 class="panel-title">ประวัติการขออนุมัติ</h3>
                                 </div>
                             	<div class="list-group regBlack_14">
-                                  <a href="_showmyproject.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
+                                  <a href="_showmyproject.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</a>
                                   <a href="../academicservice/_showmyacademicservice.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติปฏิบัติงานบริการวิชาการ</a>
                                   <a href="../leave/_showmyproject.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> อนุมัติเดินทางต่างประเทศ</a>
                                 </div>

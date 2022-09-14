@@ -57,6 +57,15 @@ include('../admin/compcode/include/function.php');
                         <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
                         <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
+                <div class="form-group">
+                    <label>หมวดหมู่แบบบันทึก</label>
+                    <label class="radio">
+                        <input type="radio" name="dev_maintype" value="1" data-toggle="radio" required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="dev_maintype" value="2" data-toggle="radio" required> แบบบันทึกปฏิบัติงานบริการวิชาการ
+                    </label>
+                </div>
                 
                 <!--<legend>หนังสือเชิญ / จดหมายเชิญ</legend>
                 <div class="form-group">
@@ -173,6 +182,20 @@ include('../admin/compcode/include/function.php');
                             ?>                 
                         </select>
                   </div><!--form-group-->
+                  <div class="form-group">
+                    <label>ระดับกิจกรรม</label>
+                    <select name="le_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
+                        <?php
+                        $sec=mysqli_query($condb, "select * from $db_eform.develop_level
+									where le_use = 'yes'
+									order by le_id asc");
+                        while($ob=mysqli_fetch_array($sec)){
+                            $opt_select = ($rDevelop['le_id'] == $ob['le_id']) ? "selected" : "";
+                            print "<option value=".$ob['le_id']." ".$opt_select.">- ".$ob['le_title']." -</option>";
+                        }
+                        ?>                 
+                    </select>
+                </div>
                   
                   <div class="form-group">
                     <label class="control-label">สถานที่จัด:</label>

@@ -187,7 +187,8 @@ $inc .= '<div class="row">
 										<input type="file" accept="image/jpeg,image/png,application/pdf">
 										<span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
 									</div>
-									<button type="button" class="btn btn-primary btn-block">Upload</button>
+									<input type="hidden" name="dev_filecategory" value="Report">
+									<button type="button" class="btn btn-primary btn-block" id="btn-upload">Upload</button>
 								</div>
 							</div>
 						</div>
@@ -209,6 +210,14 @@ $inc .= '<div class="row">
 <script>
 $(document).ready(function() {
 	$('.navbar-nav li:eq(2)').addClass('active');
+
+	$('#btn-upload').click(function(){
+			Swal.fire({
+				icon: 'info',
+				title: 'Oops...',
+				text: 'Something went wrong!'
+			});
+		});
 } );
 </script>
 </body>

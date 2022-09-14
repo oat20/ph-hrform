@@ -12,25 +12,21 @@ include('../admin/compcode/include/function.php');
     <head>
         <meta charset="utf-8">
         <?php include('../lib/css-inc.php');?>
-        <title>แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</title>
+        <title>แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</title>
     </head>
     <body>
         <?php include('../profile/navbar-form01-inc.php');?>
 
 <div class="container-fluid">
-
-<h4 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h4>
-
-    <!--<div class="page-header-05">
-    	<div class="text-title">
-            <a href="<?php //echo $livesite;?>profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> กรอกแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
-        </div>
-    </div>-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+<h3 class="panel-title">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</h3>
+</div>
+<div class="panel-body">
     
     <form action="add_project.php" method="post" id="formDefault">
     	<div class="row">
         	<div class="col-sm-6">
-                
                 <div class="form-group">
                     <label class="control-label">สังกัด</label>
                             <?php
@@ -43,6 +39,15 @@ include('../admin/compcode/include/function.php');
                         <p class="form-control-static"><?php echo $ob['dp_name'];?></p>
                         <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
+                <div class="form-group">
+                    <label>หมวดหมู่แบบบันทึก</label>
+                    <label class="radio">
+                        <input type="radio" name="dev_maintype" value="1" data-toggle="radio" required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="dev_maintype" value="2" data-toggle="radio" required> แบบบันทึกปฏิบัติงานบริการวิชาการ
+                    </label>
+                </div>
                 
                 <!--<legend>หนังสือเชิญ / จดหมายเชิญ</legend>
                 <div class="form-group">
@@ -144,6 +149,19 @@ include('../admin/compcode/include/function.php');
                             ?>                 
                         </select>
                   </div><!--form-group-->
+                  <div class="form-group">
+                    <label>ระดับกิจกรรม</label>
+                    <select name="le_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
+                        <?php
+                        $sec=mysqli_query($condb, "select * from $db_eform.develop_level
+									where le_use = 'yes'
+									order by le_id asc");
+                        while($ob=mysqli_fetch_array($sec)){
+                            print "<option value=".$ob['le_id'].">- ".$ob['le_title']." -</option>";
+                        }
+                        ?>                 
+                    </select>
+                </div>
                   
                   <div class="form-group">
                     <label class="control-label">สถานที่จัด:</label>
@@ -151,7 +169,7 @@ include('../admin/compcode/include/function.php');
                 </div>
                 <div class="form-group">
                     <label class="control-label">ประเภทสถานที่:</label>
-                   <select name="lt_id" class="form-control select select-primary select-sm" data-toggle="select" required>
+                   <select name="lt_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <?php
                             $sec=mysqli_query($condb, "select * from $db_eform.develop_location_type
                                         where lt_use = 'yes'
@@ -321,12 +339,16 @@ include('../admin/compcode/include/function.php');
             </div><!--col-->
         </div><!--row-->
                                     
-        <input name="dev_maintype" type="hidden" value="1" />
+        <input name="dev_maintype2" type="hidden" value="1" />
         <input type="hidden" name="per_id[]" value="<?php echo $_SESSION['ses_per_id']; ?>" />
         <input name="action" type="hidden" value="save" />
         <button class="btn btn-primary btn-block" type="submit">บันทึกแบบฟอร์ม</button>
     </form>
-    <hr>
+
+    </div>
+    <!--panel-body-->
+    </div>
+    <!--panel-->
 
 </div><!--container-->
 

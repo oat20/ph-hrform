@@ -12,14 +12,14 @@ include('../admin/compcode/include/function.php');
 	<head>
 		<meta charset="UTF-8">
 		<?php include('../lib/css-inc.php');?>
-<title>แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</title>
+<title>แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</title>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <?php include('./navbar-form01-inc.php');?>
 
 <div class="container-fluid">
 
-<h4 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</h4>
+<h4 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</h4>
 
 	<div class="row">
     	<!--<div class="col-sm-2">
@@ -40,7 +40,7 @@ include('../admin/compcode/include/function.php');
 	<th>#</th>
     <th class="text">Ref. ID</th>
 	<th>Datastamp</th>
-    <th class="text">ลักษณะงาน</th>
+	<th>หมวดหมู่</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">เรื่อง</th>
     <th>จำนวนผู้เข้าร่วม</th>
@@ -60,7 +60,6 @@ include('../admin/compcode/include/function.php');
 				where (t1.dev_perid='$_SESSION[ses_per_id]'
 				or t5.per_id like '$_SESSION[ses_per_id]')
 				and t1.dev_remove='no'
-				and t1.dev_maintype='1'
 				order by t1.dev_create desc";
  }else{
 	 $sql="select * from $db_eform.develop as t1
@@ -68,7 +67,6 @@ include('../admin/compcode/include/function.php');
 		inner join $db_eform.develop_type as t4 on (t1.dev_type = t4.dvt_id)
 				where t1.dev_perid='$_SESSION[ses_per_id]'
 				and t1.dev_remove='no'
-				and t1.dev_maintype='1'
 				and t1.dev_approve='$_GET[dev_approve]'
 				order by t1.dev_create desc";
  }
@@ -108,9 +106,9 @@ while($rs=mysqli_fetch_array($exec)){
     <td>
 		<i class="glyphicon glyphicon-user"></i><?php echo $rs03['per_fnamet'].' '.$rs03['per_lnamet'].'<br><i class="fa fa-clock-o fa-fw"></i> '.dateFormat_02($rs['dev_create']);?>
 	</td>
-	<td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'];?></td>
+	<td><?php echo $rs['dm_title'];?></td>
     <td align="center" class="text"><?php print $rs["dev_year"]; ?></td>
-    <td class="text"><?php echo $rs['dev_onus'];?></td>
+    <td class="text"><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'].' - '.$rs['dev_onus'];?></td>
     <!--<td><?php //echo $rs['per_fnamet'].' '.$rs['per_lnamet'];?></td>-->
     <td><?php echo number_format(mysqli_num_rows($sql02));?></td>
 	<td class="text" align="center"><?php echo dateformat_03($rs['dev_stdate']);?></td>
@@ -159,7 +157,7 @@ $(document).ready(function(e) {
 		columnDefs: [
 			{ 
 				orderable: false, 
-				targets: 10 
+				targets: 10
 			}
 		]
 	});

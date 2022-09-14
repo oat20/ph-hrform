@@ -348,7 +348,7 @@ include('../lib/css-inc.php');
                     <h3 class="panel-title"><strong><i class="fa fa-plus fa-fw"></i> กรอกแบบฟอร์ม</strong></h3>
             	</div>
                 <div class="list-group">
-                    <a href="<?php echo $livesite;?>form/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
+                    <a href="<?php echo $livesite;?>form/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</a>
                     <a href="<?php echo $livesite;?>academicservice/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานบริการวิชาการ</a>
                     <a href="<?php print $livesite;?>leave/" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติลาเดินทางต่างประเทศ</a>
                 	</div>
