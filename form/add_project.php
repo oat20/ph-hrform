@@ -10,7 +10,6 @@ include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
 
 $dev_id=maxid($condb, $db_eform.'.develop', 'dev_id');
-//$dev_trackid=date('YmdHis').random_ID("6","0");
 $dev_trackid=substr($cf_thaiyear,'2','2').addzero($dev_id,'4');
 $dev_setid = date('Y').'-'.random_ID("6","0");
 $dvt_name = mysqli_real_escape_string($condb, $_POST['typ_id']);
@@ -98,7 +97,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 					'$_POST[dev_formstatus]',
 					'$_POST[dev_formstatus_comment]',
 					'$_SESSION[ses_per_id]',
-					'1',
+					'$_POST[dev_maintype]',
 					'$date_create',
 					'$dev_trackid',
 					'".budgetyear_02($_POST['dev_stdate'])."',
@@ -166,13 +165,15 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		}
 		//insert table develop, develop_course_personel
 
+		//upload attachment
 		if(!empty($_FILES['file']['name'])){
 			$dev_filename = $dev_id.'-'.date('YmdHis').random_password(2).attachDocType($_FILES['file']['type']);
 			mysqli_query($condb, "insert into $db_eform.develop_attachment 
-				values ('$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]', 'ATTACHMENT')
+				values ('', '$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]', 'Attachment')
 			");
 			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
 		}
+		mysqli_query($condb, "insert into develop_attachment (dev_id, dev_filecategory) values ('$dev_id', 'Report')");
 		
 		//insert table develop_log
 		$sql2="insert into $db_eform.develop_log (dl_id, 

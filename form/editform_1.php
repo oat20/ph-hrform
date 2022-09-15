@@ -16,12 +16,14 @@ include('../admin/compcode/include/function.php');
     <body>
         <?php include('../profile/navbar-form01-inc.php');?>
 <div class="container-fluid">
+    <div class="panel panel-default">
 
-    <div class="page-header-05">
-    	<div class="text-title">
-            <a href="<?php echo $livesite;?>profile/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> แก้ไขแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร</a>
-        </div>
+    <div class="panel-heading">
+    	<h3 class="panel-title">
+            <a href="<?php echo $livesite;?>profile/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> แก้ไขแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</a>
+        </h3>
     </div>
+    <div class="panel-body">
     
     <?php
 	$qDevelop=mysqli_query($condb, "select * from $db_eform.develop where dev_trackid='$_GET[getTrackid]'");
@@ -60,10 +62,14 @@ include('../admin/compcode/include/function.php');
                 <div class="form-group">
                     <label>หมวดหมู่แบบบันทึก</label>
                     <label class="radio">
-                        <input type="radio" name="dev_maintype" value="1" data-toggle="radio" required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
+                        <input type="radio" name="dev_maintype" value="1" data-toggle="radio"
+                        <?php if($rDevelop['dev_maintype']==1){ echo 'checked';}?>
+                        required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
                     </label>
                     <label class="radio">
-                        <input type="radio" name="dev_maintype" value="2" data-toggle="radio" required> แบบบันทึกปฏิบัติงานบริการวิชาการ
+                        <input type="radio" name="dev_maintype" value="2" data-toggle="radio"
+                        <?php if($rDevelop['dev_maintype']==2){ echo 'checked';}?>
+                         required> แบบบันทึกปฏิบัติงานบริการวิชาการ
                     </label>
                 </div>
                 
@@ -260,7 +266,7 @@ include('../admin/compcode/include/function.php');
                 </div><!--form-group-->
                 <div class="form-group">
                     <label><i class="fa fa-paperclip fa-fw"></i> แนบเอกสารที่เกี่ยวข้องกับโครงการ</label>
-                    <input type="file" name="" accept="image/jpeg,image/png,application/pdf" required>
+                    <input type="file" name="file" accept="image/jpeg,image/png,application/pdf">
                 </div>
                           
             </div><!--col-->
@@ -429,11 +435,15 @@ include('../admin/compcode/include/function.php');
             </div><!--col-->
         </div><!--row-->
                                     
-        <hr>         
         <input name="dev_id" type="hidden" value="<?php print $rDevelop['dev_id'];?>" />
         <input type="hidden" name="action" value="save">
         <input class="btn btn-primary btn-block" type="submit" value="บันทึกแบบฟอร์ม">
     </form>
+
+    </div>
+    <!--panel-body->
+    </div>
+    <!--panel-->
 
 </div><!--container-->
 

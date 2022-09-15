@@ -53,7 +53,8 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 					dev_timebegin='$_POST[dev_timebegin]',
 					dev_timeend='$_POST[dev_timeend]',
 					dev_nopay='$_POST[dev_nopay]',
-					dev_createby='$_SESSION[ses_per_id]'
+					dev_createby='$_SESSION[ses_per_id]',
+					dev_maintype='$_POST[dev_maintype]'
 					where dev_id='$_POST[dev_id]'");
 	
 	//insert table develop_form_objective
@@ -105,6 +106,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 		}
 		
 		//insert table develop_course_personel
+		/*
 		mysqli_query($condb, "delete from $db_eform.develop_course_personel 
 			where dev_id='$_POST[dev_id]'");
 		if(isset($_POST['per_id'])){
@@ -130,7 +132,29 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 							'$cost_pay03')");
 			}
 		}
+		*/
+		mysqli_query($condb, "update develop_course_personel set
+			budget_pay01='$budget_pay01',
+							budget_pay02='$budget_pay02',
+							budget_pay03='$budget_pay03',
+							cost_pay01='$cost_pay01',
+							cost_pay02='$cost_pay02',
+							cost_pay03='$cost_pay02'
+							where dev_id='$_POST[dev_id]'
+		");
 		//insert table develop, develop_course_personel
+
+		//upload attachment
+		if(!empty($_FILES['file']['name'])){
+			$dev_filename = $_POST['dev_id'].'-'.date('YmdHis').random_password(2).attachDocType($_FILES['file']['type']);
+			mysqli_query($condb, "update develop_attachment set
+				dev_filename='$dev_filename',
+				dev_filetype='$_FILES[file][type]',
+				dev_filesize='$_FILES[file][size]'
+				where dev_id='$_POST[dev_id]'
+			");
+			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
+		}
 		
 		//insert tb develop_cancel
 		mysqli_query($condb, "delete from $db_eform.develop_cancel where dev_id='$_POST[dev_id]'");
