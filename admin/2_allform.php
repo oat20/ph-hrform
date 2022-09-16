@@ -20,12 +20,12 @@ include('compcode/include/function.php');
 <div class="container-fluid">
 
 	<ol class="breadcrumb">
-      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> จัดการข้อมูลแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากรทั้งหมด</a></li>
+      <li class="active">จัดการข้อมูลแบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</li>
     </ol>
     
     <div class="clearfix">
     	<div class="pull-left">
-        	<a href="<?php echo $livesite;?>form/form_2.php?dm_id=1&dm_title=พัฒนาบุคลากร" class="btn btn-default"><i class="fa fa-plus fa-fw"></i> เพิ่มแบบฟอร์ม</a>
+        	<a href="<?php echo $livesite;?>form/form_2.php?dm_id=1&dm_title=พัฒนาบุคลากร" class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> เพิ่มแบบฟอร์ม</a>
         </div>
     	<!--<div class="pull-right">
         	<div class="btn-group">
@@ -41,16 +41,17 @@ include('compcode/include/function.php');
     <p></p>
     
     <div class="table-responsive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="tbFrm01">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered display nowrap" id="tbFrm01">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
     <!--<th>Status</th>-->
-    <th class="text">Form No.</th>
-    <th class="text">ปีงบประมาณ</th>
+    <th class="text">Ref. ID</th>
+            <th>Datestamp</th>
+            <th>หมวดหมู่</th>
+            <th class="text">ปีงบประมาณ</th>
     <th class="text">ส่วนงาน</th>
-        <th class="text">ลักษณะงาน</th>
-    <th class="text">หลักสูตร/โครงการ</th>
+        <th class="text">เรื่อง</th>
     <!--<th>จำนวนผู้เข้าร่วม</th>-->
 	<th class="text">วัน</th>
     <th class="text">เวลา</th>
@@ -64,11 +65,12 @@ include('compcode/include/function.php');
         <tr class="text">
            <th>#</th>
            <!--<th>Status</th>-->
-            <th class="text">Form No.</th>
+            <th class="text">Ref. ID</th>
+            <th>Datestamp</th>
+            <th>หมวดหมู่</th>
             <th class="text">ปีงบประมาณ</th>
             <th class="text">ส่วนงาน</th>
-                        <th class="text">ลักษณะงาน</th>
-            <th class="text">หลักสูตร/โครงการ</th>
+                        <th class="text">เรื่อง</th>
             <!--<th>จำนวนผู้เข้าร่วม</th>-->
             <th class="text">วัน</th>
     		<th class="text">เวลา</th>
@@ -88,7 +90,6 @@ include('compcode/include/function.php');
 				inner join $db_eform.develop_course_personel as dcp on (develop.dev_id = dcp.dev_id)
 				inner join $db_eform.personel_muerp as t6 on(dcp.per_id = t6.per_id)
 				where develop.dev_remove='no'
-				and develop.dev_maintype='1'
 				order by develop.dev_create desc";
  }else{
 	 $sql="select * from $db_eform.develop
@@ -98,7 +99,6 @@ include('compcode/include/function.php');
         inner join $db_eform.develop_course_personel as dcp on (develop.dev_id = dcp.dev_id)
 				inner join $db_eform.personel_muerp as t6 on(dcp.per_id = t6.per_id)
 				where develop.dev_remove='no'
-				and develop.dev_maintype='1'
 				and develop.dev_approve='$_GET[dev_approve]'
 				order by develop.dev_create desc";
  }
@@ -114,11 +114,12 @@ while($rs=mysqli_fetch_array($exec)){
   <tr class="text">
   	<td><?php echo $num;?></td>
     <!--<td><?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?></td>-->
-    <td class="text"><?php echo '<strong>'.$rs['dev_id'].'</strong><br><i class="fa fa-user"></i> '.$rs['per_fnamet'].' '.$rs['per_lnamet'].'<br><i class="fa fa-calendar"></i> '.dateFormat_02($rs['dev_create']);?></td>
+    <td><?php echo $rs['dev_id'];?></td>
+    <td class="text"><?php echo '<i class="fa fa-user fa-fw"></i> '.$rs['per_fnamet'].' '.$rs['per_lnamet'].'<br><i class="fa fa-calendar"></i> '.dateFormat_02($rs['dev_create']);?></td>
+    <td><?php echo $rs['dm_title'];?></td>
     <td class="text"><?php print $rs["dev_year"]; ?></td>
     <td><?php echo $rs['dp_name'];?></td>
-    <td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'];?></td>
-    <td class="text"><?php echo $rs['dev_onus'];?></td>
+    <td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'].' - '.$rs['dev_onus'];?></td>
     <!--<td><?php //echo number_format(mysql_num_rows($sql02));?></td>-->
 	<td width=""    class="text"><?php echo dateformat_03($rs["dev_stdate"]).' - '.dateformat_03($rs["dev_enddate"]);  ?></td>
     <td class="text"><?php echo $rs['dev_timebegin'].' - '.$rs['dev_timeend']?></td>
@@ -165,7 +166,16 @@ $(document).ready(function(e) {
   $('#tbFrm01').DataTable({
     responsive: true,
     columnDefs: [
-      { orderable: false, targets: 11 }
+      { orderable: false, targets: 12 }
+    ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+          "extend": 'excel',
+          "text": "Export To Excel"
+        },
+        'pdf',
+        'print'
     ]
   });
 	

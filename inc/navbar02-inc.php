@@ -33,7 +33,13 @@
 					print '<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">จัดการแบบฟอร์มทั้งหมด <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="'.$livesite.'admin/2_allform.php">แบบฟอร์มพัฒนาบุคลากร</a></li>
+									<li class="dropdown-header" style="color: #eee;">แบบฟอร์มพัฒนาบุคลากร / บริการวิชาการ</li>
+									<li><a href="'.$livesite.'admin/2_allform.php">2565 <span class="badge">4</span></a></li>
+									<li><a href="">2564</a></li>
+									<li><a href="">2563</a></li>
+									<li><a href="">2562</a></li>
+									<li><a href="">2561</a></li>
+									<li role="separator" class="divider"></li>
                         			<li><a href="'.$livesite.'academicservice/admin/2_allform.php">แบบฟอร์มบริการวิชาการ</a></li>
                         			<li><a href="'.$livesite.'leave/admin-allform.php">แบบบันทึกเดินทางต่างประเทศ</a></li>
 								</ul>
