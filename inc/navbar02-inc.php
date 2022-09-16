@@ -33,13 +33,20 @@
 					print '<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">จัดการแบบฟอร์มทั้งหมด <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li class="dropdown-header" style="color: #eee;">แบบฟอร์มพัฒนาบุคลากร / บริการวิชาการ</li>
-									<li><a href="'.$livesite.'admin/2_allform.php">2565 <span class="badge">4</span></a></li>
-									<li><a href="">2564</a></li>
-									<li><a href="">2563</a></li>
-									<li><a href="">2562</a></li>
-									<li><a href="">2561</a></li>
-									<li role="separator" class="divider"></li>
+									<li class="dropdown-header" style="color: #eee;">แบบฟอร์มพัฒนาบุคลากร / บริการวิชาการ</li>';
+									$sql_year=mysqli_query($condb, "SELECT year(t1.dev_create) as year_sort,
+(year(t1.dev_create) + 543) as year_display,
+count(t1.dev_id) as count_devid
+FROM develop as t1
+INNER join develop_course_personel as t2 on (t1.dev_id=t2.dev_id)
+WHERE t1.dev_remove like 'no'
+GROUP BY year(t1.dev_create),
+(year(t1.dev_create) + 543)
+order by year(t1.dev_create) desc");
+while($rs_year=mysqli_fetch_assoc($sql_year)){
+									print '<li><a href="'.$livesite.'admin/2_allform.php?y='.$rs_year['year_sort'].'">'.$rs_year['year_display'].' <span class="badge">'.number_format($rs_year['count_devid']).'</span></a></li>';
+}
+									print '<li role="separator" class="divider"></li>
                         			<li><a href="'.$livesite.'academicservice/admin/2_allform.php">แบบฟอร์มบริการวิชาการ</a></li>
                         			<li><a href="'.$livesite.'leave/admin-allform.php">แบบบันทึกเดินทางต่างประเทศ</a></li>
 								</ul>
