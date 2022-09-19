@@ -83,7 +83,6 @@ include('../admin/compcode/include/function.php');
 					");
 				}else{
 					mysqli_query($condb, "update $db_eform.develop set
-						dev_approve='cancel',
 						dev_cancel='$_POST[dev_cancel]',
 						dev_modify='$date_create',
 						dev_createby='$_SESSION[ses_per_id]'

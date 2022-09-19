@@ -158,7 +158,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 							cost_pay01)
 							values (
 							'$dev_id', 
-							'".$_POST['per_id']."', 
+							'".$_POST['per_id'][0]."', 
 							'$budget_pay01', 
 							'$cost_pay01')
 						");

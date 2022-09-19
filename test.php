@@ -19,11 +19,10 @@ include('lib/css-inc.php');
     <body>
 <div class="container-fluid">
     <?php
-    $sql = mysqli_query($condb, "select count(per_id) as f1 from personel_muerp");
-    $rs = mysqli_fetch_assoc($sql);
-    echo $rs['f1'].'<br>';
-    $a = date('Y').'-'.sprintf('%03d',$rs['f1']);
-    echo $a;
+    $per_id = array(
+        "1234"
+    );
+    echo $per_id[0];
     ?>
 	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
     	<div class="form-group">

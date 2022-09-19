@@ -3,6 +3,7 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -20,25 +21,39 @@ include('../admin/compcode/include/function.php');
 <div class="container-fluid">
 
 	<?php
-	$sql=mysql_query("select * from $db_eform.develop
-			inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
-			inner join $db_eform.activity on (develop.act_id = activity.act_id)
-			inner join $db_eform.develop_location_type on (develop.lt_id = develop_location_type.lt_id)
-			inner join $db_eform.sub_strategic on (develop.ss_id = sub_strategic.id)
-			inner join $db_eform.strategic_faculty on (develop.sf_id = strategic_faculty.sf_id)
-			inner join $db_eform.personel_muerp on (develop.dev_perid = personel_muerp.per_id)
+	$sql=mysqli_query($condb, "select * from $db_eform.develop
+			left join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id)
+			left join $db_eform.activity on (develop.act_id = activity.act_id)
+			left join $db_eform.develop_location_type on (develop.lt_id = develop_location_type.lt_id)
+			left join $db_eform.sub_strategic on (develop.ss_id = sub_strategic.id)
+			left join $db_eform.strategic_faculty on (develop.sf_id = strategic_faculty.sf_id)
+			left join $db_eform.personel_muerp on (develop.dev_perid = personel_muerp.per_id)
+            left join develop_main_type on (develop.dev_maintype=develop_main_type.dm_id)
+            left join develop_type on (develop.dev_type=develop_type.dvt_id)
 			where develop.dev_id='$_GET[getDevid]'");
-	$ob=mysql_fetch_assoc($sql);
+	$ob=mysqli_fetch_assoc($sql);
 	$dev_bookfrom=explode('+',$ob['dev_bookfrom']);
+
+    if($ob['dev_maintype'] == 1){
+				$href_print = './print-form01-pdf.php?getTrackid='.$ob['dev_trackid'];
+			}else if($ob['dev_maintype'] == 2){
+				$href_print = '../academicservice/print-form01-pdf.php?getTrackid='.$ob['dev_trackid'];
+			}
+
+			if($ob['dev_nopay'] == 1){
+				$print_disable = 'disabled';
+			}else if($ob['dev_nopay'] != 1){
+				$print_disable = '';
+			}
 	?>
                 
 	<div class="panel panel-default">
     	<div class="panel-heading">
         	<h3 class="panel-title clearfix">
-            	<div class="pull-left"><a href="../profile/_showmyproject.php"><i class="fa fa-arrow-left"></i> ยืนยันข้อมูล</a></div>
+            	<div class="pull-left"><a href="../profile/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> ยืนยันข้อมูล</a></div>
                 <div class="pull-right">
                     <a href="editform_1.php?getTrackid=<?php echo $ob['dev_trackid'];?>" class="btn btn-link"><i class="fa fa-pencil"></i></a>
-                    <a href="print-form01-pdf.php?getTrackid=<?php echo $ob['dev_trackid'];?>" target="_blank" class="btn btn-link"><i class="fa fa-print"></i></a>
+                    <a href="<?php echo $href_print;?>" target="_blank" class="btn btn-link <?php echo $print_disable;?>"><i class="fa fa-print"></i></a>
                 </div>
             </h3>
         </div>
@@ -47,6 +62,8 @@ include('../admin/compcode/include/function.php');
             <div class="row">          	
             	<div class="col-sm-6">
                 	<dl class="dl-horizontal">
+                        <dt>หมวดหมู่</dt>
+                        <dd><?php echo $ob['dm_title'];?></dd>
                       <dt>ส่วนงาน</dt>
                       <dd><?php echo $ob['dp_name'];?></dd>
                       <dt>ตามหนังสือ</dt>
@@ -59,15 +76,7 @@ include('../admin/compcode/include/function.php');
                       <dd><?php echo $ob['dev_timebegin'].' - '.$ob['dev_timeend'];?></dd>
                       <dt>ลักษณะงาน</dt>
                       <dd>
-                      	<?php
-						$sql02=mysql_query("select * from $db_eform.develop_form_objective
-									inner join $db_eform.develop_type on (develop_form_objective.dvt_id=develop_type.dvt_id)
-									where develop_form_objective.dev_id='$ob[dev_id]'
-									order by develop_type.dvt_id asc");
-						while($ob02=mysql_fetch_assoc($sql02)){
-							echo '<i class="fa fa-check"></i> '.$ob02['dvt_name'].'&nbsp;'.$ob['dev_typeother'];
-						}
-						?>
+                        <?php echo $ob['dvt_name'];?>
                       </dd>
                       <dt>เกี่ยวข้องกับกิจกรรม</dt>
                       <dd><?php echo $ob['activity'];?></dd>
@@ -95,13 +104,13 @@ include('../admin/compcode/include/function.php');
                       <dd>
                       	<ol>
                       	<?php
-						$sql03=mysql_query("select * from $db_eform.develop_form_budget
+						$sql03=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 									inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 									inner join $db_eform.develop_payfrom as t3 on(budtype.pf_id=t3.pf_id)
 									where develop_form_budget.dev_id='$ob[dev_id]'
 									order by t3.pf_id asc, 
 									budtype.bt_id asc");
-						while($ob03=mysql_fetch_assoc($sql03)){
+						while($ob03=mysqli_fetch_assoc($sql03)){
 							echo '<li>'.$ob03['pf_title'].' <i class="fa fa-angle-double-right"></i> '.$ob03['bt_name'].' '.number_format($ob03['dev_pay01']).' บาท</li>';
 						}
 						?>
@@ -111,11 +120,11 @@ include('../admin/compcode/include/function.php');
                       <dd>
                       	<ol>
                       	<?php
-						$sql04=mysql_query("select * from $db_eform.develop_form_cost
+						$sql04=mysqli_query($condb, "select * from $db_eform.develop_form_cost
 									inner join $db_eform.develop_cost_type on (develop_form_cost.ct_id=develop_cost_type.ct_id)
 									where develop_form_cost.dev_id='$ob[dev_id]'
 									order by develop_cost_type.ct_id asc");
-						while($ob04=mysql_fetch_assoc($sql04)){
+						while($ob04=mysqli_fetch_assoc($sql04)){
 							echo '<li>'.$ob04['ct_title'].' '.number_format($ob04['dev_pay01']).' บาท</li>';
 						}
 						?>
@@ -131,6 +140,8 @@ include('../admin/compcode/include/function.php');
                       <dd><?php echo $ob['sf_name'];?></dd>
                       <!--<dt>หมายเหตุ</dt>
                       <dd><?php //echo $ob['dev_remark'];?></dd>-->
+                      <dt>เอกสารเกี่ยวกับโครงการ</dt>
+                      <dd></dd>
                     </dl>
                 </div><!--col-->
                 
@@ -140,13 +151,13 @@ include('../admin/compcode/include/function.php');
                       <dd>
                       	<ol>
                       	<?php
-						$sql05=mysql_query("select * from $db_eform.develop_course_personel
+						$sql05=mysqli_query($condb, "select * from $db_eform.develop_course_personel
 									inner join $db_eform.personel_muerp on (develop_course_personel.per_id=personel_muerp.per_id)
 									inner join $db_eform.job as t3 on(personel_muerp.job_id=t3.job_id)
 									where develop_course_personel.dev_id='$ob[dev_id]' 
 									order by convert(personel_muerp.per_fnamet using tis620) asc,
 									convert (personel_muerp.per_lnamet using tis620) asc");
-						while($ob05=mysql_fetch_assoc($sql05)){
+						while($ob05=mysqli_fetch_assoc($sql05)){
 							echo '<li>'.$ob05['per_pname'].' '.$ob05['per_fnamet'].' '.$ob05['per_lnamet'].' ('.$ob05['job_name'].')</li>';
 						}
 						?>
@@ -163,7 +174,7 @@ include('../admin/compcode/include/function.php');
         
         <div class="panel-footer">
         	<a href="editform_1.php?getTrackid=<?php echo $ob['dev_trackid'];?>" class="btn btn-link btn-wide"><i class="fa fa-angle-double-left"></i> กลับไปแก้ไข</a>
-            <a href="print-form01-pdf.php?getTrackid=<?php echo $ob['dev_trackid'];?>" class="btn btn-link btn-wide" target="_blank"><i class="fa fa-print"></i> พิมพ์แบบฟอร์ม</a>
+            <a href="<?php echo $href_print;?>" class="btn btn-link btn-wide <?php echo $print_disable;?>" target="_blank"><i class="fa fa-print"></i> พิมพ์แบบฟอร์ม</a>
         </div>
     </div><!--panel-->
 

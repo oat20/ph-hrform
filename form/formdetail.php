@@ -108,6 +108,8 @@ $inc .= '<div class="row">
 							  <dd>'.$cf_approve[$ob['dev_approve']]['name'].'</dd>
 							  <dt>รายละเอียดการขออนุมัติค่าใช้จ่าย</dt>
 							  <dd>'.$cf_devnopay[$ob['dev_nopay']].'</dd>
+							  <dt>เอกสารเกี่ยวกับโครงการ</dt>
+							  <dd></dd>
 							</dl>';
 							
 							if($ob['dev_nopay']==0){

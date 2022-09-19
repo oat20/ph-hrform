@@ -152,6 +152,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 				dev_filetype='$_FILES[file][type]',
 				dev_filesize='$_FILES[file][size]'
 				where dev_id='$_POST[dev_id]'
+				and dev_filecategory='Attachment'
 			");
 			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
 		}
