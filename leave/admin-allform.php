@@ -20,8 +20,8 @@ include('../admin/compcode/include/function.php');
 
 <div class="container-fluid">
 
-	<ol class="breadcrumb font-18">
-      <li><a href="../profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> จัดการข้อมูลแบบบันทึกเดินทางต่างประเทศ</a></li>
+	<ol class="breadcrumb">
+      <li class="active">จัดการข้อมูลแบบบันทึกเดินทางต่างประเทศ</li>
     </ol>
     
     <div class="row">
@@ -135,9 +135,17 @@ while($rs=mysqli_fetch_array($exec)){
 $(document).ready(function(e) {
 
   $('#tbFrmLeave').DataTable({
-    responsive: true,
     columnDefs: [
       { orderable: false, targets: 11 }
+    ],
+	dom: 'Bfrtip',
+    buttons: [
+        {
+          "extend": 'excel',
+          "text": "Export To Excel"
+        },
+        'pdf',
+        'print'
     ]
   });
 	
