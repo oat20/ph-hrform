@@ -2,6 +2,7 @@
 session_start();
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -17,7 +18,9 @@ include('../admin/compcode/include/function.php');
 <?php include('../inc/navbar02-inc.php');?>
 <div class="container-fluid">
 
-	<h4 style="margin-top: 0px;" class="page-header">รายงาน</h4>
+	<ol class="breadcrumb">
+		<li class="active">รายงาน</li>
+	</ol>
     
     <div class="row">
         
@@ -28,7 +31,7 @@ include('../admin/compcode/include/function.php');
 							</div>
 							<div class="list-group">
                             	<!--<a href="" class="list-group-item"><i class="fa fa-download fa-fw"></i> Export ข้อมูลดิบ</a>-->
-								<a href="groupBypersonel.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item active"><i class="fa fa-users fa-fw"></i> แสดงรายบุคคล</a>
+								<a href="groupBypersonel.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-users fa-fw"></i> แสดงรายบุคคล</a>
 								<a href="groupByobjective.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> จำแนกตามวัตถุประสงค์</a>
                                 <a href="groupByactivity.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> จำแนกตามประเภทกิจกรรม</a>
 								<a href="groupBydivision.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> จำแนกตามส่วนงาน</a>							
@@ -54,7 +57,7 @@ include('../admin/compcode/include/function.php');
 							</div>
 							<div class="list-group">
                             	<!--<a href="" class="list-group-item active"><i class="fa fa-tags fa-fw"></i> <strong>รายงานภาพรวม</strong></a>-->
-								<a href="<?php echo $livesite;?>academicservice/report/groupBypersonel.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item active"><i class="fa fa-users fa-fw"></i> แสดงรายบุคคล</a>
+								<a href="<?php echo $livesite;?>academicservice/report/groupBypersonel.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-users fa-fw"></i> แสดงรายบุคคล</a>
                                 <a href="<?php echo $livesite;?>academicservice/report/groupByobjective.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> จำแนกตามวัตถุประสงค์</a>
 								<a href="<?php echo $livesite;?>academicservice/report/groupBydivision.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> จำแนกตามส่วนงาน</a>							
 								<a href="<?php echo $livesite;?>academicservice/report/groupBygroup.php?dev_maintype='.$rMaintype['dm_id'].'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> จำแนกตามกลุ่มบุคลากร</a>
@@ -91,5 +94,10 @@ include('../admin/compcode/include/function.php');
 </div><!--container-->
 
 <?php include('../lib/js-inc.php');?>
+<script>
+	$(function(){
+		$('#menu-report').addClass('active');
+	});
+</script>
 </body>
 </html>

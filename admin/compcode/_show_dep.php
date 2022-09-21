@@ -65,7 +65,7 @@ while($rs=mysqli_fetch_array($exec_hot)){
 ?>
   <tr>
     <td><?php echo $rs['dp_code'];?></td>
-    <td><?php echo $rs['typ_name'].' <i class="fa fa-angle-double-right"></i> '.$rs["dp_name"];  ?></td>
+    <td><?php echo $rs['typ_name'].' <i class="fa fa-angle-double-right fa-fw"></i> '.$rs["dp_name"];  ?></td>
    <td><?php print $rs['per_fnamet'].' '.$rs['per_lnamet'];?><br><?php echo $rs['per_email'];?></td>
    <td class="regBlack_13">
     	<!-- Single button -->
