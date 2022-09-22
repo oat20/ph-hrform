@@ -33,7 +33,7 @@ include('../admin/compcode/include/function.php');
     </ol>
         
     <div class="table-responesive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="tbData">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" class="table table-striped table-bordered responsive nowrap" id="tbData" style="width:100%">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<!--<th>Status</th>-->
@@ -116,8 +116,8 @@ while($rs=mysqli_fetch_array($exec)){
     <td><?php echo $cf_devnopay[$rs['dev_nopay']];?></td>
     <td class="text">
     	<div class="btn-group">
-          <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-ellipsis-v"></i></span>
+          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ข้อมูลเพิ่มเติม <span class="caret"></span></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right">
             <!--<li><a href="../form/print-form01-pdf.php?getTrackid=<?php //echo $rs['dev_trackid'];?>" title="แสดงรายละเอียด" data-toggle="tooltip" data-placement="bottom" target="_blank"><i class="fa fa-print"></i> พิมพ์แบบฟอร์ม</a></li>-->
