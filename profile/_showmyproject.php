@@ -33,7 +33,7 @@ include('../admin/compcode/include/function.php');
     </ol>
         
     <div class="table-responesive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" class="table table-striped table-bordered responsive nowrap" id="tbData" style="width:100%">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" class="table table-striped table-bordered nowrap" id="tbData" style="width:100%">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<!--<th>Status</th>-->

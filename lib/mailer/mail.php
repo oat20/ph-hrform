@@ -20,7 +20,7 @@ function smtpmail( $email , $subject , $body )
      return $result;
 }
 
-function smtpmail2( $email , $subject , $body, $from='', $fromname='' )
+function smtpmail2( $email , $subject , $body, $from='norepply@'.$_SERVER['HTTP_HOST'], $fromname=strtoupper($_SERVER['HTTP_HOST']) )
 {
     $email_admin = explode(',',$email);
     $mail = new PHPMailer();
@@ -98,5 +98,5 @@ function smtpGmail( $email , $subject , $body )
      return $result;
 }
 
-smtpGmail('chakkapan.cha@gmail.com', 'Test', 'Test');
+//smtpGmail('chakkapan.cha@gmail.com', 'Test', 'Test');
 ?>
