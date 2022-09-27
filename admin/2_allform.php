@@ -106,13 +106,15 @@ include('compcode/include/function.php');
  $exec=mysqli_query($condb, $sql);
 while($rs=mysqli_fetch_array($exec)){
 	++$num;
+
+  $tr_danger=($rs['dev_cancel']=='yes')?"danger":"";
 	
 	$sql02=mysqli_query($condb, "SELECT COUNT( per_id ) as c1
 		FROM  $db_eform.develop_course_personel 
 		WHERE dev_id =  '$rs[dev_id]'");
 	$rs02=mysqli_fetch_assoc($sql02);
 ?>
-  <tr class="text">
+  <tr class="text <?php echo $tr_danger;?>">
   	<td><?php echo $num;?></td>
     <!--<td><?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?></td>-->
     <td><?php echo $rs['dev_id'];?></td>

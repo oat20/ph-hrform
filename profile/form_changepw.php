@@ -349,7 +349,9 @@ include('../lib/css-inc.php');
             	</div>
                 <div class="list-group">
                     <a href="<?php echo $livesite;?>form/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</a>
-                    <a href="<?php echo $livesite;?>academicservice/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานบริการวิชาการ</a>
+                    <!--
+                    <a href="<?php //echo $livesite;?>academicservice/form_1.php" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติปฏิบัติงานบริการวิชาการ</a>
+                -->
                     <a href="<?php print $livesite;?>leave/" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> แบบบันทึกขออนุมัติลาเดินทางต่างประเทศ</a>
                 	</div>
             </div><!--panel-->
