@@ -191,6 +191,17 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		mysqli_commit($condb);
 		
 		mysqli_rollback($condb);
+
+/*
+if(per_isdean==1){
+
+}else if(per_isboss==1){
+
+}else{
+	
+}
+*/
+
 		mysqli_close($condb);
 
 		header("location: confirm-form-1.php?getDevid=".$dev_id);
