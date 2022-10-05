@@ -109,5 +109,5 @@ function smtpGmail( $email , $subject , $body, $attach='')
      return $result;
 }
 
-//smtpGmail('chakkapan.cha@gmail.com', 'Test '.date('Y-m-d H:i:s'), 'Test '.date('Y-m-d H:i:s'));
+//smtpGmail('chakkapan.cha@mahidol.edu', 'Test '.date('Y-m-d H:i:s'), 'Test '.date('Y-m-d H:i:s'));
 ?>

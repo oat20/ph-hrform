@@ -5,6 +5,7 @@ include("../admin/compcode/include/config.php");
 require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
+require_once '../lib/mailer/mail.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -73,7 +74,8 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			values ('$ob_01[per_id]', '$otp', CURRENT_TIMESTAMP(), '3')");
 		}
 
-		$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
+		//$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
+		$strSubject="ส่ง OTP เข้าระบบ [".$otp."]";
 		$strHeader = "MIME-Version: 1.0' . \r\n";
 		$strHeader .= "Content-type: text/html; charset=utf-8\r\n"; 
 		$strHeader .= "From: ".strtoupper($_SERVER['HTTP_HOST'])."<noreply@".$_SERVER['HTTP_HOST'].">\r\n";
@@ -82,7 +84,8 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body .= '<h1>'.$otp.'</h1>';
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
 		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
-		@mail($ob_01['per_email'], $strSubject, $body, $strHeader);
+		//@mail($ob_01['per_email'], $strSubject, $body, $strHeader);
+		smtpGmail($ob_01['per_email'], $strSubject, $body);
 
 		header("location: ./login.php");
 	}else{
@@ -99,7 +102,8 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			values ('$per_id', '3', '$otp', CURRENT_TIMESTAMP())
 		");
 
-		$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
+		//$strSubject = "=?UTF-8?B?".base64_encode("ส่ง OTP เข้าระบบ [".$otp."]")."?=";
+		$strSubject="ส่ง OTP เข้าระบบ [".$otp."]";
 		$strHeader = "MIME-Version: 1.0' . \r\n";
 		$strHeader .= "Content-type: text/html; charset=utf-8\r\n"; 
 		$strHeader .= "From: ".strtoupper($_SERVER['HTTP_HOST'])."<noreply@".$_SERVER['HTTP_HOST'].">\r\n";
@@ -108,7 +112,8 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body .= '<h1>'.$otp.'</h1>';
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
 		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
-		@mail($_POST['mumail'], $strSubject, $body, $strHeader);
+		//@mail($_POST['mumail'], $strSubject, $body, $strHeader);
+		smtpGmail($_POST['mumail'], $strSubject, $body);
 
 		header("location: ./login.php");
 		
