@@ -2,6 +2,7 @@
 session_start();
 include('../../admin/compcode/include/config.php');
 include('../../admin/compcode/check_login.php');
+require_once '../../lib/mysqli.php';
 include('../../admin/compcode/include/connect_db.php');
 include('../../admin/compcode/include/function.php');
 ?>
@@ -23,13 +24,13 @@ include('../../admin/compcode/include/function.php');
         <div class="col-lg-12">
         	<div class="panel panel-info">
             	<div class="panel-heading">
-                	<h3 class="panel-title"><a href="#" onclick="javascript:self.close();"><i class="fa fa-arrow-left"></i> รายงานจำแนกรายบุคคล</a></h3>
+                	<h3 class="panel-title"><a href="#" onclick="javascript:window.close();"><i class="fa fa-arrow-left"></i> รายงานจำแนกรายบุคคล</a></h3>
                 </div>
                 <div class="panel-body">
                     <?php
 					if(isset($_GET['keyDevstdate']) and isset($_GET['keyDevenddate'])){
 						
-								$sql=mysql_query("select * from $db_eform.develop
+								$sql=mysqli_query($condb, "select * from $db_eform.develop
 												inner join $db_eform.develop_course_personel on (develop.dev_id = develop_course_personel.dev_id)
 												inner join $db_eform.personel_muerp on (develop_course_personel.per_id = personel_muerp.per_id)
 												inner join $db_eform.personel_group on (personel_muerp.per_group = personel_group.gr_id)
@@ -50,7 +51,7 @@ include('../../admin/compcode/include/function.php');
 												order by develop.dev_stdate desc,
 												develop.dev_enddate desc");
 						
-								$numRow=mysql_num_rows($sql);
+								$numRow=mysqli_num_rows($sql);
 					?>
                 	<div class="clearfix">
                     	<div class="pull-left"><strong>จำนวน <?php echo number_format($numRow);?> รายการ</strong></div>
@@ -88,7 +89,7 @@ include('../../admin/compcode/include/function.php');
                             <tbody>
                             	<?php
 								$sumDevtraininghour=0; $sumBudgetpay01=0; $sumBudgetpay02=0; $sumBudgetpay03=0;							
-								while($ob=mysql_fetch_assoc($sql)){
+								while($ob=mysqli_fetch_assoc($sql)){
 									
 									/*if($ob['dev_maintype']=='1'){ 
 										$devMaintype01='<i class="fa fa-check"></i>';
@@ -129,15 +130,15 @@ include('../../admin/compcode/include/function.php');
 																	
 																	//งบประมาณ
 																	$budget='';
-																	$qBudget=mysql_query("select * from $db_eform.develop_form_budget
+																	$qBudget=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 																					inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 																					where develop_form_budget.dev_id='$ob[dev_id]'
 																					order by budtype.bt_id asc");
-																	while($rBudget=mysql_fetch_assoc($qBudget)){
+																	while($rBudget=mysqli_fetch_assoc($qBudget)){
 																		$budget.=$rBudget['bt_name'].', ';
 																	}
-																	$qBudget02=mysql_query("SELECT sum(dev_pay01) as sumDevpay01, sum(dev_pay02) as sumDevpay02, sum(dev_pay03) as sumDevpay03 FROM $db_eform.develop_form_budget WHERE dev_id='$ob[dev_id]'");
-																	$rBudget02=mysql_fetch_assoc($qBudget02);
+																	$qBudget02=mysqli_query($condb, "SELECT sum(dev_pay01) as sumDevpay01, sum(dev_pay02) as sumDevpay02, sum(dev_pay03) as sumDevpay03 FROM $db_eform.develop_form_budget WHERE dev_id='$ob[dev_id]'");
+																	$rBudget02=mysqli_fetch_assoc($qBudget02);
 									
 												echo '<td>'.substr($budget,'0','-2').'</td>';												
 												echo '<td>'.number_format($rBudget02['sumDevpay01']).'</td>

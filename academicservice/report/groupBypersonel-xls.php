@@ -1,5 +1,6 @@
 <?php
 include('../../admin/compcode/include/config.php');
+require_once '../../lib/mysqli.php';
 include('../../admin/compcode/include/connect_db.php');
 include('../../admin/compcode/include/function.php');
 
@@ -109,8 +110,8 @@ require_once "../../lib/writeexcel/class.writeexcel_workbook.inc.php";
 										GROUP by t1.per_id, t6.dm_id, t6.dm_title, t1.per_fnamet, t1.per_lnamet, t4.job_name, t5.dp_name, t7.gr_title, t8.pert_name
 										order by convert(t5.dp_name using tis620) asc, convert(t1.per_fnamet using tis620) asc, convert(t1.per_lnamet using tis620) asc";
 			}
-			$rs = mysql_query($sql_1);
-			$row=mysql_num_rows($rs);
+			$rs = mysqli_query($condb, $sql_1);
+			$row=mysqli_num_rows($rs);
 			//query
 			
 			//หังรอง

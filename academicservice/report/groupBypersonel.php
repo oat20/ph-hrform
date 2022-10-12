@@ -2,6 +2,7 @@
 session_start();
 include('../../admin/compcode/include/config.php');
 include('../../admin/compcode/check_login.php');
+require_once '../../lib/mysqli.php';
 include('../../admin/compcode/include/connect_db.php');
 include('../../admin/compcode/include/function.php');
 ?>
@@ -50,7 +51,7 @@ include('../../admin/compcode/include/function.php');
 					}else{
 						$dev_stdate=$_POST['keyDevstdate']; $dev_enddate=$_POST['keyDevenddate'];
 					}				
-					$sql=mysql_query("select t1.per_id, t6.dm_id, t6.dm_title, t1.per_pname, t1.per_fnamet, t1.per_lnamet, t4.job_name, t5.dp_name, t7.gr_title, t8.pert_name, count(t3.dev_id) as countDevid 
+					$sql=mysqli_query($condb, "select t1.per_id, t6.dm_id, t6.dm_title, t1.per_pname, t1.per_fnamet, t1.per_lnamet, t4.job_name, t5.dp_name, t7.gr_title, t8.pert_name, count(t3.dev_id) as countDevid 
 										from $db_eform.personel_muerp as t1
 										inner join $db_eform.develop_course_personel as t2 on(t1.per_id=t2.per_id)
 										inner join $db_eform.develop as t3 on(t2.dev_id=t3.dev_id)
@@ -66,7 +67,7 @@ include('../../admin/compcode/include/function.php');
 										and t3.dev_maintype='2'
 										GROUP by t1.per_id, t6.dm_id, t6.dm_title, t1.per_fnamet, t1.per_lnamet, t4.job_name, t5.dp_name, t7.gr_title, t8.pert_name
 										order by convert(t5.dp_name using tis620) asc, convert(t1.per_fnamet using tis620) asc, convert(t1.per_lnamet using tis620) asc");	
-				$numRow=mysql_num_rows($sql);
+				$numRow=mysqli_num_rows($sql);
 				?>
                     <div class="clearfix">
                     	<div class="pull-left">
@@ -93,7 +94,7 @@ include('../../admin/compcode/include/function.php');
                             <tbody>
                             	<?php
 								$sumCountdevid=0;							
-								while($ob=mysql_fetch_assoc($sql)){									
+								while($ob=mysqli_fetch_assoc($sql)){									
 									echo '<tr>								
 												<td>'.++$r.'</td>
 												<td>'.$ob['per_pname'].' '.$ob['per_fnamet'].' '.$ob['per_lnamet'].'</td>
