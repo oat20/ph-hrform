@@ -2,6 +2,7 @@
 session_start();
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -61,8 +62,8 @@ include('../admin/compcode/include/function.php');
         	
             <div class="row">
             	<?php
-				$sql01=mysql_query("select * from $db_eform.develop_main_type where dm_use='yes' and dm_id='1' order by dm_id");
-				while($ob01=mysql_fetch_assoc($sql01)){
+				$sql01=mysqli_query($condb, "select * from $db_eform.develop_main_type where dm_use='yes' and dm_id='1' order by dm_id");
+				while($ob01=mysqli_fetch_assoc($sql01)){
 				?>
             	<div class="col-lg-12">
                 	<div class="panel panel-info">
@@ -91,13 +92,13 @@ include('../admin/compcode/include/function.php');
                                     <tbody>
                                     	<?php
 										$sumCountdevid=0;
-										$sql02=mysql_query("select * from $db_eform.department_type
-													inner join $db_eform.tb_orgnew on (department_type.typ_id = tb_orgnew.typ_id)
+										$sql02=mysqli_query($condb, "select * from $db_eform.department_type
+													right join $db_eform.tb_orgnew on (department_type.typ_id = tb_orgnew.typ_id)
 													order by department_type.typ_id asc,
 													tb_orgnew.dp_id asc");
-										while($ob02=mysql_fetch_assoc($sql02)){
+										while($ob02=mysqli_fetch_assoc($sql02)){
 											
-												$sql03=mysql_query("SELECT count(develop.dev_id) as countDevid
+												$sql03=mysqli_query($condb, "SELECT count(develop.dev_id) as countDevid
 															FROM $db_eform.develop
 															inner join $db_eform.tb_orgnew on (develop.dp_id = tb_orgnew.dp_id) 
 															WHERE (develop.dev_stdate between '$keyDevstdate' and '$keyDevenddate'
@@ -106,7 +107,7 @@ include('../admin/compcode/include/function.php');
 															AND develop.dp_id =  '$ob02[dp_id]'
 															and develop.dev_cancel='no'
 															and develop.dev_remove='no'");
-											$ob03=mysql_fetch_assoc($sql03);
+											$ob03=mysqli_fetch_assoc($sql03);
 											
 											echo '<tr>
 												<td>'.$ob02['typ_name'].' <i class="fa fa-angle-double-right"></i> '.$ob02['dp_name'].'</td>

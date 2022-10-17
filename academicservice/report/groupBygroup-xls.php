@@ -1,5 +1,6 @@
 <?php
 include('../../admin/compcode/include/config.php');
+require_once '../../lib/mysqli.php';
 include('../../admin/compcode/include/connect_db.php');
 include('../../admin/compcode/include/function.php');
 
@@ -127,11 +128,11 @@ require_once "../../lib/writeexcel/class.writeexcel_workbook.inc.php";
 						and develop.dev_maintype='2'
 						order by develop.dev_stdate desc,
 						develop.dev_enddate desc";
-			$rs = mysql_query($sql_1);
-			$row=mysql_num_rows($rs);
+			$rs = mysqli_query($condb,$sql_1);
+			$row=mysqli_num_rows($rs);
             # ตรงนี้คือดึงข้อมูลจาก mysql มาใส่ใน Cell
                 #while(list($per_pname, $per_fnamet, $per_lnamet, $per_email)=mysql_fetch_row($rs)) {
-				while($ob = mysql_fetch_array($rs)){
+				while($ob = mysqli_fetch_array($rs)){
                     ++$i;
 										
 					if($ob['dev_maintype']=='1'){ 

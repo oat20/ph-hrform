@@ -2,6 +2,7 @@
 session_start();
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -79,8 +80,8 @@ include('../admin/compcode/include/function.php');
         	
             <div class="row">
             	<?php
-				$sql01=mysql_query("select * from $db_eform.develop_main_type where dm_use='yes' and dm_id='1' order by dm_id");
-				while($ob01=mysql_fetch_assoc($sql01)){
+				$sql01=mysqli_query($condb, "select * from $db_eform.develop_main_type where dm_use='yes' and dm_id='1' order by dm_id");
+				while($ob01=mysqli_fetch_assoc($sql01)){
 				?>
             	<div class="col-lg-12">
                 	<div class="panel panel-info">
@@ -109,9 +110,9 @@ include('../admin/compcode/include/function.php');
                                     <tbody>
                                     	<?php
 										$sumCountdevid=0;
-										$sql02=mysql_query("select * from $db_eform.activity where act_use='yes' order by convert(activity using tis620) asc");
-										while($ob02=mysql_fetch_assoc($sql02)){
-											$sql03=mysql_query("SELECT count(develop.dev_id) as countDevid
+										$sql02=mysqli_query($condb, "select * from $db_eform.activity where act_use='yes' order by convert(activity using tis620) asc");
+										while($ob02=mysqli_fetch_assoc($sql02)){
+											$sql03=mysqli_query($condb, "SELECT count(develop.dev_id) as countDevid
 															FROM $db_eform.develop
 															WHERE (develop.dev_stdate between '$keyDevstdate' and '$keyDevenddate'
 															or develop.dev_enddate between '$keyDevstdate' and '$keyDevenddate')
@@ -119,7 +120,7 @@ include('../admin/compcode/include/function.php');
 															and develop.act_id='$ob02[act_id]'
 															and develop.dev_cancel='no'
 															and develop.dev_remove='no'");
-											$ob03=mysql_fetch_assoc($sql03);
+											$ob03=mysqli_fetch_assoc($sql03);
 											
 											echo '<tr>
 												<td>'.$ob02['activity'].'</td>

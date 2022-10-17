@@ -2,6 +2,7 @@
 session_start();
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -61,8 +62,8 @@ include('../admin/compcode/include/function.php');
         	
             <div class="row">
             	<?php
-				$sql01=mysql_query("select * from $db_eform.develop_main_type where dm_use='yes' and dm_id = 1 order by dm_id");
-				while($ob01=mysql_fetch_assoc($sql01)){
+				$sql01=mysqli_query($condb,"select * from $db_eform.develop_main_type where dm_use='yes' and dm_id = 1 order by dm_id");
+				while($ob01=mysqli_fetch_assoc($sql01)){
 				?>
             	<div class="col-lg-12">
                 	<div class="panel panel-info">
@@ -91,7 +92,7 @@ include('../admin/compcode/include/function.php');
                                     <tbody>
                                     	<?php
 										$sumcountdevid = 0;	
-											$sql03=mysql_query("SELECT degree.dg_id,
+											$sql03=mysqli_query($condb,"SELECT degree.dg_id,
 												degree.dg_name,
 												count(personel_muerp.per_id) as countDevid
 															FROM $db_eform.develop
@@ -107,7 +108,7 @@ include('../admin/compcode/include/function.php');
 															group by degree.dg_id,
 												degree.dg_name
 															order by countDevid desc");
-											while($ob03=mysql_fetch_assoc($sql03)){
+											while($ob03=mysqli_fetch_assoc($sql03)){
 											
 											echo '<tr>
 												<td>'.$ob03['dg_name'].'</td>

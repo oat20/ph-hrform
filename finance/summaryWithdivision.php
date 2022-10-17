@@ -2,6 +2,7 @@
 session_start();
 
 include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php';
 include("../admin/compcode/include/connect_db.php");
 include("../admin/compcode/check_login.php");
 include("../admin/compcode/include/function.php");
@@ -33,8 +34,8 @@ include("../admin/compcode/include/function.php");
                         <select name="dev_year" class="form-control select select-inverse select-sm" data-toggle="select" data-placeholder="ปีงบประมาณ" required>
                             <?php
                             echo '<option value=""></option>';
-                            $sql=mysql_query("select dev_year from $db_eform.develop group by dev_year order by dev_year desc");
-                            while($ob=mysql_fetch_assoc($sql)){
+                            $sql=mysqli_query($condb,"select dev_year from $db_eform.develop group by dev_year order by dev_year desc");
+                            while($ob=mysqli_fetch_assoc($sql)){
                                 echo '<option value="'.$ob['dev_year'].'">&raquo; '.$ob['dev_year'].'</option>';
                             }
                             ?>
@@ -48,11 +49,11 @@ include("../admin/compcode/include/function.php");
                             <?php
                             echo '<option value=""></option>';
                             echo '<option value="all">&raquo; ทั้งหมด</option>';
-                            $sql=mysql_query("select * from $db_eform.department_type as t1
-                                inner join $db_eform.tb_orgnew as t2 on(t1.typ_id = t2.typ_id)
+                            $sql=mysqli_query($condb,"select * from $db_eform.department_type as t1
+                                right join $db_eform.tb_orgnew as t2 on(t1.typ_id = t2.typ_id)
                                 order by t1.typ_id asc,
                                 t2.dp_id asc");
-                            while($ob=mysql_fetch_assoc($sql)){
+                            while($ob=mysqli_fetch_assoc($sql)){
                                 echo '<option value="'.$ob['dp_id'].'">&raquo; '.$ob['dp_name'].'</option>';
                             }
                             ?>
@@ -80,14 +81,14 @@ include("../admin/compcode/include/function.php");
 				}
 				
 				if($dp_id=='all'){
-					$sql01=mysql_query("select * from $db_eform.department_type as a
+					$sql01=mysqli_query($condb,"select * from $db_eform.department_type as a
 							inner join $db_eform.tb_orgnew as b on (a.typ_id = b.typ_id)
 							inner join $db_eform.department_budget as c on (b.dp_id = c.dp_id)
 							where c.db_year='$dev_year'
 							order by a.typ_id asc,
 							b.dp_id asc");
 				}else{
-					$sql01=mysql_query("select * from $db_eform.department_type as a
+					$sql01=mysqli_query($condb,"select * from $db_eform.department_type as a
 							inner join $db_eform.tb_orgnew as b on (a.typ_id = b.typ_id)
 							inner join $db_eform.department_budget as c on (b.dp_id = c.dp_id)
 							where c.db_year='$dev_year'
@@ -95,7 +96,7 @@ include("../admin/compcode/include/function.php");
 							order by a.typ_id asc,
 							b.dp_id asc");
 				}
-				while($ob01=mysql_fetch_assoc($sql01)){
+				while($ob01=mysqli_fetch_assoc($sql01)){
 				?>
                     <div class="panel panel-info">
                         <div class="panel-heading">
@@ -134,7 +135,7 @@ include("../admin/compcode/include/function.php");
 										$budget_pay03='0';
 										$r=0;
 										
-										$sql02=mysql_query("select * from $db_eform.develop as a
+										$sql02=mysqli_query($condb,"select * from $db_eform.develop as a
 													inner join $db_eform.personel_muerp as c on (a.dev_perid = c.per_id)
 													inner join $db_eform.develop_type as t3 on(a.dev_type = t3.dvt_id)
 													where a.dev_year = '$dev_year'
@@ -146,7 +147,7 @@ include("../admin/compcode/include/function.php");
 													a.dev_enddate desc,
 													convert (c.per_fnamet using tis620) asc,
 													convert (c.per_lnamet using tis620) asc");
-										while($ob02=mysql_fetch_assoc($sql02)){
+										while($ob02=mysqli_fetch_assoc($sql02)){
 											
 											if($ob02['dev_maintype'] == '1'){
 												$dev_maintype01 = '<i class="fa fa-check"></i>';
@@ -157,24 +158,24 @@ include("../admin/compcode/include/function.php");
 											}
 											
 											//จำนวนผู้เข้าร่วม
-											$qCountpersonel=mysql_query("select * from $db_eform.develop_course_personel where dev_id='$ob02[dev_id]'");
+											$qCountpersonel=mysqli_query($condb,"select * from $db_eform.develop_course_personel where dev_id='$ob02[dev_id]'");
 											//จำนวนผู้เข้าร่วม
 											
 											//งบประมาณ
 											$budget='';
-											$qBudget=mysql_query("select * from $db_eform.develop_form_budget
+											$qBudget=mysqli_query($condb,"select * from $db_eform.develop_form_budget
 															inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 															where develop_form_budget.dev_id='$ob02[dev_id]'
 															order by budtype.bt_id asc");
-											while($rBudget=mysql_fetch_assoc($qBudget)){
+											while($rBudget=mysqli_fetch_assoc($qBudget)){
 												$budget.=$rBudget['bt_name'].' <strong>('.number_format($rBudget['dev_pay01']).')</strong>, ';
 											}
-											$qBudget02=mysql_query("select sum(dev_pay01) as sumDevpay01,
+											$qBudget02=mysqli_query($condb,"select sum(dev_pay01) as sumDevpay01,
 												sum(dev_pay02) as sumDevpay02,
 												sum(dev_pay03) as sumDevpay03
 												from $db_eform.develop_form_budget
 												where dev_id='$ob02[dev_id]'");
-											$rBudget02=mysql_fetch_assoc($qBudget02);
+											$rBudget02=mysqli_fetch_assoc($qBudget02);
 											//งบประมาณ										
 											//summary budget
 											$budget_pay01+=$rBudget02['sumDevpay01'];
@@ -193,7 +194,7 @@ include("../admin/compcode/include/function.php");
 														<td class="text-center">'.$dev_maintype01.'</td>
 														<td class="text-center">'.$dev_maintype02.'</td>
 														<td>'.$ob02['dvt_name'].'&nbsp;&nbsp;'.$ob02['dev_typeother'].'</td>
-														<td>'.number_format(mysql_num_rows($qCountpersonel)).'</td>
+														<td>'.number_format(mysqli_num_rows($qCountpersonel)).'</td>
 														<td>'.substr($budget,'0','-2').'</td>
 														<td>'.number_format($rBudget02['sumDevpay01'],'2').'</td>
 														<td><strong>'.number_format($rBudget02['sumDevpay02'],'2').'</strong></td>

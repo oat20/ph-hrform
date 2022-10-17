@@ -1,5 +1,6 @@
 <?php
 include('../admin/compcode/include/config.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 
@@ -193,11 +194,11 @@ require_once "../lib/writeexcel/class.writeexcel_workbook.inc.php";
 							order by develop.dev_stdate desc,
 							develop.dev_enddate desc
 						";*/
-			$rs = mysql_query($sql_1);
-			$row=mysql_num_rows($rs);
+			$rs = mysqli_query($condb, $sql_1);
+			$row=mysqli_num_rows($rs);
             # ตรงนี้คือดึงข้อมูลจาก mysql มาใส่ใน Cell
                 #while(list($per_pname, $per_fnamet, $per_lnamet, $per_email)=mysql_fetch_row($rs)) {
-				while($ob = mysql_fetch_array($rs)){
+				while($ob = mysqli_fetch_array($rs)){
                     ++$i;
 										
 					if($ob['dev_maintype']=='1'){ 
@@ -218,11 +219,11 @@ require_once "../lib/writeexcel/class.writeexcel_workbook.inc.php";
 					
 					//งบประมาณ
 					$budget='';
-					$qBudget=mysql_query("select * from $db_eform.develop_form_budget
+					$qBudget=mysqli_query($condb, "select * from $db_eform.develop_form_budget
 									inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 									where develop_form_budget.dev_id='$ob[dev_id]'
 									order by budtype.bt_id asc");
-					while($rBudget=mysql_fetch_assoc($qBudget)){
+					while($rBudget=mysqli_fetch_assoc($qBudget)){
 						$budget.=$rBudget['bt_name'].', ';
 					}
 					//งบประมาณ

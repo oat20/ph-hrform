@@ -1,5 +1,6 @@
 <?php
 include('../../admin/compcode/include/config.php');
+require_once '../../lib/mysqli.php';
 include('../../admin/compcode/include/connect_db.php');
 include('../../admin/compcode/include/function.php');
 
@@ -128,11 +129,11 @@ require_once "../../lib/writeexcel/class.writeexcel_workbook.inc.php";
 						and develop.ss_id = '$_GET[ss_id]'
 						order by develop.dev_stdate desc,
 						develop.dev_enddate desc";
-			$rs = mysql_query($sql_1);
-			$row=mysql_num_rows($rs);
+			$rs = mysqli_query($condb,$sql_1);
+			$row=mysqli_num_rows($rs);
             # ตรงนี้คือดึงข้อมูลจาก mysql มาใส่ใน Cell
                 #while(list($per_pname, $per_fnamet, $per_lnamet, $per_email)=mysql_fetch_row($rs)) {
-				while($ob = mysql_fetch_array($rs)){
+				while($ob = mysqli_fetch_array($rs)){
                     ++$i;
 										
 					if($ob['dev_maintype']=='1'){ 
@@ -145,11 +146,11 @@ require_once "../../lib/writeexcel/class.writeexcel_workbook.inc.php";
 				
 				//วัตถุประสงค์
 				$dvt_name='';	
-				$sql02=mysql_query("select * from $db_eform.develop_form_objective
+				$sql02=mysqli_query($condb,"select * from $db_eform.develop_form_objective
 													inner join $db_eform.develop_type on (develop_form_objective.dvt_id = develop_type.dvt_id)
 													where develop_form_objective.dev_id='$ob[dev_id]'
 													order by develop_type.dvt_id asc");
-					while($ob02=mysql_fetch_assoc($sql02)){
+					while($ob02=mysqli_fetch_assoc($sql02)){
 						$dvt_name.=$ob02['dvt_name'].', ';
 				}
 				//วัตถุประสงค์

@@ -2,6 +2,7 @@
 session_start();
 
 include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php';
 include("../admin/compcode/include/connect_db.php");
 include("../admin/compcode/check_login.php");
 include("../admin/compcode/include/function.php");
@@ -40,8 +41,8 @@ include("../admin/compcode/include/function.php");
 						echo '<a href="'.$_SERVER['PHP_SELF'].'?dev_year='.$y.'" class="list-group-item"><i class="fa fa-angle-double-right fa-fw"></i> ปีงบประมาณ <strong>'.$y.'</strong></a>';
 					}
 				}*/
-				$sql=mysql_query("select dev_year from $db_eform.develop group by dev_year order by dev_year desc");
-				while($ob=mysql_fetch_assoc($sql)){
+				$sql=mysqli_query($condb,"select dev_year from $db_eform.develop group by dev_year order by dev_year desc");
+				while($ob=mysqli_fetch_assoc($sql)){
 					if($_GET['dev_year'] == $ob['dev_year']){
               			echo '<a href="'.$_SERVER['PHP_SELF'].'?dev_year='.$ob['dev_year'].'" class="list-group-item active"><i class="fa fa-angle-double-right fa-fw"></i> ปีงบประมาณ <strong>'.$ob['dev_year'].'</strong></a>';
 					}else{
@@ -59,11 +60,9 @@ include("../admin/compcode/include/function.php");
         	<div class="row">
         
             	<?php
-				$sql01=mysql_query("select * from $db_eform.department_type as a
-							where typ_id = 'PH00001'
-							or typ_id = 'PH00002'
+				$sql01=mysqli_query($condb,"select * from $db_eform.department_type as a
 							order by a.typ_id asc");
-				while($ob01=mysql_fetch_assoc($sql01)){
+				while($ob01=mysqli_fetch_assoc($sql01)){
 				?>
                 <div class="col-lg-6">
                     <div class="panel panel-info">
@@ -102,7 +101,7 @@ include("../admin/compcode/include/function.php");
 													and a.dev_cancel='no'
 													group by d.dp_name
 													order by d.dp_id asc");*/
-										$sql02=mysql_query("select d.dp_name,
+										$sql02=mysqli_query($condb,"select d.dp_name,
 													sum(t3.dev_pay01) as budgetPay01,
 													sum(t3.dev_pay02) as budgetPay02,
 													sum(t3.dev_pay03) as budgetPay03 
@@ -118,7 +117,7 @@ include("../admin/compcode/include/function.php");
 													and t4.pf_id = 1
 													group by d.dp_name
 													order by d.dp_id asc");
-										while($ob02=mysql_fetch_assoc($sql02)){
+										while($ob02=mysqli_fetch_assoc($sql02)){
 											
 											//summary budget
 											$budget_pay01+=$ob02['budgetPay01'];
