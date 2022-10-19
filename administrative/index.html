@@ -60,23 +60,23 @@
             <p class="form-control-static">https://xxx.xxx.xxx/document.pdf</p>
             <div class="form-group">
                 <label>บันทึกข้อความถึงผู้ขออนุมัติ <small>(ถ้ามี)</small></label>
-                <textarea name="" class="form-control" rows="4"></textarea>
+                <textarea name="dev_approve_note" class="form-control" rows="4"></textarea>
             </div>
             <div class="form-group">
                 <label><strong>Your OTP</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon">Ref. ID xxx</span>
-                <input type="text" class="form-control input-lg text-uppercase" placeholder="กรอกรหัส OTP" required>
+                <input type="text" class="form-control input-lg text-uppercase" placeholder="กรอกรหัส OTP" name="dev_otp" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <button type="button" class="btn btn-primary btn-block" id="btn-approved"><i class="fa fa-check fa-fw"></i>
+                    <button type="button" class="btn btn-primary btn-block" id="btn-approved" data-approve="approve"><i class="fa fa-check fa-fw"></i>
                         อนุมัติ</button>
                     <hr class="visible-xs visible-sm">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <button type="button" class="btn btn-default btn-block" id="btn-disapproved"><i class="fa fa-exclamation fa-fw"></i>
+                    <button type="button" class="btn btn-default btn-block" id="btn-disapproved" data-approve="not"><i class="fa fa-exclamation fa-fw"></i>
                         ไม่อนุมัติ</button>
                 </div>
             </div>
@@ -90,19 +90,17 @@
     <script>
         $(function () {
             $('#btn-approved').click(function () {
-                Swal.fire(
-                    'The Internet?',
-                    'That thing is still around?',
-                    'success'
-                )
+                Swal.fire({
+                    title: 'ยืนยันอนุมัติรายการ',
+                    icon: 'success'
+            });
             });
 
             $('#btn-disapproved').click(function () {
-                Swal.fire(
-                    'The Internet?',
-                    'That thing is still around?',
-                    'warning'
-                )
+                Swal.fire({
+                    title: 'ยืนยันไม่อนุมัติรายการ',
+                    icon: 'warning'
+            });
             });
         });
     </script>
