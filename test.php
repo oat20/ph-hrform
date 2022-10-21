@@ -202,6 +202,7 @@ include('lib/css-inc.php');
 </div><!--container-->
 	
 <?php include('lib/js-inc.php');?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 $(document).ready(function() {
 	
@@ -340,6 +341,9 @@ $("#personel-excel").fileinput({
 		allowedFileExtensions: ["xls", "xlsx", "csv"],
 		//elErrorContainer: "#help-block",
 	});
+
+    const d = moment().format();
+    console.log(d);
 </script>
 </body>
 </html>

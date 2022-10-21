@@ -3,13 +3,18 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 //include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
-
-include('../lib/css-inc.php');
-
-include('../inc/navbar02-inc.php');
 ?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <?php include('../lib/css-inc.php');?>
+    </head>
+    <body>
+        <?php include('../inc/navbar02-inc.php');?>
 <div class="container-fluid">
 
 	<div class="panel panel-default">
@@ -59,8 +64,8 @@ FROM $db_eform.personel_muerp_log as t1
 INNER JOIN $db_eform.personel_muerp as t2 ON ( t1.per_id = t2.per_id )
 left join $db_eform.develop_user as t3 on (t2.per_id = t3.per_id) 
 ORDER BY t1.log_datestamp DESC";
-$rs=mysql_query($sql);
-while($ob=mysql_fetch_assoc($rs)){
+$rs=mysqli_query($condb,$sql);
+while($ob=mysqli_fetch_assoc($rs)){
 	?>
     <tr>
     	<td><?php echo ++$r;?></td>
@@ -89,3 +94,5 @@ var jets = new Jets({
   columns: [1,2,3,4,5] // optional, search by first column only
 });
 </script>
+</body>
+</html>
