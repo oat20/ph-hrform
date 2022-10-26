@@ -3,6 +3,7 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -34,14 +35,14 @@ include('../admin/compcode/include/function.php');
 					<div class="form-group">
 						  <select name="getDevid" class="form-group select select-primary" data-toggle="select" onchange="this.form.submit()" required data-placeholder="ค้นหาแบบฟอร์ม">
 						  	<option value=""></option>';
-						  	$sql=mysql_query("select * from $db_eform.develop as t1
+						  	$sql=mysqli_query($condb,"select * from $db_eform.develop as t1
 								inner join $db_eform.tb_orgnew as t2 on(t1.dp_id=t2.dp_id)
 								where t1.dev_nopay='0'
 								and t1.dev_remove='no'
 								and t1.dev_cancel='no'
 								and t1.dev_approve='approve'
 								order by dev_create desc");
-							while($ob=mysql_fetch_assoc($sql)){
+							while($ob=mysqli_fetch_assoc($sql)){
 								$inc.='<option value="'.$ob['dev_id'].'">Form No. '.$ob['dev_id'].'&nbsp;&nbsp;หลักสูตร/โครงการ '.$ob['dev_onus'].', '.$ob['dp_name'].'</option>';
 							}
 						  $inc.='</select>
@@ -49,16 +50,16 @@ include('../admin/compcode/include/function.php');
 				</form>';
 							
 			$inc.='<div class="row">';
-			$sql=mysql_query("select * from $db_eform.department_type as t1
-				inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id) 
+			$sql=mysqli_query($condb,"select * from $db_eform.department_type as t1
+				right join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id) 
 				order by convert(t1.typ_name using tis620) asc,
 				convert(t2.dp_name using tis620) asc");
-			while($rs=mysql_fetch_assoc($sql)){
+			while($rs=mysqli_fetch_assoc($sql)){
 				$inc.='<div class="col-sm-4"><a href="'.$livesite.'finance/show-editbudget-form.php?keyDpid='.$rs['dp_id'].'&keyDpname='.$rs['dp_name'].'"><div class="well"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;'.$rs['dp_name'].'</div></a></div>';
 			}
 			$inc.='</div>';
             
-			echo blockcontent_02('default','<a href="'.$livesite.'profile/profile.php"><i class="fa fa-arrow-left"></i> บันทึกค่าใช้จ่าย / งบประมาณได้รับในแต่ละโครงการ</a>',$inc);
+			echo blockcontent_02('default','<a href="'.$livesite.'profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกค่าใช้จ่าย / งบประมาณได้รับในแต่ละโครงการ</a>',$inc);
             ?>
 		</div><!--col-->
 	</div><!--row-->

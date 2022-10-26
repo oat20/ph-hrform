@@ -3,11 +3,13 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
 <!doctype html>
 <html lang="en">
+	<meta charset="utf-8">
 <?php include('../lib/css-inc.php');?>
 <body>
 <?php include('../inc/navbar02-inc.php');?>
@@ -15,7 +17,7 @@ include('../admin/compcode/include/function.php');
 <div class="container-fluid">
 
 	<ol class="breadcrumb font-20">
-      <li><a href="show-editbudget-form01.php"><i class="fa fa-arrow-left"></i> บันทึกค่าใช้จ่าย / งบประมาณได้รับในแต่ละโครงการ</a></li>
+      <li><a href="show-editbudget-form01.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกค่าใช้จ่าย / งบประมาณได้รับในแต่ละโครงการ</a></li>
       <li><?php echo $_GET['keyDpname'];?></li>
     </ol>
 	
@@ -88,8 +90,8 @@ include('../admin/compcode/include/function.php');
 				order by develop.dev_year desc,
 				develop.dev_stdate desc,
 				develop.dev_enddate desc";
- $exec=mysql_query($sql);
-while($rs=mysql_fetch_array($exec)){
+ $exec=mysqli_query($condb,$sql);
+while($rs=mysqli_fetch_array($exec)){
 	++$num;
 //��˹������Ѻ�������
 			if ( $swap ==  "1" )
@@ -103,8 +105,8 @@ while($rs=mysql_fetch_array($exec)){
 					$swap = "1";
 			}
 			//��˹������Ѻ�������
-			$qPersonel=mysql_query("select count(per_id) as c1 from $db_eform.develop_course_personel where dev_id='$rs[dev_id]'");
-			$rPersonel=mysql_fetch_assoc($qPersonel);
+			$qPersonel=mysqli_query($condb,"select count(per_id) as c1 from $db_eform.develop_course_personel where dev_id='$rs[dev_id]'");
+			$rPersonel=mysqli_fetch_assoc($qPersonel);
 ?>
   <tr   bgcolor="<? echo "$color"; ?>">
   	<td><?php echo $num;?></td>
@@ -127,11 +129,11 @@ while($rs=mysql_fetch_array($exec)){
             </thead>
             <tbody>
             	<?php
-				$qBudget=mysql_query("select * from $db_eform.develop_form_budget
+				$qBudget=mysqli_query($condb,"select * from $db_eform.develop_form_budget
 								inner join $db_eform.budtype on (develop_form_budget.bt_id=budtype.bt_id)
 								where develop_form_budget.dev_id='$rs[dev_id]'
 								order by budtype.bt_id asc");
-				while($rBudget=mysql_fetch_assoc($qBudget)){
+				while($rBudget=mysqli_fetch_assoc($qBudget)){
 					echo '<tr>
 						<td>'.$rBudget['bt_name'].'</td>
 						<td>'.number_format($rBudget['dev_pay01']).'</td>
@@ -153,10 +155,10 @@ while($rs=mysql_fetch_array($exec)){
             </thead>
             <tbody>
             	<?php
-				$qCost=mysql_query("select * from $db_eform.develop_form_cost
+				$qCost=mysqli_query($condb,"select * from $db_eform.develop_form_cost
 							inner join $db_eform.develop_cost_type on (develop_form_cost.ct_id=develop_cost_type.ct_id)
 							where develop_form_cost.dev_id='$rs[dev_id]'");
-				while($rCost=mysql_fetch_assoc($qCost)){
+				while($rCost=mysqli_fetch_assoc($qCost)){
 					echo '<tr>
 						<td>'.$rCost['ct_title'].'</td>
 						<td>'.number_format($rCost['dev_pay01']).'</td>
