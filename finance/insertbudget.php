@@ -3,6 +3,7 @@ session_start();
 
 include('../admin/compcode/include/config.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -58,8 +59,8 @@ include('../admin/compcode/include/function.php');
 											ORDER BY tb_orgnew.dp_id ASC";
 										//$countPerid2=0;
 										//$totalBudget2 = 0;
-										$rs = mysql_query($sql);
-										while($ob = mysql_fetch_assoc($rs)){
+										$rs = mysqli_query($condb,$sql);
+										while($ob = mysqli_fetch_assoc($rs)){
 											print '<tr>
 														<td>'.$ob['typ_name'].' <i class="fa fa-angle-double-right"></i> '.$ob['dp_name'].'<input type="hidden" name="dp_id[]" value="'.$ob['dp_id'].'"></td>
 														<td>'.number_format($ob['countPerid']).' x '.$cf_budgetperstaff.'<input type="hidden" name="db_staff'.$ob['dp_id'].'" value="'.$ob['countPerid'].'"></td>
@@ -104,8 +105,8 @@ include('../admin/compcode/include/function.php');
 											ORDER BY tb_orgnew.dp_id ASC";
 										//$countPerid2=0;
 										//$totalBudget2 = 0;
-										$rs = mysql_query($sql);
-										while($ob = mysql_fetch_assoc($rs)){
+										$rs = mysqli_query($condb,$sql);
+										while($ob = mysqli_fetch_assoc($rs)){
 											print '<tr>
 														<td>'.$ob['typ_name'].' <i class="fa fa-angle-double-right"></i> '.$ob['dp_name'].'<input type="hidden" name="dp_id2[]" value="'.$ob['dp_id'].'"></td>
 														<td>'.number_format($ob['countPerid']).' x '.$cf_budgetperstaff.'<input type="hidden" name="db_staff02'.$ob['dp_id'].'" value="'.$ob['countPerid'].'"></td>

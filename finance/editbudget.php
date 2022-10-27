@@ -2,7 +2,8 @@
 session_start();
 
 include('../admin/compcode/include/config.php');
-//include('../admin/compcode/check_login.php');
+include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -53,8 +54,8 @@ include('../admin/compcode/include/function.php');
 										order by tb_orgnew.dp_id asc";
 										//$countPerid2=0;
 										//$totalBudget2 = 0;
-										$rs = mysql_query($sql);
-										while($ob = mysql_fetch_assoc($rs)){
+										$rs = mysqli_query($condb,$sql);
+										while($ob = mysqli_fetch_assoc($rs)){
 											print '<tr>
 														<td>'.$ob['typ_name'].' <i class="fa fa-angle-double-right"></i> '.$ob['dp_name'].'</td>
 														<td>'.number_format($ob['db_staff']).'</td>
@@ -95,8 +96,8 @@ include('../admin/compcode/include/function.php');
 										order by tb_orgnew.dp_id asc";
 										//$countPerid2=0;
 										//$totalBudget2 = 0;
-										$rs = mysql_query($sql);
-										while($ob = mysql_fetch_assoc($rs)){
+										$rs = mysqli_query($condb,$sql);
+										while($ob = mysqli_fetch_assoc($rs)){
 											print '<tr>
 														<td>'.$ob['typ_name'].' <i class="fa fa-angle-double-right"></i> '.$ob['dp_name'].'</td>
 														<td>'.number_format($ob['db_staff']).'</td>
