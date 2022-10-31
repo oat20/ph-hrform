@@ -1,15 +1,33 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="./lib/flatui/css/flat-ui.css" rel="stylesheet" type="text/css">
+<link href="./phpm/style.css" rel="stylesheet">
+<link href="./room_it/layout.css" rel="stylesheet">
+<link href="./room_it/style.css" rel="stylesheet">
 <link href="room_it/style2.css" rel="stylesheet" type="text/css">
 <title>ระบบบริหารโครงการ Faculty of Public Health Mahidol University MUPH</title>
 </head>
 
 <body>
-<div id="warp">
-	
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+	<h2>Select Sessions</h2>
+
+    <div class="list-group">
+        <a href="#" class="list-group-item">
+            Cras justo odio
+        </a>
+        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+        <a href="#" class="list-group-item">Morbi leo risus</a>
+        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+        <a href="#" class="list-group-item">Vestibulum at eros</a>
+    </div>
     <div id="main">
     	<div class="top">
         	<div class="block1"></div>
@@ -63,6 +81,23 @@
         
     </div>
     <div style="clear:both"></div>
+    </div>
+    </div>
 </div>
+
+<script src="./lib/jquery/jquery.js"></script>
+<script src="./lib/flatui/js/flat-ui.min.js"></script>
+<script src="./lib/flatui/js/application.js"></script>
+<script>
+    $(function(){
+        $.ajax({
+            'url': './json/apps.json',
+            'dataType': 'json',
+            'method': 'GET'
+        }).then(function(result){
+            console.table(result);
+        });
+    });
+</script>
 </body>
 </html>

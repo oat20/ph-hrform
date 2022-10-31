@@ -172,8 +172,9 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 				values ('', '$dev_id', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]', 'Attachment')
 			");
 			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
+
+			mysqli_query($condb, "insert into develop_attachment (dev_id, dev_filecategory) values ('$dev_id', 'Report')");
 		}
-		mysqli_query($condb, "insert into develop_attachment (dev_id, dev_filecategory) values ('$dev_id', 'Report')");
 		
 		//insert table develop_log
 		$sql2="insert into $db_eform.develop_log (dl_id, 

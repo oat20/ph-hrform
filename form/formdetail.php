@@ -109,7 +109,9 @@ $inc .= '<div class="row">
 							  <dt>รายละเอียดการขออนุมัติค่าใช้จ่าย</dt>
 							  <dd>'.$cf_devnopay[$ob['dev_nopay']].'</dd>
 							  <dt>เอกสารเกี่ยวกับโครงการ</dt>
-							  <dd></dd>
+							  <dd>
+							 	<a href="'.$livesite.'phpm/attachment/" target="_blank">'.$livesite.'phpm/attachment/</a> 
+							  </dd>
 							</dl>';
 							
 							if($ob['dev_nopay']==0){
@@ -206,12 +208,18 @@ $inc .= '<div class="row">
 							<div class="panel panel-default">
 								<div class="panel-heading"><i class="fa fa-paperclip fa-fw"></i> แนบรายงานการปฏิบัติงาน</div>
 								<div class="panel-body">
+								<form action="./upload-filereport.php" method="POST" enctype="multipart/form-data">
+								<p>
+									<a href="'.$livesite.'phpm/attachment/" target="_blank">'.$livesite.'phpm/attachment/</a>
+								</p>
 									<div class="form-group">
-										<input type="file" accept="image/jpeg,image/png,application/pdf">
+										<input type="file" name="file" accept="image/jpeg,image/png,application/pdf" required>
 										<span class="help-block">รองรับไฟล์เอกสาร PDF และไฟล์รูปภาพ JPG หรือ PNG</span>
 									</div>
+									<input type="hidden" name="dev_id" value="'.$ob['dev_id'].'">
 									<input type="hidden" name="dev_filecategory" value="Report">
 									<button type="button" class="btn btn-primary btn-block" id="btn-upload">Upload</button>
+									</form>
 								</div>
 							</div>
 						</div>

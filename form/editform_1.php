@@ -31,7 +31,7 @@ include('../admin/compcode/include/function.php');
 	$dev_bookfrom=explode('+',$rDevelop['dev_bookfrom']);
 	?>
     
-    <form action="editform1-action.php" method="post" id="formDefault">
+    <form action="editform1-action.php" method="post" id="formDefault" enctype="multipart/form-data">
     	<div class="row">
         	<div class="col-sm-6">
                 

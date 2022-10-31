@@ -24,7 +24,7 @@ include('../admin/compcode/include/function.php');
 </div>
 <div class="panel-body">
     
-    <form action="add_project.php" method="post" id="formDefault">
+    <form action="add_project.php" method="post" id="formDefault" enctype="multipart/form-data">
     	<div class="row">
         	<div class="col-sm-6">
                 <div class="form-group">

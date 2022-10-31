@@ -1,0 +1,12 @@
+[
+    {
+        "title": "สำหรับบุคลากร",
+        "url": "",
+        "icon": "fa-user"
+    },
+    {
+        "title": "ผู้ดูแลระบบ",
+        "url": "./admin/index.html",
+        "icon": "fa-cogs"
+    }
+]
