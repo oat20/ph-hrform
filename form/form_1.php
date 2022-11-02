@@ -40,7 +40,7 @@ include('../admin/compcode/include/function.php');
                         <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label>หมวดหมู่แบบบันทึก</label>
+                    <label>หมวดหมู่</label>
                     <label class="radio">
                         <input type="radio" name="dev_maintype" value="1" data-toggle="radio" required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
                     </label>
@@ -76,19 +76,19 @@ include('../admin/compcode/include/function.php');
                     <label class="control-label">ระหว่างวันที่:</label>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" name="dev_stdate" id="startdate" size="10" class="form-control input-sm" required placeholder="เริ่ม">
+                                    <input type="text" name="dev_stdate" id="startdate" size="10" class="form-control input-sm" required placeholder="yyyy-mm-dd">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" name="dev_enddate" id="enddate" size="10" class="form-control input-sm" required placeholder="ถึง">
-                                </div>
+                            <?php echo select_time('dev_timebegin', date('H:00'), 'inverse', 'sm');?>
+                        </div>
                             </div>
                 </div><!--form-group-->
                 <div class="form-group">
-                	<label class="control-label">ตั้งแต่เวลา:</label>
+                	<label class="control-label">ถึงวันที่:</label>
                     <div class="row">
                         <div class="col-sm-6">
-                            <?php echo select_time('dev_timebegin', date('H:00'), 'inverse', 'sm');?>
-                        </div>
+                                    <input type="text" name="dev_enddate" id="enddate" size="10" class="form-control input-sm" required placeholder="yyyy-mm-dd">
+                                </div>
                         <div class="col-sm-6">
                             <?php echo select_time('dev_timeend', date('H:00'), 'inverse', 'sm');?>
                         </div>

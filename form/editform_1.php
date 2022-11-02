@@ -60,7 +60,7 @@ include('../admin/compcode/include/function.php');
                         <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label>หมวดหมู่แบบบันทึก</label>
+                    <label>หมวดหมู่</label>
                     <label class="radio">
                         <input type="radio" name="dev_maintype" value="1" data-toggle="radio"
                         <?php if($rDevelop['dev_maintype']==1){ echo 'checked';}?>
@@ -94,26 +94,26 @@ include('../admin/compcode/include/function.php');
                 <hr>-->
                 
                 <div class="form-group">
-                      <label class=" control-label formcolhd">หลักสูตร/โครงการ:</label>
+                      <label class=" control-label">หลักสูตร/โครงการ:</label>
                       <input name="dev_onus" type="text" class="form-control inputform input-sm" id="title_news" value="<?php echo htmlspecialchars($rDevelop['dev_onus']);?>" required/>
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label class="control-label formcolhd">ระหว่างวันที่:</label>
+                    <label class="control-label">ระหว่างวันที่:</label>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <input type="text" name="dev_stdate" id="startdate" size="10" class="form-control input-sm" required placeholder="เริ่ม" value="<?php echo $rDevelop['dev_stdate'];?>">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" name="dev_enddate" id="enddate" size="10" class="form-control input-sm" required placeholder="ถึง" value="<?php echo $rDevelop['dev_enddate'];?>">
-                                </div>
+                            <?php echo select_time('dev_timebegin', $rDevelop['dev_timebegin'], 'inverse', 'sm');?>
+                        </div>
                             </div>
                 </div><!--form-group-->
                 <div class="form-group">
-                	<label class="control-label">ตั้งแต่เวลา:</label>
+                	<label class="control-label">ถึงวันที่:</label>
                     <div class="row">
                         <div class="col-sm-6">
-                            <?php echo select_time('dev_timebegin', $rDevelop['dev_timebegin'], 'inverse', 'sm');?>
-                        </div>
+                                    <input type="text" name="dev_enddate" id="enddate" size="10" class="form-control input-sm" required placeholder="ถึง" value="<?php echo $rDevelop['dev_enddate'];?>">
+                                </div>
                         <div class="col-sm-6">
                             <?php echo select_time('dev_timeend', $rDevelop['dev_timeend'], 'inverse', 'sm');?>
                         </div>
@@ -171,7 +171,7 @@ include('../admin/compcode/include/function.php');
                   </div><!--form-group-->
                   
                   <div class="form-group">
-                  <label class="control-label formcolhd">เกี่ยวข้องกับกิจกรรม:</label>
+                  <label class="control-label">เกี่ยวข้องกับกิจกรรม:</label>
                     <select name="act_id" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             <option value="">&raquo; เลือกรายการ</option>
                             <?php
