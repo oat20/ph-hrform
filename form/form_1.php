@@ -369,11 +369,11 @@ $(document).ready(function(e) {
 				}
         });*/
 	
-	$('#dev_bookfrom_03').datepicker({
+	/*$('#dev_bookfrom_03').datepicker({
 		format: 'yyyy-mm-dd', 
 		language: 'th', 
 		autoclose: true
-	});
+	});*/
 	$('#startdate').datepicker({
 		format: 'yyyy-mm-dd', 
 		language: 'th', 
@@ -479,13 +479,13 @@ $(document).ready(function(e) {
 		 }
 	});
 	
-	$('#dev_bookfrom_03').datepicker()
+	/*$('#dev_bookfrom_03').datepicker()
         .on('change show', function(e) {
             // Validate the date when user change it
             $('#formDefault').data('bootstrapValidator').revalidateField('dev_bookfrom_03');
             // You also can call it as following:
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
-        });
+        });*/
 	$('#startdate').datepicker()
         .on('change show', function(e) {
             // Validate the date when user change it
