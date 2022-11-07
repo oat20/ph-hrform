@@ -4,6 +4,7 @@ session_start();
 include('../admin/compcode/include/config.php');
 include('config-inc.php');
 include('../admin/compcode/check_login.php');
+require_once '../lib/mysqli.php';
 include('../admin/compcode/include/connect_db.php');
 include('../admin/compcode/include/function.php');
 ?>
@@ -23,15 +24,15 @@ include('../admin/compcode/include/function.php');
     	<div class="col-sm-12">
         
         	<div class="page-header-05">
-                <div class="text-title"><a href="<?php echo $livesite;?>profile/profile.php"><i class="fa fa-arrow-left fa-fw"></i> แบบฟอร์มใบลาไปเพิ่มพูนความรู้และประสบการณ์</a></div>
+                <div class="text-title"><a href="<?php echo $livesite;?>leave/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกขออนุมัติเดินทางต่างประเทศ</a></div>
             </div>
             <form method="post" id="formDefault" action="form-edit-action.php">
             	<!--ข้อมูลผู้ขออนุมัติ-->
                 <?php
-				$qPersonel=mysql_query("select * from $db_eform.develop_leave as t1
+				$qPersonel=mysqli_query($condb, "select * from $db_eform.develop_leave as t1
 					inner join $db_eform.develop_leave_personel as t2 on (t1.dev_id=t2.dev_id)
 					where t1.dev_id='$_GET[dev_id]'");
-				$rPersonel=mysql_fetch_assoc($qPersonel);
+				$rPersonel=mysqli_fetch_assoc($qPersonel);
 				?>
             	<div class="row">
                 	<div class="col-sm-6">
@@ -41,14 +42,14 @@ include('../admin/compcode/include/function.php');
                             <select name="per_name" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             	<option value="">&nbsp;</option>
                                 <?php
-								$qPersonel02=mysql_query("select * from $db_eform.personel_muerp as t1
+								$qPersonel02=mysqli_query($condb,"select * from $db_eform.personel_muerp as t1
 									inner join $db_eform.personel_status as t2 on (t1.per_status=t2.ps_id)
 									where t1.per_trash='0'
 									and t2.ps_use='yes'
 									and t1.per_dept='$rPersonel[per_dept]'
 									order by convert(t1.per_fnamet using tis620) asc,
 									convert(t1.per_lnamet using tis620) asc");
-								while($rPersonel02=mysql_fetch_assoc($qPersonel02)){
+								while($rPersonel02=mysqli_fetch_assoc($qPersonel02)){
 									if($rPersonel02['per_pname3']==''){ $per_name=$rPersonel02['per_pname'].$rPersonel02['per_fnamet'].'&nbsp;'.$rPersonel02['per_lnamet']; }else{ $per_name=$rPersonel02['per_pname3'].$rPersonel02['per_fnamet'].'&nbsp;'.$rPersonel02['per_lnamet']; }
 									
 									if($rPersonel['per_id']==$rPersonel02['per_id']){
@@ -66,10 +67,10 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label">&nbsp;</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_type" required>
                             	<?php
-								$sql=mysql_query("select * from $db_eform.personel_type 
+								$sql=mysqli_query($condb,"select * from $db_eform.personel_type 
 									where pert_status='1' 
 									order by convert(pert_name using tis620) asc");
-								while($ob=mysql_fetch_assoc($sql)){
+								while($ob=mysqli_fetch_assoc($sql)){
 									if($rPersonel['per_type']==$ob['pert_id']){
 										echo '<option value="'.$ob['pert_id'].'" selected>'.$ob['pert_name'].'</option>';
 									}else{
@@ -88,8 +89,8 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label">ตำแหน่ง:</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_job" required>
                             	<?php
-								$sql=mysql_query("select * from $db_eform.job where job_status='1' order by convert(job_name using tis620) asc");
-								while($ob=mysql_fetch_assoc($sql)){
+								$sql=mysqli_query($condb,"select * from $db_eform.job where job_status='1' order by convert(job_name using tis620) asc");
+								while($ob=mysqli_fetch_assoc($sql)){
 									if($rPersonel['per_job']==$ob['job_id']){
 										echo '<option value="'.$ob['job_id'].'" selected>'.$ob['job_name'].'</option>';
 									}else{
@@ -114,12 +115,12 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label">สังกัด:</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_dept" required>
                             	<?php
-								$sql=mysql_query("select * from $db_eform.department_type as t1
+								$sql=mysqli_query($condb,"select * from $db_eform.department_type as t1
 									inner join $db_eform.tb_orgnew as t2 on (t1.typ_id=t2.typ_id)
 									where t2.dp_id='$rPersonel[per_dept]' 
 									order by convert(t1.typ_name using tis620) asc,
 									convert(t2.dp_name using tis620) asc");
-								while($ob=mysql_fetch_assoc($sql)){
+								while($ob=mysqli_fetch_assoc($sql)){
 									if($rPersonel['per_dept']==$ob['dp_id']){
 										echo '<option value="'.$ob['dp_id'].'" selected>'.$ob['dp_name'].'</option>';
 									}else{
@@ -173,8 +174,8 @@ include('../admin/compcode/include/function.php');
                 <div class="form-group">
                 	<div class="row">
                 	<?php
-					$sql=mysql_query("select * from $db_eform.develop_leave_type order by convert(la_name using tis620) asc");
-					while($ob=mysql_fetch_assoc($sql)){
+					$sql=mysqli_query($condb,"select * from $db_eform.develop_leave_type order by convert(la_name using tis620) asc");
+					while($ob=mysqli_fetch_assoc($sql)){
 						if($rPersonel['dev_type']==$ob['la_id']){
 							echo '<div class="col-sm-2"><label class="radio"><input type="radio" name="dev_type" value="'.$ob['la_id'].'" required data-toggle="radio" checked> '.$ob['la_name'].'</label></div>';
 						}else{
@@ -253,8 +254,8 @@ include('../admin/compcode/include/function.php');
                                 <select class="form-control select select-inverse select-sm" data-toggle="select" name="dev_edu">
                                 	<option value="">&nbsp;</option>
                                     <?php
-                                    $sql=mysql_query("select * from $db_eform.degree where dg_status='1' order by convert(dg_name using tis620) asc");
-                                    while($ob=mysql_fetch_assoc($sql)){
+                                    $sql=mysqli_query($condb,"select * from $db_eform.degree where dg_status='1' order by convert(dg_name using tis620) asc");
+                                    while($ob=mysqli_fetch_assoc($sql)){
 										if($rPersonel['dev_edu']==$ob['dg_id']){
                                         	echo '<option value="'.$ob['dg_id'].'" selected>'.$ob['dg_name'].'</option>';
 										}else{
@@ -272,13 +273,13 @@ include('../admin/compcode/include/function.php');
                             <label class="control-label"><strong>ได้แนบเอกสารประกอบการพิจารณา ดังนี้:</strong></label>
                             <div class="row">
                             <?php
-							$qDoc=mysql_query("select * from $db_eform.develop_leave_doc2 where dev_id='$rPersonel[dev_id]'");
-							while($rDoc=mysql_fetch_assoc($qDoc)){
+							$qDoc=mysqli_query($condb,"select * from $db_eform.develop_leave_doc2 where dev_id='$rPersonel[dev_id]'");
+							while($rDoc=mysqli_fetch_assoc($qDoc)){
 								$ld_id[]=$rDoc['ld_id'];
 							}
 					
-                            $sql=mysql_query("select * from $db_eform.develop_leave_doc order by ld_id asc");
-                            while($ob=mysql_fetch_assoc($sql)){
+                            $sql=mysqli_query($condb,"select * from $db_eform.develop_leave_doc order by ld_id asc");
+                            while($ob=mysqli_fetch_assoc($sql)){
 								if(@in_array($ob["ld_id"], $ld_id)){
 									echo '<div class="col-sm-3"><label class="checkbox">
 												<input name="ld_id[]" type="checkbox" value="'.$ob['ld_id'].'" data-toggle="checkbox" checked> '.$ob['ld_name'].'

@@ -2,6 +2,7 @@
 session_start();
 
 include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php';
 include("../admin/compcode/include/connect_db.php");
 include("../admin/compcode/check_login.php");
 include("../admin/compcode/include/function.php");

@@ -1,11 +1,12 @@
 <?php 
 session_start();
 
-include("../admin/compcode/include/config.php"); 
+include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php'; 
 include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
 
-$ordering=maxid($db_eform.'.develop_leave', 'ordering');
+$ordering=maxid($condb,$db_eform.'.develop_leave', 'ordering');
 $dev_id=addzero($ordering,'5');
 
 if(isset($_POST['action']) and $_POST["action"] == 'save')
@@ -14,7 +15,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		if($_POST['dev_country'] == '223' or $_POST['dev_country']=='TH' or $_POST['dev_country']=='ไทย' or $_POST['dev_country']=='ประเทศไทย' or $_POST['dev_country']=='thai' or $_POST['dev_country']=='thailand' or $_POST['dev_country']=='Thai' or $_POST['dev_country']=='Thailand'){ $dev_local='1'; }else{ $dev_local='2'; }
 		
 		//insert tb develop_leave_personel
-		$sql05=mysql_query("insert into $db_eform.develop_leave_personel values ('".date('YmdHis').random_ID('3', '2')."',
+		$sql05=mysqli_query($condb, "insert into $db_eform.develop_leave_personel values ('".date('YmdHis').random_ID('3', '2')."',
 			'$dev_id',
 			'$_POST[per_name]',
 			'',
@@ -68,7 +69,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 					'$_SESSION[ses_per_id]',
 					'$_POST[dev_bossname]',
 					'$_POST[dev_bosspos]')";
-		$exec1=mysql_query($sql1);
+		$exec1=mysqli_query($condb,$sql1);
 		
 		//insert table develop_leave_doc2
 		if(isset($_POST['ld_id'])){
@@ -76,7 +77,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 			foreach($_POST['ld_id'] as $value){
 												
 				//insert tb develop_course_personel
-				$sql04=mysql_query("insert into $db_eform.develop_leave_doc2 (dev_id,
+				$sql04=mysqli_query($condb,"insert into $db_eform.develop_leave_doc2 (dev_id,
 							ld_id)
 							values ('$dev_id',
 							'$value')");
@@ -95,7 +96,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 					'$_SESSION[ses_per_id]', 
 					'Create', 
 					'".$_SERVER['REMOTE_ADDR']."')";
-		mysql_query($sql2);
+		mysqli_query($condb,$sql2);
 		
 		header('location: message-alert.php?dev_id='.$dev_id);
 				

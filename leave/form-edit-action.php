@@ -1,14 +1,15 @@
 <?php 
 session_start();
 
-include("../admin/compcode/include/config.php"); 
+include("../admin/compcode/include/config.php");
+require_once '../lib/mysqli.php'; 
 include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
 
 if(isset($_POST['action']) and $_POST['action'] == 'save'){
 		
 	//update tb develop_leave_personel
-	$sql03=mysql_query("update $db_eform.develop_leave_personel set per_id='$_POST[per_name]',
+	$sql03=mysqli_query($condb,"update $db_eform.develop_leave_personel set per_id='$_POST[per_name]',
 		per_type='$_POST[per_type]',
 		per_job='$_POST[per_job]',
 		per_number='$_POST[per_number]',
@@ -25,7 +26,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 	
 	$dev_training_hour=ceil((strtotime($_POST['dev_enddate']) - strtotime($_POST['dev_stdate']))/86400)+1;
 	
-	$qDevelop=mysql_query("update $db_eform.develop_leave set
+	$qDevelop=mysqli_query($condb,"update $db_eform.develop_leave set
 		dev_type='$_POST[dev_type]', 
 					dev_onus='$_POST[dev_onus]',
 					dev_place='$_POST[dev_place]',
@@ -46,10 +47,10 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 					where dev_id='$_POST[dev_id]'");
 	
 	//insert table develop_form_objective
-	mysql_query("delete from $db_eform.develop_leave_doc2 where dev_id='$_POST[dev_id]'");
+	mysqli_query($condb,"delete from $db_eform.develop_leave_doc2 where dev_id='$_POST[dev_id]'");
 		if(isset($_POST['ld_id'])){			
 			foreach($_POST['ld_id'] as $value){
-				$sql02=mysql_query("insert into $db_eform.develop_leave_doc2 (dev_id, ld_id) values ('$_POST[dev_id]','$value')");
+				$sql02=mysqli_query($condb,"insert into $db_eform.develop_leave_doc2 (dev_id, ld_id) values ('$_POST[dev_id]','$value')");
 			}
 		}
 		
@@ -99,7 +100,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 					'$_SESSION[ses_per_id]', 
 					'Edit', 
 					'".$_SERVER['REMOTE_ADDR']."')";
-		mysql_query($sql2);
+		mysqli_query($condb,$sql2);
 	
 	header("location: message-alert.php?dev_id=".$_POST['dev_id']);
 }

@@ -275,10 +275,10 @@ include('../admin/compcode/include/function.php');
                             </div><!--row-->
                             <input name="dev_docother" type="text" class="form-control input-sm" placeholder="อื่นๆ ระบุ">
                         </div><!--form-group-->
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <input type="file" accept="image/jpeg, image/png, application/pdf">
                             <span class="help-block">อนุญาติเฉพาะไฟล์ jpg, png, pdf</span>
-                        </div>
+                        </div>-->
                         
                         <hr>
                         <div class="form-group form-group-sm">
