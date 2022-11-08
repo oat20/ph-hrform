@@ -8,6 +8,7 @@ include("../admin/compcode/include/config.php");
 require_once '../lib/mysqli.php'; 
 include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
+require_once '../lib/mailer/mail.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
     mysqli_query($condb,"update develop set

@@ -24,7 +24,7 @@
     </nav>
 
     <div class="container">
-        <form style="margin-bottom: 10px;" method="post" action="#">
+        <form style="margin-bottom: 10px;" method="POST" action="#">
                 <label>หมวดหมู่</label>
                 <p class="form-control-static">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</p>
             <div class="row">
@@ -90,20 +90,52 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js"></script>
     <script>
         $(function () {
-            $('#btn-approved').click(function () {
+                //approve
+            document.getElementById('btn-approved').addEventListener('click', function () {
                 Swal.fire({
+                    icon: 'success',
                     title: 'ยืนยันอนุมัติรายการ',
-                    icon: 'success'
-            });
+                    showCancelButton: true
+                }).then(function (result) {
+                    console.log(result);
+                    if (result.isConfirmed) {
+                        $.post('',
+                            {
+                                approve: '',
+                                note: '',
+                                otp: '',
+                                dev_id: ''
+                            },
+                            function (data, status) {
+
+                            });
+                    }
+                });
             });
 
+            //disapprove
             $('#btn-disapproved').click(function () {
                 Swal.fire({
                     title: 'ยืนยันไม่อนุมัติรายการ',
-                    icon: 'warning'
+                    icon: 'warning',
+                    showCancelButton: true
+                }).then(function (result) {
+                    console.log(result);
+                    if (result.isConfirmed) {
+                        $.post('',
+                            {
+                                approve: '',
+                                note: '',
+                                otp: '',
+                                dev_id: ''
+                            },
+                            function (data, status) {
+
+                            });
+                    }
+                });
             });
             });
-        });
     </script>
 </body>
 </html>

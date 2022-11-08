@@ -8,9 +8,10 @@ include("../admin/compcode/include/config.php");
 require_once '../lib/mysqli.php'; 
 include "../admin/compcode/include/connect_db.php";
 require_once("../admin/compcode/include/function.php");
+require_once '../lib/mailer/mail.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
-    mysqli_query($condb,"update develop set
+    $result1=mysqli_query($condb,"update develop set
         dev_approvebyboss='',
         dev_approvebyboss_date=CURRENT_TIMESTAMP(),
         dev_approvebyboss_note='',
@@ -19,7 +20,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         and dev_otp=''
     ");
 
-    mysqli_query($condb,"update develop set
+    $result2=mysqli_query($condb,"update develop set
         dev_otp='0'
         where dev_id=''
     ");
