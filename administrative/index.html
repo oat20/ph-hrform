@@ -90,8 +90,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js"></script>
     <script>
         $(function () {
+            const dev_id = '';
+            const dev_approve_note = $('textarea[name="dev_approve_note"]').val();
+            const dev_otp = $('input[name="dev_otp"]').val();
+
                 //approve
-            document.getElementById('btn-approved').addEventListener('click', function () {
+            document.getElementById('btn-approved').addEventListener('click', function (event) {
                 Swal.fire({
                     icon: 'success',
                     title: 'ยืนยันอนุมัติรายการ',
@@ -114,7 +118,7 @@
             });
 
             //disapprove
-            $('#btn-disapproved').click(function () {
+            $('#btn-disapproved').click(function (event) {
                 Swal.fire({
                     title: 'ยืนยันไม่อนุมัติรายการ',
                     icon: 'warning',

@@ -11,19 +11,24 @@ require_once("../admin/compcode/include/function.php");
 require_once '../lib/mailer/mail.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
-    $result1=mysqli_query($condb,"update develop set
-        dev_approvebyboss='',
-        dev_approvebyboss_date=CURRENT_TIMESTAMP(),
-        dev_approvebyboss_note='',
-        dev_approvebyboss_name=''
-        where dev_id=''
-        and dev_otp=''
-    ");
+    $sql=mysqli_query($condb,"select dev_id from develop where dev_id='' and dev_otp=''");
+    if(mysqli_num_rows($sql) == 1){
+        $result1=mysqli_query($condb,"update develop set
+            dev_approvebyboss='',
+            dev_approvebyboss_date=CURRENT_TIMESTAMP(),
+            dev_approvebyboss_note='',
+            dev_approvebyboss_name=''
+            where dev_id=''
+            and dev_otp=''
+        ");
 
-    $result2=mysqli_query($condb,"update develop set
-        dev_otp='0'
-        where dev_id=''
-    ");
+        $result2=mysqli_query($condb,"update develop set
+            dev_otp='0'
+            where dev_id=''
+        ");
+    }else{
+        
+    }
 }
 
 mysqli_close($condb);
