@@ -46,7 +46,6 @@ win.focus();}
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
     <th class="text">REF. ID</th>
-    <th class="text">ประเภท</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">เรื่อง</th>
 	<th class="text">วันที่เริ่ม</th>
@@ -59,7 +58,6 @@ win.focus();}
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
     <th class="text">REF. ID</th>
-    <th class="text">ประเภท</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">เรื่อง</th>
 	<th class="text">วันที่เริ่ม</th>
@@ -109,9 +107,8 @@ while($rs=mysqli_fetch_array($exec)){
   <tr   bgcolor="<?php echo "$color"; ?>" class="text <?php echo $tr_cancel_color;?>">
   	<td><?php echo ++$r;?></td>
     <td class="text" align="center"><?php echo $rs['dev_id'].'<br><i class="fa fa-clock-o"></i> '.dateFormat($rs['dev_orddate']);?></td>
-    <td><?php echo $rs['la_name'];?></td>
     <td align="center" class="text"><?php print $rs["dev_year"]; ?></td>
-    <td class="text"><?php echo $rs['dev_onus'];?></td>
+    <td class="text"><?php echo $rs['la_name'].' - '.$rs['dev_onus'];?></td>
     <td><?php echo dateFormat($rs['dev_stdate']);?></td>
 	<td class="text" align="center"><?php echo dateFormat($rs['dev_enddate']);?></td>
     <td><?php echo $cf_devleave_status[$rs['dev_formstatus']]['name'].'<br><em>'.$rs['dev_formstatus_comment'].'</em>';?></td>
