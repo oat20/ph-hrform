@@ -1,12 +1,17 @@
 [
     {
-        "title": "สำหรับบุคลากร",
-        "url": "",
-        "icon": "fa-user"
+      "title":"แบบบันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ",
+      "url": "../form/index.html",
+      "icon": "fa fa-file-text"  
+    },
+    {
+      "title":"แบบบันทึกเดินทางต่างประเทศ",
+      "url": "../leave/index.html",
+      "icon": "fa fa-plane"  
     },
     {
         "title": "ผู้ดูแลระบบ",
         "url": "./admin/index.html",
-        "icon": "fa-cogs"
+        "icon": "fa fa-cogs"
     }
 ]

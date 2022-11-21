@@ -10,6 +10,7 @@
 <link href="./room_it/layout.css" rel="stylesheet">
 <link href="./room_it/style.css" rel="stylesheet">
 <link href="room_it/style2.css" rel="stylesheet" type="text/css">
+<link href="./lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <title>ระบบบริหารโครงการ Faculty of Public Health Mahidol University MUPH</title>
 </head>
 
@@ -19,15 +20,14 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 	<h2>Select Sessions</h2>
 
-    <div class="list-group">
-        <a href="#" class="list-group-item">
-            Cras justo odio
-        </a>
-        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item">Morbi leo risus</a>
-        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item">Vestibulum at eros</a>
+    <div class="list-group" id="list-group-selectsession">
+        
     </div>
+
+    <ul id="sessions">
+
+    </ul>
+
     <div id="main">
     	<div class="top">
         	<div class="block1"></div>
@@ -89,13 +89,21 @@
 <script src="./lib/flatui/js/flat-ui.min.js"></script>
 <script src="./lib/flatui/js/application.js"></script>
 <script>
-    $(function(){
+    $(document).ready(function(){
         $.ajax({
             'url': './json/apps.json',
             'dataType': 'json',
             'method': 'GET'
         }).then(function(result){
             console.table(result);
+            result.map(function(item, index){
+                console.log(item.title);
+                html = '<a href="#" class="list-group-item clearfix">';
+                    html += '<div class="pull-left"><i class="'+item.icon+' fa-fw"></i> '+item.title+'</div>';
+                        html += '<div class="pull-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>';
+        html += '</a>';
+                $('#list-group-selectsession').append(html);
+            });
         });
     });
 </script>

@@ -62,7 +62,7 @@ $inc .= '<div class="row">
 						<div class="panel-heading">อนุมัติจากหัวหน้าส่วนงาน</div>
 						<div class="panel-body text-center">
 							'.$cf_approve[$ob['dev_approvebyboss']]['name'].'<br>
-							<span class="text-muted">00/00/0000</span><br>
+							<span class="text-muted">'.date('d/m/Y H:i', strtotime($ob['dev_approvebyboss_date'])).'</span><br>
 							<span class="text-muted">xxx.xxx</span>
 						</div>
 					</div>
@@ -72,7 +72,7 @@ $inc .= '<div class="row">
 						<div class="panel-heading">อนุมัติจากคณบดี / รองคณบดี</div>
 						<div class="panel-body text-center">
 							'.$cf_approve[$ob['dev_approve']]['name'].'<br>
-							<span class="text-muted">00/00/0000</span><br>
+							<span class="text-muted">'.date('d/m/Y H:i', strtotime($ob['dev_approve_date'])).'</span><br>
 							<span class="text-muted">xxx.xxx</span>
 						</div>
 					</div>
