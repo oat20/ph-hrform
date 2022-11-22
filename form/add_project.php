@@ -194,12 +194,14 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 		mysqli_rollback($condb);
 
 /* send notify for approve
-if(per_isdean==1){
-	header('location: ../administrative/');
-}else if(per_isboss==1){
-	header('location: ../administrative/');
-}else{
-	header('location: ../boss/');
+if($_POST['dev_nopay']=='1'){
+	if(per_isdean==1){
+		header('location: ../administrative/');
+	}else if(per_isboss==1){
+		header('location: ../administrative/');
+	}else{
+		header('location: ../boss/');
+	}
 }
 */
 

@@ -86,7 +86,7 @@ $inc .= '<div class="row">
 							  <dd>'.dateThai($ob['dev_orddate']).'</dd>
 							  <dt>ส่วนงาน</dt>
 							  <dd>'.$ob['dp_name'].'</dd>
-							  <dt>หมวดหมู่</dt>
+							  <dt>วัตถุประสงค์</dt>
 							  <dd>'.$ob['dm_title'].'</dd>
 							  <dt>ตามหนังสือ</dt>
 							  <dd>'.$dev_bookfrom['0'].' <strong>ที่</strong> '.$dev_bookfrom['1'].' <strong>ลงวันที่</strong> '.dateThai($dev_bookfrom['2']).' <strong>เรื่อง</strong> '.$dev_bookfrom['3'].'</dd>
@@ -241,7 +241,7 @@ $inc .= '<div class="row">
 
 <?php include('../lib/js-inc.php');?>
 <script>
-	$(function(){
+	$(document).ready(function(){
 		$('.navbar-nav li:eq(2)').addClass('active');
 
 		$('#btn-upload').click(function(){

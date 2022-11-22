@@ -1,12 +1,12 @@
 [
     {
       "title":"แบบบันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ",
-      "url": "../form/index.html",
+      "url": "./form/index.html",
       "icon": "fa fa-file-text"  
     },
     {
       "title":"แบบบันทึกเดินทางต่างประเทศ",
-      "url": "../leave/index.html",
+      "url": "./leave/index.html",
       "icon": "fa fa-plane"  
     },
     {

@@ -40,7 +40,7 @@ include('../admin/compcode/include/function.php');
 	<th>#</th>
     <th class="text">Ref. ID</th>
 	<th>Datastamp</th>
-	<th>หมวดหมู่</th>
+	<th>วัตถุประสงค์</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">เรื่อง</th>
     <th>จำนวนผู้เข้าร่วม</th>

@@ -60,16 +60,16 @@ include('../admin/compcode/include/function.php');
                         <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label>หมวดหมู่</label>
+                    <label>วัตถุประสงค์หลักเพื่อ</label>
                     <label class="radio">
                         <input type="radio" name="dev_maintype" value="1" data-toggle="radio"
                         <?php if($rDevelop['dev_maintype']==1){ echo 'checked';}?>
-                        required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
+                        required> บันทึกปฏิบัติงานพัฒนาบุคลากร
                     </label>
                     <label class="radio">
                         <input type="radio" name="dev_maintype" value="2" data-toggle="radio"
                         <?php if($rDevelop['dev_maintype']==2){ echo 'checked';}?>
-                         required> แบบบันทึกปฏิบัติงานบริการวิชาการ
+                         required> บันทึกปฏิบัติงานบริการวิชาการ
                     </label>
                 </div>
                 

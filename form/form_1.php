@@ -40,12 +40,12 @@ include('../admin/compcode/include/function.php');
                         <input type="hidden" name="dp_id" value="<?php echo $ob['dp_id'];?>">
                 </div><!--form-group-->
                 <div class="form-group">
-                    <label>หมวดหมู่</label>
+                    <label>วัตถุประสงค์หลักเพื่อ</label>
                     <label class="radio">
-                        <input type="radio" name="dev_maintype" value="1" data-toggle="radio" required> แบบบันทึกปฏิบัติงานพัฒนาบุคลากร
+                        <input type="radio" name="dev_maintype" value="1" data-toggle="radio" required> บันทึกปฏิบัติงานพัฒนาบุคลากร
                     </label>
                     <label class="radio">
-                        <input type="radio" name="dev_maintype" value="2" data-toggle="radio" required> แบบบันทึกปฏิบัติงานบริการวิชาการ
+                        <input type="radio" name="dev_maintype" value="2" data-toggle="radio" required> บันทึกปฏิบัติงานบริการวิชาการ
                     </label>
                 </div>
                 
