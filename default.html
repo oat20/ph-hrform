@@ -16,12 +16,10 @@
 
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 	<h2><i class="fa fa-connectdevelop fa-fw" aria-hidden="true"></i> PH-HRD</h2>
 
-    <div class="list-group" id="list-group-selectsession">
-        
+    <div class="row" id="list-group-selectsession">
+
     </div>
 
     <ul id="sessions">
@@ -81,8 +79,6 @@
         
     </div>
     <div style="clear:both"></div>
-    </div>
-    </div>
 </div>
 
 <script src="./lib/jquery/jquery.js"></script>
@@ -98,12 +94,15 @@
             console.table(result);
             result.map(function(item, index){
                 console.log(item.title);
-                html = '<a href="#" class="list-group-item">';
-                    html += '<div class="row">';
-                        html += '<div class="col-xs-10"><i class="'+item.icon+' fa-fw"></i> '+item.title+'</div>';
-                        html += '<div class="col-xs-2 text-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>';
-                    html+='</div>';
-                html += '</a>';
+                var html='<div class="col-xs-12 col-sm-6 col-md-4">';
+                    html+='<div class="panel panel-default">';
+                        html+='<div class="panel-body">';
+                            html+='<strong>'+item.title+'</strong>';
+                html += '<p class="text-center" style="margin-top:10px; margin-bottom:0px;"><i class="' + item.icon + ' fa-4x"></i></p>';
+                html+='</div>';
+                html+='<div class="panel-footer"><button type="button" class="btn btn-primary btn-block">ดำเนินการ <i class="fa fa-arrow-right fa-fw"></i></button></div>';
+                html+='</div>';
+                html+='</div>';
                 $('#list-group-selectsession').append(html);
             });
         });
