@@ -12,7 +12,6 @@ include("admin/compcode/include/function.php");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><?php print $titlebar; ?></title>
 <style type="text/css">
-<!--
 /*body {
 	background-color: #e3e7ea;
 	font-family: verdana, tahoma;
@@ -57,7 +56,6 @@ include("admin/compcode/include/function.php");
 	height: 10px;
 }*/
 
--->
 </style>
 <link href="phpm/style.css" rel="stylesheet" type="text/css">
 <link href="admin/compcode/tool/css_text.css" rel="stylesheet" type="text/css">
@@ -83,10 +81,22 @@ include("admin/compcode/include/function.php");
         </div>
         
     <div id="content">    	
-    	<?php include("inc/form01.php");?>
+    	<?php //include("inc/form01.php");?>
     </div>
+	<p id="demo"></p>
     
 </div>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script>
+const d = moment().format('YYYY');
+    console.log(d);
+
+    const dd = new Date();
+let year = dd.getFullYear();
+console.log(year);
+
+//document.getElementById("demo").innerHTML = year;
+</script>
 </body>
 </html>
 <?php

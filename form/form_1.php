@@ -27,6 +27,30 @@ include('../admin/compcode/include/function.php');
     <form action="add_project.php" method="post" id="formDefault" enctype="multipart/form-data">
     	<div class="row">
         	<div class="col-sm-6">
+                <!--
+                <div class="panel panel-default">
+                    <div class="panel-body" style="padding-bottom: 0px;">
+                        <small class="text-muted">ผู้ขออนุมัติ</small>
+                        <div class="form-group">
+                            <label>ชื่อ</label>
+                            <input type="text" name="" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>นามสกุล</label>
+                            <input type="text" name="" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ตำแหน่ง</label>
+                            <input type="text" name="" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ส่วนงาน</label>
+                            <input type="text" name="" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+-->
+                <!--panel-->
                 <div class="form-group">
                     <label class="control-label">สังกัด</label>
                             <?php

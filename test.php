@@ -24,6 +24,7 @@ include('lib/css-inc.php');
     );
     echo $per_id[0];
     ?>
+    <p id="demo"></p>
 	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
     	<div class="form-group">
             <label class="control-label">Upload Excel Template:</label>
@@ -45,11 +46,11 @@ include('lib/css-inc.php');
             </thead>
             <tbody>
             	<?php
-				$sql=mysql_query("select * from $db_eform.develop_course_personel_temp where cp_session='".session_id()."'
+				$sql=mysqli_query($condb, "select * from $db_eform.develop_course_personel_temp where cp_session='".session_id()."'
 					order by convert(cp_dpname using tis620) asc,
 					convert(cp_pername using tis620) asc,
 					convert(cp_persurname using tis620) asc");
-				while($ob=mysql_fetch_assoc($sql)){
+				while($ob=mysqli_fetch_assoc($sql)){
 					echo '<tr>
 								<td>'.++$r.'</td>
 								<td>'.$ob['cp_pername'].' '.$ob['cp_persurname'].'</td>
@@ -133,21 +134,21 @@ include('lib/css-inc.php');
                 	
 				   <ul class="list-unstyled regBlack_12">
                    		<?php
-						$sql=mysql_query("select * from $db_eform.tb_orgnew
+						$sql=mysqli_query($condb, "select * from $db_eform.tb_orgnew
 							where typ_id='PH00001'
 							or typ_id='PH00002'
 							order by dp_id asc");
-						while($ob=mysql_fetch_assoc($sql)){
+						while($ob=mysqli_fetch_assoc($sql)){
 							  print '<li><label class="checkbox"><input type="checkbox" data-toggle="checkbox" id="check_all_item"> <strong>'.$ob['dp_name'].'</strong></label>';							  		
 										print '<ul>';
-										$sql2 = mysql_query("select * from $db_eform.personel_muerp
+										$sql2 = mysqli_query($condb, "select * from $db_eform.personel_muerp
 											inner join $db_eform.personel_status as t2 on(personel_muerp.per_status=t2.ps_id)
 											inner join $db_eform.job as t3 on(personel_muerp.job_id=t3.job_id)
 											where personel_muerp.per_dept='$ob[dp_id]'
 											and t2.ps_flag='1'
 											order by convert (personel_muerp.per_fnamet using tis620) asc,
 											convert (personel_muerp.per_lnamet using tis620) asc");
-									while($ob2 = mysql_fetch_assoc($sql2)){
+									while($ob2 = mysqli_fetch_assoc($sql2)){
 										?>
 											<li><label class="checkbox">
 											<input type="checkbox" data-toggle="checkbox" value="<?php print $ob2['per_id'];?>" name="per_id[]" class="css_my_checkbox" id="IDrow<?php print $ob2['per_id'];?>" onclick="toggle_class('<?php print $ob2['per_id'];?>');"> <?php print $ob2['per_pname'].$ob2['per_fnamet'].' '.$ob2['per_lnamet'].' ('.$ob2['job_name'].')';?>
@@ -202,7 +203,7 @@ include('lib/css-inc.php');
 </div><!--container-->
 	
 <?php include('lib/js-inc.php');?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 <script>
 $(document).ready(function() {
 	
@@ -328,11 +329,8 @@ $(document).ready(function() {
 	
 	/*$('#defaultUploadexcel').bootstrapValidator({
 	});*/
-	
-});
-</script>
-<script>
-$("#personel-excel").fileinput({
+
+    $("#personel-excel").fileinput({
 		language: 'th',
 		//maxFileSize: 1024,
 		//showPreview: false,
@@ -341,9 +339,16 @@ $("#personel-excel").fileinput({
 		allowedFileExtensions: ["xls", "xlsx", "csv"],
 		//elErrorContainer: "#help-block",
 	});
-
-    const d = moment().format();
+	
+});
+</script>
+<script>
+    const d = moment().format('YYYY');
     console.log(d);
+
+    const dd = new Date();
+let year = dd.getFullYear();
+console.log(year);
 </script>
 </body>
 </html>

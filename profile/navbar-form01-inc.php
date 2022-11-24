@@ -21,7 +21,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i> <?php print $_SESSION['ses_createname'];?></a>
+                    <a href="<?php echo $livesite;?>profile/form_changepw.php" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i> <?php print $_SESSION['ses_createname'];?></a>
                 </li>
                 <li><a href="<?php print $livesite;?>admin/compcode/logout_admin.php"><i class="fa fa-sign-out"></i></a></li>
             </ul>
