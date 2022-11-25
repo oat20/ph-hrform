@@ -40,7 +40,8 @@ $titlebar=array(
 	"shorttitle"=>"HRD",
 	"label"=>"แบบฟอร์มขออนุมัติปฏิบัติงานพัฒนาบุคลการ / บริการวิชาการ",
 	"icon"=>"<i class='fa fa-connectdevelop fa-fw'></i>",
-	"label_02"=>"แบบฟอร์มออนไลน์งานบริหารทรัพยากรบุคคล"
+	"label_02"=>"งานบริหารทรัพยากรบุคคล",
+	"label_03"=>"Human Resource Division"
 );
 
 $cf_budgetperstaff=5000;

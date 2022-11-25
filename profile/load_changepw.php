@@ -25,7 +25,19 @@ if($_POST['action'] == 'update'){
 
 		$job_name = mysqli_real_escape_string($condb, $_POST['job_id']);
 		$ja_name = mysqli_real_escape_string($condb, $_POST['ja_id']);
+
+		//tb_orgnew
+		$dp_name=mysqli_real_escape_string($condb, $_POST['per_dept']);
+		$sql_orgnew=mysqli_query($condb, "select dp_id from tb_orgnew where dp_name like '%$dp_name%' order by rand() limit 1");
+		$rs_orgnew=mysqli_fetch_assoc($sql_orgnew);
+		if($rs_orgnew['dp_id'] != ''){
+			$per_dept=$rs_orgnew['dp_id'];
+		}else{
+			mysqli_query($condb, "insert into tb_orgnew (dp_name) values ('$dp_name')");
+			$per_dept=mysqli_insert_id($condb);
+		}
 	
+		//job
 	$sql_job = mysqli_query($condb, "select job_id from $db_eform.job where job_name like '$job_name' order by rand() limit 1");
 	$row_job = mysqli_fetch_array($sql_job);
 	if($row_job['job_id'] != ''){
@@ -36,6 +48,7 @@ if($_POST['action'] == 'update'){
 		$job_id2 = $job_id;
 	}
 
+	//job_academic
 	$sql_ja = mysqli_query($condb, "select ja_id from $db_eform.job_academic where ja_name like '$ja_name' order by rand() limit 1");
 	$row_ja = mysqli_fetch_array($sql_ja);
 	if($row_ja['ja_id'] != ''){
@@ -53,7 +66,7 @@ if($_POST['action'] == 'update'){
 		per_pname2='$_POST[per_pname2]',
 		per_fnamee = '$_POST[per_fnamee]',
 		per_lnamee = '$_POST[per_lnamee]',
-		per_dept='$_POST[per_dept]',
+		per_dept='$per_dept',
 		per_email='$_POST[mumail]', 
 		per_modify = '".date('Y-m-d H:i:s')."',
 		modify_by = '".$_SESSION['ses_per_id']."',
@@ -74,7 +87,7 @@ if($_POST['action'] == 'update'){
 		per_pname2='$_POST[per_pname2]',
 		per_fnamee = '$_POST[per_fnamee]',
 		per_lnamee = '$_POST[per_lnamee]',
-		per_dept='$_POST[per_dept]',
+		per_dept='$per_dept',
 		per_email='$_POST[mumail]', 
 		per_modify = '".date('Y-m-d H:i:s')."',
 		modify_from = '$_SERVER[REMOTE_ADDR]',

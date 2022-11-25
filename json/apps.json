@@ -1,17 +1,17 @@
 [
     {
       "title":"แบบบันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ",
-      "url": "./form/index.html",
+      "url": "./profile/_showmyproject.php",
       "icon": "fa fa-file-text"  
     },
     {
       "title":"แบบบันทึกเดินทางต่างประเทศ",
-      "url": "./leave/index.html",
+      "url": "./leave/_showmyproject.php",
       "icon": "fa fa-plane"  
     },
     {
         "title": "ผู้ดูแลระบบ",
-        "url": "./admin/index.html",
+        "url": "./profile/profile.php",
         "icon": "fa fa-cogs"
     }
 ]

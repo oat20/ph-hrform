@@ -94,17 +94,19 @@ include('../lib/css-inc.php');
       <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding"><div class="form-group"><input name="per_lnamee" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_lnamee"]; ?>" class="form-control" required></div></TD>
     </TR>
     <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">สังกัด</TD>
+      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">ส่วนงาน</TD>
       <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">
       	<div class="form-group">
-      	<select name="per_dept" class="form-control select select-inverse" data-toggle="select" required>
+      	<!--<select name="per_dept" class="form-control select select-inverse" data-toggle="select" required>-->
       	<?php
 		$rs_org=mysqli_query($condb, "select * from 
 						$db_eform.tb_orgnew as t2 
                         left join $db_eform.department_type as t1 on (t1.typ_id = t2.typ_id)
+                        where t2.dp_id = '$rs_b[per_dept]'
 						order by convert (t1.typ_name using tis620) asc,
 						convert (t2.dp_name using tis620) asc");
-		while($ob_org=mysqli_fetch_array($rs_org))
+                $ob_org=mysqli_fetch_array($rs_org);        
+		/*while($ob_org=mysqli_fetch_array($rs_org))
 		{
 			if($ob_org['dp_id']==$rs_b['per_dept'])
 			{
@@ -114,9 +116,10 @@ include('../lib/css-inc.php');
 			{
 				print "<option value=".$ob_org['dp_id'].">&raquo; ".$ob_org['dp_name']." -</option>";
 			}
-		}
+		}*/
 		?>
-        </select>
+        <!--</select>-->
+        <input type="text" name="per_dept" class="form-control" value="<?php echo $ob_org['dp_name'];?>" required>
         </div>
       </TD>
     </TR>

@@ -19,7 +19,7 @@ include('../admin/compcode/include/function.php');
 
 <div class="container-fluid">
 
-<h6 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</h6>
+<h6 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</h6>
 
 	<div class="row">
     	<!--<div class="col-sm-2">
@@ -29,7 +29,7 @@ include('../admin/compcode/include/function.php');
         <div class="col-sm-12">
 
 	<ol class="breadcrumb">
-      <li class="active">ประวัติการขออนุมัติ</li>
+      <li class="active">รายการบันทึก</li>
     </ol>
         
     <div class="table-responesive">

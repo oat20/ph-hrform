@@ -11,74 +11,18 @@
 <link href="./room_it/style.css" rel="stylesheet">
 <link href="room_it/style2.css" rel="stylesheet" type="text/css">
 <link href="./lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<title>PH-HRD</title>
+<title>งานบริหารทรัพยากรบุคคล</title>
 </head>
 
 <body>
 <div class="container">
-	<h2><i class="fa fa-connectdevelop fa-fw" aria-hidden="true"></i> PH-HRD</h2>
+	<h3><i class="fa fa-connectdevelop fa-fw" aria-hidden="true"></i> งานบริหารทรัพยากรบุคคล</h3>
+    <h4 class="text-muted">Human Resource Division</h4>
 
     <div class="row" id="list-group-selectsession">
 
     </div>
 
-    <ul id="sessions">
-
-    </ul>
-
-    <div id="main">
-    	<div class="top">
-        	<div class="block1"></div>
-            <div class="block2"></div>
-        </div>
-        
-        <div class="middle">
-        	
-            <div id="top">
-            	<div class="logo"></div>
-            </div>
-            
-            <div class="post">
-            	<h1 class="title">Login</h1>
-                <form action="admin/compcode/admin.php" method="post">
-                	<table border="0" cellpadding="5" cellspacing="0">
-               	  <tr><td class="tdcol1">Username:</td><td class="tdcol2"><input name="user" type="text" size="45"></td></tr>
-                  <tr><td class="tdcol1">Password:</td><td class="tdcol2"><input name="pass" type="password" size="45"></td></tr>
-                  <tr>
-                  	<td colspan="2"><input name="" type="submit" value="Login" class="button"></td>
-                  </tr>
-                  </table>
-                </form>
-            </div>
-            
-            <p class="space"></p>
-            
-            <!--<div class="post">
-            	<h1 class="title">Forget Password</h1>
-                <form action="#">
-                	<table border="0" cellpadding="5" cellspacing="0">
-                  <tr><td class="tdcol1">Email:</td><td class="tdcol2"><input name="email" type="text" size="45"></td></tr>
-                  <tr>
-                  	<td colspan="2"><input name="" type="submit" value="ตกลง" class="button"></td>
-                  </tr>
-                  </table>
-                </form>
-            </div> -->
-           <!--<p class="space"></p>
-            <div class="post">
-            	<center><a href="#"><img src="img/dashboard.png" border="0" width="250" height="200" /></a></center>
-            </div> -->
-        
-        </div>
-        
-        <div class="bottom">
-        	<div class="block1"></div>
-            <div class="block2"></div>
-        </div>
-        
-        
-    </div>
-    <div style="clear:both"></div>
 </div>
 
 <script src="./lib/jquery/jquery.js"></script>
@@ -100,7 +44,7 @@
                             html+='<strong>'+item.title+'</strong>';
                 html += '<p class="text-center" style="margin-top:10px; margin-bottom:0px;"><i class="' + item.icon + ' fa-4x"></i></p>';
                 html+='</div>';
-                html+='<div class="panel-footer"><button type="button" class="btn btn-primary btn-block">ดำเนินการ <i class="fa fa-arrow-right fa-fw"></i></button></div>';
+                html+='<div class="panel-footer"><button type="button" class="btn btn-primary btn-block" onclick="window.open(\''+item.url+'\',\'_self\')">ดำเนินการ <i class="fa fa-arrow-right fa-fw"></i></button></div>';
                 html+='</div>';
                 html+='</div>';
                 $('#list-group-selectsession').append(html);

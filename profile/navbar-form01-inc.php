@@ -8,20 +8,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><?php echo $titlebar['icon'].' '.$titlebar['shorttitle'];?></a>
+          <a class="navbar-brand" href="#"><?php echo $titlebar['icon'].' '.$titlebar['label_02'];?></a>
         </div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="<?php echo $livesite;?>profile/profile.php"><i class="fa fa-home fa-fw" aria-hidden="true"></i> หน้าหลัก</a></li>
-				<li><a href="<?php echo $livesite;?>form/form_1.php">กรอกบันทึกขออนุมัติ</a></li>
-				<li><a href="<?php echo $livesite;?>profile/_showmyproject.php">ประวัติการขออนุมัติ</a></li>
+				<li><a href="<?php echo $livesite;?>form/form_1.php">กรอกแบบบันทึก</a></li>
+				<li><a href="<?php echo $livesite;?>profile/_showmyproject.php">รายการบันทึก</a></li>
 			</ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="<?php echo $livesite;?>profile/form_changepw.php" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i> <?php print $_SESSION['ses_createname'];?></a>
+                    <a href="<?php echo $livesite;?>profile/form_changepw.php" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-fw"></i> <?php print $_SESSION['ses_peremail'];?></a>
                 </li>
                 <li><a href="<?php print $livesite;?>admin/compcode/logout_admin.php"><i class="fa fa-sign-out"></i></a></li>
             </ul>

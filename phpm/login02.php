@@ -131,7 +131,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="#"><i class="fa fa-connectdevelop fa-fw" aria-hidden="true"></i> <?php echo $titlebar['shorttitle'];?></a>
+		<a class="navbar-brand" href="#"><i class="fa fa-connectdevelop fa-fw" aria-hidden="true"></i> <?php echo $titlebar['label_02'];?></a>
 		</div>
 	</div>
 </nav>
