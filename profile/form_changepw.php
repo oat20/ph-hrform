@@ -40,64 +40,33 @@ include('../lib/css-inc.php');
                 	<h3 class="panel-title pull-left"><a href="profile.php"><i class="fa fa-arrow-left fa-fw"></i> ข้อมูลส่วนตัว</a></h3>
                     <div class="pull-right"><button type="submit" class="btn btn-link btn-lg"><i class="fa fa-check"></i> Save</button></div>
                 </div>
-            	<div class="table-responsive">
-	<!--<fieldset>
-    	<legend>ข้อมูลส่วนตัว</legend> -->
-  <TABLE class="table table-striped table-bordered">
-  	<tbody>
-    <TR>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">คำนำหน้าชื่อ:</TD>
-      <TD  background="../admin/compcode/compcode/picture/bar07.jpg">
-      	<div class="form-group">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>คำนำหน้าชื่อ</label>
         	<input type="text" name="per_pname" class="form-control" value="<?php print $rs_b['per_pname'];?>" required id="per_pname">
         </div>
-      </TD>
-    </TR>
-    <!--<tr>
-    	<td>ยศ:</td>
-        <td>
-        	<div class="form-group">
-            	<input type="text" name="per_pname3" class="form-control" value="<?php //print $rs_b['per_pname3'];?>">
-            </div>
-        </td>
-    </tr>-->
-    <TR>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">ชื่อ:</TD>
-      <TD  background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">
       <div class="form-group">
+        <label>ชื่อ</label>
       <input name="per_fnamet" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_fnamet"]; ?>" class="form-control" required>
       </div>
-      </TD>
-    </TR>
-    <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">นามสกุล:</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding"><div class="form-group"><input name="per_lnamet" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_lnamet"]; ?>" class="form-control" required></div></TD>
-    </TR>
-    <tr>
-    	<td>Titlename:</td>
-        <td>
+        <div class="form-group">
+            <label>นามสกุล</label>
+            <input name="per_lnamet" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_lnamet"]; ?>" class="form-control" required>
+        </div>
         	<div class="form-group">
+                <label>Titlename</label>
               <input name="per_pname2" type="text" id="per_pname2" size="50" value="<?php echo $rs_b["per_pname2"]; ?>" class="form-control">
               </div>
-        </td>
-    </tr>
-    <TR>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">Name:</TD>
-      <TD  background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">
       <div class="form-group">
+        <label>Name</label>
       <input name="per_fnamee" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_fnamee"]; ?>" class="form-control" required>
       </div>
-      </TD>
-    </TR>
-    <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">Surname:</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding"><div class="form-group"><input name="per_lnamee" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_lnamee"]; ?>" class="form-control" required></div></TD>
-    </TR>
-    <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">ส่วนงาน</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding">
+        <div class="form-group">
+            <label>Surname</label>
+            <input name="per_lnamee" type="text" id="name" size="50" maxlength="50" value="<?php echo $rs_b["per_lnamee"]; ?>" class="form-control" required>
+        </div>
       	<div class="form-group">
-      	<!--<select name="per_dept" class="form-control select select-inverse" data-toggle="select" required>-->
+            <label>ส่วนงาน</label>
       	<?php
 		$rs_org=mysqli_query($condb, "select * from 
 						$db_eform.tb_orgnew as t2 
@@ -106,27 +75,11 @@ include('../lib/css-inc.php');
 						order by convert (t1.typ_name using tis620) asc,
 						convert (t2.dp_name using tis620) asc");
                 $ob_org=mysqli_fetch_array($rs_org);        
-		/*while($ob_org=mysqli_fetch_array($rs_org))
-		{
-			if($ob_org['dp_id']==$rs_b['per_dept'])
-			{
-				print "<option value=".$ob_org['dp_id']." selected>&raquo; ".$ob_org['dp_name']." -</option>";
-			}
-			else
-			{
-				print "<option value=".$ob_org['dp_id'].">&raquo; ".$ob_org['dp_name']." -</option>";
-			}
-		}*/
 		?>
-        <!--</select>-->
         <input type="text" name="per_dept" class="form-control" value="<?php echo $ob_org['dp_name'];?>" required>
         </div>
-      </TD>
-    </TR>
-    <tr>
-      <td>ตำแหน่งงาน:</td>
-      <td>
       	<div class="form-group">
+            <label>ตำแหน่งงาน</label>
             	<?php
 				$sql_job = mysqli_query($condb, "select * from $db_eform.job
 					where job_status = '1'
@@ -136,12 +89,8 @@ include('../lib/css-inc.php');
 				?>
             <input type="text" name="job_id" class="form-control" value="<?php echo $ob_job['job_name'];?>" required>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>ตำแหน่งวิชาการ:</td>
-      <td>
       	<div class="form-group">
+            <label>ตำแหน่งวิชาการ</label>
             	<?php
 				$sql_ja = mysqli_query($condb, "SELECT * FROM $db_eform.job_academic
 								where ja_use = 'yes'
@@ -151,189 +100,21 @@ include('../lib/css-inc.php');
 				?>
             <input type="text" name="ja_id" value="<?php echo $ob_ja['ja_name'];?>" class="form-control">
         </div>
-      </td>
-    </tr>
-    <!--<tr>
-      <td>ตำแหน่งด้านบริหารงาน:</td>
-      <td>
-      	<div class="form-group">
-        	<select name="jobs_id" class="form-control select select-primary" data-toggle="select">
-				<?php
-				/*$sql_jobs = mysql_query("SELECT * FROM $db_eform.job_special
-								where jobs_status = '1'
-								order by convert (jobs_name using tis620) asc");
-				while($ob_jobs = mysql_fetch_assoc($sql_jobs)){
-					if($rs_b['jobs_id'] == $ob_jobs['jobs_id']){
-						print '<option value="'.$ob_jobs['jobs_id'].'" selected>&raquo; '.$ob_jobs['jobs_name'].'</option>';
-					}else{
-						print '<option value="'.$ob_jobs['jobs_id'].'">&raquo; '.$ob_jobs['jobs_name'].'</option>';
-					}
-				}*/
-				?>
-            </select>
-        </div>
-      </td>
-    </tr>-->
-    <tr>
-    	<td>เบอร์โทรฯ ตรง:</td>
-        <td>
         	<div class="form-group">
+                <label>เบอร์โทรฯ ตรง</label>
             	<input name="per_tel" type="text" class="form-control" value="<?php echo $rs_b['per_tel'];?>">
-            </div>
-        </td>
-    </tr>
-    <tr>
-    	<td>เบอร์โทรฯ ภายใน:</td>
-        <td>
+            </div>            
         	<div class="form-group">
+                <label>เบอร์โทรฯ ภายใน</label>
             	<input name="per_telin" type="text" id="name" size="50" class="form-control" value="<?php print $rs_b['per_telin'];?>" required>
             </div>
-        </td>
-    </tr>
-    <TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding" valign="top">MU Email:</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg" class="tdpadding"><div class="form-group"><input name="mumail" type="email" id="email" size="50" value="<?php echo $rs_b["per_email"]; ?>" class="form-control" required><span class="help-block regRed_12">กรุณาใช้ Email ของมหาวิทยาลัย</span></div>
-      </TD>
-    </TR>
-    <!--<tr>
-    	<td>Second Email:</td>
-        <td>
-        	<div class="form-group">
-            	<input name="per_second_email" type="email" id="email" size="50" class="form-control" value="<?php //print $rs_b['per_second_email'];?>">
-            </div>
-        </td>
-    </tr>-->
-    <!--<TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">กลุ่ม:</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">
-      	<div class="form-group">
-            <select name="per_group" class="form-control select select-primary" data-toggle="select" required>
-            	<?php
-				/*$sql_group = mysql_query("SELECT * FROM $db_phonebook.personel_group
-										where gr_use = 'yes'
-										order by gr_order asc");
-				while($ob_group = mysql_fetch_assoc($sql_group)){
-					if($rs_b['per_group'] == $ob_group['gr_id']){
-						print '<option value="'.$ob_group['gr_id'].'" selected>&raquo; '.$ob_group['gr_title'].'</option>';
-					}else{
-						print '<option value="'.$ob_group['gr_id'].'">&raquo; '.$ob_group['gr_title'].'</option>';
-					}
-				}*/
-				?>
-            </select>
+        <div class="form-group">
+            <label>MU Email</label>
+            <input name="mumail" type="email" id="email" size="50" value="<?php echo $rs_b["per_email"]; ?>" class="form-control" required>
+            <span class="help-block regRed_12">กรุณาใช้ Email ของมหาวิทยาลัย</span>
         </div>
-      </TD>
-    </TR>-->
-    <!--<tr>
-    	<td>ระดับการศึกษาสูงสุด:</td>
-        <td>
-        	<div class="form-group">
-            	<select name="ed_dgid" class="form-control select select-primary" data-toggle="select">
-                	<?php
-					/*$sql=mysql_query("select * from $db_eform.degree where dg_status='1' order by convert (dg_name using tis620) asc");
-					while($ob=mysql_fetch_assoc($sql)){
-						if($rs_b['ed_dgid'] == $ob['dg_id']){
-							echo '<option value="'.$ob['dg_id'].'" selected>&raquo; '.$ob['dg_name'].'</option>';
-						}else{
-							echo '<option value="'.$ob['dg_id'].'">&raquo; '.$ob['dg_name'].'</option>';
-						}
-					}*/
-					?>
-                </select>
-            </div>
-        </td>
-    </tr>-->
-    <!--<tr>
-    	<td>วุฒิการศึกษา:</td>
-        <td>
-        	<div class="form-group">
-            	<input type="text" name="ed_edu" class="form-control" value="<?php //echo $rs_b['ed_edu'];?>" id="ed_edu">
-             </div>
-        </td>
-    </tr>-->
-    <!--<tr>
-    	<td>สาขาวิชา:</td>
-        <td>
-        	<div class="form-group">
-            	<input type="text" name="ed_major" class="form-control" value="<?php //echo $rs_b['ed_major'];?>">
-             </div>
-        </td>
-    </tr>-->
-    <!--<tr>
-    	<td>สถาบัน:</td>
-        <td>
-        	<div class="form-group">
-            	<input type="text" name="ed_institute" class="form-control" value="<?php //echo $rs_b['ed_institute'];?>" id="ed_institute">
-             </div>
-        </td>
-    </tr>-->
-    <!--<tr>
-    	<td>ณ ประเทศ:</td>
-        <td>
-        	<div class="form-group">
-            	<select name="ed_country" class="form-control select select-primary" data-toggle="select">
-                	<option value="">&raquo; เลือกรายการ</option>
-                	<?php
-					/*$sql=mysql_query("select * from $db_eform.country order by convert (ct_name using tis620) asc");
-					while($ob=mysql_fetch_assoc($sql)){
-						if($rs_b['ed_country'] == $ob['ct_id']){
-							echo '<option value="'.$ob['ct_id'].'" selected>&raquo; '.$ob['ct_name'].'</option>';
-						}else{
-							echo '<option value="'.$ob['ct_id'].'">&raquo; '.$ob['ct_name'].'</option>';
-						}
-					}*/
-					?>
-                </select>
-            </div>
-        </td>
-    </tr>-->    
-    <!--<TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">Personel ID (MU-ERP)</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">
-          <div class="form-group">
-            <p class="form-control-static"><?php //print $rs_b['per_erpid'];?></p>
-    	</div>
-      </TD>
-    </TR>-->
-    <!--<TR   background="../admin/compcode/compcode/picture/bar07.jpg">
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">Record NO.</TD>
-      <TD background="../admin/compcode/compcode/picture/bar07.jpg">
-      	<div class="form-group">
-        	<p class="form-control-static"><?php //print $rs_b['per_id'];?></p>
-        </div>
-      </TD>
-    </TR>-->
-    <!--<TR   background="compcode/picture/bar07.jpg">
-      <TD colspan="2" background="compcode/picture/bar07.jpg" class="regWhite_13">&nbsp;</TD>
-    </TR>
-    <TR   background="compcode/picture/bar07.jpg">
-      <TD colspan="2" background="compcode/picture/bar07.jpg" class="tdpadding"><span class="regRed_14"><?php #echo $msg2; ?></span></TD>
-    </TR>
-    <TR   background="compcode/picture/bar07.jpg"> 
-      <TD background="compcode/picture/bar07.jpg" class="tdpadding">รหัสผ่านเดิม:</TD>
-      <TD background="compcode/picture/bar07.jpg" class="tdpadding"><input name="oldpass" type="password" size="50" maxlength="10">      </TD>
-    </TR>
-    <TR> 
-      <TD background="compcode/picture/bar07.jpg" class="tdpadding"><span>รหัสผ่านใหม่: </span></TD>
-      <TD background="compcode/picture/bar07.jpg" class="tdpadding"><INPUT name="newpass" type="password" size="50" maxlength="10"></TD>
-    </TR>
-    <TR > 
-      <TD background="compcode/picture/bar07.jpg" class="tdpadding">ยืนยันรหัสผ่านใหม่:</TD>
-      <TD background="compcode/picture/bar07.jpg" class="tdpadding"><INPUT name="newpass2" type="password" size="50" maxlength="10"></TD>
-    </TR>
-    <tr>
-            <td  background="compcode/picture/bar07.jpg" class="tdpadding">
-            	
-                <input class=button type="reset" name="submit2" value="������"> -->             <!--</td>
-            <td  background="compcode/picture/bar07.jpg" class="tdpadding">
-            	<input type="hidden" name="username" value="<?php #echo $rs_b["username"]; ?>" />
-                <input class=button type="submit" name="changepw" value="เปลี่ยนรหัสผ่าน" id="changepw">
-            </td>
-          </tr>-->
-          	</tbody>
-		   </TABLE>
-           <!--</fieldset> -->
-				</div><!--table-->
+                </div>
+                <!--panel-body-->
                 <div class="panel-footer">
                 	<input type="hidden" name="per_id" value="<?php echo $rs_b["per_id"]; ?>">
                     <input type="hidden" name="ed_id" value="<?php echo $rs_b["ed_id"]; ?>">
