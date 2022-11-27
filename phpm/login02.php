@@ -85,7 +85,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
 		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
 		//@mail($ob_01['per_email'], $strSubject, $body, $strHeader);
-		smtpGmail($ob_01['per_email'], $strSubject, $body);
+		smtpGmail2($ob_01['per_email'], $strSubject, $body);
 
 		header("location: ./login.php");
 	}else{
@@ -113,7 +113,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
 		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
 		//@mail($_POST['mumail'], $strSubject, $body, $strHeader);
-		smtpGmail($_POST['mumail'], $strSubject, $body);
+		smtpGmail2($_POST['mumail'], $strSubject, $body);
 
 		header("location: ./login.php");
 		

@@ -90,7 +90,7 @@ include('../lib/css-inc.php');
             <input type="text" name="job_id" class="form-control" value="<?php echo $ob_job['job_name'];?>" required>
         </div>
       	<div class="form-group">
-            <label>ตำแหน่งวิชาการ</label>
+            <label>ตำแหน่งทางวิชาการ <small class="text-muted">(Optional)</small></label>
             	<?php
 				$sql_ja = mysqli_query($condb, "SELECT * FROM $db_eform.job_academic
 								where ja_use = 'yes'
@@ -101,7 +101,7 @@ include('../lib/css-inc.php');
             <input type="text" name="ja_id" value="<?php echo $ob_ja['ja_name'];?>" class="form-control">
         </div>
         	<div class="form-group">
-                <label>เบอร์โทรฯ ตรง</label>
+                <label>เบอร์โทรฯ ตรง <small class="text-muted">(Optional)</small></label>
             	<input name="per_tel" type="text" class="form-control" value="<?php echo $rs_b['per_tel'];?>">
             </div>            
         	<div class="form-group">
