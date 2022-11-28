@@ -927,9 +927,8 @@ function attachDocType($doctype){
 		case "image/gif":
 			$filetype = ".gif";
 			break;
-
-			return $filetype;
 	}
+	return $filetype;
 }
 //หาจำนวนชั่วโมงอบรม
 //echo budgetyear_03(date('Y-m-d'));

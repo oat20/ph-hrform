@@ -67,16 +67,19 @@ include('../lib/css-inc.php');
         </div>
       	<div class="form-group">
             <label>ส่วนงาน</label>
+            <select name="per_dept" class="form-control select select-inverse mrs mbm" data-toggle="select" required>
       	<?php
 		$rs_org=mysqli_query($condb, "select * from 
 						$db_eform.tb_orgnew as t2 
                         left join $db_eform.department_type as t1 on (t1.typ_id = t2.typ_id)
-                        where t2.dp_id = '$rs_b[per_dept]'
 						order by convert (t1.typ_name using tis620) asc,
 						convert (t2.dp_name using tis620) asc");
-                $ob_org=mysqli_fetch_array($rs_org);        
+                while($ob_org=mysqli_fetch_array($rs_org)){
+                    $opt_selected = ($ob_org['dp_id']==$rs_b['per_dept']) ? "selected" : "";
+                    echo '<option value="'.$ob_org['dp_id'].'" '.$opt_selected.'>'.$ob_org['dp_name'].'</option>';
+                }        
 		?>
-        <input type="text" name="per_dept" class="form-control" value="<?php echo $ob_org['dp_name'];?>" required>
+        </select>
         </div>
       	<div class="form-group">
             <label>ตำแหน่งงาน</label>
@@ -349,7 +352,7 @@ $(document).ready(function(e) {
 		}
 	});
 	
-	$('select').select2({dropdownCssClass: 'show-select-search'});
+	$('select').select2({dropdownCssClass: 'show-select-search select-inverse-dropdown'});
 
 });
 </script>

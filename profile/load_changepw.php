@@ -27,15 +27,15 @@ if($_POST['action'] == 'update'){
 		$ja_name = mysqli_real_escape_string($condb, $_POST['ja_id']);
 
 		//tb_orgnew
-		$dp_name=mysqli_real_escape_string($condb, $_POST['per_dept']);
-		$sql_orgnew=mysqli_query($condb, "select dp_id from tb_orgnew where dp_name like '%$dp_name%' order by rand() limit 1");
+		$per_dept=mysqli_real_escape_string($condb, $_POST['per_dept']);
+		/*$sql_orgnew=mysqli_query($condb, "select dp_id from tb_orgnew where dp_name like '%$dp_name%' order by rand() limit 1");
 		$rs_orgnew=mysqli_fetch_assoc($sql_orgnew);
 		if($rs_orgnew['dp_id'] != ''){
 			$per_dept=$rs_orgnew['dp_id'];
 		}else{
 			mysqli_query($condb, "insert into tb_orgnew (dp_name) values ('$dp_name')");
 			$per_dept=mysqli_insert_id($condb);
-		}
+		}*/
 	
 		//job
 	$sql_job = mysqli_query($condb, "select job_id from $db_eform.job where job_name like '$job_name' order by rand() limit 1");

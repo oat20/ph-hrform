@@ -48,6 +48,14 @@ include('../admin/compcode/include/function.php');
 				$print_disable = '';
 			}
 
+			//tb_develop_attactment
+			$sql_attachment=mysqli_query($condb,"select dev_filename from develop_attachment where dev_id='$_GET[getDevid]' and dev_filecategory='Attachment'");
+			$rs_attachment=mysqli_fetch_assoc($sql_attachment);
+
+			//tb_develop_attactment
+			$sql_attachreport=mysqli_query($condb,"select dev_filename from develop_attachment where dev_id='$_GET[getDevid]' and dev_filecategory='Report'");
+			$rs_attachreport=mysqli_fetch_assoc($sql_attachreport);
+
 			$inc='<div class="btn-group" role="group" id="navi4">
 					  <a href="'.$livesite.'profile/_showmyproject.php" class="btn btn-link"><i class="glyphicon glyphicon-arrow-left"></i> ย้อนกลับ</a>
 					  <a href="'.$livesite.'form/editform_1.php?getTrackid='.$ob['dev_trackid'].'" class="btn btn-link"><i class="fui-new"></i> แก้ไขแบบฟอร์ม</a>
@@ -110,7 +118,7 @@ $inc .= '<div class="row">
 							  <dd>'.$cf_devnopay[$ob['dev_nopay']].'</dd>
 							  <dt>เอกสารเกี่ยวกับโครงการ</dt>
 							  <dd>
-							 	<a href="'.$livesite.'phpm/attachment/" target="_blank">'.$livesite.'phpm/attachment/</a> 
+							 	<a href="'.$livesite.'phpm/attachment/'.$rs_attachment['dev_filename'].'" target="_blank">'.$livesite.'phpm/attachment/'.$rs_attachment['dev_filename'].'</a> 
 							  </dd>
 							</dl>';
 							
@@ -208,9 +216,9 @@ $inc .= '<div class="row">
 							<div class="panel panel-default">
 								<div class="panel-heading"><i class="fa fa-paperclip fa-fw"></i> แนบรายงานการปฏิบัติงาน</div>
 								<div class="panel-body">
-								<form action="./upload-filereport.php" method="POST" enctype="multipart/form-data">
+								<form action="./upload-filereport.php" method="POST" enctype="multipart/form-data" id="frm-upload">
 								<p>
-									<a href="'.$livesite.'phpm/attachment/" target="_blank">'.$livesite.'phpm/attachment/</a>
+									<a href="'.$livesite.'phpm/attachment/'.$rs_attachreport['dev_filename'].'" target="_blank">'.$livesite.'phpm/attachment/'.$rs_attachreport['dev_filename'].'</a>
 								</p>
 									<div class="form-group">
 										<input type="file" name="file" accept="image/jpeg,image/png,application/pdf" required>
@@ -218,7 +226,7 @@ $inc .= '<div class="row">
 									</div>
 									<input type="hidden" name="dev_id" value="'.$ob['dev_id'].'">
 									<input type="hidden" name="dev_filecategory" value="Report">
-									<button type="button" class="btn btn-primary btn-block" id="btn-upload">Upload</button>
+									<button type="submit" id="btn-upload" class="btn btn-primary btn-block">Upload</button>
 									</form>
 								</div>
 							</div>
@@ -244,12 +252,18 @@ $inc .= '<div class="row">
 	$(document).ready(function(){
 		$('.navbar-nav li:eq(2)').addClass('active');
 
-		$('#btn-upload').click(function(){
+		$('#frm-upload').submit(function(e){
+			/*e.preventDefault();
 			Swal.fire({
 				icon: 'info',
-				title: 'Oops...',
-				text: 'Something went wrong!'
-			});
+				title: 'ยืนยันอัพโหลดรายงานการปฏิบัติงาน',
+				showCancelButton: true
+			}).then(function(result){
+				if(result.isConfirmed){
+					$('#frm-upload').submit();
+				}
+			});*/
+			alert('ยืนยันอัพโหลดรายงานการปฏิบัติงาน');
 		});
 	});
 </script>

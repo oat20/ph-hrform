@@ -20,13 +20,16 @@ require_once("../admin/compcode/include/function.php");
 				and dev_filecategory='Report'
 			");
             }else{
-                mysqli_query($condb, "insert into $db_eform.develop_attachment 
-				values ('', '".$_POST['dev_id']."', '$dev_filename', '$_FILES[file][type]', '$_FILES[file][size]', 'Report')
+                mysqli_query($condb, "insert into $db_eform.develop_attachment (dev_id, dev_filename, dev_filetype, dev_filesize, dev_filecategory)
+				values ('".$_POST['dev_id']."', '".$dev_filename."', '".$_FILES['file']['type']."', '".$_FILES['file']['size']."', 'Report')
 			");
             }
 
-			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
+			move_uploaded_file($_FILES['file']['tmp_name'], "../phpm/attachment/".$dev_filename);
+			//echo $_FILES['file']['name'].' '.$_FILES['file']['type'].' '.$_FILES['file']['size'].' '.$_FILES['file']['temp_name'].' '.attachDocType($_FILES['file']['type']);
 		}
 
         mysqli_close($condb);
+
+	header('location: ./formdetail.php?getDevid='.$_POST['dev_id']);
 ?>
