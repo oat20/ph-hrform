@@ -154,7 +154,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 				where dev_id='$_POST[dev_id]'
 				and dev_filecategory='Attachment'
 			");
-			move_uploaded_file($_FILES['file']['temp_name'], "../phpm/attachment/".$dev_filename);
+			move_uploaded_file($_FILES['file']['tmp_name'], "../phpm/attachment/".$dev_filename);
 		}
 		
 		//insert tb develop_cancel

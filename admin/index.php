@@ -1,3 +1,6 @@
+<?php
+require_once './compcode/include/config.php';
+?>
 <!DOCTYPE HTML>
 <HTML lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><HEAD>
 <META NAME="Title" CONTENT="คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล">
@@ -13,21 +16,232 @@
 <!-- <META NAME="Rating" CONTENT="Family"> -->
 <!-- <META NAME="Robots" CONTENT="All"> -->
 <META http-equiv=Content-Type content="text/html; charset=utf-8">
-<LINK href="img/mos_style.css" type=text/css rel=stylesheet>
 <TITLE>คณะสาธารณสุขศาสตร์ มหาวิทยาลัยมหิดล</TITLE>
-<frameset rows="1,*" cols="*" framespacing="0" frameborder="NO" border="0">
-  <frame src="top.htm" name="topFrame" border="0" title=".."  longdesc="1">
-  <!--<frame src="body.htm" name="mainFrame" border="0"  title="."  longdesc="2" scrolling="YES" noresize> -->
-  <frame src="index.htm" name="mainFrame" border="0"  title="."  longdesc="2" scrolling="YES" noresize>
-  </frameset>
-<noframes><body>
-<!--BEGIN Truehits CODE-->
-<SCRIPT LANGUAGE="javascript1.1"> __th_page="CC-Main-EN";</SCRIPT>
-<SCRIPT LANGUAGE="javascript1.1" src="http://hits.truehits.in.th/data/s0028754.js"></SCRIPT>
-<NOSCRIPT>
-     <a target="_blank" href="http://truehits.net/stat.php?id=s0028754">
-     <img src="http://hits.truehits.in.th/noscript.php?id=s0028754" alt="Thailand Web Stat" border=0 width=14 height=17></a>
-</NOSCRIPT>
-<!-- END Truehits CODE --> 
-</body></noframes>
+<?php require_once '../lib/css-inc.php';?>
+</HEAD>
+<body>
+  <?php require_once '../inc/navbar02-inc.php';?>
+
+  <div class="container-fluid">
+
+  <div class="clearfix" style="margin-bottom: 15px;">
+    <h5 class="pull-left" style="margin-top: 0px;">แบบบันทึกปฏิบัติงานพัฒนาบุคลากร และบริการวิชาการ</h5>
+    <div class="pull-right">
+      <button class="btn btn-primary" type="button">
+  แสดงรายการทั้งหมด <span class="badge">1,000</span> <i class="fa fa-arrow-right fa-fw"></i>
+</button>
+</div>
+    </div>
+    <div class="panel panel-default">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="clearfix" style="margin-bottom: 15px; margin-top:50px;">
+    <h5 class="pull-left" style="margin-top: 0px;">แบบบันทึกเดินทางต่างประเทศ</h5>
+    <div class="pull-right">
+      <button class="btn btn-primary" type="button">
+  แสดงรายการทั้งหมด <span class="badge">1,000</span> <i class="fa fa-arrow-right fa-fw"></i>
+</button>
+</div>
+    </div>
+    <div class="panel panel-default">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+              <th>Col</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+              <td>Row</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--panel-->
+
+  </div>
+  <!--con-->
+
+<?php require_once '../lib/js-inc.php';?>
+</body>
 </html>
