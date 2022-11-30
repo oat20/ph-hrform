@@ -41,35 +41,27 @@ win.focus();}
 	<hr>
     
     <div class="table-responesive">
-<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered" id="myTable-01">
+<table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" width="100%" class="table table-striped table-bordered table-hover" id="myTable-01">
 	<thead>
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
     <th class="text">REF. ID</th>
+	<th>Timestamp</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">เรื่อง</th>
-	<th class="text">วันที่เริ่ม</th>
-    <th class="text">วันที่สิ้นสุด</th>
+	<th class="text">วันที่</th>
     <th>ความเห็นต้นสังกัด</th>
+	<th>หมายเหตุ</th>
 	<th class="text"></th>
     </tr>
   </thead>
-  <tfoot>
-<tr bgcolor="#E0E3CE" class="text">
-	<th>#</th>
-    <th class="text">REF. ID</th>
-    <th class="text">ปีงบประมาณ</th>
-    <th class="text">เรื่อง</th>
-	<th class="text">วันที่เริ่ม</th>
-    <th class="text">วันที่สิ้นสุด</th>
-    <th>ความเห็นต้นสังกัด</th>
-	<th class="text"></th>
-    </tr>
-  </tfoot>
+  
   <tbody id="jetsContent">
  <?php
  //if(empty($_POST['action'])){
-	 $sql="select * from $db_eform.develop_leave as t1
+	 $sql="select *,
+	 	if(t1.dev_cancel='1', 'ยกเลิกรายการ', '') as cancel_display
+	 	from $db_eform.develop_leave as t1
 	 	left join $db_eform.develop_leave_type as t2 on (t1.dev_type=t2.la_id)
 		left join develop_leave_personel as dlp on (t1.dev_id = dlp.dev_id)
 		where t1.dev_perid='$_SESSION[ses_per_id]'
@@ -106,12 +98,13 @@ while($rs=mysqli_fetch_array($exec)){
 ?>
   <tr   bgcolor="<?php echo "$color"; ?>" class="text <?php echo $tr_cancel_color;?>">
   	<td><?php echo ++$r;?></td>
-    <td class="text" align="center"><?php echo $rs['dev_id'].'<br><i class="fa fa-clock-o"></i> '.dateFormat($rs['dev_orddate']);?></td>
+    <td class="text" align="center"><?php echo $rs['dev_id'];?></td>
+	<td><?php echo dateFormat($rs['dev_orddate']);?></td>
     <td align="center" class="text"><?php print $rs["dev_year"]; ?></td>
     <td class="text"><?php echo $rs['la_name'].' - '.$rs['dev_onus'];?></td>
-    <td><?php echo dateFormat($rs['dev_stdate']);?></td>
-	<td class="text" align="center"><?php echo dateFormat($rs['dev_enddate']);?></td>
+    <td><?php echo dateFormat($rs['dev_stdate']).' - '.dateFormat($rs['dev_enddate']);?></td>
     <td><?php echo $cf_devleave_status[$rs['dev_formstatus']]['name'].'<br><em>'.$rs['dev_formstatus_comment'].'</em>';?></td>
+	<td><?php echo $rs['cancel_display'];?></td>
     <td class="text">
     	<div class="btn-group btn-group-sm">
         	<a href="print-form-pdf.php?dev_id=<?php echo $rs['dev_id'];?>" title="แสดงรายละเอียด" data-toggle="tooltip" data-placement="bottom" target="_blank" class="btn btn-info"><i class="fa fa-print fa-fw"></i> พิมพ์</a>

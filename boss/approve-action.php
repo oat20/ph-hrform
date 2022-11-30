@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             where dev_id='$dev_otp'
         ");
     }else{
-        
+        echo 'Error รหัส OTP ไม่ถูกต้อง';
     }
 }
 
