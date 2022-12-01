@@ -97,13 +97,13 @@ $inc .= '<div class="row">
 							  <dt>วัตถุประสงค์</dt>
 							  <dd>'.$ob['dm_title'].'</dd>
 							  <dt>ตามหนังสือ</dt>
-							  <dd>'.$dev_bookfrom['0'].' <strong>ที่</strong> '.$dev_bookfrom['1'].' <strong>ลงวันที่</strong> '.dateThai($dev_bookfrom['2']).' <strong>เรื่อง</strong> '.$dev_bookfrom['3'].'</dd>
+							  <dd>'.$dev_bookfrom['0'].' <strong>ที่</strong> '.$dev_bookfrom['1'].' <strong>ลงวันที่</strong> '.$dev_bookfrom['2'].' <strong>เรื่อง</strong> '.$dev_bookfrom['3'].'</dd>
 							  <dt>ได้เชิญข้าพเจ้าไปปฏิบัติงานเพื่อ</dt>
 							  <dd>'.$ob['dvt_name'].'&nbsp;&nbsp;'.$ob['dev_typeother'].'</dd>
 							  <dt>ซึ่งเกี่ยวข้องกับกิจกรรม</dt>
 							  <dd>'.$ob['activity'].'</dd>
 							  <dt>หลักสูตร/หัวข้อโครงการ</dt>
-							  <dd>'.$ob['dev_onus'].' <strong>ระหว่างวันที่</strong> '.dateformat_03($ob['dev_stdate']).' ถึง '.dateformat_03($ob['dev_enddate']).' <strong>ตั้งแต่เวลา</strong> '.$ob['dev_timebegin'].' ถึง '.$ob['dev_timeend'].' <strong>ณ</strong> '.$ob['dev_place'].'</dd>
+							  <dd>'.$ob['dev_onus'].' <strong>ระหว่างวันที่</strong> '.dateformat_03($ob['dev_stdate']).' ถึง '.dateformat_03($ob['dev_enddate']).' <strong>ตั้งแต่เวลา</strong> '.$ob['dev_timebegin'].' ถึง '.$ob['dev_timeend'].' <strong>ณ</strong> '.$ob['dev_org'].', '.$ob['dev_place'].'</dd>
 							  <dt>จำนวนชั่วโมงที่ใช้จริง</dt>
 							  <dd>'.$ob['dev_training_hour'].' ชั่วโมง</dd>
 							  <dt>ยุทธศาสตร์มหาวิทยาลัยฯ</dt>

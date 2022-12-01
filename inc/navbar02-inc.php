@@ -21,11 +21,11 @@
             	<li class="dropdown">
                 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">กรอกแบบฟอร์ม <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo $livesite;?>form/form_1.php?dm_id=1&dm_title=พัฒนาบุคลากร">ขออนุมัติปฏิบัติงานพัฒนาบุคลากร ฝึกอบรม / ประชุม</a></li>
+                        <li><a href="<?php echo $livesite;?>form/form_1.php?dm_id=1&dm_title=พัฒนาบุคลากร">บันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</a></li>
                         <li role="separator" class="divider"></li>
                         <!--<li><a href="<?php //echo $livesite;?>academicservice/form_1.php">ขออนุมัติปฏิบัติงานบริการวิชาการ</a></li>
                         <li role="separator" class="divider"></li>-->
-                        <li><a href="<?php echo $livesite;?>leave/">ขออนุมัติเดินทางต่างประเทศ</a></li>
+                        <li><a href="<?php echo $livesite;?>leave/">บันทึกเดินทางต่างประเทศ</a></li>
                       </ul>
                 </li>
                 <?php

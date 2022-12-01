@@ -34,6 +34,10 @@ include('../admin/compcode/include/function.php');
 	$ob=mysqli_fetch_assoc($sql);
 	$dev_bookfrom=explode('+',$ob['dev_bookfrom']);
 
+    $sql_attach=mysqli_query($condb, "select dev_filename from develop_attachment where dev_id='$_GET[getDevid]' and dev_filecategory='Attachment'");
+    $rs_attach=mysqli_fetch_assoc($sql_attach);
+    $file_attachment=$livesite.'phpm/attachment/'.$rs_attach['dev_filename'];
+
     if($ob['dev_maintype'] == 1){
 				$href_print = './print-form01-pdf.php?getTrackid='.$ob['dev_trackid'];
 			}else if($ob['dev_maintype'] == 2){
@@ -66,8 +70,10 @@ include('../admin/compcode/include/function.php');
                         <dd><?php echo $ob['dm_title'];?></dd>
                       <dt>ส่วนงาน</dt>
                       <dd><?php echo $ob['dp_name'];?></dd>
+                      <!--
                       <dt>ตามหนังสือ</dt>
-                      <dd><?php echo $dev_bookfrom['0'];?> <strong>ที่</strong> <?php echo $dev_bookfrom['1'];?> <strong>ลงวันที่</strong> <?php echo dateThai($dev_bookfrom['2']);?> <strong>เรื่อง</strong> <?php echo $dev_bookfrom['3'];?></dd>
+                      <dd><?php //echo $dev_bookfrom['0'];?> <strong>ที่</strong> <?php //echo $dev_bookfrom['1'];?> <strong>ลงวันที่</strong> <?php //echo dateThai($dev_bookfrom['2']);?> <strong>เรื่อง</strong> <?php //echo $dev_bookfrom['3'];?></dd>
+        -->
                       <dt>หลักสูตร/โครงการ</dt>
                       <dd><?php echo $ob['dev_onus'];?></dd>
                       <dt>ระหว่างวันที่</dt>
@@ -141,7 +147,9 @@ include('../admin/compcode/include/function.php');
                       <!--<dt>หมายเหตุ</dt>
                       <dd><?php //echo $ob['dev_remark'];?></dd>-->
                       <dt>เอกสารเกี่ยวกับโครงการ</dt>
-                      <dd></dd>
+                      <dd>
+                        <a href="<?php echo $file_attachment;?>" target="_blank"><?php echo $file_attachment;?></a>
+                      </dd>
                     </dl>
                 </div><!--col-->
                 

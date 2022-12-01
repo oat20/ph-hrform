@@ -73,7 +73,7 @@ include('lib/css-inc.php');
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-remote="test2.php?word=1234">
   Launch demo modal
 </button>
-	<a data-toggle="modal" href="" data-target="#myModal" class="btn btn-primary" data-remote="test2.php">Click me</a>
+	<a data-toggle="modal" href="./theme.php" data-target="#myModal" class="btn btn-primary">Click me</a>
 
         	<?php
 			//echo date('Y-m-d').' - '.date('Y-m-'.'01',strtotime(date('Y-m-d').' -90 days')); 

@@ -33,7 +33,7 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 	$rs_devtype = mysqli_fetch_array($sql_devtype);
 	if($rs_devtype['dvt_id'] == ''){
 		$_POST['typ_id'] = random_ID('2', '2');
-		mysqli_query($condb, "insert into $db_eform.develop_type (dvt_id, dvt_name) values ('$dvt_id', '$dvt_name')");
+		mysqli_query($condb, "insert into $db_eform.develop_type (dvt_id, dvt_name) values ('$_POST[typ_id]', '$dvt_name')");
 	}else{
 		$_POST['typ_id'] = $rs_devtype['dvt_id'];
 	}
@@ -195,12 +195,12 @@ if(isset($_POST['action']) and $_POST["action"] == 'save')
 
 /* send notify for approve
 if($_POST['dev_nopay']=='1'){
-	if(per_isdean==1){
-		header('location: ../administrative/');
-	}else if(per_isboss==1){
-		header('location: ../administrative/');
+	if($_SESSION['ses_isdean']==1){
+		header('location: ../administrative/approve.php');
+	}else if($_SESSION['ses_isboss']==1){
+		header('location: ../administrative/approve.php');
 	}else{
-		header('location: ../boss/');
+		header('location: ../boss/approve.php');
 	}
 }
 */

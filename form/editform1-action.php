@@ -49,13 +49,14 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 					dev_year='".budgetyear_02($_POST['dev_stdate'])."',
 					dev_country = '$_POST[dev_country]',
 					dev_local = '$dev_local',
-					dev_type='$_POST[typ_id]',
+					dev_type='$dev_type',
 					dev_timebegin='$_POST[dev_timebegin]',
 					dev_timeend='$_POST[dev_timeend]',
 					dev_nopay='$_POST[dev_nopay]',
 					dev_createby='$_SESSION[ses_per_id]',
 					dev_maintype='$_POST[dev_maintype]'
-					where dev_id='$_POST[dev_id]'");
+					where dev_id='$_POST[dev_id]'
+				");
 	
 	//insert table develop_form_objective
 	mysqli_query($condb, "delete from $db_eform.develop_form_objective where dev_id='$_POST[dev_id]'");
@@ -147,13 +148,20 @@ if(isset($_POST['action']) and $_POST['action'] == 'save'){
 		//upload attachment
 		if(!empty($_FILES['file']['name'])){
 			$dev_filename = $_POST['dev_id'].'-'.date('YmdHis').random_password(2).attachDocType($_FILES['file']['type']);
-			mysqli_query($condb, "update develop_attachment set
-				dev_filename='$dev_filename',
-				dev_filetype='$_FILES[file][type]',
-				dev_filesize='$_FILES[file][size]'
-				where dev_id='$_POST[dev_id]'
-				and dev_filecategory='Attachment'
-			");
+			$sql_devattach=mysqli_query($condb,"select * from develop_attachment where dev_id='".$_POST['dev_id']."' and dev_filecategory='Attachment'");
+			if(mysqli_num_rows($sql_devattach) >= 1){
+				mysqli_query($condb, "update develop_attachment set
+					dev_filename='$dev_filename',
+					dev_filetype='$_FILES[file][type]',
+					dev_filesize='$_FILES[file][size]'
+					where dev_id='$_POST[dev_id]'
+					and dev_filecategory='Attachment'
+				");
+			}else{
+				mysqli_query($condb,"insert into develop_attachment (dev_id, dev_filename, dev_filetype, dev_filesize, dev_filecategory)
+					values ('".$_POST['dev_id']."'', '".$dev_filename."', '".$_FILES['file']['type']."', '".$_FILES['file']['size']."', 'Attachment')
+				");
+			}
 			move_uploaded_file($_FILES['file']['tmp_name'], "../phpm/attachment/".$dev_filename);
 		}
 		

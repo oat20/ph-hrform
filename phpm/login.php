@@ -40,6 +40,8 @@ if($_POST['action'] == 'signin' and $du_otp != '0' and $du_otp != ''){
 		$_SESSION["ses_per_dept"] = $ob_01['per_dept'];
 		$_SESSION['ses_peremail'] = $ob_01['per_email'];
 		$_SESSION['ses_createname']=$ob_01['per_pname'].$ob_01['per_fnamet'].' '.$ob_01['per_lnamet'];
+		$_SESSION['ses_isboss']=$ob_01['per_isboss'];
+		$_SESSION['ses_isdean']=$ob_01['per_isdean'];
 		
 		mysqli_query($condb, "insert into $db_eform.personel_muerp_log (per_id, log_status, log_ipstamp) values ('$ob_01[per_id]', 'getlink', '$remoteip')"); //insert log
 				
