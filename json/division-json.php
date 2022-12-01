@@ -17,7 +17,7 @@ switch($_GET['type']){
 	case "0" : 
 		$sql=mysqli_query($condb,"SELECT *,t2.dp_name, t2.dp_code, t2.dp_tel, t2.dp_telin
 			FROM $db_eform.department_type as t1
-			inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id) 
+			right join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id) 
 			order by convert(t1.typ_name using tis620) asc, 
 			convert(t2.dp_name using tis620) asc
 		"); 
@@ -26,7 +26,7 @@ switch($_GET['type']){
 	default : 
 		$sql=mysqli_query($condb,"SELECT *,t2.dp_name, t2.dp_code, t2.dp_tel, t2.dp_telin
 			FROM $db_eform.department_type as t1
-			inner join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
+			right join $db_eform.tb_orgnew as t2 on(t1.typ_id=t2.typ_id)
 			where t1.typ_id = '$_GET[type]'
 			order by convert(t1.typ_name using tis620) asc, 
 			convert(t2.dp_name using tis620) asc
@@ -46,7 +46,7 @@ while($rsAscode=mysqli_fetch_assoc($sql)){
 		);
 	}
 
-$json=json_encode($json_data);    
+$json=json_encode($json_data,JSON_UNESCAPED_UNICODE);    
 echo $json;    
 //mysql_close();
 ?>

@@ -73,7 +73,7 @@ include('lib/css-inc.php');
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-remote="test2.php?word=1234">
   Launch demo modal
 </button>
-	<a data-toggle="modal" href="./theme.php" data-target="#myModal" class="btn btn-primary">Click me</a>
+	<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Click me</button>
 
         	<?php
 			//echo date('Y-m-d').' - '.date('Y-m-'.'01',strtotime(date('Y-m-d').' -90 days')); 
@@ -189,7 +189,9 @@ include('lib/css-inc.php');
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
-         ...
+         <ul>
+
+         </ul>
       </div>
       <!--<div class="modal-footer">
         <button type="button" class="btn btn-link" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
@@ -324,8 +326,30 @@ $(document).ready(function() {
 		$("#"+placeRow).toggleClass("hiligh_select_row");  
 	}
 		
-	$('#myModal').find('.modal-body').load($(this).attr('href'));
+	//$('#myModal').find('.modal-body').load($(this).attr('href'));
 	//$('#myModal').modal();
+    $('#myModal').on('show.bs.modal', function (event) {
+  //var button = $(event.relatedTarget) // Button that triggered the modal
+  //var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  //modal.find('.modal-title').text('New message to ' + recipient)
+  //modal.find('.modal-body input').val(recipient);
+        $.ajax({
+            url: './json/division-json.php?type=0',
+            type: 'GET',
+            dataType: 'json'
+        }).then(function(result){
+            console.log(result);
+            result.map(function(item, index){
+                modal.find('.modal-body ul').append('<li>'+item.label+'</li>');
+            });
+            let text = modal.find('.modal-body ul li:eq(0)').text();
+            console.log(text);
+            $('#demo').html(text);
+        });
+});
 	
 	/*$('#defaultUploadexcel').bootstrapValidator({
 	});*/
