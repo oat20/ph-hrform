@@ -63,7 +63,7 @@ if($_POST['action'] == 'signin' and $du_otp != '0' and $du_otp != ''){
 					<a href="./login02.php"><i class="fa fa-arrow-left fa-fw"></i> ตรวจสอบข้อมูลบุคลากร</a>
 				</h5>
 				<div class="alert alert-success">
-					<i class="fa fa-check fa-fw"></i> One Time Password (OTP) ได้ส่งไปยังอีเมล <strong><em><?php echo $_SESSION['ses_peremail'];?></em></strong> กรุณาตรวจสอบอีเมลของท่าน
+					<i class="fa fa-check fa-fw"></i> One Time Password (OTP) ได้ส่งไปยังอีเมล <strong><u><?php echo $_SESSION['ses_peremail'];?></u></strong> กรุณาตรวจสอบอีเมลของท่าน
 				</div>
 
             <form action="<?php print $_SERVER['PHP_SELF'];?>" method="post" id="formSignin">
