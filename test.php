@@ -24,7 +24,7 @@ include('lib/css-inc.php');
     );
     echo $per_id[0];
     ?>
-    <p id="demo"></p>
+    <div id="demo"></div>
 	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
     	<div class="form-group">
             <label class="control-label">Upload Excel Template:</label>
@@ -73,7 +73,7 @@ include('lib/css-inc.php');
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-remote="test2.php?word=1234">
   Launch demo modal
 </button>
-	<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Click me</button>
+	<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" data-title="เลือกส่วนงาน">Click me</button>
 
         	<?php
 			//echo date('Y-m-d').' - '.date('Y-m-'.'01',strtotime(date('Y-m-d').' -90 days')); 
@@ -181,22 +181,31 @@ include('lib/css-inc.php');
     
     <!--modal-->
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
-         <ul>
+        <form>
+            <div class="form-group">
+                <input type="search" id="modal-jetsSearch" placeholder="ค้นหา" class="form-control">
+            </div>
+        </form>
+        <div class="table-responsive">
+         <table class="table table-striped table-hover">
+            <tbody id="modal-jetsContent">
 
-         </ul>
+            </tbody>
+         </table>
+         </div>
       </div>
-      <!--<div class="modal-footer">
-        <button type="button" class="btn btn-link" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
         <button type="button" class="btn btn-primary">Save changes</button>
-      </div>-->
+      </div>
     </div>
   </div>
 </div>
@@ -329,13 +338,12 @@ $(document).ready(function() {
 	//$('#myModal').find('.modal-body').load($(this).attr('href'));
 	//$('#myModal').modal();
     $('#myModal').on('show.bs.modal', function (event) {
-  //var button = $(event.relatedTarget) // Button that triggered the modal
-  //var recipient = button.data('whatever') // Extract info from data-* attributes
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('title') // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
-  //modal.find('.modal-title').text('New message to ' + recipient)
-  //modal.find('.modal-body input').val(recipient);
+  modal.find('.modal-title').text(recipient)
         $.ajax({
             url: './json/division-json.php?type=0',
             type: 'GET',
@@ -343,11 +351,20 @@ $(document).ready(function() {
         }).then(function(result){
             console.log(result);
             result.map(function(item, index){
-                modal.find('.modal-body ul').append('<li>'+item.label+'</li>');
+                modal.find('.modal-body table tbody').append('<tr><td>'+item.label+'</td><td><button type="button" class="btn btn-primary" id="btn-selectdivision'+index+'" data-id="'+item.id+'" data-division="'+item.label+'">เลือก</button></td></tr>');
+                $('#btn-selectdivision'+index).click(function(e){
+                    let btnselect = $(this);
+                    let id = btnselect.data('id');
+                    let text = btnselect.attr('data-division');
+                    $('#myModal').modal('hide');
+                    $('#demo').html(id+', '+text);
+                });
             });
-            let text = modal.find('.modal-body ul li:eq(0)').text();
-            console.log(text);
-            $('#demo').html(text);
+            var jets = new Jets({
+                searchTag: '#modal-jetsSearch',
+                contentTag: '#modal-jetsContent',
+                columns: [0] // optional, search by first column only
+            });
         });
 });
 	

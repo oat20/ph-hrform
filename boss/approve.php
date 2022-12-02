@@ -57,7 +57,7 @@ require_once '../admin/compcode/include/config.php';
                 </div>
             </div>
                 <label><i class="fa fa-paperclip fa-fw"></i> เอกสารเกี่ยวกับโครงการ</label>
-                <p class="form-control-static">https://xxx.xxx.xxx/document.pdf</p>
+                <p class="form-control-static"><a href="<?php echo $livesite;?>phpm/attachment/" target="_blank"><?php echo $livesite;?>phpm/attachment/</p>
             <div class="form-group">
                 <label>บันทึกข้อความถึงผู้ขออนุมัติ <small class="text-muted">(Optional)</small></label>
                 <textarea name="dev_approvebyboss_note" class="form-control" rows="4"></textarea>

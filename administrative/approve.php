@@ -1,15 +1,13 @@
+<?php require_once '../admin/compcode/include/config.php';?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>APPROVE TRANSACTION</title>
-    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../lib/flatui/css/flat-ui.min.css" rel="stylesheet">
-    <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <?php require_once '../lib/css-inc.php';?>
 </head>
 
 <body>
@@ -58,7 +56,7 @@
                 </div>
             </div>
             <label><i class="fa fa-paperclip fa-fw"></i> เอกสารเกี่ยวกับโครงการ</label>
-            <p class="form-control-static">https://xxx.xxx.xxx/document.pdf</p>
+            <p class="form-control-static"><a href="<?php echo $livesite;?>phpm/attachment/" target="_blank"><?php echo $livesite;?>phpm/attachment/</p>
             <div class="form-group">
                 <label>บันทึกข้อความถึงผู้ขออนุมัติ <small class="text-muted">(Optional)</small></label>
                 <textarea name="dev_approve_note" class="form-control" rows="4"></textarea>
@@ -138,10 +136,7 @@
         </div>
     </div>
 
-    <script src="../lib/flatui/js/vendor/jquery.min.js"></script>
-    <script src="../lib/flatui/js/flat-ui.min.js"></script>
-    <script src="../lib/flatui/js/application.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js"></script>
+    <?php require_once '../lib/js-inc.php';?>
     <script>
         $(function () {
                 //approve
