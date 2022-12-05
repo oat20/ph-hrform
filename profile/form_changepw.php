@@ -26,9 +26,11 @@ include('../lib/css-inc.php');
 
 <div class="container-fluid">
 
+    <!--
 	<h4 class="hidden-xs hidden-sm" style="margin-top: 0px;">
         ข้อมูลส่วนบุคคล
     </h4>
+-->
 
 	<div class="row">
         
@@ -38,7 +40,7 @@ include('../lib/css-inc.php');
 			<div class="panel panel-default">
             	<div class="panel-heading clearfix">
                 	<h3 class="panel-title pull-left"><a href="profile.php"><i class="fa fa-arrow-left fa-fw"></i> ข้อมูลส่วนตัว</a></h3>
-                    <div class="pull-right"><button type="submit" class="btn btn-link btn-lg"><i class="fa fa-check"></i> Save</button></div>
+                    <div class="pull-right"><button type="submit" class="btn btn-link"><i class="fa fa-floppy-o"></i></button></div>
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
