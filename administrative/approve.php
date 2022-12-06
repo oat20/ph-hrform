@@ -1,4 +1,7 @@
-<?php require_once '../admin/compcode/include/config.php';?>
+<?php 
+require_once '../admin/compcode/include/config.php';
+require_once '../inc/mysqli-inc.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,8 +26,19 @@
 
     <div class="container">
         <form style="margin-bottom: 10px;" method="POST" action="#">
+                <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
                 <label>หมวดหมู่</label>
                 <p class="form-control-static">แบบบันทึกขออนุมัติปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</p>
+                </div>
+                <!--col-->
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                <label>ส่วนงาน</label>
+                <p class="form-control-static">AAA</p>
+                </div>
+                <!--col-->
+                </div>
+                <!--row-->
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
                     <label>ผู้ขออนุมัติ</label>
@@ -56,7 +70,7 @@
                 </div>
             </div>
             <label><i class="fa fa-paperclip fa-fw"></i> เอกสารเกี่ยวกับโครงการ</label>
-            <p class="form-control-static"><a href="<?php echo $livesite;?>phpm/attachment/" target="_blank"><?php echo $livesite;?>phpm/attachment/</p>
+            <p class="form-control-static"><a href="<?php echo $livesite;?>phpm/attachment/" target="_blank"><?php echo $livesite;?>phpm/attachment/</a></p>
             <div class="form-group">
                 <label>บันทึกข้อความถึงผู้ขออนุมัติ <small class="text-muted">(Optional)</small></label>
                 <textarea name="dev_approve_note" class="form-control" rows="4"></textarea>
