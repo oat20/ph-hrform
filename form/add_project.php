@@ -210,4 +210,3 @@ if($_POST['dev_nopay']=='1'){
 		header("location: confirm-form-1.php?getDevid=".$dev_id);
 }
  ?>
-
