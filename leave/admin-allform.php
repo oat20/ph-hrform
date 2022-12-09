@@ -39,16 +39,17 @@ include('../admin/compcode/include/function.php');
     <th class="text">Form No.</th>
     <th class="text">ปีงบประมาณ</th>
     <th class="text">ส่วนงาน</th>
-        <th class="text">ประเภท</th>
-    <th class="text">หลักสูตร/โครงการ</th>
+    <th class="text">เรื่อง</th>
+    <th>ประเทศ</th>
 	<th class="text">วันที่เริ่ม</th>
     <th class="text">วันที่สิ้นสุด</th>
     <th class="text">ผู้ขออนุมัติ</th>
     <th>ความเห็นต้นสังกัด</th>
-    <th>ยกเลิก</th>    
+    <th>หมายเหตุ</th>    
 	<th class="text"></th>
   </tr>
   </thead>
+  <!--
   <tfoot>
         <tr class="text">
            <th>#</th>
@@ -65,6 +66,7 @@ include('../admin/compcode/include/function.php');
             <th class="text"></th>
           </tr>
   </tfoot>
+-->
   <tbody id="jetForm01">
  <?php
  //if(empty($_POST['keyDevstdate']) or empty($_POST['keyDevenddate'])){
@@ -79,7 +81,13 @@ include('../admin/compcode/include/function.php');
 				develop.dev_enddate desc,
 				convert (personel.per_fnamet using tis620) asc,
 				convert (personel.per_lnamet using tis620) asc";*/
-	$sql="select * from $db_eform.develop_leave as t1
+	$sql="select *,
+    case
+    when t1.dev_cancel = '0' then ''
+    when t1.dev_cancel = '1' then 'ยกเลิกรายการ'
+    else '! Error'
+    end as cancel_display
+    from $db_eform.develop_leave as t1
 	 	left join $db_eform.develop_leave_type as t2 on (t1.dev_type=t2.la_id)
 		left join $db_eform.develop_leave_personel as t3 on (t1.dev_id=t3.dev_id)
 		left join $db_eform.tb_orgnew as t4 on (t3.per_dept=t4.dp_id)
@@ -107,13 +115,13 @@ while($rs=mysqli_fetch_array($exec)){
     <td class="text"><?php echo $rs['dev_id'].'<br><i class="fui-calendar"></i> '.dateFormat($rs['dev_orddate']);?></td>
     <td class="text"><?php print $rs["dev_year"]; ?></td>
     <td><?php echo $rs['dp_name'];?></td>
-    <td><?php echo $rs['la_name'];?></td>
-    <td class="text"><?php echo $rs['dev_onus'];?></td>
+    <td class="text"><?php echo $rs['la_name'].' - '.$rs['dev_onus'];?></td>
+    <td><?php echo $rs['dev_country'];?></td>
 	<td width=""    class="text"><?php echo dateformat_03($rs["dev_stdate"]);  ?></td>
     <td class="text"><?php echo dateformat_03($rs["dev_enddate"]);  ?></td>
     <td><?php echo $rs['per_fnamet'].' '.$rs['per_lnamet'];?></td>
     <td><?php echo $cf_devleave_status[$rs['dev_formstatus']]['name'].'<br><em>'.$rs['dev_formstatus_comment'].'</em>';?></td>
-    <td class="text-uppercase"><?php echo $cf_yn_msg02[$rs['dev_cancel']]['icon'].' '.$cf_yn_msg02[$rs['dev_cancel']]['label'];?></td>   
+    <td class="text-uppercase"><?php echo $rs['cancel_display'];?></td>   
     <td align="center" class="text">
         <a href="print-adminform-pdf.php?dev_id=<?php echo $rs['dev_id'];?>" title="แสดงรายละเอียด" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-print"></i> พิมพ์แบบฟอร์มอนุมัติ</a>
         <a href="admin-formedit.php?dev_id=<?php echo $rs['dev_id'];?>" title="แก้ไขโครงการ" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> แก้ไข</a>
@@ -136,7 +144,7 @@ $(document).ready(function(e) {
 
   $('#tbFrmLeave').DataTable({
     columnDefs: [
-      { orderable: false, targets: 11 }
+      { orderable: false, targets: 10 }
     ],
 	dom: 'Bfrtip',
     buttons: [

@@ -6,6 +6,9 @@ include('compcode/check_login.php');
 require_once '../lib/mysqli.php';
 include('compcode/include/connect_db.php');
 include('compcode/include/function.php');
+
+$y = mysqli_real_escape_string($condb, $_GET['y']);
+$dev_create = ($y == '') ? "" : " and year(develop.dev_create)='".$y."'";
 ?>
 <!doctype html>
 <html lang="en">
@@ -90,7 +93,7 @@ include('compcode/include/function.php');
 				inner join $db_eform.develop_course_personel as dcp on (develop.dev_id = dcp.dev_id)
 				inner join $db_eform.personel_muerp as t6 on(dcp.per_id = t6.per_id)
 				where develop.dev_remove='no'
-        and year(develop.dev_create)='".$_GET['y']."'
+        ".$dev_create."
 				order by develop.dev_create desc";
  }else{
 	 $sql="select * from $db_eform.develop

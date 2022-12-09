@@ -8,10 +8,5 @@
       "title":"แบบบันทึกเดินทางต่างประเทศ",
       "url": "./leave/_showmyproject.php",
       "icon": "fa fa-plane"  
-    },
-    {
-        "title": "ผู้ดูแลระบบ",
-        "url": "./profile/profile.php",
-        "icon": "fa fa-cogs"
     }
 ]
