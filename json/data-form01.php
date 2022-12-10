@@ -42,8 +42,6 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     ");
 
     while($rs=mysqli_fetch_assoc($sql)){
-
-        //$sql_fileattach = mysqli_query($condb, "select * from develop_fileattachment");
         $respone['data'][]=array(
             'order' => ++$i,
             'refid1'=>$rs['dev_id'],
