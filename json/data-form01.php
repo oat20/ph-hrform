@@ -3,6 +3,7 @@ require_once '../admin/compcode/include/config.php';
 require_once '../inc/mysqli-inc.php';
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
+    $i = 0;
     $y = mysqli_real_escape_string($condb, $_GET['y']);
 
     $dev_create = ($y == '') ? "" : " and year(t1.dev_create)='".$y."'";
@@ -26,7 +27,9 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         when t1.dev_cancel = 'no' then ''
         when t1.dev_cancel = 'yes' then 'ยกเลิกรายการ'
         else '! Error'
-        end as cancel_display
+        end as cancel_display,
+        (select dev_filename from develop_attachment where dev_filecategory = 'Attachment' and dev_id = t1.dev_id) as document_file,
+        (select dev_filename from develop_attachment where dev_filecategory = 'Report' and dev_id = t1.dev_id) as report_file
         from develop as t1
         inner join develop_course_personel as t2 on (t1.dev_id=t2.dev_id)
         inner JOIN personel_muerp as t3 on (t2.per_id=t3.per_id)
@@ -39,7 +42,10 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
     ");
 
     while($rs=mysqli_fetch_assoc($sql)){
+
+        //$sql_fileattach = mysqli_query($condb, "select * from develop_fileattachment");
         $respone['data'][]=array(
+            'order' => ++$i,
             'refid1'=>$rs['dev_id'],
             'refid2' => $rs['cp_id'],
             'objective'=>$rs['objective_display'],
@@ -49,11 +55,13 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
             'date_finish'=> date('d/m/Y, H:i', strtotime($rs['dev_enddate'].' '.$rs['dev_timeend'].':00')),
             'pay'=>$rs['pay_display'],
             'personel'=>array(
-                'name'=> $rs['per_pname'].$rs['per_fnamet'].' '.$rs['per_lnamet'],
-                'position'=> $rs['job_name'],
+                'name'=> $rs['per_pname'].$rs['per_fnamet'].' '.$rs['per_lnamet'].' ('.$rs['job_name'].')',
                 'division'=> $rs['dp_name']
             ),
-            'file_attachment' => '',
+            'fileAttachment' => array(
+                'document' => $livesite.'phpm/attachment/'.$rs['document_file'],
+                'report' => $livesite.'phpm/attachment/'.$rs['report_file']
+            ),
             'note' => $rs['cancel_display'], 
             'timestamp'=>date('d/m/Y H:i:s', strtotime($rs['dev_create']))
         );

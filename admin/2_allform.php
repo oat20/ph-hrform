@@ -56,25 +56,27 @@ $dev_create = ($y == '') ? "" : " and year(develop.dev_create)='".$y."'";
     <th class="text">ส่วนงาน</th>
         <th class="text">เรื่อง</th>
     <!--<th>จำนวนผู้เข้าร่วม</th>-->
-	<th class="text">วัน</th>
-    <th class="text">เวลา</th>
+	<th class="text">วันที่</th>
+    <th class="text">ถึงวันที่</th>
     <th>จำนวน ชม.</th>
     <th>ผู้เข้าร่วม</th>
+    <th>หมายเหตุ</th>
     <th></th>
 	<th class="text"></th>
   </tr>
   </thead>
+  <!--
   <tfoot>
         <tr class="text">
            <th>#</th>
-           <!--<th>Status</th>-->
+           <th>Status</th>
             <th class="text">Ref. ID</th>
             <th>Datestamp</th>
             <th>หมวดหมู่</th>
             <th class="text">ปีงบประมาณ</th>
             <th class="text">ส่วนงาน</th>
                         <th class="text">เรื่อง</th>
-            <!--<th>จำนวนผู้เข้าร่วม</th>-->
+            <th>จำนวนผู้เข้าร่วม</th>
             <th class="text">วัน</th>
     		<th class="text">เวลา</th>
             <th>จำนวน ชม.</th>
@@ -83,6 +85,7 @@ $dev_create = ($y == '') ? "" : " and year(develop.dev_create)='".$y."'";
             <th class="text"></th>
           </tr>
   </tfoot>
+        -->
   <tbody id="jetForm01">
  <?php
  if(empty($_GET['dev_approve'])){
@@ -133,6 +136,7 @@ while($rs=mysqli_fetch_array($exec)){
     <td class="text-center">
         <strong><a data-toggle="modal" href="personeljoin-inc.php?dev_id=<?php echo $rs['dev_id'];?>" data-target="#modalPersoneljoin"><?php echo number_format($rs02['c1']);?></a></strong>
     </td>
+    <td></td>
     <td><?php echo $cf_devnopay[$rs['dev_nopay']];?></td>
     <td align="center">
     	<div class="btn-group">
@@ -170,7 +174,7 @@ while($rs=mysqli_fetch_array($exec)){
 $(document).ready(function(e) {
 
   $('#tbFrm01').DataTable({
-    responsive: true,
+    //responsive: true,
     columnDefs: [
       { orderable: false, targets: 12 }
     ],
