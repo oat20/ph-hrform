@@ -24,6 +24,7 @@ require_once './compcode/include/config.php';
 
   <div class="container-fluid">
 
+  <!--
   <div class="clearfix" style="margin-bottom: 15px;">
     <h5 class="pull-left" style="margin-top: 0px;">แบบบันทึกปฏิบัติงานพัฒนาบุคลากร และบริการวิชาการ</h5>
     <div class="pull-right">
@@ -32,11 +33,15 @@ require_once './compcode/include/config.php';
 </button>
 </div>
     </div>
+-->
     <div class="panel panel-default">
+      <div class="panel-body">
+        <p><strong>แบบบันทึกปฏิบัติงานพัฒนาบุคลากร และบริการวิชาการ</strong></p>
       <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" id="table-form01">
           <thead>
             <tr>
+              <th>Col</th>
               <th>Col</th>
               <th>Col</th>
               <th>Col</th>
@@ -46,88 +51,10 @@ require_once './compcode/include/config.php';
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
-            <tr>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-              <td>Row</td>
-            </tr>
+            
           </tbody>
         </table>
+      </div>
       </div>
     </div>
 
@@ -243,5 +170,29 @@ require_once './compcode/include/config.php';
   <!--con-->
 
 <?php require_once '../lib/js-inc.php';?>
+<script>
+  $(document).ready(function(){
+    $('#table-form01').DataTable({
+      ajax: {
+        url: '../json/data-form01.php',
+        dataSrc: 'data'
+      },
+      columns: [
+        {
+          data: {
+            _: 'refid1',
+            'sort': 'timestamp'
+          }
+        },
+        { data: 'refid2' },
+        {data: 'objective'},
+        {data: 'title'},
+        {data: 'organization'},
+        {data: 'date_begin'},
+        {data: 'date_finish'}
+      ]
+    });
+  });
+  </script>
 </body>
 </html>
