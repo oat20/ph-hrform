@@ -64,9 +64,11 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
             'timestamp'=>date('d/m/Y H:i:s', strtotime($rs['dev_create']))
         );
     }
+    http_response_code(200);
     echo json_encode($respone, JSON_UNESCAPED_UNICODE);
 }
 else{
+    http_response_code(400);
     echo json_encode(array(
         'status'=>false
     ));

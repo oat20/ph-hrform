@@ -30,12 +30,18 @@ include('../admin/compcode/include/function.php');
                 <?php
 				$qPersonel=mysqli_query($condb, "select * from $db_eform.personel_muerp where per_id='$_SESSION[ses_per_id]'");
 				$rPersonel=mysqli_fetch_assoc($qPersonel);
-				/*if($rPersonel['per_pname3']==''){ $per_name=$rPersonel['per_pname'].$rPersonel['per_fnamet'].'&nbsp;'.$rPersonel['per_lnamet']; }else{ $per_name=$rPersonel['per_pname3'].$rPersonel['per_fnamet'].'&nbsp;'.$rPersonel['per_lnamet']; }*/
+				/*
+                if($rPersonel['per_pname3']==''){ 
+                    $per_name=$rPersonel['per_pname'].$rPersonel['per_fnamet'].'&nbsp;'.$rPersonel['per_lnamet']; 
+                }else{ 
+                    $per_name=$rPersonel['per_pname3'].$rPersonel['per_fnamet'].'&nbsp;'.$rPersonel['per_lnamet']; 
+                }
+                */
 				?>
             	<div class="row">
                 	<div class="col-sm-6">
                     	<div class="form-group form-group-sm">
-                            <label class="control-label">ผู้เสนอขออนุมัติ:</label>
+                            <label class="control-label">ผู้เสนอขออนุมัติ</label>
                             <!--<input name="per_name" type="text" class="form-control" required value="<?php //echo $per_name;?>">-->
                             <select name="per_name" class="form-control select select-inverse select-sm" data-toggle="select" required>
                             	<option value="">&nbsp;</option>
@@ -77,6 +83,9 @@ include('../admin/compcode/include/function.php');
 								}
 								?>
                             </select>
+                            <!--
+                            <input type="text" class="form-control" name="per_type">
+                            -->
                         </div>
                     </div><!--col-->
                 </div><!--row-->
@@ -84,7 +93,7 @@ include('../admin/compcode/include/function.php');
                 <div class="row">
                 	<div class="col-sm-6">
                     	<div class="form-group form-group-sm">
-                            <label class="control-label">ตำแหน่ง:</label>
+                            <label class="control-label">ตำแหน่ง</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_job" required>
                             	<?php
 								$sql=mysqli_query($condb, "select * from $db_eform.job where job_status='1' order by convert(job_name using tis620) asc");
@@ -97,6 +106,9 @@ include('../admin/compcode/include/function.php');
 								}
 								?>
                             </select>
+                            <!--
+                            <input type="text" name="per_job" class="form-control" required>
+                            -->
                         </div>
                     </div><!--col-->
                     <div class="col-sm-6">
@@ -110,7 +122,7 @@ include('../admin/compcode/include/function.php');
                 <div class="row">
                 	<div class="col-sm-6">
                     	<div class="form-group form-group-sm">
-                            <label class="control-label">สังกัด:</label>
+                            <label class="control-label">ส่วนงาน</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_dept" required>
                             	<?php
 								$sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
@@ -406,7 +418,13 @@ $(document).ready(function(e) {
         });
 				
 		//$('select[name="dev_country"]').select2({dropdownCssClass: 'show-select-search'});
-		$('select[name="per_name"]').select2({dropdownCssClass: 'show-select-search'});
+		$('select[name="per_name"]').select2({
+            dropdownCssClass: 'show-select-search'
+        });
+        $('select[name="per_dept"]').select2({
+            dropdownCssClass: 'show-select-search',
+            placeholder: 'เลือกส่วนงาน'
+        });
 
 });
 </script>

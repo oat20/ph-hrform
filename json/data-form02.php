@@ -3,6 +3,7 @@ require_once '../admin/compcode/include/config.php';
 require_once '../inc/mysqli-inc.php';
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
+    $i = 0;
     $respone=array(
         'status'=>'OK'
     );
@@ -19,22 +20,24 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         ");
         while($rs=mysqli_fetch_assoc($sql)){
             $respone['data'][]=array(
+                'order' => ++$i,
                 'refid'=>$rs['dev_id'],
                 'title'=>$rs['la_name'].' - '.$rs['dev_onus'],
                 'country'=>$rs['dev_country'],
                 'date_begin'=>date('d/m/Y', strtotime($rs["dev_stdate"])),
                 'date_finish'=>date('d/m/Y', strtotime($rs["dev_enddate"])),
                 'user'=>array(
-                    'name'=>$rs['user_display'],
-                    'position'=>$rs['job_name'],
+                    'name'=>$rs['user_display'].' ('.$rs['job_name'].')',
                     'division'=>$rs['dp_name']
                 ),
                 'note'=>$rs['cancel_display'],
                 'timestamp'=>date('d/m/Y', strtotime($rs['dev_orddate']))
             );
         }
+        http_response_code(200);
         echo json_encode($respone, JSON_UNESCAPED_UNICODE);
 }else{
+    http_response_code(400);
     echo json_encode(array(
         'status'=>'Error'
     ));

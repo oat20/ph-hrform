@@ -8,6 +8,9 @@
 <link href="<?php print $livesite;?>lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <link href="<?php print $livesite;?>phpm/style.css" rel="stylesheet" type="text/css">
+<link href="<?php echo $livesite;?>room_it/layout.css" rel="stylesheet">
+<link href="<?php echo $livesite;?>room_it/style.css" rel="stylesheet">
+<link href="<?php echo $livesite;?>room_it/style2.css" rel="stylesheet" type="text/css">
 
 <link href="<?php print $livesite;?>lib/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css">
 

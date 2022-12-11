@@ -38,7 +38,7 @@ require_once './compcode/include/config.php';
       <div class="panel-body">
         <p><strong>แบบบันทึกปฏิบัติงานพัฒนาบุคลากร และบริการวิชาการ</strong></p>
       <div class="table-responsive">
-        <table class="table table-striped table-hover" id="table-form01">
+        <table class="table table-striped table-hover table-bordered" id="table-form01">
           <thead>
             <tr>
               <th>Col</th>
@@ -58,6 +58,7 @@ require_once './compcode/include/config.php';
       </div>
     </div>
 
+    <!--
     <div class="clearfix" style="margin-bottom: 15px; margin-top:50px;">
     <h5 class="pull-left" style="margin-top: 0px;">แบบบันทึกเดินทางต่างประเทศ</h5>
     <div class="pull-right">
@@ -66,9 +67,12 @@ require_once './compcode/include/config.php';
 </button>
 </div>
     </div>
+-->
     <div class="panel panel-default">
+      <div class="panel-body">
+        <p><strong>แบบบันทึกเดินทางต่างประเทศ</strong></p>
       <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-bordered" id="table-form02">
           <thead>
             <tr>
               <th>Col</th>
@@ -162,6 +166,7 @@ require_once './compcode/include/config.php';
             </tr>
           </tbody>
         </table>
+      </div>
       </div>
     </div>
     <!--panel-->
@@ -192,6 +197,8 @@ require_once './compcode/include/config.php';
         {data: 'date_finish'}
       ]
     });
+
+    $('#table-form02').DataTable();
   });
   </script>
 </body>
