@@ -49,7 +49,8 @@ $dev_create = ($y == '') ? "" : " and year(develop.dev_create)='".$y."'";
 <tr bgcolor="#E0E3CE" class="text">
 	<th>#</th>
     <!--<th>Status</th>-->
-    <th class="text">Ref. ID</th>
+    <th class="text">Ref. ID1</th>
+    <th>Ref. ID2</th>
             <th>Datestamp</th>
             <th>หมวดหมู่</th>
             <th class="text">ปีงบประมาณ</th>
@@ -60,8 +61,8 @@ $dev_create = ($y == '') ? "" : " and year(develop.dev_create)='".$y."'";
     <th class="text">ถึงวันที่</th>
     <th>จำนวน ชม.</th>
     <th>ผู้เข้าร่วม</th>
-    <th>หมายเหตุ</th>
     <th></th>
+    <th>หมายเหตุ</th>
 	<th class="text"></th>
   </tr>
   </thead>
@@ -89,7 +90,18 @@ $dev_create = ($y == '') ? "" : " and year(develop.dev_create)='".$y."'";
   <tbody id="jetForm01">
  <?php
  if(empty($_GET['dev_approve'])){
-		$sql="select * from $db_eform.develop
+		$sql="select *,
+      case
+      when develop.dev_maintype = '1' then 'พัฒนาบุคลากร'
+      when develop.dev_maintype = '2' then 'บริการวิชาการ'
+      else '! Error'
+      end as category_display,
+      case
+      when develop.dev_cancel = 'no' then ''
+      when develop.dev_cancel = 'yes' then 'ยกเลิกรายการ'
+      else '! Error'
+      end as cancel_display 
+      from $db_eform.develop
 				inner join $db_eform.tb_orgnew on (develop.dp_id=tb_orgnew.dp_id)
 				inner join $db_eform.develop_main_type as t4 on (develop.dev_maintype = t4.dm_id)
 				inner join $db_eform.develop_type as t5 on (develop.dev_type = t5.dvt_id)
@@ -124,20 +136,21 @@ while($rs=mysqli_fetch_array($exec)){
   	<td><?php echo $num;?></td>
     <!--<td><?php //echo '<span class="label label-'.$cf_approve[$rs['dev_approve']]['color'].'">'.$cf_approve[$rs['dev_approve']]['name'].'</span>';?></td>-->
     <td><?php echo $rs['dev_id'];?></td>
+    <td><?php echo $rs['cp_id'];?></td>
     <td class="text"><?php echo '<i class="fa fa-user fa-fw"></i> '.$rs['per_fnamet'].' '.$rs['per_lnamet'].'<br><i class="fa fa-calendar"></i> '.dateFormat_02($rs['dev_create']);?></td>
-    <td><?php echo $rs['dm_title'];?></td>
+    <td><?php echo $rs['category_display'];?></td>
     <td class="text"><?php print $rs["dev_year"]; ?></td>
     <td><?php echo $rs['dp_name'];?></td>
     <td><?php echo $rs['dvt_name'].'&nbsp;&nbsp;'.$rs['dev_typeother'].' - '.$rs['dev_onus'];?></td>
     <!--<td><?php //echo number_format(mysql_num_rows($sql02));?></td>-->
-	<td width=""    class="text"><?php echo dateformat_03($rs["dev_stdate"]).' - '.dateformat_03($rs["dev_enddate"]);  ?></td>
-    <td class="text"><?php echo $rs['dev_timebegin'].' - '.$rs['dev_timeend']?></td>
+	<td width=""    class="text"><?php echo dateformat_03($rs["dev_stdate"]).', '.$rs['dev_timebegin'];  ?></td>
+    <td class="text"><?php echo dateformat_03($rs["dev_enddate"]).', '.$rs['dev_timeend']?></td>
     <td><?php echo Showtraininghour($rs['dev_training_hour']);?></td>
     <td class="text-center">
         <strong><a data-toggle="modal" href="personeljoin-inc.php?dev_id=<?php echo $rs['dev_id'];?>" data-target="#modalPersoneljoin"><?php echo number_format($rs02['c1']);?></a></strong>
     </td>
-    <td></td>
     <td><?php echo $cf_devnopay[$rs['dev_nopay']];?></td>
+    <td><?php echo $rs['cancel_display'];?></td>
     <td align="center">
     	<div class="btn-group">
         	<button type="button" class="btn btn-danger btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

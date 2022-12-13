@@ -54,7 +54,7 @@ require_once '../inc/mysqli-inc.php';
                         <p class="form-control-static">AAA</p>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                        <label>สถานที่จัดโครงการ</label>
+                        <label>หน่วยงานผู้จัด</label>
                         <p class="form-control-static">AAA</p>
                 </div>
             </div>
