@@ -21,11 +21,15 @@
             	<li class="dropdown">
                 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">กรอกแบบฟอร์ม <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo $livesite;?>form/form_1.php?dm_id=1&dm_title=พัฒนาบุคลากร">บันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</a></li>
+                        <li class="dropdown-header" style="color: #eee;">บันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</li>
+						<li><a href="<?php echo $livesite;?>form/form_1.php?dm_id=1&dm_title=พัฒนาบุคลากร">บันทึกแบบฟอร์ม</a></li>
+						<li><a href="<?php echo $livesite;?>profile/_showmyproject.php">รายการบันทึก</a></li>
                         <li role="separator" class="divider"></li>
                         <!--<li><a href="<?php //echo $livesite;?>academicservice/form_1.php">ขออนุมัติปฏิบัติงานบริการวิชาการ</a></li>
                         <li role="separator" class="divider"></li>-->
-                        <li><a href="<?php echo $livesite;?>leave/">บันทึกเดินทางต่างประเทศ</a></li>
+                        <li class="dropdown-header" style="color: #eee;">บันทึกเดินทางต่างประเทศ</li>
+						<li><a href="<?php echo $livesite;?>leave/index.php">บันทึกแบบฟอร์ม</a></li>
+						<li><a href="<?php echo $livesite;?>leave/_showmyproject.php">รายการบันทึก</a></li>
                       </ul>
                 </li>
                 <?php
