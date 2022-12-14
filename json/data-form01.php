@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
         inner JOIN personel_muerp as t3 on (t2.per_id=t3.per_id)
         inner join develop_type on (t1.dev_type=develop_type.dvt_id)
         inner join job on (t3.job_id = job.job_id)
-        inner join tb_orgnew on (t3.per_dept = tb_orgnew.dp_id)
+        inner join tb_orgnew on (t1.dp_id = tb_orgnew.dp_id)
         WHERE t1.dev_remove LIKE 'no'
         ".$dev_create."
         ORDER BY t1.dev_create desc
