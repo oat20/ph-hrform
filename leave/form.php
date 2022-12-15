@@ -20,9 +20,14 @@ include('../admin/compcode/include/function.php');
 <?php include('../inc/navbar02-inc.php');?>
 
 <div class="container">
-    <div class="page-header-05">
-                <div class="text-title"><a href="<?php echo $livesite;?>leave/_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกขออนุมัติเดินทางต่างประเทศ</a></div>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="./_showmyproject.php"><i class="fa fa-arrow-left fa-fw"></i> บันทึกเดินทางต่างประเทศ</a>
+            </h3>
+</div>
+<div class="panel-body">
+
 	<div class="row">
     	<div class="col-xs-12">
             <form method="post" id="formDefault" action="form-action.php">
@@ -307,11 +312,15 @@ include('../admin/compcode/include/function.php');
                         </div>
                                 
                 <input name="action" type="hidden" value="save">
-                <button type="submit" class="btn btn-inverse btn-block">บันทึกข้อมูล</button>                
-            </form><hr>
+                <button type="submit" class="btn btn-primary btn-block">บันทึกข้อมูล</button>                
+            </form>
         
         </div><!--col-->
     </div><!--row-->
+    </div>
+    <!--panel-body-->
+    </div>
+    <!--panel-->
 </div><!--container-->
 
 <?php include('../lib/js-inc.php');?>
