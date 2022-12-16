@@ -25,15 +25,31 @@ include('lib/css-inc.php');
     echo $per_id[0];
     ?>
     <div id="demo"></div>
-	<form id="defaultUploadexcel" action="test-upload.php" method="post" enctype="multipart/form-data">
+	<form id="defaultUploadexcel" action="#" method="post" enctype="multipart/form-data">
     	<div class="form-group">
-            <label class="control-label">Upload Excel Template:</label>
-            <!--<input id="personel-excel" type="file" class="file" name="personelExcel" required data-show-upload="false" data-show-caption="true">-->
-            <input type="file" name="personelExcel">
-            <div id="help-block"></div>
-        </div>
-        <button type="submit" class="btn btn-default btn-wide">Upload</button>
+            <label>Category #1</label>
+            <input type="hidden" value="1" name="cat[]">
+            <input type="number" name="cost1" class="form-control">
+</div>
+<div class="form-group">
+            <label>Category #2</label>
+            <input type="hidden" value="2" name="cat[]">
+            <input type="number" name="cost2" class="form-control">
+</div>
+<div class="form-group" id="form-demo">
+            <label>Category #3</label>
+            <input type="hidden" value="3" name="cat[]">
+            <input type="number" name="cost3" class="form-control">
+</div>
+        <button type="submit" class="btn btn-default btn-wide">Submit</button>
     </form>
+    <?php
+    if(!empty($_POST['cat'])){
+        foreach($_POST['cat'] as $v){
+            echo $v.', '.$_POST['cost'.$v].'<br>';
+        }
+    }
+    ?>
     <div class="table-responesive">
     	<table class="table table-bordered regBlack_14">
         	<thead>

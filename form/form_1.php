@@ -266,9 +266,11 @@ include('../admin/compcode/include/function.php');
                         </div>
                         
                         <div id="newDevnopay">
+                            <fieldset>
+                                <legend>จากแหล่งเงิน</legend>
                         	<div class="form-group">
-                                <label class="control-label"><strong>จากแหล่งเงิน:</strong></label>
-                                <table class="table">
+                                <!--<label class="control-label"><strong>จากแหล่งเงิน:</strong></label>-->
+                                <table class="table table-striped">
                                     <tbody>
                                         <?php
                                         $sql=mysqli_query($condb, "select * from $db_eform.develop_payfrom as t1 
@@ -278,7 +280,7 @@ include('../admin/compcode/include/function.php');
 												t2.bt_id asc");
                                         while($ob=mysqli_fetch_assoc($sql)){
                                             print '<tr>
-                                                        <td><label class="checkbox primary"><input name="bt_id[]" type="checkbox" value="'.$ob['bt_id'].'" data-toggle="checkbox" disabled> '.$ob['pf_title'].' &raquo; <strong>'.$ob['bt_name'].'</strong></label></td>
+                                                        <td><label class="checkbox primary text-muted"><input name="bt_id[]" type="checkbox" value="'.$ob['bt_id'].'" data-toggle="checkbox" disabled> '.$ob['pf_title'].' &raquo; <strong>'.$ob['bt_name'].'</strong></label></td>
                                                         <td><input name="bt_dev_pay01'.$ob['bt_id'].'" type="number" class="form-control input-sm" placeholder="จำนวนเงิน" disabled></td>
                                                     </tr>';
                                         }
@@ -286,9 +288,12 @@ include('../admin/compcode/include/function.php');
                                     </tbody>
                                 </table>
                             </div><!--form-group-->
+                                    </fieldset>
+                                    <fieldset>
+                                    <legend>โดยแบ่งเป็นค่าใช้จ่าย</legend>
                             <div class="form-group">
-                                <label class="control-label"><strong>โดยแบ่งเป็นค่าใช้จ่าย:</strong></label>
-                                <table class="table">
+                                <!--<label class="control-label"><strong>โดยแบ่งเป็นค่าใช้จ่าย:</strong></label>-->
+                                <table class="table table-striped">
                                     <tbody>
                                 <?php
                                 $sql=mysqli_query($condb, "select * from $db_eform.develop_cost_type
@@ -299,12 +304,12 @@ include('../admin/compcode/include/function.php');
                                     //print '<label class="checkbox"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox"> '.$ob['ct_title'].'</label>';
                                     if($ob['ct_id'] != '5'){
                                         print '<tr>
-                                                    <td><label class="checkbox primary"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox" disabled> '.$ob['ct_title'].'</label></td>
+                                                    <td><label class="checkbox primary text-muted"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox" disabled> '.$ob['ct_title'].'</label></td>
                                                     <td><input name="ct_dev_pay01'.$ob['ct_id'].'" type="number" class="form-control input-sm" placeholder="จำนวนเงิน" disabled></td>
                                                 </tr>';
                                     }else{
                                         print '<tr>
-                                                    <td><label class="checkbox primary"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox" disabled> '.$ob['ct_title'].'</label></td>
+                                                    <td><label class="checkbox primary text-muted"><input name="ct_id[]" type="checkbox" value="'.$ob['ct_id'].'" data-toggle="checkbox" disabled> '.$ob['ct_title'].'</label></td>
                                                     <td></td>
                                                 </tr>';
                                     }
@@ -313,11 +318,14 @@ include('../admin/compcode/include/function.php');
                                     </tbody>
                                 </table>
                             </div><!--form-group-->
+                            </fieldset>
                         </div>
+                        <!--newDevnopay-->
+
                     </div><!--body-->
                 </div><!--panel-->
                 <!--ค่าใช้จ่าย-->
-            
+
             	<!--<div class="panel panel-primary">
             		<div class="panel-heading">บุคลากรผู้เข้าร่วม</div>
                 	<div class="panel-body">
@@ -539,7 +547,7 @@ $(document).ready(function(e) {
 	//enable / disable อนุมัติค่าใช้จ่าย
 	$('input[name="dev_nopay"]').on('change', function() {
         var bootstrapValidator = $('#formDefault').data('bootstrapValidator');
-        var shipDevnopay     = ($(this).val() == '0');
+        var shipDevnopay     = ($(this).val() === '0');
 
         shipDevnopay ? $('#newDevnopay').find('.form-control').removeAttr('disabled')
                        : $('#newDevnopay').find('.form-control').attr('disabled', 'disabled');
@@ -549,6 +557,8 @@ $(document).ready(function(e) {
 					   
 		shipDevnopay ? $('#newDevnopay').find('input[name="ct_id[]"]').removeAttr('disabled')
                        : $('#newDevnopay').find('input[name="ct_id[]"]').attr('disabled', 'disabled');
+
+                       shipDevnopay ? $('#newDevnopay').find('.checkbox').removeClass('text-muted') : $('#newDevnopay').find('.checkbox').addClass('text-muted');
 
         bootstrapValidator.enableFieldValidators('bt_id[]', shipDevnopay)
 			.enableFieldValidators('ct_id[]', shipDevnopay);
