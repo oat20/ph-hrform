@@ -267,7 +267,7 @@ include('../admin/compcode/include/function.php');
                         
                         <div id="newDevnopay">
                             <fieldset>
-                                <legend>จากแหล่งเงิน</legend>
+                                <legend class="text-muted">จากแหล่งเงิน</legend>
                         	<div class="form-group">
                                 <!--<label class="control-label"><strong>จากแหล่งเงิน:</strong></label>-->
                                 <table class="table table-striped">
@@ -290,7 +290,7 @@ include('../admin/compcode/include/function.php');
                             </div><!--form-group-->
                                     </fieldset>
                                     <fieldset>
-                                    <legend>โดยแบ่งเป็นค่าใช้จ่าย</legend>
+                                    <legend class="text-muted">โดยแบ่งเป็นค่าใช้จ่าย</legend>
                             <div class="form-group">
                                 <!--<label class="control-label"><strong>โดยแบ่งเป็นค่าใช้จ่าย:</strong></label>-->
                                 <table class="table table-striped">
@@ -558,7 +558,13 @@ $(document).ready(function(e) {
 		shipDevnopay ? $('#newDevnopay').find('input[name="ct_id[]"]').removeAttr('disabled')
                        : $('#newDevnopay').find('input[name="ct_id[]"]').attr('disabled', 'disabled');
 
-                       shipDevnopay ? $('#newDevnopay').find('.checkbox').removeClass('text-muted') : $('#newDevnopay').find('.checkbox').addClass('text-muted');
+                       if(shipDevnopay){
+                         $('#newDevnopay').find('.checkbox').removeClass('text-muted');
+                         $('#newDevnopay').find('legend').removeClass('text-muted');
+                        }else{
+                        $('#newDevnopay').find('.checkbox').addClass('text-muted');
+                        $('#newDevnopay').find('legend').addClass('text-muted');
+                        }
 
         bootstrapValidator.enableFieldValidators('bt_id[]', shipDevnopay)
 			.enableFieldValidators('ct_id[]', shipDevnopay);
