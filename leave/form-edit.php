@@ -327,11 +327,11 @@ include('../admin/compcode/include/function.php');
                         	<div class="row">
                             	<div class="col-sm-6">
                                 	<label class="control-label">ชื่อผู้ลงนามอนุมัติ:</label>
-                                    <input type="text" name="dev_bossname" class="form-control" maxlength="100" value="<?php print $rsPersonel['dev_bossname'];?>" required>
+                                    <input type="text" name="dev_bossname" class="form-control" maxlength="100" value="<?php print $rPersonel['dev_bossname'];?>" required>
                                 </div><!--col-->
                                 <div class="col-sm-6">
                                 	<label class="control-label">ตำแหน่งผู้ลงนามอนุมัติ:</label>
-                                    <input type="text" name="dev_bosspos" class="form-control" maxlength="100" value="<?php print $rsPersonel['dev_bosspos'];?>" required>
+                                    <input type="text" name="dev_bosspos" class="form-control" maxlength="100" value="<?php print $rPersonel['dev_bosspos'];?>" required>
                                 </div><!--col-->
                             </div><!--row-->
                         </div>
