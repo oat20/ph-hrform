@@ -55,12 +55,15 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 
 	$sql_01 = mysqli_query($condb, "select * from $db_eform.personel_muerp as t1
 					where t1.per_email = '$_POST[mumail]'
-					or t1.per_username = '$_POST[mumail]'");
+					or t1.per_username = substring_index('$_POST[mumail]','@',1)
+					or t1.per_second_email like '$_POST[mumail]'
+					");
 	$row_01 = mysqli_num_rows($sql_01);
 	$ob_01 = mysqli_fetch_assoc($sql_01);
 	if($row_01 > 0){		
 		$otp = strtoupper(random_password(2));
-		$_SESSION['ses_peremail'] = $ob_01['per_email'];
+		//$_SESSION['ses_peremail'] = $ob_01['per_email'];
+		$_SESSION['ses_peremail'] = $_POST['mumail'];
 
 		$sql_02 = mysqli_query($condb, "select du_id from $db_eform.develop_user where per_id = '$ob_01[per_id]'");
 		if(mysqli_num_rows($sql_02) > 0){
@@ -85,7 +88,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$body.='<p>กรุณากรอกรหัส OTP ด้านล่างเพื่อยืนยันการเข้าระบบ</p>';
 		$body .= '<p>* ข้อความนี้ส่งจากระบบอัตโนมัติไม่สามารถตอบกลับได้</p>';
 		//@mail($ob_01['per_email'], $strSubject, $body, $strHeader);
-		smtpGmail($ob_01['per_email'], $strSubject, $body);
+		smtpGmail($_POST['mumail'], $strSubject, $body);
 
 		header("location: ./login.php");
 	}else{
@@ -93,9 +96,10 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 		$otp = strtoupper(random_password(2));
 		$_SESSION['ses_peremail'] = $_POST['mumail'];
 		$per_id = random_password(4);
+		$per_username = explode('@',$_POST['mumail']);
 
-		mysqli_query($condb, "insert into $db_eform.personel_muerp (per_id, per_email, created, per_modify) 
-			values ('$per_id', '$_POST[mumail]', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())
+		mysqli_query($condb, "insert into $db_eform.personel_muerp (per_id, per_email, created, per_modify, per_username) 
+			values ('$per_id', '$_POST[mumail]', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '".$per_username['0']."')
 		"); //insert log
 
 		mysqli_query($condb, "insert into $db_eform.develop_user (per_id, du_status, du_otp, du_datestamp)
@@ -237,11 +241,8 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 				<form id="formSignin2" method="POST" action="<?php print $_SERVER['PHP_SELF'];?>" >
 					<div class="form-group">
 						<label>MU Email</label>
-						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="name.sur@mahidol.ac.th"
-							data-bv-notempty="true"
-							data-bv-emailaddress="true"
-							data-bv-remote="true"
-							data-bv-remote-url="../lib/bootstrapvalidator/mu-emailformat.php">
+						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="name.sur@mahidol.ac.th หรือ name.sur@mahidol.edu"
+							required>
 					</div>
 					<input type="hidden" name="action" value="genOTP">
 					<button type="submit" class="btn btn-inverse btn-block">ถัดไป <i class="fa fa-arrow-right fa-fw"></i></button>
@@ -278,7 +279,25 @@ $(document).ready(function(e) {
 	$('#formSignin').bootstrapValidator({
 	});
 
-	$('#formSignin2').bootstrapValidator();
+	$('#formSignin2').bootstrapValidator({
+		fields: {
+			mumail: {
+				validators: {
+					callback: {
+						callback: function(value, validator){
+							var muemailFormat = value.split('@');
+							console.log(muemailFormat[1]);
+							if(muemailFormat[1] === 'mahidol.ac.th' || muemailFormat[1] === 'mahidol.edu'){
+								return true;
+							}else{
+								return false;
+							}
+						}
+					}
+				}
+			}
+		}
+	});
 	
 	//$('#modalSurvey').modal('show');
 

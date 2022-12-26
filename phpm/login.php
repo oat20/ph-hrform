@@ -23,7 +23,8 @@ if($_POST['action'] == 'signin' and $du_otp != '0' and $du_otp != ''){
 		$db_eform.personel_muerp as t1
 		inner join $db_eform.develop_user as t2 on (t1.per_id = t2.per_id)  
 					where (t1.per_email = '$_SESSION[ses_peremail]'
-					or t1.per_username = '$_SESSION[ses_peremail]')
+					or t1.per_username = '$_SESSION[ses_peremail]'
+					or t1.per_second_email like '$_SESSION[ses_peremail]')
 					and t2.du_otp like '$du_otp'
 				");
 	$row_01 = mysqli_num_rows($sql_01);
