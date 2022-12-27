@@ -56,7 +56,6 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 	$sql_01 = mysqli_query($condb, "select * from $db_eform.personel_muerp as t1
 					where t1.per_email = '$_POST[mumail]'
 					or t1.per_username = substring_index('$_POST[mumail]','@',1)
-					or t1.per_second_email like '$_POST[mumail]'
 					");
 	$row_01 = mysqli_num_rows($sql_01);
 	$ob_01 = mysqli_fetch_assoc($sql_01);
@@ -241,7 +240,7 @@ if($_POST['action'] == 'signin' and isset($_POST['user']) and isset($_POST['pass
 				<form id="formSignin2" method="POST" action="<?php print $_SERVER['PHP_SELF'];?>" >
 					<div class="form-group">
 						<label>MU Email</label>
-						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="name.sur@mahidol.ac.th หรือ name.sur@mahidol.edu"
+						<input type="email" name="mumail" class="form-control" id="exampleInputEmail1" placeholder="name.sur@mahidol.ac.th"
 							required>
 					</div>
 					<input type="hidden" name="action" value="genOTP">
@@ -287,7 +286,7 @@ $(document).ready(function(e) {
 						callback: function(value, validator){
 							var muemailFormat = value.split('@');
 							console.log(muemailFormat[1]);
-							if(muemailFormat[1] === 'mahidol.ac.th' || muemailFormat[1] === 'mahidol.edu'){
+							if(muemailFormat[1] === 'mahidol.ac.th'){
 								return true;
 							}else{
 								return false;
