@@ -266,7 +266,7 @@ include('../admin/compcode/include/function.php');
                         </div>
                         
                         <div id="newDevnopay">
-                            <fieldset>
+                            <fieldset id="budgetInput">
                                 <legend class="text-muted">จากแหล่งเงิน</legend>
                         	<div class="form-group">
                                 <!--<label class="control-label"><strong>จากแหล่งเงิน:</strong></label>-->
@@ -285,6 +285,10 @@ include('../admin/compcode/include/function.php');
                                                     </tr>';
                                         }
                                         ?>
+                                        <tr>
+                                            <th>รวม</th>
+                                            <td id="budgetSummaryInput"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div><!--form-group-->
@@ -574,7 +578,16 @@ $(document).ready(function(e) {
     //search select
 		$('select').select2({dropdownCssClass: 'show-select-search'});
 		//search select
-				
+
+        var dataDisplay = 0;
+        $('#budgetInput input[type="number"]').keyup(function(){
+            $('#budgetInput input[type="number"]').each(function(){
+                var data = $(this).val();
+                console.log(data);
+                dataDisplay += data ;
+            });
+            $('#budgetSummaryInput').html(dataDisplay);
+        });
 });
 </script>
 </body>
