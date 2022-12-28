@@ -41,6 +41,9 @@ include('lib/css-inc.php');
             <input type="hidden" value="3" name="cat[]">
             <input type="number" name="cost3" class="form-control">
 </div>
+<div class="form-group">
+    <input type="text" name="" id="datePickerInput" class="form-control">
+</div>
         <button type="submit" class="btn btn-default btn-wide">Submit</button>
     </form>
     <?php
@@ -233,6 +236,14 @@ include('lib/css-inc.php');
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 <script>
 $(document).ready(function() {
+
+    $('#datePickerInput').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        startDate: "2022-12-29",
+        language: "th",
+        todayHighlight: false
+});
 	
 	 $('.addButton').on('click', function() {
             var index = $(this).data('index');
