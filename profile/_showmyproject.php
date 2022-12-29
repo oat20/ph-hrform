@@ -19,7 +19,6 @@ include('../admin/compcode/include/function.php');
 
 <div class="container-fluid">
 
-<h6 class="hidden-xs hidden-sm" style="margin-top: 0px;">แบบบันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</h6>
 
 	<div class="row">
     	<!--<div class="col-sm-2">
@@ -28,10 +27,9 @@ include('../admin/compcode/include/function.php');
         
         <div class="col-sm-12">
 
-	<ol class="breadcrumb">
-      <li class="active">รายการบันทึก</li>
-    </ol>
-        
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<p><strong>แบบบันทึกปฏิบัติงานพัฒนาบุคลากรและบริการวิชาการ</strong></p>
     <div class="table-responesive">
 <table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#9999cc" bordercolordark="White" class="table table-striped table-bordered nowrap" id="tbData" style="width:100%">
 	<thead>
@@ -134,12 +132,15 @@ while($rs=mysqli_fetch_array($exec)){
     </td>
   </tr>
 					  		  
-  <?
+  <?php
 }
 ?>
 	</tbody>
 </table>
 			</div><!--table-->
+</div>
+			</div>
+			<!--panel-->
         
         </div><!--col-->    
 	</div><!--row-->
@@ -160,18 +161,6 @@ $(document).ready(function(e) {
 				targets: 10
 			}
 		]
-	});
-	
-	//datepicker
-	$('#keyDevstdate').datepicker({
-		format: 'yyyy-mm-dd', 
-		language: 'th', 
-		autoclose: true
-	});
-	$('#keyDevenddate').datepicker({
-		format: 'yyyy-mm-dd', 
-		language: 'th', 
-		autoclose: true
 	});
 	
     $('[data-toggle="tooltip"]').tooltip('hide');
@@ -208,14 +197,22 @@ $(document).ready(function(e) {
 			  },*/
 		  }
 	 });	 
-	 $('#keyDevstdate').datepicker()
+	 $('#keyDevstdate').datepicker({
+		format: 'yyyy-mm-dd', 
+		language: 'th', 
+		autoclose: true
+	 })
         .on('change show', function(e) {
             // Validate the date when user change it
             $('#filterForm').data('bootstrapValidator').revalidateField('keyDevstdate');
             // You also can call it as following:
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
         });
-		$('#keyDevenddate').datepicker()
+		$('#keyDevenddate').datepicker({
+			format: 'yyyy-mm-dd', 
+		language: 'th', 
+		autoclose: true
+		})
         .on('change show', function(e) {
             // Validate the date when user change it
             $('#filterForm').data('bootstrapValidator').revalidateField('keyDevenddate');

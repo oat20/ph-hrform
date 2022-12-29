@@ -285,10 +285,6 @@ include('../admin/compcode/include/function.php');
                                                     </tr>';
                                         }
                                         ?>
-                                        <tr>
-                                            <th>รวม</th>
-                                            <td id="budgetSummaryInput"></td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div><!--form-group-->
@@ -410,16 +406,6 @@ $(document).ready(function(e) {
 		language: 'th', 
 		autoclose: true
 	});*/
-	$('#startdate').datepicker({
-		format: 'yyyy-mm-dd', 
-		language: 'th', 
-		autoclose: true
-	});
-	$('#enddate').datepicker({
-		format: 'yyyy-mm-dd', 
-		language: 'th', 
-		autoclose: true
-	});
 	
 	//$('#reg_appoint_time').timepicker({'scrollDefault': 'now', 'step':'30', 'maxTime': '23:59', 'timeFormat': 'H:i'});
 	
@@ -522,14 +508,22 @@ $(document).ready(function(e) {
             // You also can call it as following:
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
         });*/
-	$('#startdate').datepicker()
+	$('#startdate').datepicker({
+        format: 'yyyy-mm-dd', 
+		language: 'th', 
+		autoclose: true
+    })
         .on('change show', function(e) {
             // Validate the date when user change it
             $('#formDefault').data('bootstrapValidator').revalidateField('dev_stdate');
             // You also can call it as following:
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
         });
-		$('#enddate').datepicker()
+		$('#enddate').datepicker({
+            format: 'yyyy-mm-dd', 
+		language: 'th', 
+		autoclose: true
+        })
         .on('change show', function(e) {
             // Validate the date when user change it
             $('#formDefault').data('bootstrapValidator').revalidateField('dev_enddate');
@@ -578,16 +572,6 @@ $(document).ready(function(e) {
     //search select
 		$('select').select2({dropdownCssClass: 'show-select-search'});
 		//search select
-
-        var dataDisplay = 0;
-        $('#budgetInput input[type="number"]').keyup(function(){
-            $('#budgetInput input[type="number"]').each(function(){
-                var data = $(this).val();
-                console.log(data);
-                dataDisplay += data ;
-            });
-            $('#budgetSummaryInput').html(dataDisplay);
-        });
 });
 </script>
 </body>

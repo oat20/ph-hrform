@@ -411,7 +411,7 @@ $(document).ready(function() {
 });
 </script>
 <script>
-    const d = moment().format('YYYY');
+    const d = moment('01-2023', 'MM-YYYY').add(3, 'months').format('MM-YYYY');
     console.log(d);
 
     const dd = new Date();
