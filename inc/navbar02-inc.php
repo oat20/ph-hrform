@@ -21,7 +21,7 @@
             	<li class="dropdown">
                 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">กรอกแบบฟอร์ม <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header" style="color: #eee;">บันทึกปฏิบัติงานพัฒนาบุคลากร / บริการวิชาการ</li>
+                        <li class="dropdown-header" style="color: #eee;">บันทึกปฏิบัติงานพัฒนาบุคลากร และบริการวิชาการ</li>
 						<li><a href="<?php echo $livesite;?>form/form_1.php?dm_id=1&dm_title=พัฒนาบุคลากร">บันทึกแบบฟอร์ม</a></li>
 						<li><a href="<?php echo $livesite;?>profile/_showmyproject.php">รายการบันทึก</a></li>
                         <li role="separator" class="divider"></li>
@@ -37,7 +37,7 @@
 					print '<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">จัดการแบบฟอร์มทั้งหมด <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li class="dropdown-header" style="color: #eee;">แบบฟอร์มพัฒนาบุคลากร / บริการวิชาการ</li>';
+									<li class="dropdown-header" style="color: #eee;">แบบฟอร์มพัฒนาบุคลากร และบริการวิชาการ</li>';
 									$sql_year=mysqli_query($condb, "SELECT year(t1.dev_create) as year_sort,
 (year(t1.dev_create) + 543) as year_display,
 count(t1.dev_id) as count_devid

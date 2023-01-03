@@ -1,5 +1,8 @@
 <?php
+session_start();
 require_once './compcode/include/config.php';
+require_once '../lib/mysqli.php';
+include('./compcode/include/connect_db.php');
 ?>
 <!DOCTYPE HTML>
 <HTML lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><HEAD>
