@@ -134,5 +134,5 @@ function smtpGmail2( $email , $subject , $body)
      return $result;
 }
 
-//smtpGmail2('chakkapan.cha@mahidol.edu', 'Test '.date('Y-m-d H:i:s'), 'Test '.date('Y-m-d H:i:s'));
+//smtpmail('chakkapan.cha@mahidol.ac.th', 'Test '.date('Y-m-d H:i:s'), 'Test '.date('Y-m-d H:i:s'));
 ?>

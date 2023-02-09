@@ -43,6 +43,8 @@ include('../admin/compcode/include/function.php');
                 }
                 */
 				?>
+                <fieldset>
+                    <legend>1. ผู้ขออนุมัติ</legend>
             	<div class="row">
                 	<div class="col-sm-6">
                     	<div class="form-group form-group-sm">
@@ -129,18 +131,19 @@ include('../admin/compcode/include/function.php');
                     	<div class="form-group form-group-sm">
                             <label class="control-label">ส่วนงาน</label>
                             <select class="form-control select select-inverse select-sm" data-toggle="select" name="per_dept" required>
+                                <option value=""></option>
                             	<?php
 								$sql=mysqli_query($condb, "select * from $db_eform.department_type as t1
 									right join $db_eform.tb_orgnew as t2 on (t1.typ_id=t2.typ_id)
-									where t2.dp_id='$rPersonel[per_dept]' 
 									order by convert(t1.typ_name using tis620) asc,
 									convert(t2.dp_name using tis620) asc");
 								while($ob=mysqli_fetch_assoc($sql)){
-									if($rPersonel['per_dept']==$ob['dp_id']){
+									/*if($rPersonel['per_dept']==$ob['dp_id']){
 										echo '<option value="'.$ob['dp_id'].'" selected>'.$ob['dp_name'].'</option>';
 									}else{
 										echo '<option value="'.$ob['dp_id'].'">'.$ob['dp_name'].'</option>';
-									}
+									}*/
+                                    echo '<option value="'.$ob['dp_id'].'">'.$ob['dp_name'].'</option>';
 								}
 								?>
                             </select>
@@ -183,10 +186,13 @@ include('../admin/compcode/include/function.php');
                         </div>
                     </div><!--col-->
                 </div><!--row-->
+                </fieldset>
                 <!--ข้อมูลผู้ขออนุมัติ-->
                 
-                <legend>1.  ประเภทการลา</legend>
+                <fieldset>
+                <legend>2. ข้อมูลการลา</legend>
                 <div class="form-group">
+                    <label>ประเภทการลา</label>
                 	<div class="row">
                 	<?php
 					$sql=mysqli_query($condb, "select * from $db_eform.develop_leave_type order by convert(la_name using tis620) asc");
@@ -196,8 +202,6 @@ include('../admin/compcode/include/function.php');
 					?>
                     </div>
                 </div>
-                
-                <legend>2. ข้อมูลการลา</legend>
                 <div class="form-group form-group-sm">
                     <label class="control-label">หัวข้อ/เรื่อง/หลักสูตร:</label>
                     <input name="dev_onus" type="text" class="form-control" required>
@@ -296,21 +300,29 @@ include('../admin/compcode/include/function.php');
                             <input type="file" accept="image/jpeg, image/png, application/pdf">
                             <span class="help-block">อนุญาติเฉพาะไฟล์ jpg, png, pdf</span>
                         </div>-->
+
+                        </fieldset>
                         
-                        <hr>
-                        <div class="form-group form-group-sm">
+                        <fieldset>
+                            <legend>3. ผู้ลงนามอมุมัติ (หัวหน้าส่วนงาน)</legend>
+                        
                         	<div class="row">
                             	<div class="col-sm-6">
+                                    <div class="form-group">
                                 	<label class="control-label">ชื่อผู้ลงนามอนุมัติ:</label>
-                                    <input type="text" name="dev_bossname" class="form-control" maxlength="100" required>
+                                    <input type="text" name="dev_bossname" class="form-control" maxlength="100" id="dev_bossname" required>
+                        </div>
                                 </div><!--col-->
                                 <div class="col-sm-6">
+                                    <div class="form-group">
                                 	<label class="control-label">ตำแหน่งผู้ลงนามอนุมัติ:</label>
-                                    <input type="text" name="dev_bosspos" class="form-control" maxlength="100" required>
+                                    <input type="text" name="dev_bosspos" class="form-control" maxlength="100" id="cev_bosspos" required>
+                                    </div>
                                 </div><!--col-->
                             </div><!--row-->
-                        </div>
-                                
+                        
+                        </fieldset>
+
                 <input name="action" type="hidden" value="save">
                 <button type="submit" class="btn btn-primary btn-block">บันทึกข้อมูล</button>                
             </form>
@@ -425,7 +437,7 @@ $(document).ready(function(e) {
             // You also can call it as following:
             //$('#formFilter').bootstrapValidator('revalidateField', 'startDate');
         });
-				
+
 		//$('select[name="dev_country"]').select2({dropdownCssClass: 'show-select-search'});
 		$('select[name="per_name"]').select2({
             dropdownCssClass: 'show-select-search'
@@ -433,6 +445,37 @@ $(document).ready(function(e) {
         $('select[name="per_dept"]').select2({
             dropdownCssClass: 'show-select-search',
             placeholder: 'เลือกส่วนงาน'
+        }).on('change', function(){
+            const keyword = $(this).val();
+            console.log(keyword);
+            $.ajax({
+                url: 'https://docs.ph.mahidol.ac.th/phonebook/xml/account_isboss.php?c='+keyword,
+                method: 'GET',
+                dataType: 'json'
+            }).then(function(result, status){
+                console.log(status);
+                if(status === 'success'){
+                    const inputBossname = result.data[0].text;
+                    const inputJobs = result.data[0].jobs;
+                    $('input[name="dev_bossname"]').val(inputBossname);
+                    $('input[name="dev_bosspos"]').val(inputJobs);
+                }
+            });
+        });
+
+        $('#dev_bossname').on('change show', function(){
+            //if($(this).val() === ''){
+                //$('#formDefault').bootstrapValidator('enableFieldValidators', 'dev_bossname', false);
+            //}else{
+                $('#formDefault').bootstrapValidator('revalidateField', 'dev_bossname');
+            //}
+        });
+        $('#dev_bosspos').on('change show', function(){
+            //if($(this).val() === ''){
+                //$('#formDefault').bootstrapValidator('enableFieldValidators', 'dev_bosspos', false);
+            //}else{
+                $('#formDefault').bootstrapValidator('revalidateField', 'dev_bosspos');
+            //}
         });
 
 });
